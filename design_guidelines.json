@@ -1,0 +1,114 @@
+{
+  "theme_and_archetype": {
+    "theme": "dark",
+    "archetype": "5 (Jewel & Luxury) mixed with 4 (Swiss & High-Contrast)",
+    "rationale": "To convey an elite, futuristic, and premium corporate mobility conglomerate. The dark theme emphasizes luxury (black), while the high-contrast orange provides functional, tactical highlights (Performance/Utility) matching the brand's 'WE MOVE YOU!' identity."
+  },
+  "typography": {
+    "headings": {
+      "family": "Cabinet Grotesk, sans-serif",
+      "weights": ["800", "900"],
+      "styling": "uppercase, tracking-tight, bold, angular",
+      "fallback": "Outfit, sans-serif"
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["400", "500"],
+      "styling": "clean, readable, slightly loose line-height"
+    },
+    "accents_labels": {
+      "family": "JetBrains Mono, monospace",
+      "styling": "uppercase, tracking-[0.2em], text-xs"
+    }
+  },
+  "colors": {
+    "primary": "#EE5A01",
+    "primary_black": "#000000",
+    "deep_orange": "#F17B34",
+    "cool_gray": "#666666",
+    "off_white": "#EEEDE7",
+    "backgrounds": {
+      "main": "#000000",
+      "surface": "#0a0a0a",
+      "card": "#111111"
+    },
+    "text": {
+      "primary": "#EEEDE7",
+      "muted": "#666666",
+      "accent": "#EE5A01"
+    },
+    "borders": {
+      "default": "rgba(238, 90, 1, 0.2)",
+      "hover": "#EE5A01",
+      "subtle": "#333333"
+    }
+  },
+  "spacing_and_layout": {
+    "grid_system": "Bento 'Control Room' for fleet details, 'Tetris' asymmetry for Hero and Trust Pillars.",
+    "spacing_scale": "Generous spacing. Use p-8, p-12, py-24 for sections. Allow the dark void to breathe.",
+    "max_width": "max-w-7xl mx-auto for content, full bleed for imagery."
+  },
+  "surfaces_and_micro_themes": {
+    "cards": "Grid Borders ('Technical' Look) - sharp edges, 1px subtle borders (border-white/10), no soft shadows. Add a sharp bottom accent line on hover.",
+    "header": "Glassmorphism ('Crystal' Variant) - bg-black/80 backdrop-blur-2xl with border-b border-white/10.",
+    "buttons": "Flat solid primary (#EE5A01) with sharp corners (rounded-none or max rounded-sm) for primary CTAs. Ghost variants for secondary with border-[#EE5A01] text-[#EE5A01]."
+  },
+  "motion_and_interactions": {
+    "hover_states": "Text color shifts to Off-White, subtle scale (-translate-y-1) for cards, border color transitions to Deep Orange.",
+    "entrance": "Staggered fade-in-up (using framer-motion) for statistics and grid cards.",
+    "scroll": "Lenis smooth scroll is highly recommended. Parallax effect on hero backgrounds."
+  },
+  "components": {
+    "hero_section": "Full screen (min-h-screen), text left-aligned, glowing orange abstract background image under a black/50 overlay. CTA linking to Europcar booking engine.",
+    "statistics_counter": "Stark monospace numbers counting up, accented in primary orange, separated by sharp 1px vertical borders.",
+    "fleet_carousel": "Edge-to-edge swiper/carousel. Images must have high contrast. Use custom arrow navigation outside the images.",
+    "trust_pillars": "3-column grid. Icons in orange. Minimalist text.",
+    "awards_ticker": "react-fast-marquee text-Off-White/50. Slow movement. Uppercase serif/mono font.",
+    "brand_division_showcase": "Bento grid. Heavy use of image overlays. Hover state reveals more info via motion.div.",
+    "contact_form": "Shadcn UI form customized to have sharp inputs, bg-black, border-cool_gray/30. Highlight focus with #EE5A01 ring.",
+    "timeline": "Vertical line in orange (#EE5A01), dots marking years. Intersecting observer triggers animation.",
+    "navigation": "Sticky nav. If logo is black, apply 'filter brightness-0 invert' in CSS so it shows up on dark background."
+  },
+  "media": {
+    "logo": {
+      "url": "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png",
+      "description": "EGMG Brand Logo",
+      "instruction": "CRITICAL: The logo is black. Apply CSS class 'invert brightness-0' or style={{ filter: 'brightness(0) invert(1)' }} so it appears white on the dark UI."
+    },
+    "hero_abstract_bg": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/f4a76c0c341f3929b9bd7c03799a166ba64f50dcd4a0197c233ed71d963409f6.png",
+      "description": "Futuristic abstract geometric background with orange lines for Home Hero",
+      "placement": "Home Page Hero Section Background"
+    },
+    "premium_fleet_detail": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/03d6711ff436da62df81b6c9cca8d1275c75b2ab6b777fee66e11032ac8b402a.png",
+      "description": "Close-up of luxury car grille with cinematic lighting",
+      "placement": "Services or About Page split section image"
+    },
+    "car_driving": {
+      "url": "https://images.unsplash.com/photo-1767285610734-f0858d5248fe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBibGFjayUyMGNhciUyMGNoYXVmZmV1cnxlbnwwfHx8fDE3NzU0MTU1MTN8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Black luxury car driving on city street",
+      "placement": "Fleet Carousel or Divisions grid"
+    },
+    "chauffeur_door": {
+      "url": "https://images.pexels.com/photos/15774577/pexels-photo-15774577.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Chauffeur opening car door",
+      "placement": "Services Detail or Trust Pillars image"
+    },
+    "dubai_skyline": {
+      "url": "https://images.pexels.com/photos/1645603/pexels-photo-1645603.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Dubai Skyline at night",
+      "placement": "UAE Locations Map background or About Hero"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly adhere to the dark theme (#000000) with #EE5A01 orange accents. No pure white backgrounds.",
+    "Use Phosphor Icons or Lucide icons customized with stroke width 1.5.",
+    "Integrate Shadcn components (Cards, Carousel/Slider, Tabs, Forms) but completely override the default styling to match the sharp, premium, no-border-radius (or max rounded-sm) aesthetic.",
+    "Ensure 'data-testid' attributes are attached to all interactive elements.",
+    "Use 'invert brightness-0' utility classes on the EGMG Black logo so it is visible on the dark header.",
+    "Add an external link CTA button for 'Europcar Booking Engine' on the hero and sticky nav.",
+    "Implement the Contact Form component keeping in mind that the backend will use MongoDB (add standard handleSubmit logic mapped to a mock or real fetch call).",
+    "Avoid typical rounded soft shadows. Use neon-like subtle glow dropshadows or hard 1px borders."
+  ]
+}
