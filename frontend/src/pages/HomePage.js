@@ -8,19 +8,19 @@ const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0
 const BOOKING_URL = "https://www.europcar.com/";
 
 const stats = [
-  { value: 9000, suffix: "+", label: "Vehicles in Fleet" },
+  { value: 12000, suffix: "+", label: "Vehicles in Fleet" },
   { value: 1200, suffix: "+", label: "Professionals" },
   { value: 14, suffix: "", label: "UAE Locations" },
   { value: 50, suffix: "", label: "Years of Excellence" },
 ];
 
 const services = [
-  { icon: Car, title: "Car Rental", subtitle: "Daily / Weekly / Monthly", desc: "Young, well-maintained fleet available across 14 UAE locations with 24/7 roadside assistance.", link: "/services#car-rental" },
-  { icon: Building2, title: "Vehicle Leasing & Fleet Management", subtitle: "Corporate Solutions", desc: "Long-term fleet solutions for 500+ corporate clients with 5,000+ managed vehicles.", link: "/services#vehicle-leasing" },
-  { icon: Crown, title: "Premium Chauffeur & VIP Limo", subtitle: "Personal & Corporate", desc: "ISO-certified premium chauffeur fleet with well-trained, accredited drivers.", link: "/services#chauffeur" },
-  { icon: Bus, title: "Bus & Coach Transportation", subtitle: "Group & Events", desc: "Luxury coaches and executive vehicles for corporate groups, events, and intercity travel.", link: "/services#coaches" },
-  { icon: Truck, title: "Truck Leasing & Logistics", subtitle: "Commercial Fleet", desc: "Vans, trucks, and chiller units for commercial and logistics operations across the UAE.", link: "/services#truck-leasing" },
-  { icon: Tag, title: "Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Quality certified pre-owned vehicles maintained to A-Grade workshop standards.", link: "/services#used-cars" },
+  { icon: Car, title: "Europcar", subtitle: "Daily / Weekly / Monthly", desc: "Premium car rental and vehicle leasing experience. A leading global mobility provider with operations in over 143 countries.", link: "/services#car-rental" },
+  { icon: Tag, title: "Goldcar", subtitle: "Value Car Rental", desc: "Smart, fair and value-for-money travel experience. Rent a car at very attractive prices with service in accordance.", link: "/services#car-rental" },
+  { icon: Crown, title: "Royal Limousine", subtitle: "Premium Chauffeur Service", desc: "Premium chauffeur service for personal and corporate customers with well-trained, accredited chauffeurs.", link: "/services#chauffeur" },
+  { icon: Car, title: "Emirates Taxi", subtitle: "Professional Taxi Services", desc: "Premium chauffeur service with a professional and highly experienced team, making every trip safe and punctual.", link: "/services#chauffeur" },
+  { icon: Truck, title: "Truckline", subtitle: "Commercial Fleet Leasing", desc: "Specialized fleet leasing for businesses — cars, trucks, and vans across all Emirates with 24/7 support.", link: "/services#truck-leasing" },
+  { icon: Building2, title: "Eurogulf Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Reliable, high-quality pre-owned vehicles with hassle-free buying experience tailored to individual needs.", link: "/services#used-cars" },
 ];
 
 const fleetVehicles = [
@@ -34,10 +34,10 @@ const fleetVehicles = [
 ];
 
 const trustPillars = [
-  { icon: Shield, title: "ISO 9001:2015 Certified Excellence", desc: "International quality management standards across all operations." },
-  { icon: Clock, title: "50 Years of UAE Heritage", desc: "Serving the region since 1976 with unwavering commitment." },
-  { icon: Headphones, title: "24/7 Customer & Roadside Support", desc: "Round-the-clock assistance wherever you are in the UAE." },
-  { icon: MapPin, title: "Live GPS Fleet Tracking", desc: "Real-time fleet monitoring for safety and efficiency." },
+  { icon: Shield, title: "Commitment to Quality", desc: "Delivering exceptional and comprehensive mobility solutions backed by ISO 9001:2015 certification." },
+  { icon: Clock, title: "Transparency & Reliability", desc: "Ensuring prompt replacements with reserved vehicles and drivers. Clear, honest service every time." },
+  { icon: Headphones, title: "24/7 Seamless Support", desc: "Round-the-clock recovery services across the UAE for hassle-free travel. Call us toll-free at 800 364." },
+  { icon: MapPin, title: "14 Locations Across UAE", desc: "Airports, malls, and business districts — we're wherever you need us, from Dubai to Abu Dhabi." },
 ];
 
 const awards = [
@@ -118,7 +118,7 @@ export default function HomePage() {
             FORWARD.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            From premium chauffeur services to fleet management for 500+ corporate clients, EGMG has been defining mobility across the UAE for 50 years. One group. Every journey.
+            From premium chauffeur services to fleet management for 500+ corporate clients, EGMG has been defining mobility across the UAE for 50 years. One group. 12,000+ vehicles. Every journey.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.45s' }}>
             <Link to="/services" data-testid="hero-explore-btn" className="btn-primary text-center">

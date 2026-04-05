@@ -230,11 +230,11 @@ export default function ContactPage() {
               {/* Quick Contact */}
               <div className="bg-[#111111] border border-white/5 p-6 space-y-5">
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider">Quick Contact</h3>
-                <a href="tel:+97144569900" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
-                  <Phone className="w-4 h-4 text-[#EE5A01]" /> +971 4 456 9900
+                <a href="tel:800364" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
+                  <Phone className="w-4 h-4 text-[#EE5A01]" /> 800 364 (Toll-Free)
                 </a>
-                <a href="mailto:info@egmg.ae" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
-                  <Mail className="w-4 h-4 text-[#EE5A01]" /> info@egmg.ae
+                <a href="mailto:wemoveyou@eurogulf.ae" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
+                  <Mail className="w-4 h-4 text-[#EE5A01]" /> wemoveyou@eurogulf.ae
                 </a>
                 <a href="https://www.egmg.ae" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
                   <Globe className="w-4 h-4 text-[#EE5A01]" /> www.egmg.ae

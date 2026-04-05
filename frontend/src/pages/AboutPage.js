@@ -24,6 +24,7 @@ const chartData = [
   { year: '2022', vehicles: 6000 },
   { year: '2023', vehicles: 8000 },
   { year: '2024', vehicles: 9000 },
+  { year: '2025', vehicles: 12000 },
 ];
 
 const coreValues = [
@@ -243,7 +244,7 @@ export default function AboutPage() {
               Fleet Growth
             </h2>
             <p className="font-body text-[#666666]">
-              From 3,000 to 9,000 vehicles in 4 years — a testament to our commitment to growth.
+              From 3,000 to 12,000 vehicles in 5 years — a testament to our commitment to growth.
             </p>
           </div>
           {chartVisible && (

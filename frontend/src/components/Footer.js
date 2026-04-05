@@ -4,8 +4,8 @@ import { Instagram, Linkedin, Youtube, Phone, Mail } from 'lucide-react';
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png";
 
 const divisions = [
-  "Europcar Dubai", "Goldcar UAE", "Eurogulf Chauffeur", "Royal Limousine",
-  "Emirates Taxi", "Truck Line", "Eurogulf Used Car", "Eurogulf Service Center"
+  "Europcar", "Goldcar", "Royal Limousine",
+  "Emirates Taxi", "Truckline", "Eurogulf Used Car Trading"
 ];
 
 const locations = [
@@ -37,38 +37,39 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Divisions */}
+          {/* Column 2: Quick Links */}
           <div>
             <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
-              Our Divisions
+              Quick Links
             </h4>
             <ul className="space-y-2.5">
-              {divisions.map((d) => (
-                <li key={d}>
-                  <Link
-                    to="/services"
-                    className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors"
-                  >
-                    {d}
+              {[
+                { label: "About Us", href: "/about" },
+                { label: "Our Services", href: "/services" },
+                { label: "Leadership", href: "/leadership" },
+                { label: "Sustainability", href: "/sustainability" },
+                { label: "Media Center", href: "/media" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors">
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Locations */}
+          {/* Column 3: Our Businesses */}
           <div>
             <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
-              Locations
+              Our Businesses
             </h4>
-            <ul className="space-y-2 columns-2">
-              {locations.map((l) => (
-                <li key={l}>
-                  <Link
-                    to="/contact"
-                    className="font-body text-xs text-[#666666] hover:text-[#EE5A01] transition-colors block"
-                  >
-                    {l}
+            <ul className="space-y-2.5">
+              {divisions.map((d) => (
+                <li key={d}>
+                  <Link to="/services" className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors">
+                    {d}
                   </Link>
                 </li>
               ))}
@@ -81,16 +82,16 @@ export default function Footer() {
               Contact & Social
             </h4>
             <div className="space-y-4">
-              <a href="tel:+97144569900" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
+              <a href="tel:800364" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
                 <Phone className="w-4 h-4 text-[#EE5A01]" />
-                +971 4 456 9900
+                800 364 (Toll-Free)
               </a>
-              <a href="mailto:info@egmg.ae" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
+              <a href="mailto:wemoveyou@eurogulf.ae" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
                 <Mail className="w-4 h-4 text-[#EE5A01]" />
-                info@egmg.ae
+                wemoveyou@eurogulf.ae
               </a>
               <a
-                href="https://wa.me/97144569900"
+                href="https://wa.me/971800364"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="footer-whatsapp-btn"

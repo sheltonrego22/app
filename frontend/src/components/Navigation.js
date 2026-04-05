@@ -15,17 +15,24 @@ const serviceLinks = [
   { label: "Used Cars", href: "/services#used-cars" },
 ];
 
+const aboutLinks = [
+  { label: "Our Story", href: "/about" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Sustainability", href: "/sustainability" },
+];
+
 const navLinks = [
   { label: "HOME", href: "/" },
-  { label: "ABOUT", href: "/about" },
-  { label: "SERVICES", href: "/services", hasDropdown: true },
+  { label: "ABOUT", href: "/about", hasDropdown: true, dropdownId: "about" },
+  { label: "SERVICES", href: "/services", hasDropdown: true, dropdownId: "services" },
+  { label: "MEDIA", href: "/media" },
   { label: "CONTACT", href: "/contact" },
 ];
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -36,7 +43,7 @@ export default function Navigation() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setServicesOpen(false);
+    setOpenDropdown(null);
   }, [location]);
 
   return (
@@ -67,8 +74,8 @@ export default function Navigation() {
                 <div
                   key={link.label}
                   className="relative group"
-                  onMouseEnter={() => link.hasDropdown && setServicesOpen(true)}
-                  onMouseLeave={() => link.hasDropdown && setServicesOpen(false)}
+                  onMouseEnter={() => link.hasDropdown && setOpenDropdown(link.dropdownId)}
+                  onMouseLeave={() => link.hasDropdown && setOpenDropdown(null)}
                 >
                   <Link
                     to={link.href}
@@ -83,7 +90,7 @@ export default function Navigation() {
                     {link.hasDropdown && <ChevronDown className="w-3 h-3" />}
                   </Link>
 
-                  {link.hasDropdown && servicesOpen && (
+                  {link.dropdownId === "services" && openDropdown === "services" && (
                     <div
                       data-testid="services-dropdown"
                       className="absolute top-full left-0 w-56 bg-[#111111] border border-white/10 py-2 z-50"
@@ -95,6 +102,23 @@ export default function Navigation() {
                           className="block px-5 py-2.5 text-sm font-body text-[#EEEDE7] hover:text-[#EE5A01] hover:bg-white/5 transition-colors"
                         >
                           {sl.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {link.dropdownId === "about" && openDropdown === "about" && (
+                    <div
+                      data-testid="about-dropdown"
+                      className="absolute top-full left-0 w-52 bg-[#111111] border border-white/10 py-2 z-50"
+                    >
+                      {aboutLinks.map((al) => (
+                        <Link
+                          key={al.label}
+                          to={al.href}
+                          className="block px-5 py-2.5 text-sm font-body text-[#EEEDE7] hover:text-[#EE5A01] hover:bg-white/5 transition-colors"
+                        >
+                          {al.label}
                         </Link>
                       ))}
                     </div>
@@ -145,7 +169,7 @@ export default function Navigation() {
               key={link.label}
               to={link.href}
               data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-              className={`font-heading text-3xl font-bold tracking-[0.1em] transition-colors ${
+              className={`font-heading text-2xl font-bold tracking-[0.1em] transition-colors ${
                 location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7]'
               }`}
               onClick={() => setMobileOpen(false)}
@@ -153,6 +177,11 @@ export default function Navigation() {
               {link.label}
             </Link>
           ))}
+          {/* Extra mobile links */}
+          <div className="flex flex-col items-center gap-4 pt-2 border-t border-white/10">
+            <Link to="/leadership" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>LEADERSHIP</Link>
+            <Link to="/sustainability" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>SUSTAINABILITY</Link>
+          </div>
           <a
             href={BOOKING_URL}
             target="_blank"
