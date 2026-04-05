@@ -32,12 +32,12 @@ class ContactSubmission(BaseModel):
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class ContactCreate(BaseModel):
-    full_name: str
+    full_name: str = Field(min_length=1, max_length=200)
     company: Optional[str] = ""
-    email: str
-    phone: str
-    enquiry_type: str
-    message: str
+    email: str = Field(min_length=1, pattern=r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
+    phone: str = Field(min_length=1, max_length=30)
+    enquiry_type: str = Field(min_length=1)
+    message: str = Field(min_length=1, max_length=5000)
 
 @api_router.get("/")
 async def root():
