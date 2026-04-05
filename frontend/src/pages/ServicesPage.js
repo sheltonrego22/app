@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Check, X, Plane, Users, MapPin, Monitor, Snowflake } from 'lucide-react';
+import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Check, X, Plane, Users, MapPin, Monitor, Snowflake, Download } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/03d6711ff436da62df81b6c9cca8d1275c75b2ab6b777fee66e11032ac8b402a.png";
 const BOOKING_URL = "https://www.europcar.com/";
+const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";
 
 const filterTabs = [
   { id: "all", label: "ALL" },
@@ -80,6 +81,17 @@ export default function ServicesPage() {
           <p className="font-body text-base text-[#666666] max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
             From individual travelers to enterprise fleets — EGMG delivers the UAE's most comprehensive transport solutions under one roof.
           </p>
+          <a
+            href={FLEET_GUIDE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="fleet-guide-download"
+            className="inline-flex items-center gap-2 mt-6 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all animate-fade-in"
+            style={{ animationDelay: '0.4s' }}
+          >
+            <Download className="w-4 h-4" />
+            DOWNLOAD FLEET GUIDE (PDF)
+          </a>
         </div>
       </section>
 

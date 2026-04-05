@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car } from 'lucide-react';
+import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Download } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=1400&h=700&fit=crop";
@@ -76,6 +76,10 @@ export default function EuropcarPage() {
           </p>
           <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-hero-book-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             Book Your Rental
+          </a>
+          <a href={FLEET_GUIDE_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-fleet-guide-btn" className="inline-flex items-center gap-2 ml-0 sm:ml-4 mt-4 sm:mt-0 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-3.5 hover:bg-[#EE5A01] hover:text-black transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <Download className="w-4 h-4" />
+            FLEET GUIDE (PDF)
           </a>
         </div>
       </section>
