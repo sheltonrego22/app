@@ -51,8 +51,8 @@ async def create_contact(input: ContactCreate):
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
-async def get_contacts():
-    contacts = await db.contact_submissions.find({}, {"_id": 0}).to_list(1000)
+async def get_contacts(skip: int = 0, limit: int = 100):
+    contacts = await db.contact_submissions.find({}, {"_id": 0}).skip(skip).limit(min(limit, 1000)).to_list(None)
     return contacts
 
 app.include_router(api_router)
