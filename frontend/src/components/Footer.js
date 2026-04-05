@@ -1,0 +1,130 @@
+import { Link } from 'react-router-dom';
+import { Instagram, Linkedin, Youtube, Phone, Mail } from 'lucide-react';
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png";
+
+const divisions = [
+  "Europcar Dubai", "Goldcar UAE", "Eurogulf Chauffeur", "Royal Limousine",
+  "Emirates Taxi", "Truck Line", "Eurogulf Used Car", "Eurogulf Service Center"
+];
+
+const locations = [
+  "Dubai HQ", "Emirates Towers", "Atlantis The Palm", "Dubai Hills Mall",
+  "Dubai Airport T1", "Dubai Airport T2", "Dubai Airport T3", "Al Maktoum Airport",
+  "Sharjah Airport", "Sharjah Office", "Jebel Ali", "Ras Al Khaimah",
+  "Fujairah", "Abu Dhabi"
+];
+
+export default function Footer() {
+  return (
+    <footer data-testid="main-footer" className="bg-black border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Column 1: About */}
+          <div>
+            <img
+              src={LOGO_URL}
+              alt="EGMG"
+              className="h-10 w-auto mb-6"
+              style={{ objectFit: 'contain' }}
+            />
+            <p className="font-body text-sm text-[#666666] leading-relaxed mb-4">
+              Eurogulf Mobility Group — UAE's most trusted mobility conglomerate since 1976. 
+              From premium chauffeur services to comprehensive fleet solutions.
+            </p>
+            <p className="font-heading font-bold text-[#EE5A01] text-lg tracking-[0.05em]">
+              WE MOVE YOU!
+            </p>
+          </div>
+
+          {/* Column 2: Divisions */}
+          <div>
+            <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
+              Our Divisions
+            </h4>
+            <ul className="space-y-2.5">
+              {divisions.map((d) => (
+                <li key={d}>
+                  <Link
+                    to="/services"
+                    className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors"
+                  >
+                    {d}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Locations */}
+          <div>
+            <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
+              Locations
+            </h4>
+            <ul className="space-y-2 columns-2">
+              {locations.map((l) => (
+                <li key={l}>
+                  <Link
+                    to="/contact"
+                    className="font-body text-xs text-[#666666] hover:text-[#EE5A01] transition-colors block"
+                  >
+                    {l}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact & Social */}
+          <div>
+            <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
+              Contact & Social
+            </h4>
+            <div className="space-y-4">
+              <a href="tel:+97144569900" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
+                <Phone className="w-4 h-4 text-[#EE5A01]" />
+                +971 4 456 9900
+              </a>
+              <a href="mailto:info@egmg.ae" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
+                <Mail className="w-4 h-4 text-[#EE5A01]" />
+                info@egmg.ae
+              </a>
+              <a
+                href="https://wa.me/97144569900"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-whatsapp-btn"
+                className="inline-block bg-[#25D366] text-white font-heading font-bold text-xs tracking-wider px-5 py-2.5 hover:bg-[#1fb855] transition-colors mt-2"
+              >
+                CHAT ON WHATSAPP
+              </a>
+              <div className="flex gap-4 pt-4">
+                <a href="https://www.instagram.com/eurogulfmobilitygroup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://www.linkedin.com/company/eurogulf-mobility-group/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="https://www.youtube.com/@eurogulfmobilitygroup" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                  <Youtube className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Strip */}
+      <div className="border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="font-body text-xs text-[#666666]">
+            &copy; 2026 Eurogulf Mobility Group. All Rights Reserved.
+          </p>
+          <p className="font-mono text-xs text-[#666666] tracking-wider">
+            ISO 9001:2015 &amp; ISO 10002 CERTIFIED
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
