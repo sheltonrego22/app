@@ -5,18 +5,18 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 const HERO_IMG = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/cmkxgqfh_image.png";
 
 const owners = [
-  { name: "Sharafuddin Sharaf", role: "Owner", initials: "SS" },
-  { name: "Abdul Rahman Mohammed Taher", role: "Owner", initials: "AT" },
+  { name: "Sharafuddin Sharaf", role: "Owner", initials: "SS", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr-Sharaf-e1769774515761.png.webp" },
+  { name: "Abdul Rahman Mohammed Taher", role: "Owner", initials: "AT", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.Abdul-Rahman-Mohammed-Taher-e1769774566699.png.webp" },
 ];
 
 const leaders = [
-  { name: "Essa Sharaf", role: "Group Director", initials: "ES", desc: "Essa is responsible for steering group-wide initiatives and supporting cross-functional leadership. He works closely with all teams to ensure strategic objectives are executed with discipline and purpose." },
-  { name: "Marius Anton", role: "GM – Sales and Operations", initials: "MA", desc: "Marius leads the commercial operations of EGMG with a focus on revenue growth, market expansion, and customer-centric innovation. He plays a key role in integrating emerging technologies and optimizing business performance." },
-  { name: "Rajesh Kuttinath", role: "Group Finance Controller", initials: "RK", desc: "Rajesh manages the financial health of the organization, overseeing reporting, compliance, and financial strategy. His role supports sound decision-making across all business units." },
-  { name: "Jonathan Lavender", role: "Director of People, Process and Technology", initials: "JL", desc: "Jonathan oversees the integration of people strategy, operational processes, and technology solutions to drive organizational efficiency and digital transformation across the group." },
-  { name: "Mohamad Ali Al Maazmi", role: "Director – Commercial & Government Affairs", initials: "MM", desc: "Mohamad manages commercial partnerships and government relations, ensuring EGMG maintains strong institutional relationships and regulatory compliance across all Emirates." },
-  { name: "Omar Al Osaimi", role: "Director – Government & Employee Relations", initials: "OA", desc: "Omar leads government liaison and employee relations initiatives, fostering productive relationships with regulatory bodies and ensuring a positive workplace environment." },
-  { name: "Mari Parian", role: "Director – People and Culture", initials: "MP", desc: "Mari drives the people agenda at EGMG, fostering a culture of inclusion, performance, and continuous learning. Her work ensures that talent development aligns with business objectives." },
+  { name: "Essa Sharaf", role: "Group Director", initials: "ES", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-8.png.webp", desc: "Essa is responsible for steering group-wide initiatives and supporting cross-functional leadership. He works closely with all teams to ensure strategic objectives are executed with discipline and purpose." },
+  { name: "Marius Anton", role: "GM – Sales and Operations", initials: "MA", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Marius-e1769774473388.png.webp", desc: "Marius leads the commercial operations of EGMG with a focus on revenue growth, market expansion, and customer-centric innovation. He plays a key role in integrating emerging technologies and optimizing business performance." },
+  { name: "Rajesh Kuttinath", role: "Group Finance Controller", initials: "RK", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr-Rajesh-e1769672050584.png.webp", desc: "Rajesh manages the financial health of the organization, overseeing reporting, compliance, and financial strategy. His role supports sound decision-making across all business units." },
+  { name: "Jonathan Lavender", role: "Director of People, Process and Technology", initials: "JL", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Jonathan-Lavender-e1769671995601.png.webp", desc: "Jonathan oversees the integration of people strategy, operational processes, and technology solutions to drive organizational efficiency and digital transformation across the group." },
+  { name: "Mohamad Ali Al Maazmi", role: "Director – Commercial & Government Affairs", initials: "MM", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Mohamad-Ali-Al-Maazmi-e1769759322881.png.webp", desc: "Mohamad manages commercial partnerships and government relations, ensuring EGMG maintains strong institutional relationships and regulatory compliance across all Emirates." },
+  { name: "Omar Al Osaimi", role: "Director – Government & Employee Relations", initials: "OA", img: "https://egmg.ae/wp-content/uploads/2026/02/Omar-Al-Osaimi-e1771246920822.webp", desc: "Omar leads government liaison and employee relations initiatives, fostering productive relationships with regulatory bodies and ensuring a positive workplace environment." },
+  { name: "Mari Parian", role: "Director – People and Culture", initials: "MP", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Ms.-Mari-e1769774792891.png.webp", desc: "Mari drives the people agenda at EGMG, fostering a culture of inclusion, performance, and continuous learning. Her work ensures that talent development aligns with business objectives." },
 ];
 
 function LeaderCard({ leader, index, isOwner }) {
@@ -27,15 +27,26 @@ function LeaderCard({ leader, index, isOwner }) {
       data-testid={`leader-card-${index}`}
       className={`group ${visible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(index % 4) + 1}`}
     >
-      <div className={`${isOwner ? 'bg-[#111111]' : 'bg-[#111111]'} border border-white/5 overflow-hidden hover:border-[#EE5A01]/30 transition-all duration-300`}>
-        {/* Avatar */}
-        <div className={`${isOwner ? 'h-64' : 'h-52'} bg-gradient-to-br from-[#EE5A01]/20 to-[#0a0a0a] flex items-center justify-center relative`}>
-          <span className={`font-heading font-black ${isOwner ? 'text-6xl' : 'text-5xl'} text-[#EE5A01]/30 group-hover:text-[#EE5A01]/50 transition-colors`}>
-            {leader.initials}
-          </span>
+      <div className={`bg-[#111111] border border-white/5 overflow-hidden hover:border-[#EE5A01]/30 transition-all duration-300`}>
+        {/* Photo */}
+        <div className={`${isOwner ? 'h-72' : 'h-60'} bg-[#0a0a0a] relative overflow-hidden`}>
+          {leader.img ? (
+            <img
+              src={leader.img}
+              alt={leader.name}
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#EE5A01]/20 to-[#0a0a0a] flex items-center justify-center">
+              <span className={`font-heading font-black ${isOwner ? 'text-6xl' : 'text-5xl'} text-[#EE5A01]/30`}>
+                {leader.initials}
+              </span>
+            </div>
+          )}
           {isOwner && (
             <div className="absolute top-4 right-4">
-              <span className="font-mono text-[10px] tracking-[0.15em] text-[#EE5A01] bg-[#EE5A01]/10 px-3 py-1 uppercase">Founder</span>
+              <span className="font-mono text-[10px] tracking-[0.15em] text-[#EEEDE7] bg-[#EE5A01] px-3 py-1 uppercase">Founder</span>
             </div>
           )}
         </div>
