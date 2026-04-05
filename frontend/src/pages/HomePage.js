@@ -153,7 +153,7 @@ export default function HomePage() {
               One Group. Every Journey.
             </h2>
             <p className="font-body text-base text-[#666666] max-w-lg mx-auto">
-              From daily rentals to dedicated fleet management — all under one roof.
+              From Daily Rentals to Monthly Subscription, Corporate Truck & Van Leasing to Customised Commercial / Non-Commercial Fleet Solutions. EGMG has been moving the UAE for over 50 years
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
