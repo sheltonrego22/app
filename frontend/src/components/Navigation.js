@@ -158,7 +158,7 @@ export default function Navigation() {
           className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center gap-8"
         >
           <button
-            className="absolute top-6 right-6 text-[#EEEDE7]"
+            className="absolute top-6 right-6 text-[#EEEDE7] z-50 p-2"
             onClick={() => setMobileOpen(false)}
             aria-label="Close menu"
           >
