@@ -15,12 +15,12 @@ const stats = [
 ];
 
 const services = [
-  { icon: Car, title: "Europcar", subtitle: "Daily / Weekly / Monthly", desc: "Premium car rental and vehicle leasing experience. A leading global mobility provider with operations in over 143 countries.", link: "/services#car-rental" },
-  { icon: Tag, title: "Goldcar", subtitle: "Value Car Rental", desc: "Smart, fair and value-for-money travel experience. Rent a car at very attractive prices with service in accordance.", link: "/services#car-rental" },
-  { icon: Crown, title: "Royal Limousine", subtitle: "Premium Chauffeur Service", desc: "Premium chauffeur service for personal and corporate customers with well-trained, accredited chauffeurs.", link: "/services#chauffeur" },
-  { icon: Car, title: "Emirates Taxi", subtitle: "Professional Taxi Services", desc: "Premium chauffeur service with a professional and highly experienced team, making every trip safe and punctual.", link: "/services#chauffeur" },
-  { icon: Truck, title: "Truckline", subtitle: "Commercial Fleet Leasing", desc: "Specialized fleet leasing for businesses — cars, trucks, and vans across all Emirates with 24/7 support.", link: "/services#truck-leasing" },
-  { icon: Building2, title: "Eurogulf Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Reliable, high-quality pre-owned vehicles with hassle-free buying experience tailored to individual needs.", link: "/services#used-cars" },
+  { icon: Car, title: "Europcar", subtitle: "Daily / Weekly / Monthly", desc: "Premium car rental and vehicle leasing across 143 countries. No. 1 in Europe, No. 3 worldwide — with 14 UAE locations and ISO-certified service.", link: "/europcar" },
+  { icon: Tag, title: "Goldcar", subtitle: "Value Car Rental", desc: "Smart, fair, and value-for-money travel. Over three decades of low-cost segment leadership delivering competitive prices and 5-star fleet quality.", link: "/goldcar" },
+  { icon: Crown, title: "Royal Limousine", subtitle: "Premium Chauffeur Service", desc: "ISO 9001:2015 certified chauffeur service for personal and corporate customers. GPS-tracked operations with accredited, performance-graded drivers.", link: "/royal-limousine" },
+  { icon: Car, title: "Emirates Taxi", subtitle: "Professional Taxi Services", desc: "RTA-approved premium vehicles with well-trained chauffeurs. Award-winning service with quality-monitored operations and graded driver performance.", link: "/emirates-taxi" },
+  { icon: Truck, title: "Truckline", subtitle: "Commercial Fleet Leasing", desc: "Specialized fleet leasing for businesses — cars, trucks, vans, and chiller units across all Emirates with 24/7 support and service.", link: "/truckline" },
+  { icon: Building2, title: "Eurogulf Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Reliable, high-quality pre-owned vehicles from EGMG's managed fleet. A-Grade workshop inspected with full service history.", link: "/used-cars" },
 ];
 
 const fleetVehicles = [
@@ -41,22 +41,24 @@ const trustPillars = [
 ];
 
 const awards = [
-  "EUROPCAR GLOBAL AWARD — BEST PERFORMANCE 2023 MEA REGION",
-  "BEST BUSINESS PERFORMANCE 2018 MEA",
-  "BEST CAR RENTAL COMPANY MIDDLE EAST",
-  "ISO 9001:2015 CERTIFIED",
-  "ISO 10002:2014 CERTIFIED",
+  "WORLD TRAVEL AWARDS — BEST CAR RENTAL COMPANY MENA (2005-2024)",
+  "ISO 9001:2015 CERTIFIED — QUALITY MANAGEMENT",
+  "ISO 45001:2018 — OCCUPATIONAL HEALTH & SAFETY",
+  "MENA TRAVEL AWARDS — PLATINUM AWARD 2012",
+  "MCDERMOTT AWARD — SAFEST TRANSPORTATION PROVIDER",
+  "EMIRATES GROUP AWARD — FLIGHT CREW SUPPORT RECOGNITION",
+  "BUSINESS TRAVEL AWARDS — BEST CAR RENTAL MIDDLE EAST",
 ];
 
 const divisions = [
-  { name: "Europcar Dubai", desc: "International car rental leader" },
-  { name: "Goldcar UAE", desc: "Value car rental brand" },
-  { name: "Eurogulf Chauffeur", desc: "Premium chauffeur services" },
-  { name: "Royal Limousine", desc: "VIP limousine & coaches" },
-  { name: "Emirates Taxi", desc: "Professional taxi services" },
-  { name: "Truck Line", desc: "Commercial vehicle solutions" },
-  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles" },
-  { name: "Eurogulf Service Center", desc: "A-Grade vehicle maintenance" },
+  { name: "Europcar Dubai", desc: "International car rental leader", href: "/europcar" },
+  { name: "Goldcar UAE", desc: "Value car rental brand", href: "/goldcar" },
+  { name: "Royal Limousine", desc: "Premium chauffeur services", href: "/royal-limousine" },
+  { name: "Emirates Taxi", desc: "Professional taxi services", href: "/emirates-taxi" },
+  { name: "Truck Line", desc: "Commercial vehicle solutions", href: "/truckline" },
+  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles", href: "/used-cars" },
+  { name: "Eurogulf Chauffeur", desc: "VIP transport solutions", href: "/royal-limousine" },
+  { name: "Eurogulf Service Center", desc: "A-Grade vehicle maintenance", href: "/services" },
 ];
 
 const testimonials = [
@@ -265,7 +267,7 @@ export default function HomePage() {
             {divisions.map((d, i) => (
               <Link
                 key={d.name}
-                to="/services"
+                to={d.href}
                 data-testid={`division-card-${i}`}
                 className={`bg-[#111111] border border-white/5 p-6 text-center group hover:border-[#EE5A01] transition-all duration-300 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >

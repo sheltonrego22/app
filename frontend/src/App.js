@@ -10,6 +10,12 @@ import ContactPage from "@/pages/ContactPage";
 import LeadershipPage from "@/pages/LeadershipPage";
 import SustainabilityPage from "@/pages/SustainabilityPage";
 import MediaCenterPage from "@/pages/MediaCenterPage";
+import EuropcarPage from "@/pages/EuropcarPage";
+import GoldcarPage from "@/pages/GoldcarPage";
+import RoyalLimousinePage from "@/pages/RoyalLimousinePage";
+import EmiratesTaxiPage from "@/pages/EmiratesTaxiPage";
+import TrucklinePage from "@/pages/TrucklinePage";
+import UsedCarsPage from "@/pages/UsedCarsPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -42,6 +48,12 @@ function App() {
           <Route path="/leadership" element={<LeadershipPage />} />
           <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/media" element={<MediaCenterPage />} />
+          <Route path="/europcar" element={<EuropcarPage />} />
+          <Route path="/goldcar" element={<GoldcarPage />} />
+          <Route path="/royal-limousine" element={<RoyalLimousinePage />} />
+          <Route path="/emirates-taxi" element={<EmiratesTaxiPage />} />
+          <Route path="/truckline" element={<TrucklinePage />} />
+          <Route path="/used-cars" element={<UsedCarsPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

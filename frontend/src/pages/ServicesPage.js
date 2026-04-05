@@ -137,9 +137,14 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
-                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="rental-book-btn" className="btn-primary inline-block">
-                    Book Your Rental
-                  </a>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="rental-book-btn" className="btn-primary inline-block text-center">
+                      Book Your Rental
+                    </a>
+                    <Link to="/europcar" className="btn-ghost inline-block text-center">
+                      Europcar Details
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -182,9 +187,14 @@ export default function ServicesPage() {
                       </div>
                     ))}
                   </div>
-                  <Link to="/contact" data-testid="leasing-quote-btn" className="btn-primary inline-block">
-                    Request a Fleet Quote
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Link to="/contact" data-testid="leasing-quote-btn" className="btn-primary inline-block text-center">
+                      Request a Fleet Quote
+                    </Link>
+                    <Link to="/europcar" className="btn-ghost inline-block text-center">
+                      Leasing Details
+                    </Link>
+                  </div>
                 </div>
                 <div className="relative overflow-hidden">
                   <img
@@ -253,9 +263,14 @@ export default function ServicesPage() {
                 <CarouselNext className="hidden sm:flex -right-4 bg-[#111111] border-[#EE5A01] text-[#EE5A01] hover:bg-[#EE5A01] hover:text-black" />
               </Carousel>
 
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="chauffeur-book-btn" className="btn-primary inline-block w-full sm:w-auto text-center py-4">
-                Book a Chauffeur
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="chauffeur-book-btn" className="btn-primary inline-block text-center py-4">
+                  Book a Chauffeur
+                </a>
+                <Link to="/royal-limousine" className="btn-ghost inline-block text-center py-4">
+                  Royal Limousine Details
+                </Link>
+              </div>
             </div>
           </div>
         </ServiceSection>
@@ -291,9 +306,14 @@ export default function ServicesPage() {
                       </div>
                     ))}
                   </div>
-                  <Link to="/contact" data-testid="coach-quote-btn" className="btn-primary inline-block">
-                    Get a Group Transfer Quote
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Link to="/contact" data-testid="coach-quote-btn" className="btn-primary inline-block text-center">
+                      Get a Group Transfer Quote
+                    </Link>
+                    <Link to="/royal-limousine" className="btn-ghost inline-block text-center">
+                      View Coaches & Limo
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

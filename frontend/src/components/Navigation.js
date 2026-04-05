@@ -6,13 +6,13 @@ const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46
 const BOOKING_URL = "https://www.europcar.com/";
 
 const serviceLinks = [
-  { label: "Car Rental", href: "/services#car-rental" },
-  { label: "Vehicle Leasing", href: "/services#vehicle-leasing" },
-  { label: "Chauffeur & Limo", href: "/services#chauffeur" },
-  { label: "Coaches & Buses", href: "/services#coaches" },
-  { label: "Fleet Management", href: "/services#vehicle-leasing" },
-  { label: "Truck Leasing", href: "/services#truck-leasing" },
-  { label: "Used Cars", href: "/services#used-cars" },
+  { label: "All Services", href: "/services" },
+  { label: "Europcar", href: "/europcar" },
+  { label: "Goldcar", href: "/goldcar" },
+  { label: "Royal Limousine", href: "/royal-limousine" },
+  { label: "Emirates Taxi", href: "/emirates-taxi" },
+  { label: "Truckline", href: "/truckline" },
+  { label: "Used Cars", href: "/used-cars" },
 ];
 
 const aboutLinks = [
@@ -181,6 +181,14 @@ export default function Navigation() {
           <div className="flex flex-col items-center gap-4 pt-2 border-t border-white/10">
             <Link to="/leadership" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>LEADERSHIP</Link>
             <Link to="/sustainability" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>SUSTAINABILITY</Link>
+          </div>
+          <div className="flex flex-col items-center gap-3 pt-2 border-t border-white/10">
+            <span className="font-heading text-xs text-[#EE5A01] tracking-[0.2em] uppercase">Our Businesses</span>
+            {serviceLinks.slice(1).map((sl) => (
+              <Link key={sl.label} to={sl.href} className="font-body text-base text-[#666666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>
+                {sl.label}
+              </Link>
+            ))}
           </div>
           <a
             href={BOOKING_URL}

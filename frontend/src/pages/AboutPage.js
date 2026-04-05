@@ -28,20 +28,21 @@ const chartData = [
 ];
 
 const coreValues = [
-  { icon: Shield, title: "Safety & Security", desc: "Careful driving practices, comprehensive insurance coverage, rigorous vehicle maintenance schedules, and real-time GPS tracking across our entire fleet." },
-  { icon: Users, title: "Customer Service", desc: "Professional training programs, strict conduct & behaviour standards, transparent billing, and 24/7 multi-language support for all clients." },
-  { icon: Award, title: "Quality", desc: "ISO 9001:2015 certified operations, impeccable vehicle presentation, professional driver appearance, and guaranteed punctuality on every service." },
+  { icon: Shield, title: "Fearless", desc: "We embrace bold decisions and take on challenges with courage. From launching the Europcar franchise in 1976 to expanding across all seven Emirates, fearlessness defines our journey." },
+  { icon: Users, title: "Accountable", desc: "Every vehicle, every driver, every service touchpoint — we take ownership. ISO 9001:2015 certified operations and performance-graded teams ensure accountability at every level." },
+  { icon: Award, title: "Innovative", desc: "From introducing electric vehicles to implementing GPS-tracked operations and two-way client reservation systems, we constantly evolve how the UAE moves." },
+  { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees and 14 locations. Every client and every colleague is treated with the respect they deserve." },
 ];
 
 const divisions = [
-  { name: "Europcar Dubai", desc: "International car rental — 14 UAE locations, airport access" },
-  { name: "Goldcar UAE", desc: "Value-focused car rental brand for leisure travelers" },
-  { name: "Eurogulf Chauffeur", desc: "ISO-certified premium chauffeur and VIP transport" },
-  { name: "Royal Limousine", desc: "Luxury coaches and limousine services" },
-  { name: "Emirates Taxi", desc: "Professional city taxi and transfer services" },
-  { name: "Truck Line Transport", desc: "Commercial vans, trucks, and chiller units" },
-  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles from managed fleet" },
-  { name: "Eurogulf Service Center", desc: "3 A-Grade workshops for full fleet maintenance" },
+  { name: "Europcar Dubai", desc: "International car rental — 14 UAE locations, airport access", href: "/europcar" },
+  { name: "Goldcar UAE", desc: "Value-focused car rental brand for leisure travelers", href: "/goldcar" },
+  { name: "Royal Limousine", desc: "Premium chauffeur & VIP limousine services", href: "/royal-limousine" },
+  { name: "Emirates Taxi", desc: "ISO-certified professional taxi and transfers", href: "/emirates-taxi" },
+  { name: "Truck Line Transport", desc: "Commercial vans, trucks, and chiller units", href: "/truckline" },
+  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles from managed fleet", href: "/used-cars" },
+  { name: "Eurogulf Chauffeur", desc: "ISO-certified premium chauffeur and VIP transport", href: "/royal-limousine" },
+  { name: "Eurogulf Service Center", desc: "3 A-Grade workshops for full fleet maintenance", href: "/services" },
 ];
 
 function TimelineItem({ milestone, index, isActive, onClick }) {
@@ -151,15 +152,15 @@ export default function AboutPage() {
           <div className={`text-center mb-14 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Core Values
+              Our Values — F.A.I.R.
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {coreValues.map((v, i) => (
               <div
                 key={v.title}
                 data-testid={`value-card-${i}`}
-                className={`bg-[#111111] border border-white/5 p-8 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
+                className={`bg-[#111111] border border-white/5 p-8 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >
                 <v.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-xl text-[#EEEDE7] mb-3">{v.title}</h3>
@@ -191,7 +192,7 @@ export default function AboutPage() {
                 </div>
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-2">{d.name}</h3>
                 <p className="font-body text-xs text-[#666666] leading-relaxed mb-3">{d.desc}</p>
-                <Link to="/services" className="inline-flex items-center gap-1 text-[#EE5A01] text-xs font-heading font-bold group-hover:gap-2 transition-all">
+                <Link to={d.href} className="inline-flex items-center gap-1 text-[#EE5A01] text-xs font-heading font-bold group-hover:gap-2 transition-all">
                   Learn More <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>

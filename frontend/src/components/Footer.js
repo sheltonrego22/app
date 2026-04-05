@@ -4,8 +4,12 @@ import { Instagram, Linkedin, Youtube, Phone, Mail } from 'lucide-react';
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png";
 
 const divisions = [
-  "Europcar", "Goldcar", "Royal Limousine",
-  "Emirates Taxi", "Truckline", "Eurogulf Used Car Trading"
+  { name: "Europcar", href: "/europcar" },
+  { name: "Goldcar", href: "/goldcar" },
+  { name: "Royal Limousine", href: "/royal-limousine" },
+  { name: "Emirates Taxi", href: "/emirates-taxi" },
+  { name: "Truckline", href: "/truckline" },
+  { name: "Eurogulf Used Car Trading", href: "/used-cars" },
 ];
 
 const locations = [
@@ -67,9 +71,9 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5">
               {divisions.map((d) => (
-                <li key={d}>
-                  <Link to="/services" className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors">
-                    {d}
+                <li key={d.name}>
+                  <Link to={d.href} className="font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors">
+                    {d.name}
                   </Link>
                 </li>
               ))}
