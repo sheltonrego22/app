@@ -7,7 +7,7 @@ const HERO_IMG = "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp";
 const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
 const BOOKING_URL = "https://www.europcar.com/en-db";
-const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2025/06/Europcar-Fleet-Guide.pdf";
+const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";
 
 const highlights = [
   { label: "No. 1 in Europe", value: "#1" },
