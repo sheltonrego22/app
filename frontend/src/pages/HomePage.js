@@ -50,15 +50,32 @@ const awards = [
   "BUSINESS TRAVEL AWARDS — BEST CAR RENTAL MIDDLE EAST",
 ];
 
+const DIVISION_LOGOS = {
+  europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
+  goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
+  royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
+  emiratestaxi: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
+  truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
+  usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
+};
+
+const PARTNER_LOGOS = [
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-32.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-33.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-23.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-24.png.webp",
+  "https://egmg.ae/wp-content/uploads/2025/06/Emirates-Logo.png-768x403-1.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-25.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-34.png.webp",
+];
+
 const divisions = [
-  { name: "Europcar Dubai", desc: "International car rental leader", href: "/europcar" },
-  { name: "Goldcar UAE", desc: "Value car rental brand", href: "/goldcar" },
-  { name: "Royal Limousine", desc: "Premium chauffeur services", href: "/royal-limousine" },
-  { name: "Emirates Taxi", desc: "Professional taxi services", href: "/emirates-taxi" },
-  { name: "Truck Line", desc: "Commercial vehicle solutions", href: "/truckline" },
-  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles", href: "/used-cars" },
-  { name: "Eurogulf Chauffeur", desc: "VIP transport solutions", href: "/royal-limousine" },
-  { name: "Eurogulf Service Center", desc: "A-Grade vehicle maintenance", href: "/services" },
+  { name: "Europcar Dubai", desc: "International car rental leader", href: "/europcar", logo: DIVISION_LOGOS.europcar },
+  { name: "Goldcar UAE", desc: "Value car rental brand", href: "/goldcar", logo: DIVISION_LOGOS.goldcar },
+  { name: "Royal Limousine", desc: "Premium chauffeur services", href: "/royal-limousine", logo: DIVISION_LOGOS.royallimo },
+  { name: "Emirates Taxi", desc: "Professional taxi services", href: "/emirates-taxi", logo: DIVISION_LOGOS.emiratestaxi },
+  { name: "Truckline", desc: "Commercial vehicle solutions", href: "/truckline", logo: DIVISION_LOGOS.truckline },
+  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles", href: "/used-cars", logo: DIVISION_LOGOS.usedcars },
 ];
 
 const testimonials = [
@@ -263,7 +280,7 @@ export default function HomePage() {
               The EGMG Family of Brands
             </h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {divisions.map((d, i) => (
               <Link
                 key={d.name}
@@ -271,8 +288,8 @@ export default function HomePage() {
                 data-testid={`division-card-${i}`}
                 className={`bg-[#111111] border border-white/5 p-6 text-center group hover:border-[#EE5A01] transition-all duration-300 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >
-                <div className="w-14 h-14 bg-[#EE5A01]/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-[#EE5A01]/20 transition-colors">
-                  <span className="font-heading font-black text-lg text-[#EE5A01]">{d.name.charAt(0)}</span>
+                <div className="w-full h-12 flex items-center justify-center mx-auto mb-4">
+                  <img src={d.logo} alt={d.name} className="h-10 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity" loading="lazy" />
                 </div>
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{d.name}</h3>
                 <p className="font-body text-xs text-[#666666]">{d.desc}</p>
@@ -337,6 +354,18 @@ export default function HomePage() {
                   <Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ TRUSTED BY / PARTNER LOGOS ═══ */}
+      <section data-testid="partner-logos-section" className="bg-black py-16 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="font-mono text-xs tracking-[0.2em] text-[#666666] text-center mb-10 uppercase">Trusted by Leading Organizations</p>
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14">
+            {PARTNER_LOGOS.map((logo, i) => (
+              <img key={i} src={logo} alt="Partner" data-testid={`partner-logo-${i}`} className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-40 hover:opacity-80 transition-opacity" loading="lazy" />
             ))}
           </div>
         </div>

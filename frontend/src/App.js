@@ -16,6 +16,8 @@ import RoyalLimousinePage from "@/pages/RoyalLimousinePage";
 import EmiratesTaxiPage from "@/pages/EmiratesTaxiPage";
 import TrucklinePage from "@/pages/TrucklinePage";
 import UsedCarsPage from "@/pages/UsedCarsPage";
+import CareersPage from "@/pages/CareersPage";
+import BusinessesPage from "@/pages/BusinessesPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -54,6 +56,8 @@ function App() {
           <Route path="/emirates-taxi" element={<EmiratesTaxiPage />} />
           <Route path="/truckline" element={<TrucklinePage />} />
           <Route path="/used-cars" element={<UsedCarsPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/businesses" element={<BusinessesPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -34,15 +34,32 @@ const coreValues = [
   { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees and 14 locations. Every client and every colleague is treated with the respect they deserve." },
 ];
 
+const DIVISION_LOGOS = {
+  europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
+  goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
+  royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
+  emiratestaxi: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
+  truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
+  usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
+};
+
+const AWARD_IMAGES = [
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png.webp", title: "ISO 9001:2015", desc: "Customer Focus, Leadership, Engagement, Process Approach, Improvement, Relationship Management." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png.webp", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East 2009." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png.webp", title: "Emirates Group Award", desc: "2008 Recognition of Support, 2011 Flight Crew Transportation Support." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "World Travel Awards", desc: "Best Car Rental Company MENA — 2005-2019, 2022, 2023 & 2024." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver (2004-05), Gold (2006, 2008), Platinum (2012)." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png.webp", title: "ISO 45001:2018", desc: "Occupational Health and Safety Management System." },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png.webp", title: "McDermott Award", desc: "Safest Transportation Service Provider 2010/2011." },
+];
+
 const divisions = [
-  { name: "Europcar Dubai", desc: "International car rental — 14 UAE locations, airport access", href: "/europcar" },
-  { name: "Goldcar UAE", desc: "Value-focused car rental brand for leisure travelers", href: "/goldcar" },
-  { name: "Royal Limousine", desc: "Premium chauffeur & VIP limousine services", href: "/royal-limousine" },
-  { name: "Emirates Taxi", desc: "ISO-certified professional taxi and transfers", href: "/emirates-taxi" },
-  { name: "Truck Line Transport", desc: "Commercial vans, trucks, and chiller units", href: "/truckline" },
-  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles from managed fleet", href: "/used-cars" },
-  { name: "Eurogulf Chauffeur", desc: "ISO-certified premium chauffeur and VIP transport", href: "/royal-limousine" },
-  { name: "Eurogulf Service Center", desc: "3 A-Grade workshops for full fleet maintenance", href: "/services" },
+  { name: "Europcar Dubai", desc: "International car rental — 14 UAE locations, airport access", href: "/europcar", logo: DIVISION_LOGOS.europcar },
+  { name: "Goldcar UAE", desc: "Value-focused car rental brand for leisure travelers", href: "/goldcar", logo: DIVISION_LOGOS.goldcar },
+  { name: "Royal Limousine", desc: "Premium chauffeur & VIP limousine services", href: "/royal-limousine", logo: DIVISION_LOGOS.royallimo },
+  { name: "Emirates Taxi", desc: "ISO-certified professional taxi and transfers", href: "/emirates-taxi", logo: DIVISION_LOGOS.emiratestaxi },
+  { name: "Truckline", desc: "Commercial vans, trucks, and chiller units", href: "/truckline", logo: DIVISION_LOGOS.truckline },
+  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles from managed fleet", href: "/used-cars", logo: DIVISION_LOGOS.usedcars },
 ];
 
 function TimelineItem({ milestone, index, isActive, onClick }) {
@@ -180,15 +197,15 @@ export default function AboutPage() {
               Our Divisions
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {divisions.map((d, i) => (
               <div
                 key={d.name}
                 data-testid={`about-division-${i}`}
                 className={`bg-[#111111] border border-white/5 p-6 hover:border-[#EE5A01] transition-all group ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >
-                <div className="w-12 h-12 bg-[#EE5A01]/10 flex items-center justify-center mb-4 group-hover:bg-[#EE5A01]/20 transition-colors">
-                  <span className="font-heading font-black text-[#EE5A01]">{d.name.charAt(0)}</span>
+                <div className="w-full h-10 flex items-center mb-4">
+                  <img src={d.logo} alt={d.name} className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity" loading="lazy" />
                 </div>
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-2">{d.name}</h3>
                 <p className="font-body text-xs text-[#666666] leading-relaxed mb-3">{d.desc}</p>
@@ -280,6 +297,30 @@ export default function AboutPage() {
               </ResponsiveContainer>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* ═══ AWARDS & RECOGNITION ═══ */}
+      <section data-testid="awards-section" className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">
+              Awards & Recognition
+            </h2>
+            <p className="font-body text-[#666666] max-w-lg mx-auto">Nearly two decades of industry accolades and internationally certified operations.</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            {AWARD_IMAGES.map((a, i) => (
+              <div key={i} data-testid={`award-card-${i}`} className="bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all text-center group">
+                <div className="w-full h-20 flex items-center justify-center mb-4">
+                  <img src={a.img} alt={a.title} className="max-h-20 w-auto object-contain group-hover:scale-105 transition-transform" loading="lazy" />
+                </div>
+                <h3 className="font-heading font-bold text-xs text-[#EEEDE7] mb-1 uppercase tracking-wider">{a.title}</h3>
+                <p className="font-body text-[10px] text-[#666666] leading-relaxed">{a.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

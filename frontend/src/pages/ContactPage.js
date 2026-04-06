@@ -16,20 +16,20 @@ const enquiryTypes = [
 ];
 
 const locations = [
-  { name: "Dubai HQ", address: "Al Quoz Industrial Area 3, Dubai", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Europcar Head Office", address: "Street 6, P.O. Box 2533, Al Quoz Industrial Area, Dubai", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Dubai Airport T2", address: "Terminal 2, Arrival Hall, Deira, Dubai", hours: "24/7" },
+  { name: "Dubai Airport T3", address: "Arrival Hall, Terminal 3, P.O. Box 2533, Dubai", hours: "24/7" },
+  { name: "Atlantis — The Palm", address: "The Palm Island, P.O. Box 2533, Dubai", hours: "Daily 8AM-10PM" },
   { name: "Emirates Towers", address: "Sheikh Zayed Road, Dubai", hours: "Daily 8AM-10PM" },
-  { name: "Atlantis The Palm", address: "Palm Jumeirah, Dubai", hours: "Daily 8AM-10PM" },
   { name: "Dubai Hills Mall", address: "Dubai Hills Estate, Dubai", hours: "Daily 10AM-10PM" },
-  { name: "Dubai Airport T1", address: "Terminal 1, DXB", hours: "24/7" },
-  { name: "Dubai Airport T2", address: "Terminal 2, DXB", hours: "24/7" },
-  { name: "Dubai Airport T3", address: "Terminal 3, DXB", hours: "24/7" },
-  { name: "Al Maktoum Airport", address: "DWC, Dubai South", hours: "Daily 6AM-12AM" },
-  { name: "Sharjah Airport", address: "SHJ Airport, Sharjah", hours: "24/7" },
-  { name: "Sharjah Office", address: "Industrial Area, Sharjah", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Jebel Ali", address: "Jebel Ali Free Zone, Dubai", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Ras Al Khaimah", address: "Al Nakheel, RAK", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Fujairah", address: "Hamad Bin Abdullah Road, Fujairah", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Abu Dhabi", address: "Hamdan Street, Abu Dhabi", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Al Maktoum Airport (DWC)", address: "Dubai South, Dubai", hours: "Daily 6AM-12AM" },
+  { name: "Sharjah Airport", address: "SHJ International Airport — Arrival Lounge", hours: "24/7" },
+  { name: "Sharjah Office", address: "Abu Al Reesh Building, Ground Floor, P.O. Box 31227, Sharjah", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Ras Al Khaimah", address: "Aminity RAKIA Building, Tower 1, P.O. Box 2533, RAK", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Fujairah", address: "Al Awadhi Office, Hamad Bin Abdulla Road, P.O. Box 9766, Fujairah", hours: "Sun-Thu 8AM-6PM" },
+  { name: "EuroGulf Showroom", address: "Nad Al Hamar Road, Ras Al Khor Industrial Area 3, Dubai", hours: "Sun-Thu 8AM-6PM" },
+  { name: "Jebel Ali Free Zone", address: "JAFZA, Dubai", hours: "Sun-Thu 8AM-6PM" },
+  { name: "G3 Workshop — Al Quoz", address: "30 First Al Khail Street, Al Quoz Industrial Area 3, Dubai", hours: "Sun-Thu 8AM-6PM" },
 ];
 
 export default function ContactPage() {

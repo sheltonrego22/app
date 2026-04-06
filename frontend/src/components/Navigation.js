@@ -17,8 +17,10 @@ const serviceLinks = [
 
 const aboutLinks = [
   { label: "Our Story", href: "/about" },
+  { label: "Our Businesses", href: "/businesses" },
   { label: "Leadership", href: "/leadership" },
   { label: "Sustainability", href: "/sustainability" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const navLinks = [

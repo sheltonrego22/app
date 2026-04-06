@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Youtube, Phone, Mail } from 'lucide-react';
+import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook } from 'lucide-react';
 
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png";
 
@@ -49,10 +49,12 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "About Us", href: "/about" },
+                { label: "Our Businesses", href: "/businesses" },
                 { label: "Our Services", href: "/services" },
                 { label: "Leadership", href: "/leadership" },
                 { label: "Sustainability", href: "/sustainability" },
                 { label: "Media Center", href: "/media" },
+                { label: "Careers", href: "/careers" },
                 { label: "Contact Us", href: "/contact" },
               ].map((link) => (
                 <li key={link.label}>
@@ -104,13 +106,16 @@ export default function Footer() {
                 CHAT ON WHATSAPP
               </a>
               <div className="flex gap-4 pt-4">
-                <a href="https://www.instagram.com/eurogulfmobilitygroup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                <a href="https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="https://www.instagram.com/eurogulfmobility" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/company/eurogulf-mobility-group/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://www.youtube.com/@eurogulfmobilitygroup" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
+                <a href="https://www.youtube.com/@EurogulfMobilityGroup-x1n" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
                   <Youtube className="w-5 h-5" />
                 </a>
               </div>
