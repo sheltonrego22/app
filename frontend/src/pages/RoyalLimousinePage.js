@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plane, Building2, Users, Car, Monitor, MapPin, Shield, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1771775751121-3091d79073d4?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp";
@@ -32,6 +33,7 @@ export default function RoyalLimousinePage() {
 
   return (
     <div data-testid="royal-limousine-page">
+      <SEO title="Royal Limousine" description="ISO 9001:2015 certified premium chauffeur service — corporate transfers, airport meet-and-greet, dedicated chauffeurs, and VIP transport across the UAE." path="/royal-limousine" />
       {/* HERO */}
       <section data-testid="royal-limousine-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

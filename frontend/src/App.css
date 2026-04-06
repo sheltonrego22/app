@@ -97,10 +97,15 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 14px 32px;
+  padding: 12px 24px;
+  font-size: 13px;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
+  text-decoration: none;
+}
+@media (min-width: 640px) {
+  .btn-primary { padding: 14px 32px; font-size: 14px; }
 }
 .btn-primary:hover {
   background: #d45000;
@@ -113,10 +118,15 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 14px 32px;
+  padding: 12px 24px;
+  font-size: 13px;
   border: 2px solid #EEEDE7;
   transition: all 0.3s ease;
   cursor: pointer;
+  text-decoration: none;
+}
+@media (min-width: 640px) {
+  .btn-ghost { padding: 14px 32px; font-size: 14px; }
 }
 .btn-ghost:hover {
   border-color: #EE5A01;

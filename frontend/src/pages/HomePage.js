@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Star, Quote, Instagram } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -117,6 +118,7 @@ export default function HomePage() {
 
   return (
     <div data-testid="home-page">
+      <SEO title="WE MOVE YOU" description="The UAE's most diversified mobility group — Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, and Used Cars. 12,000+ vehicles across 14 locations since 1976." path="/" />
       {/* ═══ HERO SECTION ═══ */}
       <section data-testid="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -130,10 +132,10 @@ export default function HomePage() {
           <p className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#EE5A01] mb-6 uppercase animate-fade-in">
             UAE'S MOST TRUSTED MOBILITY GROUP — SINCE 1976
           </p>
-          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
+          <h1 className="font-heading font-black text-4xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
             WE MOVE YOU
           </h1>
-          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <h1 className="font-heading font-black text-4xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
             FORWARD.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>

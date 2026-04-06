@@ -1,6 +1,7 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { OrganizationSchema, LocalBusinessSchema } from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HomePage from "@/pages/HomePage";
@@ -18,6 +19,7 @@ import TrucklinePage from "@/pages/TrucklinePage";
 import UsedCarsPage from "@/pages/UsedCarsPage";
 import CareersPage from "@/pages/CareersPage";
 import BusinessesPage from "@/pages/BusinessesPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -32,6 +34,8 @@ function Layout({ children }) {
     <div className="min-h-screen bg-brand-black">
       <Navigation />
       <ScrollToTop />
+      <OrganizationSchema />
+      <LocalBusinessSchema />
       <main>{children}</main>
       <Footer />
     </div>
@@ -58,6 +62,7 @@ function App() {
           <Route path="/used-cars" element={<UsedCarsPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/businesses" element={<BusinessesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

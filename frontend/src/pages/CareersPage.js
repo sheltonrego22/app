@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, ChevronDown, ChevronUp, Send, Users, TrendingUp, Heart, Shield } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { SEO } from '@/components/SEO';
 
 const jobListings = [
   { title: "Bus Driver", dept: "Operations" },
@@ -53,6 +54,7 @@ export default function CareersPage() {
 
   return (
     <div data-testid="careers-page">
+      <SEO title="Careers" description="Join EGMG — the UAE's most diversified mobility group. 26+ open positions across operations, sales, finance, HR, and more. 1,200+ employees, 14 locations." path="/careers" />
       {/* HERO */}
       <section data-testid="careers-hero" className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />

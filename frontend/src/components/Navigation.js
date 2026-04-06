@@ -157,7 +157,7 @@ export default function Navigation() {
       {mobileOpen && (
         <div
           data-testid="mobile-menu-overlay"
-          className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center gap-8"
+          className="fixed inset-0 z-40 bg-black overflow-y-auto"
         >
           <button
             className="absolute top-6 right-6 text-[#EEEDE7] z-50 p-2"
@@ -166,40 +166,43 @@ export default function Navigation() {
           >
             <X className="w-8 h-8" />
           </button>
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-              className={`font-heading text-2xl font-bold tracking-[0.1em] transition-colors ${
-                location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7]'
-              }`}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          {/* Extra mobile links */}
-          <div className="flex flex-col items-center gap-4 pt-2 border-t border-white/10">
-            <Link to="/leadership" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>LEADERSHIP</Link>
-            <Link to="/sustainability" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>SUSTAINABILITY</Link>
-          </div>
-          <div className="flex flex-col items-center gap-3 pt-2 border-t border-white/10">
-            <span className="font-heading text-xs text-[#EE5A01] tracking-[0.2em] uppercase">Our Businesses</span>
-            {serviceLinks.slice(1).map((sl) => (
-              <Link key={sl.label} to={sl.href} className="font-body text-base text-[#666666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>
-                {sl.label}
+          <div className="flex flex-col items-center justify-start gap-6 pt-24 pb-12 px-6 min-h-full">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                data-testid={`mobile-nav-${link.label.toLowerCase()}`}
+                className={`font-heading text-xl sm:text-2xl font-bold tracking-[0.1em] transition-colors ${
+                  location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7]'
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
               </Link>
             ))}
+            <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
+              <Link to="/businesses" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>OUR BUSINESSES</Link>
+              <Link to="/leadership" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>LEADERSHIP</Link>
+              <Link to="/sustainability" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>SUSTAINABILITY</Link>
+              <Link to="/careers" className="font-heading text-lg text-[#666666] hover:text-[#EE5A01] tracking-[0.1em]" onClick={() => setMobileOpen(false)}>CAREERS</Link>
+            </div>
+            <div className="flex flex-col items-center gap-2.5 pt-4 border-t border-white/10 w-full max-w-xs">
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Divisions</span>
+              {serviceLinks.slice(1).map((sl) => (
+                <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>
+                  {sl.label}
+                </Link>
+              ))}
+            </div>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 bg-[#EE5A01] text-black font-heading font-bold text-base tracking-[0.05em] px-8 py-3.5 w-full max-w-xs text-center"
+            >
+              BOOK NOW
+            </a>
           </div>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 bg-[#EE5A01] text-black font-heading font-bold text-lg tracking-[0.05em] px-10 py-4"
-          >
-            BOOK NOW
-          </a>
         </div>
       )}
     </>

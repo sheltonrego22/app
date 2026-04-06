@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Phone, Mail, Globe, MapPin, Instagram, Linkedin, Youtube, Send, MessageCircle, ExternalLink, Clock } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -71,6 +72,7 @@ export default function ContactPage() {
 
   return (
     <div data-testid="contact-page">
+      <SEO title="Contact Us" description="Get in touch with EGMG — 14 locations across the UAE including Dubai, Sharjah, Abu Dhabi, Ras Al Khaimah, and Fujairah. Call 800 364 or visit any of our offices." path="/contact" />
       {/* ═══ HERO ═══ */}
       <section data-testid="contact-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2">
@@ -287,6 +289,24 @@ export default function ContactPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ MAP ═══ */}
+      <section data-testid="map-section" className="bg-[#0a0a0a] border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h3 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider mb-6 text-center">Find Our Headquarters</h3>
+          <div className="relative w-full overflow-hidden border border-white/5" style={{ paddingBottom: '40%', minHeight: '280px' }}>
+            <iframe
+              data-testid="google-map"
+              title="EGMG HQ — Al Quoz, Dubai"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.550946199776!2d55.2176!3d25.1591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69d95455555%3A0x0!2sAl+Quoz+Industrial+Area+3%2C+Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
+              className="absolute inset-0 w-full h-full border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>

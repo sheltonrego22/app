@@ -89,3 +89,19 @@ code {
 
 /* Selection */
 ::selection { background: rgba(238, 90, 1, 0.3); color: #EEEDE7; }
+
+/* ═══ Mobile-First Responsive Utilities ═══ */
+img { max-width: 100%; height: auto; }
+
+/* Prevent text overflow on mobile */
+h1, h2, h3, h4, h5, h6, p { overflow-wrap: break-word; word-wrap: break-word; }
+
+/* Smooth touch scrolling on mobile */
+@media (max-width: 640px) {
+  html { -webkit-overflow-scrolling: touch; }
+  body { overflow-x: hidden; }
+  /* Reduce hero sections on mobile */
+  section[data-testid*="-hero"] { min-height: 60vh !important; }
+  /* Improve touch targets */
+  a, button { min-height: 44px; }
+}

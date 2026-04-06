@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Search } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { SEO } from '@/components/SEO';
 
 const articles = [
   { title: "Corporate Mobility Solutions in the UAE: How Businesses Optimize Transportation", date: "April 5, 2026", category: "Corporate" },
@@ -57,6 +58,7 @@ export default function MediaCenterPage() {
 
   return (
     <div data-testid="media-center-page">
+      <SEO title="Media Center" description="News, press releases, and updates from Eurogulf Mobility Group — staying connected with the latest from the UAE's leading mobility conglomerate." path="/media" />
       {/* ═══ HERO ═══ */}
       <section data-testid="media-hero" className="bg-black pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

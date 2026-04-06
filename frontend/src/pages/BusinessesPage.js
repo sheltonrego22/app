@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { SEO } from '@/components/SEO';
 
 const LOGOS = {
   egmg: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
@@ -64,6 +65,7 @@ export default function BusinessesPage() {
 
   return (
     <div data-testid="businesses-page">
+      <SEO title="Our Businesses" description="Six specialized divisions under one roof — Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, and Eurogulf Used Car Trading." path="/businesses" />
       {/* HERO */}
       <section data-testid="businesses-hero" className="relative min-h-[50vh] flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
