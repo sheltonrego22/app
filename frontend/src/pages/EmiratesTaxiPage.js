@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Award, Car, Users, Clock, Check } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1769787301187-0fab290ba2f2?w=1400&h=700&fit=crop";
 
@@ -29,7 +28,6 @@ export default function EmiratesTaxiPage() {
 
   return (
     <div data-testid="emirates-taxi-page">
-      <SEO title="Emirates Taxi" description="ISO-certified, RTA-approved premium taxi and chauffeur service in Dubai. Award-winning operations with performance-graded drivers and 24/7 availability." path="/emirates-taxi" />
       {/* HERO */}
       <section data-testid="emirates-taxi-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

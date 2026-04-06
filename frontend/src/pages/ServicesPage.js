@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Check, X, Plane, Users, MapPin, Monitor, Snowflake, Download } from 'lucide-react';
-import { SEO } from '@/components/SEO';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -67,7 +66,6 @@ export default function ServicesPage() {
 
   return (
     <div data-testid="services-page">
-      <SEO title="Our Services" description="Car rental, vehicle leasing, premium chauffeur, commercial fleet, and pre-owned vehicles — EGMG delivers complete mobility solutions across the UAE." path="/services" />
       {/* ═══ HERO ═══ */}
       <section data-testid="services-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

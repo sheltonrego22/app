@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Linkedin } from 'lucide-react';
-import { SEO } from '@/components/SEO';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/cmkxgqfh_image.png";
@@ -71,7 +70,6 @@ export default function LeadershipPage() {
 
   return (
     <div data-testid="leadership-page">
-      <SEO title="Leadership" description="Meet the leadership team behind Eurogulf Mobility Group — the visionary owners and senior executives driving the UAE's most diversified mobility group." path="/leadership" />
       {/* ═══ HERO ═══ */}
       <section data-testid="leadership-hero" className="relative min-h-[60vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">

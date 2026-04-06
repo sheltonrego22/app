@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Users, Award, ArrowRight, Play, ChevronDown } from 'lucide-react';
-import { SEO } from '@/components/SEO';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -104,7 +103,6 @@ export default function AboutPage() {
 
   return (
     <div data-testid="about-page">
-      <SEO title="About Us" description="Since 1976, Eurogulf Mobility Group has been the backbone of the UAE's mobility landscape — 12,000+ vehicles, 1,200+ employees, 14 locations, and a legacy built on F.A.I.R. values." path="/about" />
       {/* ═══ HERO ═══ */}
       <section data-testid="about-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

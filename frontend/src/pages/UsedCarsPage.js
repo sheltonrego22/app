@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Shield, Tag, Wrench, Users, Star, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1764013290175-2b76e9a00b2e?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp";
@@ -35,7 +34,6 @@ export default function UsedCarsPage() {
 
   return (
     <div data-testid="used-cars-page">
-      <SEO title="Eurogulf Used Cars" description="Quality pre-owned vehicles from EGMG's managed fleet — A-Grade workshop inspected, full service history, competitive pricing. Trusted since 1994." path="/used-cars" />
       {/* HERO */}
       <section data-testid="used-cars-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

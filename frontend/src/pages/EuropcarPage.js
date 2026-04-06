@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Download } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp";
@@ -61,7 +60,6 @@ export default function EuropcarPage() {
 
   return (
     <div data-testid="europcar-page">
-      <SEO title="Europcar Dubai" description="Premium car rental and vehicle leasing across 14 UAE locations. No. 1 in Europe, No. 3 worldwide — daily, weekly, monthly rentals and corporate fleet solutions." path="/europcar" />
       {/* HERO */}
       <section data-testid="europcar-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

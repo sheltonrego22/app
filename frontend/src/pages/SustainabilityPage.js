@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Fuel, Building, Zap, Users, Leaf, Sun, Battery, Recycle } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const EV_IMG = "https://images.unsplash.com/photo-1768310465625-5824a01fff4c?w=1200&h=600&fit=crop";
 const SOLAR_IMG = "https://images.pexels.com/photos/8783541/pexels-photo-8783541.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop";
@@ -53,7 +52,6 @@ export default function SustainabilityPage() {
 
   return (
     <div data-testid="sustainability-page">
-      <SEO title="Sustainability" description="EGMG is committed to sustainable mobility — investing in electric vehicles, green workshops, employee welfare, and reducing the environmental impact of transportation across the UAE." path="/sustainability" />
       {/* ═══ HERO ═══ */}
       <section data-testid="sustainability-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

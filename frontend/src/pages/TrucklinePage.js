@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Truck, Clock, MapPin, Check, Snowflake, Package, Shield } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1761917904658-2a9ecb84a169?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp";
@@ -37,7 +36,6 @@ export default function TrucklinePage() {
 
   return (
     <div data-testid="truckline-page">
-      <SEO title="Truckline" description="Commercial fleet leasing across the UAE — trucks, vans, chiller units, and delivery vehicles. No down payment, free maintenance, and 24/7 support for your business." path="/truckline" />
       {/* HERO */}
       <section data-testid="truckline-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

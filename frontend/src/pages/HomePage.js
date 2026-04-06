@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Star, Quote, Instagram } from 'lucide-react';
-import { SEO } from '@/components/SEO';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -118,7 +117,6 @@ export default function HomePage() {
 
   return (
     <div data-testid="home-page">
-      <SEO title="WE MOVE YOU" description="The UAE's most diversified mobility group — Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, and Used Cars. 12,000+ vehicles across 14 locations since 1976." path="/" />
       {/* ═══ HERO SECTION ═══ */}
       <section data-testid="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">

@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Star, Clock, Shield, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { SEO } from '@/components/SEO';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1657394404818-10989e9d69c8?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp";
@@ -30,7 +29,6 @@ export default function GoldcarPage() {
 
   return (
     <div data-testid="goldcar-page">
-      <SEO title="Goldcar Dubai" description="Smart, affordable car rental in Dubai. Over 30 years of low-cost segment leadership — competitive prices, 5-star fleet, and 24/7 customer support." path="/goldcar" />
       {/* HERO */}
       <section data-testid="goldcar-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

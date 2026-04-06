@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Phone, Mail, Globe, MapPin, Instagram, Linkedin, Youtube, Send, MessageCircle, ExternalLink, Clock } from 'lucide-react';
-import { SEO } from '@/components/SEO';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -72,7 +71,6 @@ export default function ContactPage() {
 
   return (
     <div data-testid="contact-page">
-      <SEO title="Contact Us" description="Get in touch with EGMG — 14 locations across the UAE including Dubai, Sharjah, Abu Dhabi, Ras Al Khaimah, and Fujairah. Call 800 364 or visit any of our offices." path="/contact" />
       {/* ═══ HERO ═══ */}
       <section data-testid="contact-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2">
