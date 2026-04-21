@@ -1,61 +1,42 @@
 # EGMG Corporate Website — PRD
 
 ## Original Problem Statement
-Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf Mobility Group, a UAE-based mobility conglomerate established in 1976. Dark-dominant UI (#000000 black, #EE5A01 orange), sharp corners, geometric elements, cinematic/VIP aesthetic. All content, logos, images scraped from live egmg.ae. Professionally rewritten copy highlighting heritage and value creation.
+Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf Mobility Group. Dark UI (#000000, #EE5A01). All content scraped from live egmg.ae, factually accurate, UAE-centric. Real EGMG social media content embedded.
 
 ## Architecture
-- **Frontend**: React 19 + React Router + Tailwind CSS + Shadcn UI + react-helmet-async (SEO)
-- **Backend**: FastAPI + MongoDB (contact form storage)
-- **Fonts**: Outfit (headings), Manrope (body), JetBrains Mono (accents)
+- **Frontend**: React 19 + React Router + Tailwind CSS + Shadcn UI
+- **Backend**: FastAPI + MongoDB (contact form)
+- **Fonts**: Outfit / Manrope / JetBrains Mono
 
-## Pages Implemented (16 Total — Feb 2026)
+## Pages (16 Total)
+1. Home (/) — Hero, Stats, 6 Services, Fleet Carousel, Trust Pillars, Awards, Divisions w/logos, Why Choose EGMG, Social Feed w/YouTube Shorts, Partner Logos, CTA
+2. About (/about) — "Your Vision, Our Journey" hero, Timeline, F.A.I.R. Values, Divisions, Awards (7 images)
+3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide PDF
+4. Contact (/contact) — Form (MongoDB), 14 locations, Google Maps
+5. Leadership (/leadership) — 9 leaders w/real photos
+6. Sustainability (/sustainability) — 4 pillars (verified stats only)
+7. Media Center (/media) — Filters, Search, 24 articles
+8-13. Division pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
+14. Businesses (/businesses) — Hub w/6 divisions
+15. Careers (/careers) — 26 jobs, department filters
+16. 404 (*) — Error page
 
-### Core Pages (7)
-1. **Home** (/) — Hero, Stats, 6 Services, Fleet Carousel, Trust Pillars, Awards, Divisions with logos, Testimonials, Partner Logos (7), Instagram Grid, CTA
-2. **About** (/about) — Hero, Timeline, Vision/Mission, F.A.I.R. Values, Divisions with logos, Leadership, Fleet Growth, Awards & Recognition (7 award images)
-3. **Services** (/services) — Hero + Fleet Guide PDF, Filter tabs, 6 service sections with cross-links
-4. **Contact** (/contact) — Hero, Form (MongoDB), WhatsApp, 14 locations, Google Maps embed, International Bookings
-5. **Leadership** (/leadership) — 2 Owners + 7 Senior Leaders with real photos
-6. **Sustainability** (/sustainability) — 4 Pillars, Key Initiatives
-7. **Media Center** (/media) — Category Filters, Search, 24 Article Grid
-
-### Division Pages (6)
-8. **Europcar** (/europcar) — Stats, Rental/Leasing, 14 Locations, Fleet Guide PDF
-9. **Goldcar** (/goldcar) — 3 Strengths, Value Proposition
-10. **Royal Limousine** (/royal-limousine) — ISO badge, 6 Services, Fleet Carousel
-11. **Emirates Taxi** (/emirates-taxi) — 4 Certifications, Features, 24/7
-12. **Truckline** (/truckline) — 3 Services, 4 Vehicle Types, Benefits
-13. **Used Cars** (/used-cars) — Stats, 3 Strengths, Benefits
-
-### Additional Pages (3)
-14. **Businesses** (/businesses) — Hub with 6 division cards, logos, EST. years
-15. **Careers** (/careers) — 26 job listings, department filters, expandable cards
-16. **404** (*) — Professional not-found page with "Back to Home"
-
-## Production-Ready Features (Completed)
-- **SEO**: react-helmet-async — unique title/description/OG/Twitter cards per page
-- **Schema.org**: Organization + LocalBusiness JSON-LD structured data
-- **Mobile**: Full responsive support (390px–1920px) with optimized hamburger menu, stacked layouts, touch-friendly inputs
-- **404 Page**: Brand-consistent error page with navigation
-- **Google Maps**: Embedded on Contact page (HQ location)
-- **Fleet Guide PDF**: Download button on Services + Europcar pages
+## Content Accuracy (Verified Feb 2026)
+- Tagline: "Your Vision, Our Journey" (from egmg.ae)
+- Stats: 12,000+ vehicles, 1,200+ employees, 14 locations, Est. 1976
+- Values: F.A.I.R. (Fearless, Accountable, Innovative, Respectful)
+- Awards: World Travel Awards (2005-2024), ISO 9001:2015, ISO 45001:2018, MENA Travel Awards, McDermott Award
+- Social: @eurogulfmobility (Instagram), YouTube Shorts embedded
+- No fabricated testimonials or unverified claims
 
 ## API Endpoints
-- `POST /api/contact` — Submit contact enquiry
-- `GET /api/contacts` — Retrieve submissions (paginated)
+- POST /api/contact — Submit enquiry
+- GET /api/contacts — Paginated retrieval
 
-## What Was Delivered
-- 16 responsive pages optimized for mobile and desktop
-- All real logos, photos, award images scraped from egmg.ae
-- Professional copywriting across all content
-- Full SEO implementation with structured data
-- Contact form with MongoDB persistence
-- Google Maps integration
-- 100% test pass rate (5 testing iterations)
+## Testing: 6 iterations, 100% pass rate all
 
-## Future Enhancements (Backlog)
-1. CMS integration for dynamic media center content
-2. WhatsApp Business API live chat widget
-3. Performance optimization (code splitting, image optimization)
-4. Analytics integration (Google Analytics / Tag Manager)
-5. Fleet comparison tool across divisions
+## Future Backlog
+1. CMS for media center
+2. WhatsApp Business live chat
+3. Analytics (GA/GTM)
+4. Performance optimization
