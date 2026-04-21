@@ -99,7 +99,7 @@ export default function AboutPage() {
   const [chartRef, chartVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About EGMG — 50 Years of Mobility Excellence"; }, []);
+  useEffect(() => { document.title = "About EGMG — Your Vision, Our Journey Since 1976"; }, []);
 
   return (
     <div data-testid="about-page">
@@ -113,10 +113,10 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-24">
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-8xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            50 Years. One Vision.
+            Your Vision, Our Journey
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EE5A01] animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Trusted by over 500 companies. Loved by thousands of individuals.
+            Moving the UAE forward since 1976
           </p>
         </div>
       </section>

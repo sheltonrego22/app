@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Star, Quote, Instagram } from 'lucide-react';
+import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Instagram } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -11,7 +11,7 @@ const stats = [
   { value: 12000, suffix: "+", label: "Vehicles in Fleet" },
   { value: 1200, suffix: "+", label: "Professionals" },
   { value: 14, suffix: "", label: "UAE Locations" },
-  { value: 50, suffix: "", label: "Years of Excellence" },
+  { value: 1976, suffix: "", label: "Established" },
 ];
 
 const services = [
@@ -34,10 +34,10 @@ const fleetVehicles = [
 ];
 
 const trustPillars = [
-  { icon: Shield, title: "Commitment to Quality", desc: "Delivering exceptional and comprehensive mobility solutions backed by ISO 9001:2015 certification." },
-  { icon: Clock, title: "Transparency & Reliability", desc: "Ensuring prompt replacements with reserved vehicles and drivers. Clear, honest service every time." },
+  { icon: Shield, title: "Commitment to Quality", desc: "Delivering exceptional and comprehensive mobility solutions backed by ISO 9001:2015 and ISO 45001:2018 certifications." },
+  { icon: Clock, title: "Transparency & Reliability", desc: "Ensuring prompt replacements with reserved vehicles and drivers. Clear, honest service with no hidden costs." },
   { icon: Headphones, title: "24/7 Seamless Support", desc: "Round-the-clock recovery services across the UAE for hassle-free travel. Call us toll-free at 800 364." },
-  { icon: MapPin, title: "14 Locations Across UAE", desc: "Airports, malls, and business districts — we're wherever you need us, from Dubai to Abu Dhabi." },
+  { icon: MapPin, title: "14 Locations Across UAE", desc: "Airports, malls, and business districts from Dubai to Ras Al Khaimah and Fujairah — wherever you need us." },
 ];
 
 const awards = [
@@ -78,19 +78,19 @@ const divisions = [
   { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles", href: "/used-cars", logo: DIVISION_LOGOS.usedcars },
 ];
 
-const testimonials = [
-  { quote: "EGMG has been our sole fleet partner for 8 years. Their reliability and professionalism are unmatched in the UAE market.", name: "Ahmed Al-Rashid", company: "Al Futtaim Group", rating: 5 },
-  { quote: "From airport transfers to executive chauffeur services, EGMG delivers a consistently premium experience every single time.", name: "Sarah Chen", company: "HSBC Middle East", rating: 5 },
-  { quote: "We lease over 200 vehicles through EGMG. Their fleet management and maintenance services have reduced our operational costs by 30%.", name: "Michael Torres", company: "DHL Express UAE", rating: 5 },
+const whyChooseUs = [
+  { title: "Commitment to Quality", desc: "We provide exceptional and comprehensive mobility solutions. Our dedication to quality means every vehicle is maintained to the highest standards and every driver is trained and accredited." },
+  { title: "Transparency & Reliability", desc: "We ensure prompt replacements with reserved vehicles and drivers. Our clients trust us because we deliver on our promises — no hidden costs, no surprises." },
+  { title: "24/7 Seamless Support", desc: "Our round-the-clock recovery services across the UAE ensure hassle-free travel for every client. Call us toll-free at 800 364, anytime, anywhere." },
 ];
 
-const instagramImages = [
-  "https://images.unsplash.com/photo-1638980703460-8e542eb75007?w=400&h=400&fit=crop",
-  "https://images.pexels.com/photos/1645603/pexels-photo-1645603.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1634052597957-bc7f1a191c3e?w=400&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1735320863905-ed428b59a2eb?w=400&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1773766487829-d1df4d487980?w=400&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1759882608768-168d4c3a91c2?w=400&h=400&fit=crop",
+const socialImages = [
+  { img: "https://images.pexels.com/photos/10358879/pexels-photo-10358879.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Our fleet against the iconic Dubai skyline" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
+  { img: "https://images.unsplash.com/photo-1747176367536-c9cf668a5390?w=600&h=600&fit=crop", caption: "Luxury vehicles in the heart of Dubai" },
+  { img: "https://images.pexels.com/photos/10358871/pexels-photo-10358871.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Premium sedans with Dubai backdrop" },
+  { img: "https://images.pexels.com/photos/10619938/pexels-photo-10619938.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Dubai — Where we operate" },
+  { img: "https://images.pexels.com/photos/33349003/pexels-photo-33349003.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Sheikh Zayed Road — Our daily commute" },
 ];
 
 function StatItem({ value, suffix, label }) {
@@ -128,7 +128,7 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
           <p className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#EE5A01] mb-6 uppercase animate-fade-in">
-            UAE'S MOST TRUSTED MOBILITY GROUP — SINCE 1976
+            YOUR VISION, OUR JOURNEY — SINCE 1976
           </p>
           <h1 className="font-heading font-black text-4xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
             WE MOVE YOU
@@ -137,7 +137,7 @@ export default function HomePage() {
             FORWARD.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            From premium chauffeur services to fleet management for 500+ corporate clients, EGMG has been defining mobility across the UAE for 50 years. One group. 12,000+ vehicles. Every journey.
+            From premium chauffeur services to corporate fleet management, EGMG has been defining mobility across the UAE since 1976. One group. 12,000+ vehicles. Every journey.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.45s' }}>
             <Link to="/services" data-testid="hero-explore-btn" className="btn-primary text-center">
@@ -299,62 +299,102 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ TESTIMONIALS ═══ */}
-      <section data-testid="testimonials-section" className="bg-black py-20 sm:py-28">
+      {/* ═══ WHY CHOOSE EGMG ═══ */}
+      <section data-testid="why-choose-section" className="bg-black py-20 sm:py-28">
         <div ref={testimonialsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              What Our Clients Say
+              Why Choose EGMG
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
+            {whyChooseUs.map((item, i) => (
               <div
                 key={i}
-                data-testid={`testimonial-${i}`}
-                className={`bg-[#111111] border border-white/5 p-8 ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
+                data-testid={`why-choose-${i}`}
+                className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
               >
-                <Quote className="w-8 h-8 text-[#EE5A01] mb-4" />
-                <p className="font-body text-[#EEEDE7]/80 text-sm leading-relaxed mb-6">{t.quote}</p>
-                <div className="flex gap-1 mb-3">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-[#EE5A01] text-[#EE5A01]" />
-                  ))}
+                <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mb-5">
+                  <span className="font-heading font-black text-lg text-[#EE5A01]">0{i + 1}</span>
                 </div>
-                <p className="font-heading font-bold text-sm text-[#EE5A01]">{t.name}</p>
-                <p className="font-body text-xs text-[#666666]">{t.company}</p>
+                <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{item.title}</h3>
+                <p className="font-body text-sm text-[#666666] leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ INSTAGRAM FEED ═══ */}
-      <section data-testid="instagram-section" className="bg-[#0a0a0a] py-20 sm:py-28">
+      {/* ═══ SOCIAL & VIDEO ═══ */}
+      <section data-testid="social-section" className="bg-[#0a0a0a] py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] mb-4 uppercase">Follow Our Journey</p>
             <h2 className="font-heading font-bold text-xl sm:text-2xl text-[#EEEDE7]">
-              @eurogulfmobilitygroup
+              @eurogulfmobility
             </h2>
           </div>
+
+          {/* YouTube Shorts from EGMG */}
+          <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <div className="relative w-full overflow-hidden border border-white/5 rounded-sm" style={{ paddingBottom: '177%' }}>
+              <iframe
+                data-testid="youtube-embed-1"
+                src="https://www.youtube.com/embed/Q2kHRGYeUcQ?rel=0&modestbranding=1"
+                title="Moving Forward with EuroGulf Mobility Group"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <div className="relative w-full overflow-hidden border border-white/5 rounded-sm" style={{ paddingBottom: '177%' }}>
+              <iframe
+                data-testid="youtube-embed-2"
+                src="https://www.youtube.com/embed/KiCi2eo3PuE?rel=0&modestbranding=1"
+                title="It's not just a fleet — It's the scale and innovation of EGMG"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          {/* Social Image Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {instagramImages.map((img, i) => (
+            {socialImages.map((item, i) => (
               <a
                 key={i}
-                href="https://www.instagram.com/eurogulfmobilitygroup/"
+                href="https://www.instagram.com/eurogulfmobility/"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-testid={`instagram-post-${i}`}
+                data-testid={`social-post-${i}`}
                 className="relative aspect-square overflow-hidden group"
               >
-                <img src={img} alt="EGMG Instagram" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-                <div className="absolute inset-0 bg-[#EE5A01]/0 group-hover:bg-[#EE5A01]/70 transition-all duration-300 flex items-center justify-center">
-                  <Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <img src={item.img} alt={item.caption} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end justify-start p-3">
+                  <p className="font-body text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">{item.caption}</p>
                 </div>
               </a>
             ))}
+          </div>
+
+          {/* Social Links */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              <Instagram className="w-4 h-4" /> INSTAGRAM
+            </a>
+            <a href="https://www.youtube.com/@EurogulfMobilityGroup-x1n" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              YOUTUBE
+            </a>
+            <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              LINKEDIN
+            </a>
+            <a href="https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              FACEBOOK
+            </a>
           </div>
         </div>
       </section>

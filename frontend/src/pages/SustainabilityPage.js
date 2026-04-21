@@ -10,38 +10,38 @@ const pillars = [
   {
     icon: Fuel,
     title: "Fuel Efficiency",
-    desc: "Our vehicles are regularly maintained and optimized for fuel efficiency, reducing consumption and emissions across our entire fleet of 12,000+ vehicles.",
-    stat: "15%",
-    statLabel: "Reduction in fuel consumption",
+    desc: "Our 3 A-Grade workshops maintain and optimize 12,000+ vehicles for fuel efficiency, reducing consumption and emissions across operations spanning all seven Emirates.",
+    stat: "3",
+    statLabel: "A-Grade workshop facilities",
   },
   {
     icon: Sun,
     title: "Eco-Friendly Operations",
-    desc: "Our offices and facilities are designed to be energy-efficient, using renewable energy sources and minimizing waste throughout our 14 UAE locations.",
-    stat: "3",
-    statLabel: "Solar-powered facilities",
+    desc: "Our offices and workshops across 14 UAE locations are designed for energy efficiency, implementing waste reduction and recycling programmes aligned with the UAE's sustainability vision.",
+    stat: "14",
+    statLabel: "UAE locations optimized",
   },
   {
     icon: Zap,
     title: "Electric Vehicles (EVs)",
-    desc: "At EGMG, we are accelerating the shift to electric vehicles to cut carbon emissions, boost energy efficiency, and support a cleaner future for UAE mobility.",
-    stat: "500+",
-    statLabel: "EVs in our fleet",
+    desc: "EGMG is accelerating the shift to electric mobility with Tesla and hybrid vehicles in our chauffeur fleet, supporting Dubai's Clean Energy Strategy and the UAE Net Zero 2050 initiative.",
+    stat: "EV",
+    statLabel: "Fleet expansion underway",
   },
   {
     icon: Users,
-    title: "Community Engagement",
-    desc: "We partner with local organizations to promote sustainable transportation and support environmental initiatives across the communities we serve.",
-    stat: "10+",
-    statLabel: "Community partnerships",
+    title: "Employee Welfare",
+    desc: "ISO 45001:2018 certified occupational health and safety standards for our 1,200+ employees. F.A.I.R. values ensure a respectful, inclusive workplace across all divisions.",
+    stat: "1,200+",
+    statLabel: "Team members protected",
   },
 ];
 
 const initiatives = [
-  { icon: Leaf, title: "Low-Carbon Fleet", desc: "Transitioning to hybrid and electric vehicles across all divisions" },
-  { icon: Battery, title: "EV Charging Infrastructure", desc: "Installing charging stations at our key locations throughout the UAE" },
-  { icon: Recycle, title: "Waste Reduction", desc: "Implementing recycling programs and reducing single-use materials" },
-  { icon: Sun, title: "Renewable Energy", desc: "Solar panels at workshops and offices powering our daily operations" },
+  { icon: Leaf, title: "Low-Carbon Fleet", desc: "Integrating hybrid and electric vehicles into our chauffeur and corporate fleet divisions" },
+  { icon: Battery, title: "EV Readiness", desc: "Preparing infrastructure at key UAE locations for electric vehicle charging and support" },
+  { icon: Recycle, title: "Waste Reduction", desc: "Implementing recycling programmes and reducing single-use materials across all workshops" },
+  { icon: Sun, title: "UAE Net Zero 2050", desc: "Aligning operations with the UAE's national strategy for carbon neutrality by 2050" },
 ];
 
 export default function SustainabilityPage() {
