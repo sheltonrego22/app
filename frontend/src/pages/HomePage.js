@@ -5,7 +5,6 @@ import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/f4a76c0c341f3929b9bd7c03799a166ba64f50dcd4a0197c233ed71d963409f6.png";
-const BOOKING_URL = "https://www.europcar.com/";
 
 const stats = [
   { value: 12000, suffix: "+", label: "Vehicles in Fleet" },
@@ -54,7 +53,7 @@ const DIVISION_LOGOS = {
   europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
   goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
   royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
-  emiratestaxi: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
+  emiratestaxi: "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file.webp",
   truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
   usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
 };
@@ -143,9 +142,9 @@ export default function HomePage() {
             <Link to="/services" data-testid="hero-explore-btn" className="btn-primary text-center">
               Explore Our Services
             </Link>
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="hero-book-btn" className="btn-ghost text-center">
+            <Link to="/book-chauffeur" data-testid="hero-book-btn" className="btn-ghost text-center">
               Book a Ride
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -424,9 +423,9 @@ export default function HomePage() {
             <Link to="/contact" data-testid="cta-contact-btn" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">
               Contact Us
             </Link>
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">
+            <Link to="/book-chauffeur" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">
               Book Online
-            </a>
+            </Link>
           </div>
         </div>
       </section>

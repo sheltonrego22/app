@@ -4,7 +4,7 @@ import { Shield, Users, Award, ArrowRight, Play, ChevronDown } from 'lucide-reac
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const ABOUT_HERO = "https://images.pexels.com/photos/1645603/pexels-photo-1645603.jpeg?auto=compress&cs=tinysrgb&w=1920";
+const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
 
 const milestones = [
   { year: "1976", title: "Dubai Rent A Car LLC", desc: "Car Rental, Leasing & Transportation Services — the foundation of a mobility empire in the UAE." },

@@ -38,6 +38,7 @@ const divisions = [
     name: "Emirates Taxi",
     year: "2000",
     logo: LOGOS.egmg,
+    logoAlt: "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file.webp",
     desc: "ISO 9001:2015 certified premium chauffeur service with RTA-approved vehicles. Quality-monitored operations with performance-graded drivers delivering consistently exceptional service.",
     href: "/emirates-taxi",
   },
@@ -95,7 +96,7 @@ export default function BusinessesPage() {
                   {/* Logo */}
                   <div className="w-full md:w-48 flex-shrink-0 flex items-center justify-center bg-white/5 p-4 min-h-[80px]">
                     <img
-                      src={d.logo}
+                      src={d.logoAlt || d.logo}
                       alt={d.name}
                       className="h-12 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
                       loading="lazy"

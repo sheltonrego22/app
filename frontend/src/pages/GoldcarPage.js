@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { Check, Star, Clock, Shield, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1657394404818-10989e9d69c8?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp";
+const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-5.webp";
 const BOOKING_URL = "https://www.goldcar.com/en-gb/car-rental/locations/dubai/";
 
 const strengths = [

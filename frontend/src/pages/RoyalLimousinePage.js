@@ -4,8 +4,9 @@ import { Plane, Building2, Users, Car, Monitor, MapPin, Shield, Crown } from 'lu
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1771775751121-3091d79073d4?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.pexels.com/photos/12316002/pexels-photo-12316002.jpeg?auto=compress&cs=tinysrgb&w=1920";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp";
+const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-4.webp";
 
 const services = [
   { icon: Building2, label: "Corporate & Executive Transfers", desc: "Tailored transport solutions for boardroom executives, government officials, and high-profile corporate clients." },
@@ -47,7 +48,7 @@ export default function RoyalLimousinePage() {
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Eurogulf Royal Limousine offers premium chauffeur service for personal and corporate customers. With a professional, highly experienced team of well-trained and accredited chauffeurs, and a fleet of new, well-maintained vehicles, every trip is safe, punctual, and memorable.
           </p>
-          <Link to="/contact" data-testid="royal-limo-enquire-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <Link to="/book-chauffeur" data-testid="royal-limo-enquire-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             Book a Chauffeur
           </Link>
         </div>

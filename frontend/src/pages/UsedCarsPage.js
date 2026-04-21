@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Check, Shield, Tag, Wrench, Users, Star, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1764013290175-2b76e9a00b2e?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1651043186518-efbce5e409e9?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp";
 
 const highlights = [

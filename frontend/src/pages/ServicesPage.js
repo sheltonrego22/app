@@ -276,9 +276,9 @@ export default function ServicesPage() {
               </Carousel>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="chauffeur-book-btn" className="btn-primary inline-block text-center py-4">
+                <Link to="/book-chauffeur" data-testid="chauffeur-book-btn" className="btn-primary inline-block text-center py-4">
                   Book a Chauffeur
-                </a>
+                </Link>
                 <Link to="/royal-limousine" className="btn-ghost inline-block text-center py-4">
                   Royal Limousine Details
                 </Link>

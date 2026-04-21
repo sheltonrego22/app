@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { Truck, Clock, MapPin, Check, Snowflake, Package, Shield } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1761917904658-2a9ecb84a169?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1698348186158-253ce97914f9?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp";
+const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-3.webp";
 
 const services = [
   { icon: Truck, title: "Trucks & Vans Leasing", desc: "A comprehensive range of well-maintained commercial vehicles — from compact delivery vans to heavy-duty trucks — available on flexible lease terms." },
@@ -122,6 +123,40 @@ export default function TrucklinePage() {
                 Enquire About Commercial Fleet
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TRUSTED CLIENTS */}
+      <section className="bg-[#0a0a0a] py-16 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Our Clients</span>
+            <h2 className="font-heading font-bold text-xl text-[#EEEDE7] uppercase tracking-tight mt-2">
+              Trusted by Leading Businesses Across the UAE
+            </h2>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            {[
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-4.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-3.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-2.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-9.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-8.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-11.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-10.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-7.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-6.png.webp",
+              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-5.png.webp",
+            ].map((logo, i) => (
+              <img
+                key={i}
+                src={logo}
+                alt={`Truckline client ${i + 1}`}
+                className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-100 transition-opacity"
+                loading="lazy"
+              />
+            ))}
           </div>
         </div>
       </section>
