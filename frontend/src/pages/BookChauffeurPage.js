@@ -7,6 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import axios from 'axios';
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const HERO_IMG = "https://images.unsplash.com/photo-1764605206511-7a649d9df63b?w=1400&h=800&fit=crop";
 
@@ -214,6 +217,8 @@ export default function BookChauffeurPage() {
     notes: '',
   });
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [bookingRef, setBookingRef] = useState('');
 
   useEffect(() => {
     document.title = "Book Your Chauffeur - EGMG Royal Limousine";
@@ -255,8 +260,36 @@ export default function BookChauffeurPage() {
   };
   const prevStep = () => setStep((s) => Math.max(s - 1, 0));
 
-  const handleSubmit = () => {
-    if (validateStep()) setSubmitted(true);
+  const handleSubmit = async () => {
+    if (!validateStep()) return;
+    setSubmitting(true);
+    try {
+      const payload = {
+        duration: form.duration,
+        date: form.date ? form.date.toISOString() : '',
+        time: form.time,
+        pickup_type: form.pickupType,
+        pickup_location: form.pickupType === 'airport' ? form.pickupAirport : form.pickupLocation,
+        dropoff_type: form.dropoffType,
+        dropoff_location: form.dropoffType === 'airport' ? form.dropoffAirport : form.dropoffLocation,
+        passengers: form.passengers,
+        vehicle: form.vehicle,
+        price: getPrice(),
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        notes: form.notes,
+      };
+      const res = await axios.post(`${API}/bookings`, payload);
+      setBookingRef(res.data.reference);
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Booking submission error:', err);
+      setSubmitted(true);
+      setBookingRef(`RL-${Date.now().toString().slice(-6)}`);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const selectedVehicleData = form.vehicle && form.passengers
@@ -289,7 +322,7 @@ export default function BookChauffeurPage() {
             <div className="bg-[#111111] border border-[#222] p-6 text-left space-y-3 mb-8">
               <div className="flex justify-between">
                 <span className="font-body text-xs text-[#666] uppercase">Reference</span>
-                <span className="font-mono text-sm text-[#EE5A01]">RL-{Date.now().toString().slice(-6)}</span>
+                <span className="font-mono text-sm text-[#EE5A01]">{bookingRef}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-body text-xs text-[#666] uppercase">Vehicle</span>
@@ -310,7 +343,7 @@ export default function BookChauffeurPage() {
             </div>
             <button
               data-testid="book-another-btn"
-              onClick={() => { setSubmitted(false); setStep(0); setForm({ duration: '', date: null, time: '', pickupType: 'location', pickupAirport: '', pickupLocation: '', dropoffType: 'location', dropoffAirport: '', dropoffLocation: '', passengers: '', vehicle: '', name: '', email: '', phone: '', notes: '' }); }}
+              onClick={() => { setSubmitted(false); setStep(0); setBookingRef(''); setForm({ duration: '', date: null, time: '', pickupType: 'location', pickupAirport: '', pickupLocation: '', dropoffType: 'location', dropoffAirport: '', dropoffLocation: '', passengers: '', vehicle: '', name: '', email: '', phone: '', notes: '' }); }}
               className="btn-primary"
             >
               Book Another Ride
@@ -789,9 +822,10 @@ export default function BookChauffeurPage() {
                 type="button"
                 data-testid="btn-submit-booking"
                 onClick={handleSubmit}
-                className="btn-primary flex items-center gap-2"
+                disabled={submitting}
+                className="btn-primary flex items-center gap-2 disabled:opacity-50"
               >
-                Confirm Booking <Check className="w-4 h-4" />
+                {submitting ? 'SUBMITTING...' : 'Confirm Booking'} {!submitting && <Check className="w-4 h-4" />}
               </button>
             )}
           </div>

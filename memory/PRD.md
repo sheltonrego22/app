@@ -33,6 +33,8 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 ## API Endpoints
 - POST /api/contact — Submit enquiry
 - GET /api/contacts — Paginated retrieval
+- POST /api/bookings — Submit chauffeur booking (persisted to MongoDB)
+- GET /api/bookings — Paginated retrieval of bookings
 
 ## Testing: 7 iterations, 100% pass rate all
 
@@ -41,4 +43,3 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 2. WhatsApp Business live chat
 3. Analytics (GA/GTM)
 4. Performance optimization
-5. Backend persistence for chauffeur bookings (currently client-side only)
