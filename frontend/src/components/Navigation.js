@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_a56c4b9d-53c0-46d6-8ecc-d67faee11d28/artifacts/qkt0x86i_EGMG%20Black.png";
-const BOOKING_URL = "https://www.europcar.com/";
 
 const serviceLinks = [
   { label: "All Services", href: "/services" },
@@ -131,15 +130,13 @@ export default function Navigation() {
 
             {/* CTA + Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/book-chauffeur"
                 data-testid="nav-book-now-btn"
                 className="hidden sm:block bg-[#EE5A01] text-black font-heading font-bold text-sm tracking-[0.05em] px-6 py-3 hover:bg-[#d45000] transition-all duration-200 hover:scale-[1.02]"
               >
                 BOOK NOW
-              </a>
+              </Link>
               <button
                 data-testid="mobile-menu-toggle"
                 className="lg:hidden text-[#EEEDE7] p-2"
@@ -194,14 +191,13 @@ export default function Navigation() {
                 </Link>
               ))}
             </div>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/book-chauffeur"
               className="mt-4 bg-[#EE5A01] text-black font-heading font-bold text-base tracking-[0.05em] px-8 py-3.5 w-full max-w-xs text-center"
+              onClick={() => setMobileOpen(false)}
             >
               BOOK NOW
-            </a>
+            </Link>
           </div>
         </div>
       )}
