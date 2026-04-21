@@ -8,7 +8,7 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - **Backend**: FastAPI + MongoDB (contact form)
 - **Fonts**: Outfit / Manrope / JetBrains Mono
 
-## Pages (16 Total)
+## Pages (17 Total)
 1. Home (/) — Hero, Stats, 6 Services, Fleet Carousel, Trust Pillars, Awards, Divisions w/logos, Why Choose EGMG, Social Feed w/YouTube Shorts, Partner Logos, CTA
 2. About (/about) — "Your Vision, Our Journey" hero, Timeline, F.A.I.R. Values, Divisions, Awards (7 images)
 3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide PDF
@@ -19,7 +19,8 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 8-13. Division pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
 14. Businesses (/businesses) — Hub w/6 divisions
 15. Careers (/careers) — 26 jobs, department filters
-16. 404 (*) — Error page
+16. **Book Chauffeur (/book-chauffeur)** — 4-step booking wizard: Duration (4h/8h) → Trip Details (date/time/pickup/dropoff with airport toggle) → Passengers & Vehicle Selection (3/4/6 pax, dynamic luxury vehicles with AED pricing) → Contact & Confirm. Client-side booking with confirmation screen. *(Added Feb 2026)*
+17. 404 (*) — Error page
 
 ## Content Accuracy (Verified Feb 2026)
 - Tagline: "Your Vision, Our Journey" (from egmg.ae)
@@ -33,10 +34,11 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - POST /api/contact — Submit enquiry
 - GET /api/contacts — Paginated retrieval
 
-## Testing: 6 iterations, 100% pass rate all
+## Testing: 7 iterations, 100% pass rate all
 
 ## Future Backlog
 1. CMS for media center
 2. WhatsApp Business live chat
 3. Analytics (GA/GTM)
 4. Performance optimization
+5. Backend persistence for chauffeur bookings (currently client-side only)
