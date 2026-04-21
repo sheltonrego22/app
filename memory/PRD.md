@@ -36,7 +36,16 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - POST /api/bookings — Submit chauffeur booking (persisted to MongoDB)
 - GET /api/bookings — Paginated retrieval of bookings
 
-## Testing: 7 iterations, 100% pass rate all
+## Testing: 8 iterations, 100% pass rate all
+
+## Content & Visual Audit (Feb 2026)
+- All hero images updated to UAE-specific photos (Dubai skyline, Sheikh Zayed Road, DXB airport)
+- Real division logos scraped from egmg.ae (Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars)
+- Real EGMG about image from egmg.ae used on About page
+- Truckline client logos (10 real logos from egmg.ae) added
+- Emirates Taxi logo fixed across HomePage, BusinessesPage, and EmiratesTaxiPage
+- All internal booking CTAs updated to /book-chauffeur (HomePage, ServicesPage, RoyalLimousinePage, EmiratesTaxiPage)
+- External Europcar booking links preserved where appropriate (EuropcarPage, GoldcarPage, ContactPage international)
 
 ## Future Backlog
 1. CMS for media center
