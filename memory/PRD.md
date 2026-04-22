@@ -8,19 +8,21 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - **Backend**: FastAPI + MongoDB (contact form)
 - **Fonts**: Outfit / Manrope / JetBrains Mono
 
-## Pages (17 Total)
+## Pages (19 Total)
 1. Home (/) — Hero, Stats, 6 Services, Fleet Carousel, Trust Pillars, Awards, Divisions w/logos, Why Choose EGMG, Social Feed w/YouTube Shorts, Partner Logos, CTA
 2. About (/about) — "Your Vision, Our Journey" hero, Timeline, F.A.I.R. Values, Divisions, Awards (7 images)
 3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide PDF
 4. Contact (/contact) — Form (MongoDB), 14 locations, Google Maps
 5. Leadership (/leadership) — 9 leaders w/real photos
 6. Sustainability (/sustainability) — 4 pillars (verified stats only)
-7. Media Center (/media) — Filters, Search, 24 articles
+7. Media Center (/media) — Dynamic CMS-powered articles, category filters, search, featured articles, expandable cards
 8-13. Division pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
 14. Businesses (/businesses) — Hub w/6 divisions
 15. Careers (/careers) — 26 jobs, department filters
-16. **Book Chauffeur (/book-chauffeur)** — 4-step booking wizard: Duration (4h/8h) → Trip Details (date/time/pickup/dropoff with airport toggle) → Passengers & Vehicle Selection (3/4/6 pax, dynamic luxury vehicles with AED pricing) → Contact & Confirm. Client-side booking with confirmation screen. *(Added Feb 2026)*
-17. 404 (*) — Error page
+16. Book Chauffeur (/book-chauffeur) — 4-step booking wizard with MongoDB persistence
+17. Admin Login (/admin/login) — JWT auth with brute force protection
+18. Admin Dashboard (/admin) — Full CMS: create/edit/delete articles with rich text editor, image/PDF upload, video embeds
+19. 404 (*) — Error page
 
 ## Content Accuracy (Verified Feb 2026)
 - Tagline: "Your Vision, Our Journey" (from egmg.ae)
@@ -33,10 +35,20 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 ## API Endpoints
 - POST /api/contact — Submit enquiry
 - GET /api/contacts — Paginated retrieval
-- POST /api/bookings — Submit chauffeur booking (persisted to MongoDB)
+- POST /api/bookings — Submit chauffeur booking
 - GET /api/bookings — Paginated retrieval of bookings
+- POST /api/auth/login — Admin JWT login with brute force protection
+- GET /api/auth/me — Current user session
+- POST /api/auth/logout — Clear auth cookies
+- POST /api/auth/refresh — Refresh access token
+- GET /api/articles — Public articles (filter by category, search)
+- GET /api/articles/:id — Single article
+- POST /api/articles — Create article (auth required)
+- PUT /api/articles/:id — Update article (auth required)
+- DELETE /api/articles/:id — Delete article (auth required)
+- POST /api/upload — File upload for images/PDFs (auth required)
 
-## Testing: 9 iterations, 100% pass rate all
+## Testing: 10 iterations, 100% pass rate (bugs fixed inline)
 
 ## Brand Guidelines Audit (Feb 2026)
 - Uploaded EGMG Logo1.png (orange icon + "EUROGULF MOBILITY GROUP") used site-wide: Nav, Footer, all division pages

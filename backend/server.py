@@ -170,8 +170,11 @@ async def login(input: LoginInput, request: Request):
     attempt = await db.login_attempts.find_one({"identifier": identifier})
     if attempt and attempt.get("count", 0) >= 5:
         locked_until = attempt.get("locked_until")
-        if locked_until and datetime.now(timezone.utc) < locked_until:
-            raise HTTPException(status_code=429, detail="Too many attempts. Try again in 15 minutes.")
+        if locked_until:
+            if locked_until.tzinfo is None:
+                locked_until = locked_until.replace(tzinfo=timezone.utc)
+            if datetime.now(timezone.utc) < locked_until:
+                raise HTTPException(status_code=429, detail="Too many attempts. Try again in 15 minutes.")
         else:
             await db.login_attempts.delete_one({"identifier": identifier})
 
