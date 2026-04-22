@@ -34,13 +34,16 @@ const coreValues = [
   { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees and 14 locations. Every client and every colleague is treated with the respect they deserve." },
 ];
 
+const EGMG_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+
 const DIVISION_LOGOS = {
-  europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
-  goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
-  royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
-  emiratestaxi: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
-  truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
-  usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
+  europcar: EUROPCAR_LOGO,
+  goldcar: EGMG_LOGO,
+  royallimo: EGMG_LOGO,
+  emiratestaxi: EGMG_LOGO,
+  truckline: EGMG_LOGO,
+  usedcars: EGMG_LOGO,
 };
 
 const AWARD_IMAGES = [
@@ -205,7 +208,7 @@ export default function AboutPage() {
                 className={`bg-[#111111] border border-white/5 p-6 hover:border-[#EE5A01] transition-all group ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >
                 <div className="w-full h-10 flex items-center mb-4">
-                  <img src={d.logo} alt={d.name} className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity" loading="lazy" />
+                  <img src={d.logo} alt={d.name} className="h-8 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity" loading="lazy" />
                 </div>
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-2">{d.name}</h3>
                 <p className="font-body text-xs text-[#666666] leading-relaxed mb-3">{d.desc}</p>

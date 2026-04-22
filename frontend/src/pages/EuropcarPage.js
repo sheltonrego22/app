@@ -4,7 +4,7 @@ import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Do
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=1400&h=700&fit=crop";
-const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp";
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
 const BOOKING_URL = "https://www.europcar.com/en-db";
 const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";
@@ -67,21 +67,23 @@ export default function EuropcarPage() {
           <div className="absolute inset-0 bg-black/65" />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16">
-          <img src={LOGO_URL} alt="Europcar" className="h-10 w-auto mb-6 brightness-0 invert opacity-80" loading="lazy" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
+          <img src={LOGO_URL} alt="Europcar" className="h-10 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Mobility That Works for You
           </h1>
-          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             At Europcar Dubai, we deliver a premium car rental and vehicle leasing experience. As a leading global mobility provider with operations in over 143 countries, we offer flexible solutions for short-term rentals and long-term leasing alike.
           </p>
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-hero-book-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            Book Your Rental
-          </a>
-          <a href={FLEET_GUIDE_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-fleet-guide-btn" className="inline-flex items-center gap-2 ml-0 sm:ml-4 mt-4 sm:mt-0 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-3.5 hover:bg-[#EE5A01] hover:text-black transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <Download className="w-4 h-4" />
-            FLEET GUIDE (PDF)
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-hero-book-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              Book Your Rental
+            </a>
+            <a href={FLEET_GUIDE_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-fleet-guide-btn" className="inline-flex items-center justify-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-3.5 hover:bg-[#EE5A01] hover:text-black transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <Download className="w-4 h-4" />
+              FLEET GUIDE (PDF)
+            </a>
+          </div>
         </div>
       </section>
 

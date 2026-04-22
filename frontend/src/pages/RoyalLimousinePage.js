@@ -5,7 +5,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const HERO_IMG = "https://images.pexels.com/photos/12316002/pexels-photo-12316002.jpeg?auto=compress&cs=tinysrgb&w=1920";
-const LOGO_URL = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp";
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
 const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-4.webp";
 
 const services = [
@@ -40,12 +40,12 @@ export default function RoyalLimousinePage() {
           <div className="absolute inset-0 bg-black/65" />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16">
-          <img src={LOGO_URL} alt="Royal Limousine" className="h-12 w-auto mb-6 brightness-0 invert opacity-80" loading="lazy" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
+          <img src={LOGO_URL} alt="Royal Limousine by EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Royal Treatment on the Move
           </h1>
-          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Eurogulf Royal Limousine offers premium chauffeur service for personal and corporate customers. With a professional, highly experienced team of well-trained and accredited chauffeurs, and a fleet of new, well-maintained vehicles, every trip is safe, punctual, and memorable.
           </p>
           <Link to="/book-chauffeur" data-testid="royal-limo-enquire-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>

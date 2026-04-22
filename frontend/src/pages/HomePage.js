@@ -49,13 +49,16 @@ const awards = [
   "BUSINESS TRAVEL AWARDS — BEST CAR RENTAL MIDDLE EAST",
 ];
 
+const EGMG_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+
 const DIVISION_LOGOS = {
-  europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
-  goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
-  royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
-  emiratestaxi: "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file.webp",
-  truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
-  usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
+  europcar: EUROPCAR_LOGO,
+  goldcar: EGMG_LOGO,
+  royallimo: EGMG_LOGO,
+  emiratestaxi: EGMG_LOGO,
+  truckline: EGMG_LOGO,
+  usedcars: EGMG_LOGO,
 };
 
 const PARTNER_LOGOS = [
@@ -122,18 +125,14 @@ export default function HomePage() {
           <img src={HERO_BG} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/60" />
         </div>
-        {/* Diagonal accent line */}
-        <div className="absolute top-0 right-[15%] w-[2px] h-[40%] bg-[#EE5A01]/30 rotate-[-20deg] origin-top hidden lg:block" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
-          <p className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#EE5A01] mb-6 uppercase animate-fade-in">
-            YOUR VISION, OUR JOURNEY — SINCE 1976
-          </p>
-          <h1 className="font-heading font-black text-4xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
-            WE MOVE YOU
+          <img src={EGMG_LOGO} alt="EGMG" className="h-14 sm:h-16 w-auto mx-auto mb-8 animate-fade-in" />
+          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
+            WE MOVE
           </h1>
-          <h1 className="font-heading font-black text-4xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
-            FORWARD.
+          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            YOU!
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
             From premium chauffeur services to corporate fleet management, EGMG has been defining mobility across the UAE since 1976. One group. 12,000+ vehicles. Every journey.
@@ -288,7 +287,7 @@ export default function HomePage() {
                 className={`bg-[#111111] border border-white/5 p-6 text-center group hover:border-[#EE5A01] transition-all duration-300 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
               >
                 <div className="w-full h-12 flex items-center justify-center mx-auto mb-4">
-                  <img src={d.logo} alt={d.name} className="h-10 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity" loading="lazy" />
+                  <img src={d.logo} alt={d.name} className={`h-10 w-auto object-contain transition-opacity ${d.logo === EUROPCAR_LOGO ? 'opacity-70 group-hover:opacity-100' : 'opacity-70 group-hover:opacity-100'}`} loading="lazy" />
                 </div>
                 <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{d.name}</h3>
                 <p className="font-body text-xs text-[#666666]">{d.desc}</p>

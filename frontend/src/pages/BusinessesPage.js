@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+const EGMG_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+
 const LOGOS = {
-  egmg: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-14-scaled-1.jpg.webp",
-  europcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-06-1-e1745044285916.png.webp",
-  goldcar: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/all-logos-old-and-new-3-1-08-1-e1745044394867.png.webp",
-  usedcars: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-03-scaled-1.jpg.webp",
-  royallimo: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-01-scaled-1.jpg.webp",
-  truckline: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/EGMG-logo-839-by-263-pixels-2-13-scaled-1.jpg.webp",
+  egmg: EGMG_LOGO,
+  europcar: EUROPCAR_LOGO,
+  goldcar: EGMG_LOGO,
+  usedcars: EGMG_LOGO,
+  royallimo: EGMG_LOGO,
+  truckline: EGMG_LOGO,
 };
 
 const divisions = [
@@ -98,7 +101,7 @@ export default function BusinessesPage() {
                     <img
                       src={d.logoAlt || d.logo}
                       alt={d.name}
-                      className="h-12 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
+                      className="h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                       loading="lazy"
                     />
                   </div>
