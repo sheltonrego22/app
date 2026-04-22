@@ -1,190 +1,205 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, ArrowRight, Search } from 'lucide-react';
+import { Calendar, ArrowRight, Search, Star, Video, FileDown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import axios from 'axios';
 
-const articles = [
-  { title: "Corporate Mobility Solutions in the UAE: How Businesses Optimize Transportation", date: "April 5, 2026", category: "Corporate" },
-  { title: "Long-Term Vehicle Leasing for Corporate Mobility in the UAE", date: "April 5, 2026", category: "Leasing" },
-  { title: "Luxury Chauffeur Services for Corporate Events", date: "April 5, 2026", category: "Chauffeur" },
-  { title: "Fleet Vans vs Owned Vehicles for Delivery Businesses", date: "April 5, 2026", category: "Fleet" },
-  { title: "Dubai Airport Car Rental on a Budget: What a 1-Week Traveler Should Know", date: "April 5, 2026", category: "Rental" },
-  { title: "Short-Term Vs Long-Term Luxury Car Leasing: Which Fits for Expats?", date: "April 5, 2026", category: "Leasing" },
-  { title: "Hidden Costs in Van Leasing Contracts in Dubai and How to Avoid Them", date: "April 5, 2026", category: "Leasing" },
-  { title: "Fleet Vehicle Leasing in the UAE: How Businesses Reduce Costs", date: "April 5, 2026", category: "Fleet" },
-  { title: "Why Buying Pre-Owned Vehicles in Dubai Is a Smart Decision", date: "April 5, 2026", category: "Used Cars" },
-  { title: "Short Term Car Rentals in Dubai: Affordable & Flexible Options", date: "April 5, 2026", category: "Rental" },
-  { title: "Why Van Leasing Is a Smart Choice for Businesses in Dubai", date: "April 5, 2026", category: "Leasing" },
-  { title: "Affordable Car Rental in Dubai: How Goldcar Helps You Save More", date: "April 5, 2026", category: "Rental" },
-  { title: "Royal Limousine Service in Dubai: Experience True Luxury on the Road", date: "April 5, 2026", category: "Chauffeur" },
-  { title: "Luxury Chauffeur Service in Dubai: What Sets a Premium Experience Apart?", date: "April 5, 2026", category: "Chauffeur" },
-  { title: "Monthly Car Rental vs Company Car: Which Saves More for UAE Businesses?", date: "April 5, 2026", category: "Rental" },
-  { title: "Driving the Future: EGMG's Commitment to Green Mobility in the UAE", date: "April 5, 2026", category: "Sustainability" },
-  { title: "Royal Limousine: Redefining Luxury Chauffeur Travel in Dubai", date: "April 5, 2026", category: "Chauffeur" },
-  { title: "Truckline: Your Trusted Partner for Commercial Fleet Leasing in Dubai", date: "April 5, 2026", category: "Fleet" },
-  { title: "How Eurogulf Mobility Group is Shaping the Future of Fleet Management", date: "April 5, 2026", category: "Corporate" },
-  { title: "Why Long-Term Car Rental in Dubai is the Smart Choice for Expats", date: "April 5, 2026", category: "Rental" },
-  { title: "The Future of Chauffeur and Corporate Transport in the UAE", date: "April 5, 2026", category: "Corporate" },
-  { title: "How Fleet Leasing Services in UAE Are Helping SMEs Grow", date: "April 5, 2026", category: "Fleet" },
-  { title: "The Ultimate Guide to Renting a Car with Europcar in Dubai", date: "April 5, 2026", category: "Rental" },
-  { title: "Fleet Management Solutions in Dubai: Maximize Efficiency and Cut Costs", date: "April 5, 2026", category: "Fleet" },
-];
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const categories = ["All", "Corporate", "Rental", "Leasing", "Chauffeur", "Fleet", "Used Cars", "Sustainability"];
+const categories = ["All", "Press Releases", "Industry News", "Company Updates", "Awards", "Fleet", "Sustainability"];
 
 const categoryColors = {
-  Corporate: "bg-[#EE5A01]/10 text-[#EE5A01]",
-  Rental: "bg-blue-500/10 text-blue-400",
-  Leasing: "bg-purple-500/10 text-purple-400",
-  Chauffeur: "bg-amber-500/10 text-amber-400",
+  "Press Releases": "bg-[#EE5A01]/10 text-[#EE5A01]",
+  "Industry News": "bg-blue-500/10 text-blue-400",
+  "Company Updates": "bg-purple-500/10 text-purple-400",
+  Awards: "bg-amber-500/10 text-amber-400",
   Fleet: "bg-green-500/10 text-green-400",
-  "Used Cars": "bg-cyan-500/10 text-cyan-400",
   Sustainability: "bg-emerald-500/10 text-emerald-400",
 };
 
 export default function MediaCenterPage() {
   const [filter, setFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [articles, setArticles] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState(null);
   const [gridRef, gridVisible] = useScrollAnimation();
 
   useEffect(() => { document.title = "Media Center — EGMG | News & Insights"; }, []);
 
-  const filteredArticles = articles.filter((a) => {
-    const matchesCategory = filter === "All" || a.category === filter;
-    const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setLoading(true);
+      try {
+        const params = { limit: 50 };
+        if (filter !== "All") params.category = filter;
+        if (searchQuery) params.search = searchQuery;
+        const { data } = await axios.get(`${API}/articles`, { params });
+        setArticles(data.articles.filter((a) => a.published !== false));
+        setTotal(data.total);
+      } catch (err) {
+        console.error('Failed to fetch articles', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    const debounce = setTimeout(fetchArticles, 300);
+    return () => clearTimeout(debounce);
+  }, [filter, searchQuery]);
+
+  const featuredArticles = articles.filter((a) => a.featured);
+  const regularArticles = articles.filter((a) => !a.featured);
 
   return (
     <div data-testid="media-center-page">
-      {/* ═══ HERO ═══ */}
-      <section data-testid="media-hero" className="bg-black pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4 animate-fade-in">News & Insights</p>
-          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-6 animate-fade-in-up">
+      {/* HERO */}
+      <section data-testid="media-hero" className="relative min-h-[50vh] flex items-center overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
+        <div className="absolute top-20 right-20 w-80 h-80 bg-[#EE5A01]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">News & Insights</span>
+          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Media Center
           </h1>
-          <p className="font-body text-base text-[#666666] max-w-xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Stay updated with the latest news, insights, and thought leadership from Eurogulf Mobility Group.
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            The latest from Eurogulf Mobility Group — press releases, industry insights, fleet updates, and awards.
           </p>
         </div>
       </section>
 
-      {/* ═══ FILTERS ═══ */}
-      <section className="bg-[#0a0a0a] border-b border-white/5 sticky top-20 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-            {/* Category Filters */}
-            <div className="flex gap-1 overflow-x-auto min-w-0 pb-1">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  data-testid={`media-filter-${cat.toLowerCase().replace(/\s/g, '-')}`}
-                  onClick={() => setFilter(cat)}
-                  className={`font-heading font-bold text-xs tracking-[0.05em] px-4 py-2 transition-all flex-shrink-0 ${
-                    filter === cat
-                      ? 'bg-[#EE5A01] text-black'
-                      : 'text-[#666666] hover:text-[#EEEDE7]'
-                  }`}
-                >
-                  {cat.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            {/* Search */}
-            <div className="relative flex-shrink-0 w-full sm:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666666]" />
+      {/* FILTERS */}
+      <section className="bg-[#0a0a0a] border-b border-white/5 py-5 sticky top-20 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
               <input
+                data-testid="media-search"
                 type="text"
-                data-testid="media-search-input"
-                placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-black border border-[#333] text-[#EEEDE7] text-sm font-body pl-10 pr-4 py-2.5 placeholder:text-[#444] focus:border-[#EE5A01] focus:outline-none"
+                placeholder="Search articles..."
+                className="w-full bg-[#111] border border-[#333] text-[#EEEDE7] placeholder:text-[#444] px-4 py-2.5 pl-10 text-sm font-body focus:border-[#EE5A01] focus:outline-none transition-colors"
               />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  data-testid={`filter-${c.toLowerCase().replace(/\s/g, '-')}`}
+                  onClick={() => setFilter(c)}
+                  className={`font-heading text-[10px] sm:text-xs tracking-[0.1em] uppercase px-3 py-1.5 transition-colors ${
+                    filter === c
+                      ? 'bg-[#EE5A01] text-black'
+                      : 'text-[#666666] hover:text-[#EEEDE7] border border-[#333] bg-transparent'
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ FEATURED ARTICLE ═══ */}
-      {filter === "All" && !searchQuery && (
-        <section data-testid="featured-article" className="bg-black py-12">
+      {/* FEATURED */}
+      {featuredArticles.length > 0 && (
+        <section className="bg-black py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#111111] border border-white/5 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
-              <div className="h-64 lg:h-auto bg-gradient-to-br from-[#EE5A01]/20 via-[#0a0a0a] to-black flex items-center justify-center">
-                <span className="font-heading font-black text-6xl text-[#EE5A01]/20">EGMG</span>
-              </div>
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <span className="font-mono text-[10px] tracking-[0.15em] text-[#EE5A01] uppercase mb-3">Featured</span>
-                <h2 className="font-heading font-bold text-2xl sm:text-3xl text-[#EEEDE7] mb-4 leading-tight">
-                  {articles[0].title}
-                </h2>
-                <div className="flex items-center gap-2 mb-6">
-                  <Calendar className="w-3 h-3 text-[#666666]" />
-                  <span className="font-mono text-xs text-[#666666]">{articles[0].date}</span>
-                  <span className={`font-mono text-[10px] tracking-wider px-2 py-0.5 ${categoryColors[articles[0].category]}`}>
-                    {articles[0].category.toUpperCase()}
-                  </span>
-                </div>
-                <span className="inline-flex items-center gap-2 text-[#EE5A01] text-sm font-heading font-bold cursor-pointer hover:gap-3 transition-all">
-                  Read Article <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
+            <div className="flex items-center gap-2 mb-6">
+              <Star className="w-4 h-4 text-[#EE5A01] fill-[#EE5A01]" />
+              <span className="font-heading text-xs text-[#EE5A01] uppercase tracking-wider">Featured</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {featuredArticles.map((a) => (
+                <ArticleCard key={a.id} article={a} expanded={expandedId === a.id} onToggle={() => setExpandedId(expandedId === a.id ? null : a.id)} />
+              ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* ═══ ARTICLES GRID ═══ */}
-      <section data-testid="articles-grid" className="bg-[#0a0a0a] py-16 sm:py-20">
+      {/* ARTICLES GRID */}
+      <section data-testid="articles-grid" className="bg-[#0a0a0a] py-12 sm:py-16">
         <div ref={gridRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <p className="font-body text-sm text-[#666666]">
-              Showing {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''}
-            </p>
-          </div>
-          {filteredArticles.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="font-heading text-xl text-[#666666]">No articles found</p>
-              <p className="font-body text-sm text-[#444] mt-2">Try a different search or category</p>
+          {loading ? (
+            <div className="text-center py-16">
+              <div className="w-8 h-8 border-2 border-[#EE5A01] border-t-transparent animate-spin mx-auto mb-4" />
+              <p className="font-body text-sm text-[#666]">Loading articles...</p>
+            </div>
+          ) : regularArticles.length === 0 && featuredArticles.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="font-heading text-lg text-[#666]">No articles found</p>
+              <p className="font-body text-sm text-[#444] mt-2">Try adjusting your search or filters.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredArticles.map((article, i) => (
-                <article
-                  key={i}
-                  data-testid={`article-card-${i}`}
-                  className={`bg-[#111111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/20 transition-all duration-300 ${gridVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
-                >
-                  {/* Gradient Header */}
-                  <div className="h-40 bg-gradient-to-br from-[#EE5A01]/10 via-[#111111] to-[#0a0a0a] flex items-end p-5 relative overflow-hidden">
-                    <div className="absolute top-4 right-4">
-                      <span className={`font-mono text-[10px] tracking-wider px-2 py-0.5 ${categoryColors[article.category] || 'bg-[#EE5A01]/10 text-[#EE5A01]'}`}>
-                        {article.category.toUpperCase()}
-                      </span>
-                    </div>
-                    <span className="font-heading font-black text-5xl text-white/[0.03] absolute bottom-2 left-4">{String(i + 1).padStart(2, '0')}</span>
+            <>
+              <p className="font-mono text-xs text-[#666] tracking-wider mb-6">{total} ARTICLE{total !== 1 ? 'S' : ''}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {regularArticles.map((a, i) => (
+                  <div key={a.id} className={gridVisible ? 'scroll-visible' : 'scroll-hidden'} style={{ transitionDelay: `${(i % 6) * 0.1}s` }}>
+                    <ArticleCard article={a} expanded={expandedId === a.id} onToggle={() => setExpandedId(expandedId === a.id ? null : a.id)} />
                   </div>
-                  {/* Content */}
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Calendar className="w-3 h-3 text-[#666666]" />
-                      <span className="font-mono text-[10px] text-[#666666]">{article.date}</span>
-                    </div>
-                    <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-4 leading-snug line-clamp-3 group-hover:text-[#EE5A01] transition-colors">
-                      {article.title}
-                    </h3>
-                    <span className="inline-flex items-center gap-2 text-[#EE5A01] text-xs font-heading font-bold cursor-pointer group-hover:gap-3 transition-all">
-                      Read More <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </article>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </section>
+    </div>
+  );
+}
+
+function ArticleCard({ article, expanded, onToggle }) {
+  const a = article;
+  const dateStr = new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  return (
+    <div
+      data-testid={`article-card-${a.id}`}
+      className="bg-[#111] border border-white/5 hover:border-[#EE5A01]/30 transition-all group cursor-pointer"
+      onClick={onToggle}
+    >
+      {a.image_url && (
+        <div className="aspect-[16/9] overflow-hidden">
+          <img src={a.image_url} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </div>
+      )}
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <span className={`font-mono text-[10px] tracking-wider px-2 py-0.5 uppercase ${categoryColors[a.category] || 'bg-[#EE5A01]/10 text-[#EE5A01]'}`}>
+            {a.category}
+          </span>
+          {a.featured && <Star className="w-3 h-3 text-[#EE5A01] fill-[#EE5A01]" />}
+          {a.video_url && <Video className="w-3 h-3 text-[#666]" />}
+        </div>
+        <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2 leading-snug group-hover:text-[#EE5A01] transition-colors">
+          {a.title}
+        </h3>
+        <div className="flex items-center gap-2 text-[#666]">
+          <Calendar className="w-3 h-3" />
+          <span className="font-body text-xs">{dateStr}</span>
+        </div>
+
+        {expanded && (
+          <div className="mt-4 pt-4 border-t border-[#222]">
+            {a.body && (
+              <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={{ __html: a.body }} />
+            )}
+            {a.video_url && (
+              <div className="mt-4 aspect-video">
+                <iframe src={a.video_url} title={a.title} className="w-full h-full border border-[#333]" allowFullScreen loading="lazy" />
+              </div>
+            )}
+            {a.pdf_url && (
+              <a href={a.pdf_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-[#EE5A01] font-heading text-xs uppercase tracking-wider hover:underline">
+                <FileDown className="w-4 h-4" /> Download PDF
+              </a>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

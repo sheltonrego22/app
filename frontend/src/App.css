@@ -190,3 +190,26 @@
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
 }
+
+
+/* ═══ Quill Dark Theme ═══ */
+.quill-dark .ql-toolbar { background: #111 !important; border-color: #333 !important; }
+.quill-dark .ql-toolbar .ql-stroke { stroke: #999 !important; }
+.quill-dark .ql-toolbar .ql-fill { fill: #999 !important; }
+.quill-dark .ql-toolbar .ql-picker-label { color: #999 !important; }
+.quill-dark .ql-toolbar button:hover .ql-stroke { stroke: #EE5A01 !important; }
+.quill-dark .ql-toolbar button:hover .ql-fill { fill: #EE5A01 !important; }
+.quill-dark .ql-container { background: #000 !important; border-color: #333 !important; color: #EEEDE7 !important; min-height: 200px; }
+.quill-dark .ql-editor { color: #EEEDE7 !important; font-family: 'Manrope', sans-serif; }
+.quill-dark .ql-editor.ql-blank::before { color: #444 !important; }
+.quill-dark .ql-picker-options { background: #111 !important; border-color: #333 !important; }
+.quill-dark .ql-picker-item { color: #999 !important; }
+.quill-dark .ql-picker-item:hover { color: #EE5A01 !important; }
+
+/* ═══ Article Body ═══ */
+.article-body p { margin-bottom: 0.75em; }
+.article-body h2 { font-size: 1.25em; font-weight: 700; margin: 1em 0 0.5em; color: #EEEDE7; }
+.article-body h3 { font-size: 1.1em; font-weight: 600; margin: 0.75em 0 0.5em; color: #EEEDE7; }
+.article-body a { color: #EE5A01; text-decoration: underline; }
+.article-body ul, .article-body ol { padding-left: 1.5em; margin-bottom: 0.75em; }
+.article-body li { margin-bottom: 0.25em; }

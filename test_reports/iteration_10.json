@@ -1,0 +1,66 @@
+{
+  "summary": "Iteration 10 - Tested the new CMS (auth + articles CRUD + Media Center). 11/12 backend tests PASS. CRITICAL: brute-force lockout returns 500 (datetime tz comparison bug) instead of 429. CRITICAL: Admin CMS New Article / Edit forms crash with 'react_dom_1.default.findDOMNode is not a function' due to react-quill 2.0 incompatibility with React 19 - admins CANNOT create or edit articles via the UI. Public Media Center page works correctly: dynamic loading, featured section, category filter, search, and article expansion all verified.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "POST /api/auth/login (brute-force path)",
+        "issue": "After 5 failed attempts, the 6th request returns HTTP 500 instead of 429. Backend log: `TypeError: can't compare offset-naive and offset-aware datetimes` at server.py line 173. Cause: `locked_until` retrieved from MongoDB is offset-naive while `datetime.now(timezone.utc)` is tz-aware. Lockout NEVER triggers, so the brute-force protection is effectively disabled. Fix: store/compare consistently, e.g. `locked_until.replace(tzinfo=timezone.utc)` before comparison, or store epoch seconds.",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "AdminDashboardPage - Article form (ReactQuill)",
+        "issue": "Clicking 'New Article' (and presumably Edit) renders a runtime error overlay: 'react_dom_1.default.findDOMNode is not a function' thrown by ReactQuill.getEditingArea/instantiateEditor. react-quill@2.0.0 uses findDOMNode which was removed in React 19. The form does not render - title/category/body inputs all missing (input count = 0). Admins cannot create or edit articles. Fix options: (a) replace react-quill with `react-quill-new` (community React-19-compatible fork) and update import to `react-quill-new`, or (b) switch to TipTap / Slate, or (c) downgrade React to 18.",
+        "selector": ".ql-editor / [class*=quill]",
+        "priority": "CRITICAL"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "CMS Create Article",
+        "issue": "Blocked by the ReactQuill crash above - cannot fill form, cannot submit, cannot verify list refresh.",
+        "affected_selectors": [".ql-editor", "input[type='text']", "button:has-text('Save')"]
+      },
+      {
+        "flow": "CMS Edit Article",
+        "issue": "Same ReactQuill crash will trigger because the edit form reuses the same editor component (not directly re-tested due to overlay blocking, but root cause is identical).",
+        "affected_selectors": [".ql-editor"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_cms_api.py",
+    "/app/test_reports/pytest/pytest_results_iter10.xml"
+  ],
+  "action_items": [
+    "[CRITICAL] Replace `react-quill` with `react-quill-new` (or alternative editor) to fix React 19 findDOMNode incompatibility - this fully blocks CMS write operations.",
+    "[CRITICAL] Fix brute-force lockout datetime comparison in /app/backend/server.py login() - convert MongoDB-stored `locked_until` to tz-aware before comparing with datetime.now(timezone.utc). Currently returns 500 and lockout never engages.",
+    "[Optional] Wrap ReactQuill in an ErrorBoundary so a single editor crash doesn't blank the whole admin screen."
+  ],
+  "critical_code_review_comments": [
+    "server.py login(): `locked_until` written tz-aware but read tz-naive from BSON; subsequent comparison raises TypeError -> 500. Brute-force protection is effectively a no-op for the security audit.",
+    "server.py: `bcrypt.gensalt()` default rounds=12 - acceptable. Hash format $2b$ verified by login round-trip.",
+    "server.py: `secure=False` on auth cookies in set_cookie. For production over HTTPS this should be True (preview ingress is HTTPS). Currently OK for preview but flag for prod.",
+    "server.py: get_current_user uses `ObjectId(payload['sub'])` - if a malformed sub ever reached here it would raise InvalidId (500). Wrap in try/except.",
+    "frontend package.json: react-quill 2.0 + react 19 is a known broken combination (well-documented since Dec 2024). Use react-quill-new or react-quilljs.",
+    "AdminDashboardPage / form: no ErrorBoundary - one render error blanks the whole page with the dev overlay; in prod it would white-screen the dashboard."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_cms_api.py (new)"
+  ],
+  "success_rate": {
+    "backend": "92% (11/12 passed; brute-force test failed due to real bug)",
+    "frontend": "60% (Media Center 100%; Admin login + dashboard list OK; Create/Edit forms broken)"
+  },
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (works)",
+  "seed_data_creation": "Backend test created+deleted one TEST_Article via API (cleaned up). No UI-side test article was created (form crashed before submission).",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "After main agent swaps react-quill for react-quill-new (or fixes the editor) and patches the brute-force datetime bug, retest: (1) /admin -> New Article: fill title, pick category, type body in editor, submit, verify it appears in dashboard list AND in /api/articles. (2) /admin -> Edit existing: form pre-fills, change title, save, verify update. (3) /admin -> Delete (icon button): row removed. (4) Backend brute force: 6 failed logins -> 6th returns 429 (not 500). Note: edit/delete buttons in dashboard are pencil/trash icons, not text 'Edit'/'Delete' - use icon SVG selectors or data-testid. Login cookies (httpOnly access_token + refresh_token) verified set correctly. Public Media Center fully working - no retest needed there.",
+  "rca of the issue": "Issue 1 (brute-force 500): MongoDB BSON datetime is always stored UTC but READ back as offset-naive. The login() handler compares it against `datetime.now(timezone.utc)` (tz-aware). Python raises TypeError, FastAPI converts to 500. The bug is silently disabling the entire 5-attempt lockout. Reproduce: POST /api/auth/login 6+ times with the same fake email and wrong password. Mitigation: `locked_until = locked_until.replace(tzinfo=timezone.utc) if locked_until and locked_until.tzinfo is None else locked_until` before the comparison. Issue 2 (CMS editor crash): React 19 removed `findDOMNode` from react-dom. react-quill 2.0 internally calls `ReactDOM.findDOMNode(this)` in componentDidMount. The community has published `react-quill-new` (drop-in replacement) which uses refs instead. Mitigation: `yarn remove react-quill && yarn add react-quill-new`, then change `import ReactQuill from 'react-quill'` to `import ReactQuill from 'react-quill-new'` in AdminDashboardPage.js."
+}

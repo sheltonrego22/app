@@ -19,6 +19,8 @@ import UsedCarsPage from "@/pages/UsedCarsPage";
 import CareersPage from "@/pages/CareersPage";
 import BusinessesPage from "@/pages/BusinessesPage";
 import BookChauffeurPage from "@/pages/BookChauffeurPage";
+import AdminLoginPage from "@/pages/AdminLoginPage";
+import AdminDashboardPage from "@/pages/AdminDashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -61,6 +63,8 @@ function App() {
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/businesses" element={<BusinessesPage />} />
           <Route path="/book-chauffeur" element={<BookChauffeurPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
