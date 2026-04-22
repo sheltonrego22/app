@@ -36,7 +36,16 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - POST /api/bookings — Submit chauffeur booking (persisted to MongoDB)
 - GET /api/bookings — Paginated retrieval of bookings
 
-## Testing: 8 iterations, 100% pass rate all
+## Testing: 9 iterations, 100% pass rate all
+
+## Brand Guidelines Audit (Feb 2026)
+- Uploaded EGMG Logo1.png (orange icon + "EUROGULF MOBILITY GROUP") used site-wide: Nav, Footer, all division pages
+- Europcar Logo2.png (green "moving your way") used exclusively on Europcar page
+- Main tagline updated to "WE MOVE YOU!" per brand guidelines
+- All hero sections center-aligned with symmetrical text placement
+- No blank squares or broken logo images
+- Removed all brightness-0 invert filters from EGMG logo renders
+- Color palette verified: Orange #EE5A01 (50%), Black #000000 (40%), Gray #666666 (10%)
 
 ## Content & Visual Audit (Feb 2026)
 - All hero images updated to UAE-specific photos (Dubai skyline, Sheikh Zayed Road, DXB airport)

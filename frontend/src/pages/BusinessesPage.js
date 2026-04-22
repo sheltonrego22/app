@@ -41,7 +41,6 @@ const divisions = [
     name: "Emirates Taxi",
     year: "2000",
     logo: LOGOS.egmg,
-    logoAlt: "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file.webp",
     desc: "ISO 9001:2015 certified premium chauffeur service with RTA-approved vehicles. Quality-monitored operations with performance-graded drivers delivering consistently exceptional service.",
     href: "/emirates-taxi",
   },
