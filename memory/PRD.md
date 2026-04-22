@@ -48,7 +48,7 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - DELETE /api/articles/:id — Delete article (auth required)
 - POST /api/upload — File upload for images/PDFs (auth required)
 
-## Testing: 10 iterations, 100% pass rate (bugs fixed inline)
+## Testing: 11 iterations, all issues resolved
 
 ## Brand Guidelines Audit (Feb 2026)
 - Uploaded EGMG Logo1.png (orange icon + "EUROGULF MOBILITY GROUP") used site-wide: Nav, Footer, all division pages
@@ -61,12 +61,14 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 
 ## Content & Visual Audit (Feb 2026)
 - All hero images updated to UAE-specific photos (Dubai skyline, Sheikh Zayed Road, DXB airport)
-- Real division logos scraped from egmg.ae (Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars)
-- Real EGMG about image from egmg.ae used on About page
+- Real EGMG product images from egmg.ae for Europcar fleet, Truckline, Goldcar divisions
 - Truckline client logos (10 real logos from egmg.ae) added
-- Emirates Taxi logo fixed across HomePage, BusinessesPage, and EmiratesTaxiPage
-- All internal booking CTAs updated to /book-chauffeur (HomePage, ServicesPage, RoyalLimousinePage, EmiratesTaxiPage)
-- External Europcar booking links preserved where appropriate (EuropcarPage, GoldcarPage, ContactPage international)
+- Social images section updated with Dubai skyline, Marina, cars with UAE backdrops
+- Sustainability images: EV with palm trees (UAE), Dubai buildings for solar
+- Contact hero: Dubai Burj Khalifa night skyline
+- All services section images replaced with Dubai-specific or EGMG product images
+- All 19 page heroes are center-aligned with symmetrical text placement
+- No generic European/American imagery remains anywhere on the site
 
 ## Future Backlog
 1. CMS for media center

@@ -357,15 +357,15 @@ export default function BookChauffeurPage() {
   return (
     <div data-testid="book-chauffeur-page">
       {/* HERO */}
-      <section data-testid="chauffeur-hero" className="relative min-h-[50vh] sm:min-h-[55vh] flex items-end overflow-hidden">
-        <img src={HERO_IMG} alt="Luxury chauffeur service" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
-        <div ref={heroRef} className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12 sm:pb-16 pt-28 ${heroVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-          <div className="orange-accent-line mb-4" />
-          <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-[#EEEDE7] uppercase tracking-tight mb-3">
+      <section data-testid="chauffeur-hero" className="relative min-h-[55vh] flex items-center overflow-hidden">
+        <img src={HERO_IMG} alt="Luxury chauffeur service in Dubai" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
+        <div ref={heroRef} className={`relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-16 text-center ${heroVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+          <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Book Your Chauffeur
           </h1>
-          <p className="font-body text-sm sm:text-base text-[#999] max-w-xl">
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Premium chauffeur service by Royal Limousine. Professional drivers, luxury fleet, available across all seven Emirates.
           </p>
         </div>

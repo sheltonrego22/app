@@ -73,22 +73,18 @@ export default function ContactPage() {
     <div data-testid="contact-page">
       {/* ═══ HERO ═══ */}
       <section data-testid="contact-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2">
-          <div className="bg-black" />
-          <div className="relative hidden lg:block">
-            <img src={CONTACT_HERO} alt="Dubai" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/30" />
-          </div>
+        <div className="absolute inset-0">
+          <img src={CONTACT_HERO} alt="Dubai skyline" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/65" />
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24">
-          <div className="max-w-xl">
-            <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-              Let's Move You Forward.
-            </h1>
-            <p className="font-body text-base text-[#666666] animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Our team is available 24/7 to assist with bookings, enquiries, and fleet solutions.
-            </p>
-          </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-16 text-center">
+          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
+            Let's Move You Forward.
+          </h1>
+          <p className="font-body text-base text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Our team is available 24/7 to assist with bookings, enquiries, and fleet solutions. Call us toll-free at 800 364.
+          </p>
         </div>
       </section>
 
