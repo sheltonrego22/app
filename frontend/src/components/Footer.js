@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook } from 'lucide-react';
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const LOGO_URL = "/egmg-logo-transparent.png";
 
 const divisions = [
   { name: "Europcar", href: "/europcar" },

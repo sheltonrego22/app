@@ -49,7 +49,7 @@ const awards = [
   "BUSINESS TRAVEL AWARDS — BEST CAR RENTAL MIDDLE EAST",
 ];
 
-const EGMG_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 
 const DIVISION_LOGOS = {

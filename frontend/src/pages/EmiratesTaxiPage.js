@@ -4,7 +4,7 @@ import { Shield, Award, Car, Users, Clock, Check } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1602430937171-f5c4c13af14b?w=1400&h=700&fit=crop";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const LOGO_URL = "/egmg-logo-transparent.png";
 
 const certifications = [
   { icon: Shield, title: "ISO 9001:2015 Certified", desc: "Our operations are certified under the ISO 9001:2015 standard, ensuring world-class quality management across every service touchpoint." },

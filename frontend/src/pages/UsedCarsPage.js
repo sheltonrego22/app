@@ -4,7 +4,7 @@ import { Check, Shield, Tag, Wrench, Users, Star, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1651043186518-efbce5e409e9?w=1400&h=700&fit=crop";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const LOGO_URL = "/egmg-logo-transparent.png";
 
 const highlights = [
   { value: "1,000+", label: "Satisfied Customers" },

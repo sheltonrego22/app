@@ -5,7 +5,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const HERO_IMG = "https://images.pexels.com/photos/12316002/pexels-photo-12316002.jpeg?auto=compress&cs=tinysrgb&w=1920";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const LOGO_URL = "/egmg-logo-transparent.png";
 const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-4.webp";
 
 const services = [

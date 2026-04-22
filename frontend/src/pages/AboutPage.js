@@ -34,7 +34,7 @@ const coreValues = [
   { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees and 14 locations. Every client and every colleague is treated with the respect they deserve." },
 ];
 
-const EGMG_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 
 const DIVISION_LOGOS = {

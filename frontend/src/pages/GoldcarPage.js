@@ -4,7 +4,7 @@ import { Check, Star, Clock, Shield, Car } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=1400&h=700&fit=crop";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/yxpq5nol_Logo1.png";
+const LOGO_URL = "/egmg-logo-transparent.png";
 const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-5.webp";
 const BOOKING_URL = "https://www.goldcar.com/en-gb/car-rental/locations/dubai/";
 
