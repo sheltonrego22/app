@@ -242,8 +242,8 @@ export default function AboutPage() {
             </div>
             <div className="relative bg-[#111111] border border-white/5 aspect-video flex items-center justify-center">
               <img
-                src="https://images.unsplash.com/photo-1687754715959-41fed2161528?w=800&h=450&fit=crop"
-                alt="EGMG Operations"
+                src="https://images.pexels.com/photos/5087165/pexels-photo-5087165.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop"
+                alt="EGMG Operations across Dubai"
                 className="w-full h-full object-cover opacity-50"
               />
               <div className="absolute inset-0 flex items-center justify-center">

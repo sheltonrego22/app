@@ -1,0 +1,52 @@
+{
+  "summary": "Iteration 11 - UAE-specific content/image audit across 12 public pages (frontend-only, per request). Loaded /, /europcar, /goldcar, /royal-limousine, /emirates-taxi, /truckline, /used-cars, /sustainability, /contact, /book-chauffeur, /services, /about. After scrolling to trigger lazy-loaded images, ALL images on every page render successfully (0 broken, 0 network 4xx/5xx). Spot screenshots confirm UAE-specific imagery: Dubai skyline at Royal Limousine hero, Marina/Dubai buildings on Sustainability section, UAE locals on About hero, Burj-area night skyline on Contact hero, Dubai night cityscape on Book Chauffeur hero. egmg.ae product images (Europcar fleet, Truckline product, Goldcar product, certificates) all load (server returns 200; no hotlink protection observed). HOWEVER, two heroes are NOT center-aligned, which violates the explicit requirement: ContactPage hero (h1 + tagline left-aligned in a max-w-xl wrap, computed text-align: start) and BookChauffeurPage hero (h1 + subtitle bottom-left, no text-center, computed text-align: start). All other 10 page heroes are center-aligned (h1 inside text-center wrap, computed text-align: center).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ContactPage hero",
+        "issue": "Hero is LEFT-aligned, not centered. Section uses `flex items-center` with a `max-w-xl` text wrapper and h1 has no text-center. Computed text-align: start. Title 'LET'S MOVE YOU FORWARD.' sits in left half over the Dubai skyline image which fills the right half. Requirement explicitly says all hero sections must be center-aligned.",
+        "selector": "[data-testid='contact-hero'] h1",
+        "priority": "HIGH"
+      },
+      {
+        "component": "BookChauffeurPage hero",
+        "issue": "Hero is LEFT-aligned (and bottom-aligned via `flex items-end`), not centered. Wrapper is `max-w-7xl mx-auto` but inner h1 + subtitle have no text-center class. Computed text-align: start. Title 'BOOK YOUR CHAUFFEUR' and the description sit at bottom-left of the Dubai night-road background. Violates the center-alignment requirement.",
+        "selector": "[data-testid='chauffeur-hero'] h1",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Hero alignment consistency",
+        "issues": [
+          "10 of 12 page heroes are properly center-aligned (Home, Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars, Sustainability, Services, About). Only Contact and Book Chauffeur deviate - they should be made consistent for brand cohesion."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/test_reports/iteration_11.json"
+  ],
+  "action_items": [
+    "[HIGH] ContactPage.js (line ~75): change `<section data-testid=\"contact-hero\" className=\"... flex items-center ...\">` inner wrapper from `max-w-xl` to `max-w-3xl mx-auto text-center` and add `text-center` to h1/p so the hero matches the rest of the site.",
+    "[HIGH] BookChauffeurPage.js (line ~360): change `<section data-testid=\"chauffeur-hero\" className=\"... flex items-end ...\">` to `flex items-center justify-center` and add `text-center mx-auto` to the inner wrapper + `text-center` on h1 and subtitle. Also remove `pb-12 sm:pb-16 pt-28` bottom-bias.",
+    "[Optional] Both pages currently set hero as a side-by-side (image right / text left) layout - if that is intentional, the global requirement should be relaxed; otherwise convert to a centered overlay like the other pages."
+  ],
+  "critical_code_review_comments": [
+    "All hero/lazy-loaded images render correctly once scrolled - no broken images anywhere across the 12 public pages. The earlier perception of 'broken images' on first load is purely loading=\"lazy\" + below-the-fold; not a bug.",
+    "egmg.ae hot-linked assets (Europcar fleet, Truckline product, Goldcar product, all 7 About certificates, Truckline scrollers) all return 200 and render in-browser - no Referer-based hotlink blocking observed at this time. (Recommend mirroring critical brand assets to /public to remove the third-party dependency.)",
+    "ContactPage and BookChauffeurPage diverge from the standardised hero pattern (text-center, center-justified h1) used in the other 10 pages - inconsistency.",
+    "HomePage social images strip + Royal Limousine fleet + Services fleet all use the same handful of unsplash photo IDs (1638980703460, 1693946953973, 1634052597957, 1608632937860, 1658301839175). They are luxury vehicle photos but not visibly Dubai-specific in themselves; UAE context is provided by surrounding sections (Dubai skyline backdrops, EGMG egmg.ae imagery, UAE copy). Acceptable but flagging for awareness.",
+    "All hero copy verified factual against egmg.ae positioning (We Move You, Royal Treatment on the Move, Empowering Businesses One Journey at a Time, ISO 9001:2015 etc.). No US/European-only imagery detected."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "83% (10/12 hero centering pass; 12/12 image loading pass; 2 hero alignment failures)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Only two issues need re-verification after main agent fixes: (1) /contact hero h1 + tagline are center-aligned (computed text-align: center, h1 horizontally centered in viewport), (2) /book-chauffeur hero h1 + subtitle are center-aligned. Use selectors [data-testid='contact-hero'] h1 and [data-testid='chauffeur-hero'] h1, then evaluate getComputedStyle(...).textAlign === 'center' and the bounding box x is roughly centered on a 1920-wide viewport. All 12 pages' images already verified loading - no need to re-audit unless code changes touch image URLs. egmg.ae-hosted assets are confirmed reachable from the preview origin (no hotlink protection). React-quill admin issue from iteration_10 is unrelated to this request and was not retested.",
+  "rca of the issue": "ContactPage.js section uses `flex items-center` (vertical center only) with a `max-w-xl` text wrapper - by default Tailwind's flex children inherit text-align from the document (start = left in LTR). No `text-center` class exists in the wrapper or on the h1. BookChauffeurPage.js section uses `flex items-end` (anchors to bottom) with a `max-w-7xl mx-auto` wrapper - mx-auto centers the BLOCK but not the TEXT INSIDE it. Both pages were authored before the 'all heroes centered' requirement was finalised and were not updated in the iteration that touched the other 10 pages. Mitigation: add `text-center` to h1 + subtitle and switch wrapper to `mx-auto max-w-3xl text-center` (Contact) or `mx-auto text-center` (Book Chauffeur), and on Book Chauffeur swap `items-end` -> `items-center` so the content vertically centers like the other heroes."
+}

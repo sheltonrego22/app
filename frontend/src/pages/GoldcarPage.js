@@ -102,7 +102,7 @@ export default function GoldcarPage() {
               </a>
             </div>
             <div className="relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1742753969647-ff4f4dbbfce9?w=800&h=500&fit=crop" alt="Goldcar Value Rental" className="w-full h-[420px] object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1714156313350-297f464ab12f?w=800&h=500&fit=crop" alt="Goldcar fleet in Dubai" className="w-full h-[420px] object-cover" loading="lazy" />
             </div>
           </div>
         </div>

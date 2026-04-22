@@ -125,8 +125,8 @@ export default function ServicesPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="relative overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1658301839175-58d115aef1ef?w=800&h=600&fit=crop"
-                    alt="Europcar Fleet"
+                    src="https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp"
+                    alt="Europcar Dubai Fleet"
                     className="w-full h-[400px] object-cover"
                     loading="lazy"
                   />
@@ -210,8 +210,8 @@ export default function ServicesPage() {
                 </div>
                 <div className="relative overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1634052597957-bc7f1a191c3e?w=800&h=600&fit=crop"
-                    alt="Fleet Management"
+                    src="https://images.unsplash.com/photo-1696934288553-c41a5456da7b?w=800&h=600&fit=crop"
+                    alt="EGMG Fleet Management in Dubai"
                     className="w-full h-[400px] object-cover"
                     loading="lazy"
                   />
@@ -229,8 +229,8 @@ export default function ServicesPage() {
             {/* Background accent */}
             <div className="absolute top-0 right-0 w-[40%] h-full opacity-10 hidden lg:block">
               <img
-                src="https://images.pexels.com/photos/15774577/pexels-photo-15774577.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt=""
+                src="https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=800&h=600&fit=crop"
+                alt="Chauffeur service on Dubai roads"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -362,8 +362,8 @@ export default function ServicesPage() {
                 </div>
                 <div className="relative overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1761386406571-029b7e74cd0e?w=800&h=600&fit=crop"
-                    alt="Commercial Fleet"
+                    src="https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-3.webp"
+                    alt="EGMG Truckline Commercial Fleet"
                     className="w-full h-[400px] object-cover"
                     loading="lazy"
                   />
@@ -382,8 +382,8 @@ export default function ServicesPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="relative overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1608632937860-0072bd7a027a?w=800&h=600&fit=crop"
-                    alt="Used Cars"
+                    src="https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=800&h=600&fit=crop"
+                    alt="Pre-owned vehicles in Dubai"
                     className="w-full h-[400px] object-cover"
                     loading="lazy"
                   />

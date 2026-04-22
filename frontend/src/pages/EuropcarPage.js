@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Download } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
 const BOOKING_URL = "https://www.europcar.com/en-db";
@@ -137,7 +137,7 @@ export default function EuropcarPage() {
         <div ref={leasingRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-14 items-center ${leasingVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="relative overflow-hidden order-2 lg:order-1">
-              <img src="https://images.unsplash.com/photo-1634823005888-11796723fd70?w=800&h=500&fit=crop" alt="Vehicle Leasing" className="w-full h-[420px] object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1696934288553-c41a5456da7b?w=800&h=500&fit=crop" alt="Europcar Vehicle Leasing in Dubai" className="w-full h-[420px] object-cover" loading="lazy" />
             </div>
             <div className="order-1 lg:order-2">
               <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Corporate Solutions</span>

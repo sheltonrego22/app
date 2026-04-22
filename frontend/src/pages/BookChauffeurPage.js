@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const HERO_IMG = "https://images.unsplash.com/photo-1764605206511-7a649d9df63b?w=1400&h=800&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=1400&h=800&fit=crop";
 
 const VEHICLES = {
   3: [

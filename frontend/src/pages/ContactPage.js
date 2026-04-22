@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-const CONTACT_HERO = "https://images.unsplash.com/photo-1735320863905-ed428b59a2eb?w=1200&h=800&fit=crop";
+const CONTACT_HERO = "https://images.pexels.com/photos/33354945/pexels-photo-33354945.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop";
 const BOOKING_URL = "https://www.europcar.com/";
 
 const enquiryTypes = [

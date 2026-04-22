@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Fuel, Building, Zap, Users, Leaf, Sun, Battery, Recycle } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const EV_IMG = "https://images.unsplash.com/photo-1768310465625-5824a01fff4c?w=1200&h=600&fit=crop";
-const SOLAR_IMG = "https://images.pexels.com/photos/8783541/pexels-photo-8783541.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop";
+const EV_IMG = "https://images.unsplash.com/photo-1590250509584-efadf48e7a3c?w=1200&h=600&fit=crop";
+const SOLAR_IMG = "https://images.unsplash.com/photo-1775644125504-ab20f983e905?w=1200&h=600&fit=crop";
 
 const pillars = [
   {

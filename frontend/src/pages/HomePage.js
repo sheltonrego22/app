@@ -87,12 +87,12 @@ const whyChooseUs = [
 ];
 
 const socialImages = [
-  { img: "https://images.pexels.com/photos/10358879/pexels-photo-10358879.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Our fleet against the iconic Dubai skyline" },
+  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — where EGMG operates 14 locations" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
-  { img: "https://images.unsplash.com/photo-1747176367536-c9cf668a5390?w=600&h=600&fit=crop", caption: "Luxury vehicles in the heart of Dubai" },
-  { img: "https://images.pexels.com/photos/10358871/pexels-photo-10358871.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Premium sedans with Dubai backdrop" },
-  { img: "https://images.pexels.com/photos/10619938/pexels-photo-10619938.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Dubai — Where we operate" },
-  { img: "https://images.pexels.com/photos/33349003/pexels-photo-33349003.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Sheikh Zayed Road — Our daily commute" },
+  { img: "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=600&h=600&fit=crop", caption: "Tesla fleet on Sheikh Zayed Road" },
+  { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=600&h=600&fit=crop", caption: "EGMG fleet across the Emirates" },
+  { img: "https://images.pexels.com/photos/5087165/pexels-photo-5087165.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Dubai highways — our daily routes" },
+  { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=600&h=600&fit=crop", caption: "Cars with the Dubai Marina skyline" },
 ];
 
 function StatItem({ value, suffix, label }) {

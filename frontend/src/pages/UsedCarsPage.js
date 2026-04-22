@@ -115,7 +115,7 @@ export default function UsedCarsPage() {
               </Link>
             </div>
             <div className="relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1705102791477-508373b19e36?w=800&h=500&fit=crop" alt="Used Cars Showroom" className="w-full h-[420px] object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=800&h=500&fit=crop" alt="Pre-owned vehicles with Dubai skyline" className="w-full h-[420px] object-cover" loading="lazy" />
             </div>
           </div>
         </div>
