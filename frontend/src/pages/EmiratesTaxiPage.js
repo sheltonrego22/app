@@ -25,7 +25,7 @@ const features = [
 export default function EmiratesTaxiPage() {
   const [certsRef, certsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Emirates Taxi — Premium Chauffeur Service | EGMG"; }, []);
+  useEffect(() => { document.title = "Emirates Taxi — Premium Chauffeur Service | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="emirates-taxi-page">

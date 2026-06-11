@@ -221,7 +221,7 @@ export default function BookChauffeurPage() {
   const [bookingRef, setBookingRef] = useState('');
 
   useEffect(() => {
-    document.title = "Book Your Chauffeur - EGMG Royal Limousine";
+    document.title = "Book Your Chauffeur — Eurogulf Mobility Group";
   }, []);
 
   const set = (key, val) => {

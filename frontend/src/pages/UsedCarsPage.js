@@ -1,122 +1,213 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Shield, Tag, Wrench, Users, Star, Car } from 'lucide-react';
+import { Shield, Check, Clock, Eye, FileText, Car, ArrowRight, Search } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1651043186518-efbce5e409e9?w=1400&h=700&fit=crop";
-const LOGO_URL = "/egmg-logo-transparent.png";
+const EGMG_LOGO = "/egmg-logo-transparent.png";
+const HERO_IMG = "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=1400&h=700&fit=crop";
 
-const highlights = [
-  { value: "1,000+", label: "Satisfied Customers" },
-  { value: "30+", label: "Years in Used Cars" },
-  { value: "A-Grade", label: "Workshop Inspected" },
+const advantages = [
+  { icon: Shield, title: "Single-Owner Provenance", desc: "Every car came directly from the Europcar Dubai operational lease fleet. No third-party trade-ins, no hidden histories." },
+  { icon: FileText, title: "Manufacturer-Approved Service", desc: "Serviced exclusively at Eurogulf Mobility Group-owned workshops using OEM parts. Full digital service record provided at sale." },
+  { icon: Check, title: "110-Point Inspection Report", desc: "Every listing carries our branded inspection certificate covering body, mechanical, electrical and compliance." },
+  { icon: Eye, title: "Clean RTA & Accident History", desc: "Carfax-equivalent record, current RTA passing, no recorded chassis damage." },
 ];
 
-const strengths = [
-  { icon: Shield, title: "Quality Pre-Owned Vehicles at Great Value", desc: "Every vehicle comes from EGMG's managed fleet, maintained to A-Grade workshop standards throughout its lifecycle." },
-  { icon: Wrench, title: "On-Site Service & Maintenance", desc: "Full servicing and reconditioning performed in-house at our certified workshops before every vehicle is listed for sale." },
-  { icon: Tag, title: "Hassle-Free Car Selling", desc: "Looking to sell? We offer a transparent, fair process to purchase your vehicle — quick valuations, no hidden fees." },
+const auctionSteps = [
+  { num: "1", title: "Stock Refresh", desc: "A new batch of 6–10 ex-fleet vehicles is published every Tuesday at 15:00 GST." },
+  { num: "2", title: "Inspect & Decide", desc: "Browse full specs, 4–5 photos per car, inspection grade and complete service history." },
+  { num: "3", title: "Silent Bid", desc: "Place a sealed bid in AED 500 increments. You only see your own bids — never others." },
+  { num: "4", title: "Cycle Close", desc: "Auction closes every Monday at 12:00 GST. Winners notified within 2 hours." },
 ];
 
-const buyingBenefits = [
-  "Comprehensive multi-point inspection on every vehicle",
-  "Full service history from EGMG managed fleet",
-  "Competitive pricing with transparent documentation",
-  "Wide selection of brands including Toyota, Nissan, Honda, and more",
-  "On-site financing and insurance assistance",
-  "Warranty options available on select vehicles",
+const sampleVehicles = [
+  { name: "Toyota Camry 2.5 SE", year: "2022", type: "Sedan", km: "49k km", color: "Pearl White", grade: "A", bid: "Contact for price" },
+  { name: "Hyundai Tucson 1.6T", year: "2023", type: "SUV", km: "32k km", color: "Silver Metallic", grade: "A", bid: "Contact for price" },
+  { name: "Nissan Patrol Platinum", year: "2021", type: "Full-Size SUV", km: "72k km", color: "Onyx Black", grade: "A", bid: "AED 145,000" },
+  { name: "Toyota Corolla 2.0 SE", year: "2023", type: "Sedan", km: "28k km", color: "Glacier White", grade: "A+", bid: "Contact for price" },
+  { name: "Kia Sportage 2.0", year: "2022", type: "Compact SUV", km: "41k km", color: "Steel Grey", grade: "A", bid: "Contact for price" },
+  { name: "Nissan X-Trail 2.5 SV", year: "2022", type: "Mid-Size SUV", km: "55k km", color: "Diamond Black", grade: "A", bid: "Contact for price" },
 ];
+
+function AuctionTimer() {
+  const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
+  useEffect(() => {
+    const getNext = () => {
+      const now = new Date();
+      const day = now.getUTCDay();
+      const daysUntilMonday = (8 - day) % 7 || 7;
+      const target = new Date(now);
+      target.setUTCDate(now.getUTCDate() + daysUntilMonday);
+      target.setUTCHours(8, 0, 0, 0);
+      return target;
+    };
+    const tick = () => {
+      const diff = getNext() - new Date();
+      if (diff <= 0) return;
+      setTime({
+        d: Math.floor(diff / 86400000),
+        h: Math.floor((diff % 86400000) / 3600000),
+        m: Math.floor((diff % 3600000) / 60000),
+        s: Math.floor((diff % 60000) / 1000),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div data-testid="auction-timer" className="flex items-center gap-1 font-mono text-2xl sm:text-3xl text-[#EE5A01] font-bold">
+      <span>{String(time.d).padStart(2, '0')}</span><span className="text-[#666] text-lg">D</span>
+      <span className="text-[#666]">:</span>
+      <span>{String(time.h).padStart(2, '0')}</span><span className="text-[#666] text-lg">H</span>
+      <span className="text-[#666]">:</span>
+      <span>{String(time.m).padStart(2, '0')}</span><span className="text-[#666] text-lg">M</span>
+      <span className="text-[#666]">:</span>
+      <span>{String(time.s).padStart(2, '0')}</span><span className="text-[#666] text-lg">S</span>
+    </div>
+  );
+}
 
 export default function UsedCarsPage() {
-  const [strengthsRef, strengthsVisible] = useScrollAnimation();
+  const [advRef, advVisible] = useScrollAnimation();
+  const [stepsRef, stepsVisible] = useScrollAnimation();
+  const [stockRef, stockVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Used Cars — Quality Pre-Owned Vehicles | EGMG"; }, []);
+  useEffect(() => { document.title = "Used Vehicle Sales — Weekly Silent Auction | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="used-cars-page">
       {/* HERO */}
       <section data-testid="used-cars-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Used Cars Showroom" className="w-full h-full object-cover" />
+          <img src={HERO_IMG} alt="Pre-owned vehicles in Dubai" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/65" />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={LOGO_URL} alt="Eurogulf Used Cars by EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" />
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Mobility Group Used Vehicles Division</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Quality Pre-Owned at Unbeatable Prices
+            Ex-Europcar Fleet. Sold the Smart Way.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            At Eurogulf Used Cars, we specialize in offering reliable, high-quality pre-owned vehicles. With years of experience in the industry, our team provides a hassle-free buying experience tailored to individual needs and budgets.
+            A weekly silent auction of cars retired from the Europcar Dubai operating-lease fleet — single-owner, full service history, inspected, and sold direct to B2B and B2C buyers across the UAE.
           </p>
-          <Link to="/contact" data-testid="used-cars-enquire-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            Browse Available Stock
-          </Link>
-        </div>
-      </section>
-
-      {/* STATS BAR */}
-      <section className="bg-[#111111] border-y border-white/5">
-        <div className="max-w-5xl mx-auto px-4 grid grid-cols-3 divide-x divide-white/10">
-          {highlights.map((h) => (
-            <div key={h.label} className="text-center py-8 px-4">
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#EE5A01]">{h.value}</div>
-              <div className="font-heading text-xs tracking-[0.15em] text-[#EEEDE7] mt-2 uppercase">{h.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* WHY EUROGULF */}
-      <section data-testid="used-cars-strengths" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div ref={strengthsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16 ${strengthsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-            <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              Why Choose Eurogulf Used Cars
-            </h2>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <Link to="/contact" className="btn-primary">View Vehicles for Sale</Link>
+            <a href="#how-it-works" className="btn-ghost">How the Auction Works</a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {strengths.map((s, i) => (
-              <div key={i} data-testid={`used-cars-strength-${i}`} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${strengthsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
-                <s.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
-                <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{s.title}</h3>
-                <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>
+        </div>
+      </section>
+
+      {/* AUCTION CYCLE */}
+      <section className="bg-[#111] border-y border-white/5 py-8">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex flex-wrap items-center gap-6 text-center sm:text-left">
+              <div>
+                <p className="font-heading text-[10px] text-[#666] uppercase tracking-wider">Stock Published</p>
+                <p className="font-heading font-bold text-sm text-[#EEEDE7]">Tue · 15:00 GST</p>
+              </div>
+              <div className="w-px h-8 bg-white/10 hidden sm:block" />
+              <div>
+                <p className="font-heading text-[10px] text-[#666] uppercase tracking-wider">Bidding Closes</p>
+                <p className="font-heading font-bold text-sm text-[#EEEDE7]">Mon · 12:00 GST</p>
+              </div>
+              <div className="w-px h-8 bg-white/10 hidden sm:block" />
+              <div>
+                <p className="font-heading text-[10px] text-[#666] uppercase tracking-wider">Auction Closes In</p>
+                <AuctionTimer />
+              </div>
+            </div>
+            <p className="font-mono text-[10px] text-[#666] tracking-wider">Silent auction · AED 500 increments</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SAMPLE STOCK */}
+      <section className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div ref={stockRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-14 ${stockVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">This Week's Stock</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sampleVehicles.map((v, i) => (
+              <div key={i} className={`bg-[#111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${stockVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <span className="font-mono text-[10px] text-[#666]">{v.year} · {v.type}</span>
+                    <h3 className="font-heading font-bold text-base text-[#EEEDE7]">{v.name}</h3>
+                  </div>
+                  <span className="bg-[#EE5A01]/10 text-[#EE5A01] font-mono text-[10px] px-2 py-0.5 tracking-wider">Grade {v.grade}</span>
+                </div>
+                <p className="font-body text-xs text-[#666] mb-3">{v.km} · Automatic · {v.color}</p>
+                <div className="border-t border-white/5 pt-3 flex items-center justify-between">
+                  <div>
+                    <p className="font-heading text-[10px] text-[#666] uppercase">Starting Bid</p>
+                    <p className="font-heading font-bold text-sm text-[#EE5A01]">{v.bid}</p>
+                  </div>
+                  <Link to="/contact" className="text-[#EE5A01] font-heading text-xs uppercase tracking-wider hover:underline flex items-center gap-1">
+                    Enquire <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* WHY BUY */}
       <section className="bg-black py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <div>
-              <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Since 1994</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
-                Trusted for Three Decades
-              </h2>
-              <p className="font-body text-[#666666] leading-relaxed mb-6">
-                Since 1994, Eurogulf Used Car Trading has built a reputation for transparency and value. Every vehicle in our showroom comes from our own managed fleet — serviced, inspected, and certified by EGMG's A-Grade workshops. No surprises, no hidden histories.
-              </p>
-              <ul className="space-y-3 mb-8">
-                {buyingBenefits.map((b) => (
-                  <li key={b} className="flex items-start gap-3">
-                    <div className="w-5 h-5 bg-[#EE5A01]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-[#EE5A01]" />
-                    </div>
-                    <span className="font-body text-sm text-[#EEEDE7]">{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="btn-primary inline-block">
-                Enquire About Stock
-              </Link>
-            </div>
-            <div className="relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=800&h=500&fit=crop" alt="Pre-owned vehicles with Dubai skyline" className="w-full h-[420px] object-cover" loading="lazy" />
-            </div>
+        <div ref={advRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-16 ${advVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Not Just Used. Ex-Eurogulf-Managed.</h2>
+            <p className="font-body text-[#666] max-w-xl mx-auto">Every vehicle in the silent auction came directly from the Europcar Dubai operating-lease fleet — we know every kilometre, every service, and every owner from day one.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {advantages.map((a, i) => (
+              <div key={a.title} className={`bg-[#111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all ${advVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+                <a.icon className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{a.title}</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section id="how-it-works" className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div ref={stepsRef} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-14 ${stepsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">How the Auction Works</h2>
+            <p className="font-body text-[#666]">Wholesale-grade rigour. Retail-grade simplicity.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {auctionSteps.map((s, i) => (
+              <div key={s.num} className={`text-center ${stepsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+                <div className="w-12 h-12 bg-[#EE5A01] flex items-center justify-center mx-auto mb-4">
+                  <span className="font-heading font-black text-lg text-black">{s.num}</span>
+                </div>
+                <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-2">{s.title}</h3>
+                <p className="font-body text-xs text-[#666] leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+            {[
+              { title: "View Online", desc: "Full inventory, 4–5 photos, specs and inspection grade." },
+              { title: "In-Person Inspection", desc: "Book a 30-minute viewing at any Eurogulf Mobility Group branch." },
+              { title: "Browse as Guest", desc: "View the full stock without an account. Sign in only to bid." },
+            ].map((item) => (
+              <div key={item.title} className="bg-[#111] border border-white/5 p-5 text-center">
+                <h4 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{item.title}</h4>
+                <p className="font-body text-xs text-[#666]">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -124,20 +215,9 @@ export default function UsedCarsPage() {
       {/* CTA */}
       <section className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">
-            Find Your Next Car
-          </h2>
-          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            Visit our showroom or get in touch to browse the latest pre-owned vehicles at competitive prices.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">
-              Contact Us
-            </Link>
-            <a href="tel:800364" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">
-              Call 800 364
-            </a>
-          </div>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">Browse This Week's Stock</h2>
+          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">New vehicles added every Tuesday. Silent auction closes every Monday at 12:00 GST.</p>
+          <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors inline-block">Contact Used Vehicles Division</Link>
         </div>
       </section>
     </div>

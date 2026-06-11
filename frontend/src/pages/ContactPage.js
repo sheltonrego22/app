@@ -41,7 +41,7 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [locationsRef, locationsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Contact EGMG — Let's Move You Forward"; }, []);
+  useEffect(() => { document.title = "Contact Eurogulf Mobility Group — Let's Move You Forward"; }, []);
 
   const validate = () => {
     const e = {};
@@ -311,7 +311,7 @@ export default function ContactPage() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div>
               <h3 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight mb-3">
-                Book EGMG Services Worldwide
+                Book Eurogulf Mobility Group Services Worldwide
               </h3>
               <p className="font-body text-[#666666]">
                 143 countries, 6,000+ locations, 600+ airports worldwide through our Europcar partnership.

@@ -60,7 +60,7 @@ function ServiceSection({ id, category, children }) {
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  useEffect(() => { document.title = "Our Services — EGMG Mobility Solutions"; }, []);
+  useEffect(() => { document.title = "Our Services — Eurogulf Mobility Group"; }, []);
 
   const shouldShow = (category) => activeFilter === "all" || activeFilter === category;
 
@@ -79,7 +79,7 @@ export default function ServicesPage() {
             Mobility Solutions for Every Need
           </h1>
           <p className="font-body text-base text-[#666666] max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From individual travelers to enterprise fleets — EGMG delivers the UAE's most comprehensive transport solutions under one roof.
+            From individual travelers to enterprise fleets — Eurogulf Mobility Group delivers the UAE's most comprehensive transport solutions under one roof.
           </p>
           <a
             href={FLEET_GUIDE_URL}
@@ -394,7 +394,7 @@ export default function ServicesPage() {
                     Quality Certified. Priced Right.
                   </h2>
                   <p className="font-body text-[#666666] leading-relaxed mb-6">
-                    Certified pre-owned vehicles from the EGMG fleet — maintained to A-Grade workshop standards. Every vehicle undergoes a comprehensive inspection before listing.
+                    Certified pre-owned vehicles from the Eurogulf Mobility Group fleet — maintained to A-Grade workshop standards. Every vehicle undergoes a comprehensive inspection before listing.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {["Multi-point inspection", "Full service history", "Competitive pricing", "Warranty available"].map((f) => (

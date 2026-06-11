@@ -1,7 +1,7 @@
 /* ═══ EGMG Brand Styles ═══ */
 
-.font-heading { font-family: 'Outfit', sans-serif; }
-.font-body { font-family: 'Manrope', sans-serif; }
+.font-heading { font-family: 'Outfit', 'Nobel', sans-serif; }
+.font-body { font-family: 'Roboto', 'Calibri', sans-serif; }
 .font-mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ═══ Animations ═══ */

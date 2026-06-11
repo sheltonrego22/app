@@ -26,7 +26,7 @@ const benefits = [
 export default function GoldcarPage() {
   const [strengthsRef, strengthsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Goldcar Dubai — Smart, Affordable Car Rental | EGMG"; }, []);
+  useEffect(() => { document.title = "Goldcar Dubai — Smart, Affordable Car Rental | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="goldcar-page">

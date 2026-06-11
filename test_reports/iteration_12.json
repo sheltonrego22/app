@@ -1,0 +1,60 @@
+{
+  "summary": "Iteration 12 - Frontend-only validation of 4 new/replaced pages (LeasingPage, ChauffeurServicePage, UsedCarsPage, TrucklinePage) plus brand audit (EGMG → Eurogulf Mobility Group, #EE5A01 CTAs, Roboto/Calibri body) at https://egmg-premium.preview.emergentagent.com. All 4 target pages render with centered heroes, orange CTAs (verified computed bg = rgb(238,90,1) = #EE5A01), correct H1 text, full content sections, and are responsive on 390px mobile (no horizontal overflow). LeasingPage: ROI calculator slider+selects interactive, all 12 UAE partners present, 4 tier cards (12/24/36/48 months) with 'Most Popular' badge on 24 months. ChauffeurServicePage: trust points (Fully Insured / Vetted Drivers / Fixed Fares), 4 service cards (Airport Transfer / One-Way / Half-Day / Full-Day), 3-step How-It-Works, 4 fleet cards (Lexus, Audi, Mercedes, GMC), Book Now → /book-chauffeur. UsedCarsPage: live countdown (04D:03H:03M:36S) to Mon 12:00 GST, How the Auction Works section, advantages (Single-Owner, Inspection, Service History, Clean RTA), 6 vehicle cards with grade badges. TrucklinePage: stats bar (12,000+ vehicles, 5 workshops, <90 min SLA, ISO 9001), four services, sectors served, 10 egmg.ae client logos. Body font correctly resolves to 'Roboto, Calibri, sans-serif'. HomePage: 0 standalone 'EGMG', 7× 'Eurogulf Mobility Group' visible. HOWEVER, 3 OTHER PAGES still contain standalone 'EGMG' in user-facing copy (AboutPage timeline 2024, LeadershipPage 3 bios, BusinessesPage Used Cars description) — these were not in the 4-page scope but the brand requirement says 'all user-facing text'.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "AboutPage timeline",
+        "issue": "Standalone 'EGMG' still in user-facing copy: '2024 EGMG — Full Rebrand'. Brand rule says replace all visible 'EGMG' with 'Eurogulf Mobility Group'. Located at /app/frontend/src/pages/AboutPage.js:18.",
+        "selector": "AboutPage timeline 2024 entry",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "LeadershipPage bios",
+        "issue": "Standalone 'EGMG' appears 3 times in the executive bios for Marius Anton, Mohamad Ali Al Maazmi and Mari Parian. e.g. 'Marius leads the commercial operations of EGMG…'. Located at /app/frontend/src/pages/LeadershipPage.js:14, :17, :19.",
+        "selector": "LeadershipPage leader cards desc",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "BusinessesPage Used Cars description",
+        "issue": "Standalone 'EGMG' in body: 'Reliable, high-quality pre-owned vehicles from EGMG's managed fleet…'. Located at /app/frontend/src/pages/BusinessesPage.js:58.",
+        "selector": "BusinessesPage business cards",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "HomePage iframe tooltip",
+        "issue": "YouTube iframe title attribute still says 'It's not just a fleet — It's the scale and innovation of EGMG' (HomePage.js:354). This tooltip is shown on hover and accessible to screen readers — counts as user-facing.",
+        "selector": "iframe[title*='EGMG']",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_12.json"],
+  "action_items": [
+    "[MEDIUM] AboutPage.js:18 - change timeline title 'EGMG — Full Rebrand' to 'Eurogulf Mobility Group — Full Rebrand' (or rename to 'Full Rebrand' since the desc already says 'Unified rebrand as Eurogulf Mobility Group').",
+    "[MEDIUM] LeadershipPage.js:14, :17, :19 - replace standalone 'EGMG' in the desc strings for Marius Anton, Mohamad Ali Al Maazmi, Mari Parian with 'Eurogulf Mobility Group' (or 'the group' on second mentions to avoid repetition).",
+    "[MEDIUM] BusinessesPage.js:58 - change \"EGMG's managed fleet\" to \"Eurogulf Mobility Group's managed fleet\".",
+    "[LOW] HomePage.js:354 - update YouTube iframe title attribute from '…scale and innovation of EGMG' to '…scale and innovation of Eurogulf Mobility Group'.",
+    "[OPTIONAL] AdminLoginPage.js:40 says 'EGMG Media Center CMS' — admin-only, not strictly user-facing, but recommend renaming for consistency."
+  ],
+  "critical_code_review_comments": [
+    "All 4 in-scope pages (LeasingPage, ChauffeurServicePage, UsedCarsPage, TrucklinePage) and HomePage are fully clean of standalone 'EGMG'. The only remaining EGMG references inside these files are the EGMG_LOGO variable name (acceptable - not visible) and alt='Eurogulf Mobility Group' on the logo image.",
+    "CTA brand colour #EE5A01 (rgb(238,90,1)) confirmed via getComputedStyle on .btn-primary across Leasing, Chauffeur Service, Truckline. ROI calculator math reactive (slider+selects update saving instantly).",
+    "Used Cars auction countdown is rendering live (04D:03H:03M:36S with 'Mon · 12:00 GST' label) — verify next Monday boundary handling on prod cutover.",
+    "Body font-family resolves to 'Roboto, Calibri, sans-serif' on body and p elements - font stack correctly updated from Manrope.",
+    "Mobile (390px) responsive: /leasing and /truckline both render without horizontal scroll, h1 visible, content stacks correctly.",
+    "All 10 client logos on Truckline are hot-linked from egmg.ae - works currently (no hotlink protection seen) but recommend mirroring to /public to remove third-party dependency.",
+    "/used-cars and /truckline successfully REPLACED — old content no longer present. H1s read 'EX-EUROPCAR FLEET. SOLD THE SMART WAY.' and 'YOUR FLEET, MANAGED.' respectively.",
+    "Two routes (/leasing, /chauffeur-service) successfully added to App.js (lines 68-69) and both render correctly with proper Navigation/Footer layout."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped)", "frontend": "92% (4/4 new pages pass; brand cleanup ~95% complete - 5 stray EGMG strings remain on About/Leadership/Businesses/Home iframe-title/AdminLogin)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 4 in-scope new/replaced pages PASS. Brand rule only partly enforced — EGMG still in About timeline (1x), Leadership bios (3x), Businesses Used Cars desc (1x), HomePage YouTube iframe title (1x). Main agent should do find-and-replace on these 5 spots, no retest needed unless other content changed. ROI calculator and auction countdown verified live; hero centering verified on all 4 target pages. Mobile 390px verified on /leasing and /truckline only — other pages not tested at mobile width.",
+  "rca of the issue": "EGMG residual strings exist because the brand replacement pass focused on HomePage + the 4 target pages but skipped /about, /leadership, /businesses pages where 'EGMG' was hardcoded in array data (timeline events, leader.desc strings, business.desc strings) and in one HomePage iframe title attribute. The EGMG_LOGO const variable name in each page is fine (technical identifier, not user-visible) and should NOT be changed. Mitigation: a simple find-and-replace of 'EGMG' → 'Eurogulf Mobility Group' inside the matched string literals (5 spots total) finishes the brand cleanup."
+}

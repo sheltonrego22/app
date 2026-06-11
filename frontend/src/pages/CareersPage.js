@@ -47,7 +47,7 @@ export default function CareersPage() {
   const [benefitsRef, benefitsVisible] = useScrollAnimation();
   const [listingsRef, listingsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Careers — Join Our Team | EGMG"; }, []);
+  useEffect(() => { document.title = "Careers — Join Our Team | Eurogulf Mobility Group"; }, []);
 
   const filtered = activeDept === "All" ? jobListings : jobListings.filter(j => j.dept === activeDept);
 
@@ -64,7 +64,7 @@ export default function CareersPage() {
             Grow Your Career With Us
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Join the team behind the UAE's most diversified mobility group. With over 1,200 employees across 14 locations, EGMG offers a dynamic environment where your talent drives real impact.
+            Join the team behind the UAE's most diversified mobility group. With over 1,200 employees across 14 locations, Eurogulf Mobility Group offers a dynamic environment where your talent drives real impact.
           </p>
           <a href="#openings" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             View Open Positions
@@ -78,7 +78,7 @@ export default function CareersPage() {
           <div className={`text-center mb-16 ${benefitsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              Why EGMG
+              Why Eurogulf Mobility Group
             </h2>
             <p className="font-body text-[#666666] max-w-lg mx-auto">Be part of a legacy that has been shaping the UAE's mobility landscape for nearly five decades.</p>
           </div>

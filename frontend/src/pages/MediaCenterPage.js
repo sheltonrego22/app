@@ -25,7 +25,7 @@ export default function MediaCenterPage() {
   const [expandedId, setExpandedId] = useState(null);
   const [gridRef, gridVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Media Center — EGMG | News & Insights"; }, []);
+  useEffect(() => { document.title = "Media Center — Eurogulf Mobility Group | News & Insights"; }, []);
 
   useEffect(() => {
     const fetchArticles = async () => {

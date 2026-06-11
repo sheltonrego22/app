@@ -102,7 +102,7 @@ export default function AboutPage() {
   const [chartRef, chartVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About EGMG — Your Vision, Our Journey Since 1976"; }, []);
+  useEffect(() => { document.title = "About Eurogulf Mobility Group — Your Vision, Our Journey Since 1976"; }, []);
 
   return (
     <div data-testid="about-page">
@@ -231,7 +231,7 @@ export default function AboutPage() {
                 A Family Business. A Regional Force.
               </h2>
               <p className="font-body text-[#666666] leading-relaxed mb-6">
-                For nearly 50 years, EGMG has been a family-owned business that expanded from one rental counter to the region's most comprehensive mobility group. We foster innovation, equality, and excellence at every level.
+                For nearly 50 years, Eurogulf Mobility Group has been a family-owned business that expanded from one rental counter to the region's most comprehensive mobility group. We foster innovation, equality, and excellence at every level.
               </p>
               <p className="font-body text-[#666666] leading-relaxed mb-8">
                 With over 1,200 professionals across 14 locations, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility in the UAE.

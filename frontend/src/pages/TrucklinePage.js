@@ -1,178 +1,189 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, Clock, MapPin, Check, Snowflake, Package, Shield } from 'lucide-react';
+import { Truck, Settings, Wrench, Shield, Package, Snowflake, HardHat, UtensilsCrossed, Building, Fuel, Landmark, Check, Phone, Mail } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+const EGMG_LOGO = "/egmg-logo-transparent.png";
 const HERO_IMG = "https://images.unsplash.com/photo-1698348186158-253ce97914f9?w=1400&h=700&fit=crop";
-const LOGO_URL = "/egmg-logo-transparent.png";
 const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-3.webp";
 
+const stats = [
+  { value: "12,000+", label: "Vehicles under management" },
+  { value: "5", label: "Eurogulf Mobility Group-owned workshops" },
+  { value: "<90 min", label: "Mobile breakdown SLA" },
+  { value: "ISO 9001", label: "& 14001 certified" },
+];
+
 const services = [
-  { icon: Truck, title: "Trucks & Vans Leasing", desc: "A comprehensive range of well-maintained commercial vehicles — from compact delivery vans to heavy-duty trucks — available on flexible lease terms." },
-  { icon: MapPin, title: "Services All Over UAE", desc: "Operations covering all seven Emirates, ensuring your business has consistent access to vehicles and logistical support wherever you operate." },
-  { icon: Clock, title: "24/7 Support & Services", desc: "Round-the-clock roadside assistance, fleet maintenance, and customer support to keep your business moving without interruption." },
+  {
+    icon: Truck,
+    title: "Commercial Vehicle Leasing",
+    desc: "From light-commercial vans to refrigerated trucks and heavy-duty 7-tonne movers — full operational lease with all costs included.",
+    features: ["Pickups, vans, refrigerated, flatbed, tippers", "Full operating lease (Reg, insurance, service)", "12 to 60-month tenures", "Up to 8% discount on multi-vehicle agreements"],
+  },
+  {
+    icon: Settings,
+    title: "Fleet Management",
+    desc: "Hands-off fleet operations — telematics, maintenance scheduling, fuel cards, accident management and consolidated monthly invoicing.",
+    features: ["Real-time GPS telematics dashboard", "Predictive maintenance scheduling", "WPS-compliant driver payroll", "Single monthly invoice across the fleet"],
+  },
+  {
+    icon: Wrench,
+    title: "Maintenance & Repair",
+    desc: "Five Eurogulf Mobility Group-owned workshops across Dubai and the Northern Emirates with manufacturer-approved technicians. SLA-backed turnaround.",
+    features: ["Full mechanical, electrical, body & paint", "Genuine OEM parts on every job", "48-hour SLA on scheduled servicing", "Mobile breakdown response in <90 min"],
+  },
+  {
+    icon: Shield,
+    title: "Risk Management",
+    desc: "Industry-leading accident management programme — single point of contact from claim to recovery, with cost-per-incident reporting.",
+    features: ["24/7 claims hotline", "In-house assessors at every workshop", "Driver behaviour scoring & coaching", "Compliance reporting (RTA · GSO · MoEW)"],
+  },
 ];
 
-const vehicleTypes = [
-  { icon: Package, label: "Delivery Vans", desc: "Compact and mid-size vans for last-mile delivery and urban logistics." },
-  { icon: Truck, label: "Box Trucks", desc: "Enclosed cargo trucks for secure, high-volume commercial transport." },
-  { icon: Snowflake, label: "Chiller Units", desc: "Temperature-controlled vehicles for food, pharmaceutical, and cold-chain logistics." },
-  { icon: Truck, label: "Flatbed Trucks", desc: "Open-deck trucks for construction materials, equipment, and heavy cargo." },
+const sectors = [
+  { icon: Package, title: "Logistics & Distribution", desc: "Last-mile delivery vans, 3-tonne movers, refrigerated boxes" },
+  { icon: HardHat, title: "Construction & MEP", desc: "Crew cabs, flatbeds, tippers, dewatering trucks" },
+  { icon: UtensilsCrossed, title: "Food & Beverage", desc: "Insulated cargo vans, temperature-controlled trucks, branded delivery vans" },
+  { icon: Building, title: "Hospitality & Retail", desc: "Concierge vans, supply runs, staff transport (15–30 seaters)" },
+  { icon: Fuel, title: "Oil, Gas & Industrial", desc: "Heavy-duty pickups, 4x4 utility vehicles, plant trucks" },
+  { icon: Landmark, title: "Government & Public Sector", desc: "Tendered fleet contracts with audit-grade reporting" },
 ];
 
-const benefits = [
-  "No down payment required on lease agreements",
-  "Free maintenance and servicing included",
-  "Free replacement vehicles during downtime",
-  "Flexible short-term and long-term lease options",
-  "Dedicated account management for corporate clients",
-  "Comprehensive insurance coverage included",
+const clientLogos = [
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-4.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-3.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-2.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-9.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-8.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-11.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-10.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-7.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-6.png.webp",
+  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-5.png.webp",
 ];
 
 export default function TrucklinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
-  const [vehiclesRef, vehiclesVisible] = useScrollAnimation();
+  const [sectorsRef, sectorsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Truckline — Commercial Fleet Leasing | EGMG"; }, []);
+  useEffect(() => { document.title = "Truckline — Commercial Vehicle Leasing & Fleet Management | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="truckline-page">
       {/* HERO */}
       <section data-testid="truckline-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Truckline Fleet" className="w-full h-full object-cover" />
+          <img src={HERO_IMG} alt="Truckline commercial fleet in Dubai" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/65" />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={LOGO_URL} alt="Truckline by EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility Group</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Empowering Businesses, One Journey at a Time
+            Your Fleet, Managed.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Truckline Transport offers specialized fleet leasing services for businesses, providing a range of well-maintained cars, trucks, and vans to support commercial operations across all Emirates.
+            Operational leasing for commercial fleets across the UAE — from a single delivery van to a 500-vehicle distribution network. We handle registration, insurance, servicing, repairs, telematics, fuel and accident management. You focus on growing the business.
           </p>
-          <Link to="/contact" data-testid="truckline-enquire-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            Get a Fleet Quote
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <a href="#enquire" className="btn-primary">Request a Fleet Quote</a>
+            <a href="tel:+97145063030" className="btn-ghost">Call the Team</a>
+          </div>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section data-testid="truckline-services" className="bg-[#0a0a0a] py-20 sm:py-28">
+      {/* STATS */}
+      <section className="bg-[#111] border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          {stats.map((s) => (
+            <div key={s.label} className="text-center py-8 px-4">
+              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#EE5A01]">{s.value}</div>
+              <div className="font-heading text-xs tracking-[0.1em] text-[#EEEDE7] mt-2 uppercase">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FOUR SERVICES */}
+      <section className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={servicesRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Services
-            </h2>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Four Services. One Contract.</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {services.map((s, i) => (
-              <div key={i} data-testid={`truckline-service-${i}`} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
-                <s.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
-                <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{s.title}</h3>
-                <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>
+              <div key={s.title} className={`bg-[#111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <s.icon className="w-8 h-8 text-[#EE5A01]" strokeWidth={1.5} />
+                  <h3 className="font-heading font-bold text-lg text-[#EEEDE7]">{s.title}</h3>
+                </div>
+                <p className="font-body text-sm text-[#666] mb-4 leading-relaxed">{s.desc}</p>
+                <ul className="space-y-2">
+                  {s.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#EE5A01] mt-0.5 flex-shrink-0" />
+                      <span className="font-body text-xs text-[#EEEDE7]">{f}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* VEHICLE TYPES */}
-      <section data-testid="truckline-vehicles" className="bg-black py-20 sm:py-28">
-        <div ref={vehiclesRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-            <div>
-              <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Commercial Fleet</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
-                Vehicles Built for Business
-              </h2>
-              <p className="font-body text-[#666666] leading-relaxed mb-8">
-                From last-mile delivery vans to temperature-controlled chiller units and heavy-duty flatbed trucks, Truckline equips your business with the right vehicle for every operation.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {vehicleTypes.map((v, i) => (
-                  <div key={i} className={`bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${vehiclesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
-                    <v.icon className="w-6 h-6 text-[#EE5A01] mb-3" strokeWidth={1.5} />
-                    <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{v.label}</h3>
-                    <p className="font-body text-xs text-[#666666] leading-relaxed">{v.desc}</p>
-                  </div>
-                ))}
+      {/* SECTORS */}
+      <section className="bg-black py-20 sm:py-28">
+        <div ref={sectorsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-14 ${sectorsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Sectors We Serve</h2>
+            <p className="font-body text-[#666]">From last-mile to last quarter.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sectors.map((s, i) => (
+              <div key={s.title} className={`bg-[#111] border border-white/5 p-6 text-center hover:border-[#EE5A01]/30 transition-all ${sectorsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
+                <s.icon className="w-7 h-7 text-[#EE5A01] mx-auto mb-3" strokeWidth={1.5} />
+                <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{s.title}</h3>
+                <p className="font-body text-xs text-[#666]">{s.desc}</p>
               </div>
-            </div>
-            <div>
-              <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Why Truckline</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
-                Lease Smarter
-              </h2>
-              <p className="font-body text-[#666666] leading-relaxed mb-6">
-                Truckline eliminates the burden of fleet ownership. No capital outlay. No maintenance headaches. Just reliable vehicles, serviced and ready when you need them.
-              </p>
-              <ul className="space-y-3 mb-8">
-                {benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-3">
-                    <div className="w-5 h-5 bg-[#EE5A01]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-[#EE5A01]" />
-                    </div>
-                    <span className="font-body text-sm text-[#EEEDE7]">{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="btn-primary inline-block">
-                Enquire About Commercial Fleet
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* TRUSTED CLIENTS */}
-      <section className="bg-[#0a0a0a] py-16 border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Our Clients</span>
-            <h2 className="font-heading font-bold text-xl text-[#EEEDE7] uppercase tracking-tight mt-2">
-              Trusted by Leading Businesses Across the UAE
-            </h2>
-          </div>
+      {/* CLIENT LOGOS */}
+      <section className="bg-[#0a0a0a] py-14 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="font-mono text-xs tracking-[0.2em] text-[#666] text-center mb-8 uppercase">Trusted by Leading Businesses Across the UAE</p>
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-            {[
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-4.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-3.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-2.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-9.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-8.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-11.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-10.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-7.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-6.png.webp",
-              "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-5.png.webp",
-            ].map((logo, i) => (
-              <img
-                key={i}
-                src={logo}
-                alt={`Truckline client ${i + 1}`}
-                className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-100 transition-opacity"
-                loading="lazy"
-              />
+            {clientLogos.map((logo, i) => (
+              <img key={i} src={logo} alt={`Truckline client ${i + 1}`} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-100 transition-opacity" loading="lazy" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-[#EE5A01] py-16">
+      {/* ENQUIRY CTA */}
+      <section id="enquire" className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">
-            Power Your Logistics
+            Tell Us Your Fleet. We'll Quote in 48h.
           </h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            From a single delivery van to an entire commercial fleet, Truckline has you covered across all seven Emirates.
+            Send us a brief — vehicle types, quantity, tenure and any operational constraints. Our commercial team will come back with a tailored operating-lease proposal within two business days.
           </p>
-          <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors inline-block">
-            Get in Touch
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="mailto:truckline@egmg.ae?subject=Fleet%20Quote%20Request" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors text-center flex items-center justify-center gap-2">
+              <Mail className="w-4 h-4" /> Email Truckline
+            </a>
+            <Link to="/contact" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">
+              Send a Brief
+            </Link>
+          </div>
         </div>
       </section>
     </div>

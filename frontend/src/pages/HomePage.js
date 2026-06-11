@@ -19,7 +19,7 @@ const services = [
   { icon: Crown, title: "Royal Limousine", subtitle: "Premium Chauffeur Service", desc: "ISO 9001:2015 certified chauffeur service for personal and corporate customers. GPS-tracked operations with accredited, performance-graded drivers.", link: "/royal-limousine" },
   { icon: Car, title: "Emirates Taxi", subtitle: "Professional Taxi Services", desc: "RTA-approved premium vehicles with well-trained chauffeurs. Award-winning service with quality-monitored operations and graded driver performance.", link: "/emirates-taxi" },
   { icon: Truck, title: "Truckline", subtitle: "Commercial Fleet Leasing", desc: "Specialized fleet leasing for businesses — cars, trucks, vans, and chiller units across all Emirates with 24/7 support and service.", link: "/truckline" },
-  { icon: Building2, title: "Eurogulf Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Reliable, high-quality pre-owned vehicles from EGMG's managed fleet. A-Grade workshop inspected with full service history.", link: "/used-cars" },
+  { icon: Building2, title: "Eurogulf Used Car Trading", subtitle: "Certified Pre-Owned", desc: "Reliable, high-quality pre-owned vehicles from Eurogulf Mobility Group's managed fleet. A-Grade workshop inspected with full service history.", link: "/used-cars" },
 ];
 
 const fleetVehicles = [
@@ -87,10 +87,10 @@ const whyChooseUs = [
 ];
 
 const socialImages = [
-  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — where EGMG operates 14 locations" },
+  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — where we operate 14 locations" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
   { img: "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=600&h=600&fit=crop", caption: "Tesla fleet on Sheikh Zayed Road" },
-  { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=600&h=600&fit=crop", caption: "EGMG fleet across the Emirates" },
+  { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=600&h=600&fit=crop", caption: "Our fleet across the Emirates" },
   { img: "https://images.pexels.com/photos/5087165/pexels-photo-5087165.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Dubai highways — our daily routes" },
   { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=600&h=600&fit=crop", caption: "Cars with the Dubai Marina skyline" },
 ];
@@ -115,7 +115,7 @@ export default function HomePage() {
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
   const [testimonialsRef, testimonialsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "EGMG — Eurogulf Mobility Group | WE MOVE YOU!"; }, []);
+  useEffect(() => { document.title = "Eurogulf Mobility Group — WE MOVE YOU!"; }, []);
 
   return (
     <div data-testid="home-page">
@@ -135,7 +135,7 @@ export default function HomePage() {
             YOU!
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            From premium chauffeur services to corporate fleet management, EGMG has been defining mobility across the UAE since 1976. One group. 12,000+ vehicles. Every journey.
+            From premium chauffeur services to corporate fleet management, Eurogulf Mobility Group has been defining mobility across the UAE since 1976. One group. 12,000+ vehicles. Every journey.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.45s' }}>
             <Link to="/services" data-testid="hero-explore-btn" className="btn-primary text-center">
@@ -170,7 +170,7 @@ export default function HomePage() {
               One Group. Every Journey.
             </h2>
             <p className="font-body text-base text-[#666666] max-w-lg mx-auto">
-              From Daily Rentals to Monthly Subscription, Corporate Truck & Van Leasing to Customised Commercial / Non-Commercial Fleet Solutions. EGMG has been moving the UAE for over 50 years
+              From Daily Rentals to Monthly Subscription, Corporate Truck & Van Leasing to Customised Commercial / Non-Commercial Fleet Solutions. Eurogulf Mobility Group has been moving the UAE for over 50 years
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -234,7 +234,7 @@ export default function HomePage() {
             <div className={`${trustVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
               <div className="orange-accent-line mb-6" />
               <blockquote className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#EE5A01] leading-snug mb-6">
-                "As UAE's most trusted name in mobility, EGMG is committed to delivering unmatched service."
+                "As UAE's most trusted name in mobility, Eurogulf Mobility Group is committed to delivering unmatched service."
               </blockquote>
               <p className="font-body text-[#666666]">
                 For 50 years, we have set the standard for quality, reliability, and innovation in the transportation industry.
@@ -275,7 +275,7 @@ export default function HomePage() {
           <div className={`text-center mb-14 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              The EGMG Family of Brands
+              The Eurogulf Mobility Group Family of Brands
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -303,7 +303,7 @@ export default function HomePage() {
           <div className={`text-center mb-14 ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Why Choose EGMG
+              Why Choose Eurogulf Mobility Group
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -416,7 +416,7 @@ export default function HomePage() {
             Ready to Move?
           </h2>
           <p className="font-body text-black/70 text-base mb-8 max-w-lg mx-auto">
-            Whether it's a single ride or a fleet of 500, EGMG has the solution. Let's get you moving.
+            Whether it's a single ride or a fleet of 500, Eurogulf Mobility Group has the solution. Let's get you moving.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact" data-testid="cta-contact-btn" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">

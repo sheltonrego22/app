@@ -63,7 +63,7 @@ const divisions = [
 export default function BusinessesPage() {
   const [gridRef, gridVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Our Businesses — EGMG Divisions | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Our Businesses — Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="businesses-page">
@@ -78,7 +78,7 @@ export default function BusinessesPage() {
             Our Businesses
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From car rental to premium chauffeur services, commercial fleet leasing to certified pre-owned vehicles — EGMG covers every dimension of mobility in the UAE.
+            From car rental to premium chauffeur services, commercial fleet leasing to certified pre-owned vehicles — Eurogulf Mobility Group covers every dimension of mobility in the UAE.
           </p>
         </div>
       </section>
@@ -132,7 +132,7 @@ export default function BusinessesPage() {
             Need a Mobility Solution?
           </h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            Whether it is a single rental car or an entire commercial fleet, EGMG has the right division for you.
+            Whether it is a single rental car or an entire commercial fleet, Eurogulf Mobility Group has the right division for you.
           </p>
           <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors inline-block">
             Contact Us

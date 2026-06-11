@@ -56,7 +56,7 @@ export default function EuropcarPage() {
   const [leasingRef, leasingVisible] = useScrollAnimation();
   const [locationsRef, locationsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Europcar Dubai — Premium Car Rental & Leasing | EGMG"; }, []);
+  useEffect(() => { document.title = "Europcar Dubai — Premium Car Rental & Leasing | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="europcar-page">

@@ -24,7 +24,7 @@ const pillars = [
   {
     icon: Zap,
     title: "Electric Vehicles (EVs)",
-    desc: "EGMG is accelerating the shift to electric mobility with Tesla and hybrid vehicles in our chauffeur fleet, supporting Dubai's Clean Energy Strategy and the UAE Net Zero 2050 initiative.",
+    desc: "Eurogulf Mobility Group is accelerating the shift to electric mobility with Tesla and hybrid vehicles in our chauffeur fleet, supporting Dubai's Clean Energy Strategy and the UAE Net Zero 2050 initiative.",
     stat: "EV",
     statLabel: "Fleet expansion underway",
   },
@@ -48,7 +48,7 @@ export default function SustainabilityPage() {
   const [pillarsRef, pillarsVisible] = useScrollAnimation();
   const [initiativesRef, initiativesVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Sustainability — EGMG | Driving a Greener Future"; }, []);
+  useEffect(() => { document.title = "Sustainability — Eurogulf Mobility Group | Driving a Greener Future"; }, []);
 
   return (
     <div data-testid="sustainability-page">
@@ -161,7 +161,7 @@ export default function SustainabilityPage() {
             Partner With Us for a Greener Future
           </h2>
           <p className="font-body text-[#EEEDE7]/60 mb-8 max-w-lg mx-auto">
-            Join EGMG in building sustainable mobility solutions. Contact us to learn how we're making every journey more responsible.
+            Join Eurogulf Mobility Group in building sustainable mobility solutions. Contact us to learn how we're making every journey more responsible.
           </p>
           <Link to="/contact" className="btn-primary inline-block">
             Get In Touch
