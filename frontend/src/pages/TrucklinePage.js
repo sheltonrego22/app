@@ -67,7 +67,7 @@ export default function TrucklinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [sectorsRef, sectorsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Truckline — Commercial Vehicle Leasing & Fleet Management | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Truckline — Commercial Vehicle Leasing & Fleet Management | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="truckline-page">
@@ -79,8 +79,8 @@ export default function TrucklinePage() {
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility Group</span>
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Your Fleet, Managed.
           </h1>

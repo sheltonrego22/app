@@ -115,7 +115,7 @@ export default function HomePage() {
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
   const [testimonialsRef, testimonialsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Mobility Group — WE MOVE YOU!"; }, []);
+  useEffect(() => { document.title = "Eurogulf Mobility — UAE's Trusted Mobility Group Since 1976"; }, []);
 
   return (
     <div data-testid="home-page">
@@ -127,27 +127,27 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
-          <img src={EGMG_LOGO} alt="EGMG" className="h-14 sm:h-16 w-auto mx-auto mb-8 animate-fade-in" />
-          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-14 sm:h-16 w-auto mx-auto mb-6 animate-fade-in" />
+          <p className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-6 animate-fade-in">The UAE's Diversified Mobility Group · Since 1976</p>
+          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[100px] leading-[0.9] tracking-tight text-[#EEEDE7] mb-2 animate-fade-in-up">
             WE MOVE
           </h1>
-          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[110px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-[100px] leading-[0.9] tracking-tight text-[#EE5A01] mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
             YOU!
           </h1>
-          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            From premium chauffeur services to corporate fleet management, Eurogulf Mobility Group has been defining mobility across the UAE since 1976. One group. 12,000+ vehicles. Every journey.
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            Car rental, corporate leasing, premium chauffeur services, bus and coach transportation, commercial fleet management, and used vehicle sales — all under one roof. Nearly 50 years. 10,000+ vehicles. 1,200+ professionals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.45s' }}>
             <Link to="/services" data-testid="hero-explore-btn" className="btn-primary text-center">
-              Explore Our Services
+              Explore Our Solutions
             </Link>
-            <Link to="/book-chauffeur" data-testid="hero-book-btn" className="btn-ghost text-center">
-              Book a Ride
+            <Link to="/contact" data-testid="hero-book-btn" className="btn-ghost text-center">
+              Get a Quote
             </Link>
           </div>
         </div>
 
-        {/* Bottom scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <div className="w-[1px] h-12 bg-[#EE5A01]/40" />
           <span className="font-mono text-[10px] text-[#666666] tracking-[0.2em]">SCROLL</span>
@@ -170,7 +170,7 @@ export default function HomePage() {
               One Group. Every Journey.
             </h2>
             <p className="font-body text-base text-[#666666] max-w-lg mx-auto">
-              From Daily Rentals to Monthly Subscription, Corporate Truck & Van Leasing to Customised Commercial / Non-Commercial Fleet Solutions. Eurogulf Mobility Group has been moving the UAE for over 50 years
+              From Daily Rentals to Monthly Subscription, Corporate Truck & Van Leasing to Customised Commercial / Non-Commercial Fleet Solutions. Eurogulf Mobility has been moving the UAE for nearly 50 years.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -227,14 +227,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ WHY EGMG / TRUST PILLARS ═══ */}
+      {/* ═══ WHY EUROGULF MOBILITY / TRUST PILLARS ═══ */}
       <section data-testid="trust-section" className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={trustRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className={`${trustVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
               <div className="orange-accent-line mb-6" />
               <blockquote className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#EE5A01] leading-snug mb-6">
-                "As UAE's most trusted name in mobility, Eurogulf Mobility Group is committed to delivering unmatched service."
+                "As the UAE's most trusted name in mobility, Eurogulf Mobility is committed to delivering unmatched service."
               </blockquote>
               <p className="font-body text-[#666666]">
                 For 50 years, we have set the standard for quality, reliability, and innovation in the transportation industry.
@@ -257,15 +257,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ AWARDS TICKER ═══ */}
-      <section data-testid="awards-section" className="bg-black border-y border-white/5 py-5 overflow-hidden">
-        <div className="marquee-track animate-marquee">
-          {[...awards, ...awards].map((a, i) => (
-            <span key={i} className="font-mono text-xs text-[#666666] tracking-[0.15em] uppercase flex-shrink-0 px-8">
-              {a}
-              <span className="ml-8 text-[#EE5A01]">&#9670;</span>
-            </span>
-          ))}
+      {/* ═══ AWARDS & CERTIFICATIONS (Static Grid) ═══ */}
+      <section data-testid="awards-section" className="bg-[#f5f2ec] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="orange-accent-line mx-auto mb-4" />
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-black uppercase tracking-tight">Awards & Certifications</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {awards.map((a, i) => (
+              <div key={i} className="bg-white border border-black/5 p-5 text-center">
+                <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mx-auto mb-3">
+                  <Shield className="w-5 h-5 text-[#EE5A01]" />
+                </div>
+                <p className="font-heading font-bold text-xs text-black uppercase tracking-wider leading-relaxed">{a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -275,7 +283,7 @@ export default function HomePage() {
           <div className={`text-center mb-14 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              The Eurogulf Mobility Group Family of Brands
+              The Eurogulf Mobility Family of Brands
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -297,13 +305,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ WHY CHOOSE EGMG ═══ */}
+      {/* ═══ WHY CHOOSE EUROGULF MOBILITY ═══ */}
       <section data-testid="why-choose-section" className="bg-black py-20 sm:py-28">
         <div ref={testimonialsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Why Choose Eurogulf Mobility Group
+              Why Choose Eurogulf Mobility
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -400,11 +408,70 @@ export default function HomePage() {
       {/* ═══ TRUSTED BY / PARTNER LOGOS ═══ */}
       <section data-testid="partner-logos-section" className="bg-black py-16 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-mono text-xs tracking-[0.2em] text-[#666666] text-center mb-10 uppercase">Trusted by Leading Organizations</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-[#666666] text-center mb-10 uppercase">Trusted by Leading Organisations</p>
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14">
             {PARTNER_LOGOS.map((logo, i) => (
               <img key={i} src={logo} alt="Partner" data-testid={`partner-logo-${i}`} className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-40 hover:opacity-80 transition-opacity" loading="lazy" />
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/partners" className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase hover:underline">View All Partners & Clients →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ DUBAI MUNICIPALITY SHOWCASE ═══ */}
+      <section data-testid="municipality-section" className="bg-[#f5f2ec] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Flagship Partnership</span>
+              <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mt-2 mb-4">Dubai Municipality</h2>
+              <p className="font-body text-[#666] leading-relaxed mb-6">
+                Eurogulf Mobility proudly manages a fleet of over 1,500 vehicles for Dubai Municipality — one of the UAE's most important government entities. From vehicle leasing and fleet management to RFID tracking and 24/7 roadside support, we deliver the operational backbone that keeps Dubai moving.
+              </p>
+              <Link to="/dubai-municipality" className="btn-primary inline-block">Explore This Partnership</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { value: "1,500+", label: "Vehicles Managed" },
+                { value: "98.5%", label: "Fleet Uptime" },
+                { value: "24/7", label: "Support Coverage" },
+                { value: "5", label: "Dedicated Workshops" },
+              ].map((s) => (
+                <div key={s.label} className="bg-white border border-black/5 p-5 text-center">
+                  <p className="font-heading font-black text-2xl text-[#EE5A01]">{s.value}</p>
+                  <p className="font-body text-xs text-[#666] mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ INSIGHTS / BLOG HIGHLIGHT ═══ */}
+      <section data-testid="insights-section" className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Insights & News</h2>
+            <p className="font-body text-[#666]">Industry updates, mobility news, and the latest from Eurogulf Mobility.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { cat: "Awards", title: "Eurogulf Mobility Receives World Travel Award for Best Car Rental MENA 2024", date: "Extending a winning streak that began in 2005." },
+              { cat: "Sustainability", title: "Driving the Future: Our Commitment to Green Mobility in the UAE", date: "Expanding our electric and hybrid vehicle fleet." },
+              { cat: "Fleet", title: "Royal Limousine Expands Executive Fleet with BMW 7 Series and Audi A8", date: "Reinforcing our position as the UAE's premier luxury transport provider." },
+            ].map((post, i) => (
+              <Link key={i} to="/media" className="bg-[#111] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all group">
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">{post.cat}</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2 group-hover:text-[#EE5A01] transition-colors leading-snug">{post.title}</h3>
+                <p className="font-body text-xs text-[#666]">{post.date}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/media" className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase hover:underline">View All Insights →</Link>
           </div>
         </div>
       </section>
@@ -416,7 +483,7 @@ export default function HomePage() {
             Ready to Move?
           </h2>
           <p className="font-body text-black/70 text-base mb-8 max-w-lg mx-auto">
-            Whether it's a single ride or a fleet of 500, Eurogulf Mobility Group has the solution. Let's get you moving.
+            Whether it's a single ride or a fleet of 500, Eurogulf Mobility has the solution. Let's get you moving.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact" data-testid="cta-contact-btn" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">

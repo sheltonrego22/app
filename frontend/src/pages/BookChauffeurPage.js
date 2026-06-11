@@ -221,7 +221,7 @@ export default function BookChauffeurPage() {
   const [bookingRef, setBookingRef] = useState('');
 
   useEffect(() => {
-    document.title = "Book Your Chauffeur — Eurogulf Mobility Group";
+    document.title = "Book Your Chauffeur — Eurogulf Mobility";
   }, []);
 
   const set = (key, val) => {

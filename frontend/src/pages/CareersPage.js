@@ -47,7 +47,7 @@ export default function CareersPage() {
   const [benefitsRef, benefitsVisible] = useScrollAnimation();
   const [listingsRef, listingsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Careers — Join Our Team | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Careers — Join Our Team | Eurogulf Mobility"; }, []);
 
   const filtered = activeDept === "All" ? jobListings : jobListings.filter(j => j.dept === activeDept);
 

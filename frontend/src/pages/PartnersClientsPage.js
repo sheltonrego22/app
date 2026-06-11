@@ -53,7 +53,7 @@ export default function PartnersClientsPage() {
   const [clientsRef, clientsVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Our Partners & Clients — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Our Partners & Clients — Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="partners-clients-page">
@@ -63,7 +63,7 @@ export default function PartnersClientsPage() {
         <div className="absolute top-20 right-20 w-80 h-80 bg-[#EE5A01]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" />
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Trusted Partnerships</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Our Partners & Clients

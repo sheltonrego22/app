@@ -66,7 +66,7 @@ function LeaderCard({ leader, index, isOwner }) {
 export default function LeadershipPage() {
   const [heroRef, heroVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Leadership — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Leadership — Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="leadership-page">

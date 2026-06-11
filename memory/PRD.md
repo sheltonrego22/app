@@ -8,15 +8,15 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - **Backend**: FastAPI + MongoDB (contact form)
 - **Fonts**: Outfit / Manrope / JetBrains Mono
 
-## Pages (23 Total)
-1. Home (/) — Hero, Stats, Services, Fleet, Trust, Awards, Divisions, Why Choose, Social, Partners, CTA
-2. About (/about) — History, Timeline, Values, Divisions, Awards
+## Pages (24 Total)
+1. Home (/) — Enhanced hero with master brand positioning, stats, services, fleet, trust, awards (static grid), divisions, Why Choose, Dubai Municipality showcase, Blog/Insights highlight, partners, CTA
+2. About (/about) — History, Timeline (correct milestones), Values, Divisions, Awards
 3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide
 4. Contact (/contact) — Form (MongoDB), Google Maps with location link, 24/7 support
 5. Leadership (/leadership) — 9 leaders
 6. Sustainability (/sustainability) — 4 pillars
 7. Media Center (/media) — Dynamic CMS articles, category filters, search, featured
-8-13. Brand pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
+8-13. Brand pages: Europcar (with green CTAs, monthly rental, leasing lead form, social media), Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
 14. Businesses (/businesses) — Hub for all 6 divisions
 15. Careers (/careers) — 26 jobs, department filters
 16. Book Chauffeur (/book-chauffeur) — 4-step booking wizard with MongoDB
@@ -25,8 +25,9 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 19. Admin Login (/admin/login) — JWT auth
 20. Admin Dashboard (/admin) — Full CMS
 21. Partners & Clients (/partners) — Partners (Esaad, Fazaa, Alsaada, insurance), Customers by sector, Major Events
-22. Dubai Municipality (/dubai-municipality) — Flagship partnership showcase
-23. 404 (*) — Error page
+22. Dubai Municipality (/dubai-municipality) — Flagship partnership showcase with warm light variation
+23. Mobility Technology & AI (/mobility-technology) — Innovation positioning, tech stack, future vision
+24. 404 (*) — Error page
 
 ## Content Accuracy (Verified Feb 2026)
 - Tagline: "Your Vision, Our Journey" (from egmg.ae)

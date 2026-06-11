@@ -41,7 +41,7 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [locationsRef, locationsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Contact Eurogulf Mobility Group — Let's Move You Forward"; }, []);
+  useEffect(() => { document.title = "Contact Eurogulf Mobility — Let's Move You Forward"; }, []);
 
   const validate = () => {
     const e = {};

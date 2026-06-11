@@ -29,7 +29,7 @@ export default function RoyalLimousinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [fleetRef, fleetVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Royal Limousine — Premium Chauffeur Service | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Royal Limousine — Premium Chauffeur Service | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="royal-limousine-page">

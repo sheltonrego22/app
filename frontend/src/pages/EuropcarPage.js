@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Download } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Input } from '@/components/ui/input';
+import axios from 'axios';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=1400&h=700&fit=crop";
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
 const BOOKING_URL = "https://www.europcar.com/en-db";
+const MONTHLY_URL = "https://www.europcardubai.com";
 const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";
+const EUROPCAR_GREEN = "#2d8c3c";
 
 const highlights = [
   { label: "No. 1 in Europe", value: "#1" },
@@ -55,8 +59,11 @@ export default function EuropcarPage() {
   const [rentalRef, rentalVisible] = useScrollAnimation();
   const [leasingRef, leasingVisible] = useScrollAnimation();
   const [locationsRef, locationsVisible] = useScrollAnimation();
+  const [leaseForm, setLeaseForm] = useState({ name: '', phone: '', email: '' });
+  const [leaseSubmitted, setLeaseSubmitted] = useState(false);
+  const [leaseSubmitting, setLeaseSubmitting] = useState(false);
 
-  useEffect(() => { document.title = "Europcar Dubai — Premium Car Rental & Leasing | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Europcar Dubai — Premium Car Rental & Leasing | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="europcar-page">
@@ -121,14 +128,28 @@ export default function EuropcarPage() {
                   </li>
                 ))}
               </ul>
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-rental-book" className="btn-primary inline-block">
-                Reserve Now
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-rental-book" style={{ background: EUROPCAR_GREEN }} className="text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-3.5 hover:opacity-90 transition-opacity inline-block text-center">
+                Book Your Rental Now
               </a>
             </div>
             <div className="relative overflow-hidden">
               <img src={FLEET_IMG} alt="Europcar Fleet" className="w-full h-[420px] object-cover" loading="lazy" />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* MONTHLY RENTAL */}
+      <section className="bg-[#f5f2ec] py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Residents & Long-Stay Visitors</span>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mt-3 mb-4">Monthly Car Rental</h2>
+          <p className="font-body text-[#666] max-w-2xl mx-auto mb-8 leading-relaxed">
+            Looking for a monthly rental? Skip the commitment of ownership and enjoy a fully insured, well-maintained vehicle — delivered to your door. Perfect for UAE residents, expats, and long-stay visitors needing flexible transport on their own terms.
+          </p>
+          <a href={MONTHLY_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-monthly-book" style={{ background: EUROPCAR_GREEN }} className="text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:opacity-90 transition-opacity inline-block text-center">
+            Book Your Monthly Rental
+          </a>
         </div>
       </section>
 
@@ -157,9 +178,61 @@ export default function EuropcarPage() {
                   </li>
                 ))}
               </ul>
-              <Link to="/contact" data-testid="europcar-leasing-enquire" className="btn-primary inline-block">
-                Request a Fleet Quote
-              </Link>
+              {!leaseSubmitted ? (
+                <div data-testid="leasing-lead-form" className="bg-[#111] border border-white/5 p-6 mt-6">
+                  <p className="font-body text-sm text-[#EEEDE7]/80 mb-4">
+                    Want to find out more about leasing from Europcar? Leave us your details and one of our consultants will get back to you shortly.
+                  </p>
+                  <div className="space-y-3">
+                    <Input
+                      data-testid="lease-name"
+                      value={leaseForm.name}
+                      onChange={(e) => setLeaseForm(p => ({ ...p, name: e.target.value }))}
+                      placeholder="Your Name"
+                      className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] rounded-none h-11"
+                    />
+                    <Input
+                      data-testid="lease-phone"
+                      value={leaseForm.phone}
+                      onChange={(e) => setLeaseForm(p => ({ ...p, phone: e.target.value }))}
+                      placeholder="Mobile Number"
+                      className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] rounded-none h-11"
+                    />
+                    <Input
+                      data-testid="lease-email"
+                      type="email"
+                      value={leaseForm.email}
+                      onChange={(e) => setLeaseForm(p => ({ ...p, email: e.target.value }))}
+                      placeholder="Email Address"
+                      className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] rounded-none h-11"
+                    />
+                    <button
+                      data-testid="lease-submit"
+                      disabled={leaseSubmitting || !leaseForm.name || !leaseForm.phone || !leaseForm.email}
+                      onClick={async () => {
+                        setLeaseSubmitting(true);
+                        try {
+                          await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
+                            full_name: leaseForm.name, phone: leaseForm.phone, email: leaseForm.email,
+                            company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
+                          });
+                        } catch {}
+                        setLeaseSubmitted(true);
+                        setLeaseSubmitting(false);
+                      }}
+                      style={{ background: EUROPCAR_GREEN }}
+                      className="w-full text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50 text-center"
+                    >
+                      {leaseSubmitting ? 'Submitting...' : 'Find Out More About Leasing Now'}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-[#111] border border-[#EE5A01]/30 p-6 mt-6 text-center">
+                  <Check className="w-8 h-8 text-[#EE5A01] mx-auto mb-3" />
+                  <p className="font-heading font-bold text-sm text-[#EEEDE7]">Thank you! Our leasing consultant will contact you shortly.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -213,6 +286,60 @@ export default function EuropcarPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ EUROPCAR SOCIAL MEDIA ═══ */}
+      <section data-testid="europcar-social" className="bg-black py-20 sm:py-28 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Follow Europcar Dubai</h2>
+            <p className="font-body text-[#666]">Stay connected with the latest offers, fleet updates, and Dubai travel inspiration.</p>
+          </div>
+
+          {/* Social Posts Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
+            {[
+              { img: FLEET_IMG, caption: "Our fleet is ready to move you across the UAE — daily, weekly, or monthly." },
+              { img: "https://images.unsplash.com/photo-1634823005888-11796723fd70?w=400&h=400&fit=crop", caption: "Explore Dubai in style with our premium fleet." },
+              { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=400&h=400&fit=crop", caption: "Now available at all 3 Dubai Airport terminals — 24/7." },
+              { img: "https://images.unsplash.com/photo-1634823929885-b12342dfc408?w=400&h=400&fit=crop", caption: "From city drives to desert getaways — we have you covered." },
+              { img: "https://images.unsplash.com/photo-1696934288553-c41a5456da7b?w=400&h=400&fit=crop", caption: "Corporate leasing solutions for businesses of every size." },
+              { img: "https://images.unsplash.com/photo-1582187764383-b1fe05d947fb?w=400&h=400&fit=crop", caption: "Burj Khalifa views and Europcar rides — a perfect match." },
+              { img: "https://images.unsplash.com/photo-1575538439014-1b8bc5fcaa1d?w=400&h=400&fit=crop", caption: "Book your weekend adventure with Europcar Dubai." },
+              { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=400&h=400&fit=crop", caption: "Dubai Marina cruising — made easy with Europcar." },
+            ].map((post, i) => (
+              <a
+                key={i}
+                href="https://www.instagram.com/europcardubai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative aspect-square overflow-hidden group"
+              >
+                <img src={post.img} alt={post.caption} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end p-3">
+                  <p className="font-body text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">{post.caption}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Social Links */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a href="https://www.instagram.com/europcardubai/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] bg-[#EE5A01] text-black px-5 py-2.5 hover:bg-[#d45000] transition-all">
+              INSTAGRAM
+            </a>
+            <a href="https://www.facebook.com/europcar/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              FACEBOOK
+            </a>
+            <a href="https://www.linkedin.com/company/europcar-dubai/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              LINKEDIN
+            </a>
+            <a href="https://www.youtube.com/@EurogulfMobilityGroup-x1n" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              YOUTUBE
+            </a>
           </div>
         </div>
       </section>

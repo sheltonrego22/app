@@ -7,15 +7,15 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
 
 const milestones = [
-  { year: "1976", title: "Dubai Rent A Car LLC", desc: "Car Rental, Leasing & Transportation Services — the foundation of a mobility empire in the UAE." },
+  { year: "1976", title: "Dubai Rent A Car LLC", desc: "Car Rental, Leasing & Transportation Services — the foundation of a mobility group in the UAE." },
   { year: "1978", title: "Europcar Franchise", desc: "UAE's first international car rental brand partnership, bringing world-class standards to the region." },
-  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Launch of professional chauffeur services in Dubai, setting new standards for VIP transportation." },
+  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Launch of professional chauffeur services in Dubai, setting new standards for premium transportation." },
   { year: "1994", title: "Eurogulf Garage & Used Cars", desc: "Establishment of A-Grade workshops and certified pre-owned vehicle trading operations." },
   { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "Expansion into luxury coach transportation for corporate groups and events across Dubai." },
   { year: "2013", title: "Eurogulf Limo Abu Dhabi", desc: "Premium chauffeur services extended to the capital, covering the entire UAE corridor." },
   { year: "2018", title: "Eurogulf Luxury Coaches Abu Dhabi", desc: "Full-scale coach operations launched in Abu Dhabi for corporate and government clients." },
   { year: "2021", title: "Truckline — Commercial Fleet", desc: "Launch of commercial vehicle division — vans, trucks, and chiller units for logistics." },
-  { year: "2024", title: "EGMG — Full Rebrand", desc: "Unified rebrand as Eurogulf Mobility Group, consolidating 50 years of excellence under one identity." },
+  { year: "2024", title: "Eurogulf Mobility Group", desc: "Unified rebrand as Eurogulf Mobility, consolidating nearly 50 years of excellence under one identity." },
 ];
 
 const chartData = [
@@ -102,7 +102,7 @@ export default function AboutPage() {
   const [chartRef, chartVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About Eurogulf Mobility Group — Your Vision, Our Journey Since 1976"; }, []);
+  useEffect(() => { document.title = "About Eurogulf Mobility — Your Vision, Our Journey Since 1976"; }, []);
 
   return (
     <div data-testid="about-page">

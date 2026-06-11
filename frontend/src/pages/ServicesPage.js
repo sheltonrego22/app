@@ -60,7 +60,7 @@ function ServiceSection({ id, category, children }) {
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  useEffect(() => { document.title = "Our Services — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Our Services — Eurogulf Mobility"; }, []);
 
   const shouldShow = (category) => activeFilter === "all" || activeFilter === category;
 
