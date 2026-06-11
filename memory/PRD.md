@@ -1,82 +1,63 @@
-# EGMG Corporate Website — PRD
+# Eurogulf Mobility Group (EGMG) — Corporate Website PRD
 
 ## Original Problem Statement
-Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf Mobility Group. Dark UI (#000000, #EE5A01). All content scraped from live egmg.ae, factually accurate, UAE-centric. Real EGMG social media content embedded.
+Build a premium, futuristic multi-page corporate website for Eurogulf Mobility Group. The website positions "Eurogulf Mobility" as the master brand above its sub-brands (Europcar, Goldcar, Eurogulf Chauffeur, Truckline, Eurogulf Used Cars, Eurogulf Autocare). Production-ready with dynamic booking forms, CMS-backed Media Center, SEO optimization, and strict brand guidelines.
 
-## Architecture
-- **Frontend**: React 19 + React Router + Tailwind CSS + Shadcn UI
-- **Backend**: FastAPI + MongoDB (contact form)
-- **Fonts**: Outfit / Manrope / JetBrains Mono
+## Core Architecture
+- **Frontend**: React + Tailwind CSS + Shadcn UI (port 3000)
+- **Backend**: FastAPI + MongoDB (port 8001)
+- **Brand Colors**: Primary Orange #EE5A01, Secondary Black #000000, Europcar Green #2d8c3c (Europcar page only)
+- **Fonts**: Outfit (headings), Roboto (body), JetBrains Mono (accents)
 
-## Pages (24 Total)
-1. Home (/) — Enhanced hero with master brand positioning, stats, services, fleet, trust, awards (static grid), divisions, Why Choose, Dubai Municipality showcase, Blog/Insights highlight, partners, CTA
-2. About (/about) — History, Timeline (correct milestones), Values, Divisions, Awards
-3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide
-4. Contact (/contact) — Form (MongoDB), Google Maps with location link, 24/7 support
-5. Leadership (/leadership) — 9 leaders
-6. Sustainability (/sustainability) — 4 pillars
-7. Media Center (/media) — Dynamic CMS articles, category filters, search, featured
-8-13. Brand pages: Europcar (with green CTAs, monthly rental, leasing lead form, social media), Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
-14. Businesses (/businesses) — Hub for all 6 divisions
-15. Careers (/careers) — 26 jobs, department filters
-16. Book Chauffeur (/book-chauffeur) — 4-step booking wizard with MongoDB
-17. Leasing (/leasing) — Personal & corporate leasing with ROI calculator
-18. Chauffeur Service (/chauffeur-service) — Service types, fleet, booking flow
-19. Admin Login (/admin/login) — JWT auth
-20. Admin Dashboard (/admin) — Full CMS
-21. Partners & Clients (/partners) — Partners (Esaad, Fazaa, Alsaada, insurance), Customers by sector, Major Events
-22. Dubai Municipality (/dubai-municipality) — Flagship partnership showcase with warm light variation
-23. Mobility Technology & AI (/mobility-technology) — Innovation positioning, tech stack, future vision
-24. 404 (*) — Error page
+## Navigation Structure (Strategy Doc Aligned)
+HOME | ABOUT EGMG | OUR BRANDS | CORPORATE SOLUTIONS | MEDIA & PRESS | CAREERS | CONTACT
 
-## Content Accuracy (Verified Feb 2026)
-- Tagline: "Your Vision, Our Journey" (from egmg.ae)
-- Stats: 12,000+ vehicles, 1,200+ employees, 14 locations, Est. 1976
-- Values: F.A.I.R. (Fearless, Accountable, Innovative, Respectful)
-- Awards: World Travel Awards (2005-2024), ISO 9001:2015, ISO 45001:2018, MENA Travel Awards, McDermott Award
-- Social: @eurogulfmobility (Instagram), YouTube Shorts embedded
-- No fabricated testimonials or unverified claims
+## Pages Implemented (21+)
+1. **HomePage** — "50 Years of Moving the UAE Forward" hero, 5-stat bar, 6 brand cards, group intro, partner showcase, awards, Dubai Municipality, social/video, CTA
+2. **AboutPage** — "Five Decades..." hero, opening paragraphs, 9-milestone timeline, Vision/Mission, F.A.I.R values, 6 brand cards, fleet growth chart, awards
+3. **EuropcarPage** — Europe's #1 hero, key facts bar (5000+/1.5yr/14/500+/3/24-7), brand story, rental comparison table (Daily/Weekly/Monthly), green monthly rental box, leasing lead form, international car hire (143 countries), 14 locations grid
+4. **GoldcarPage** — "Smart Travel Starts Here" hero, international brand story (35+ years, 60000+ fleet), Sharjah Airport exclusive, what makes different
+5. **ChauffeurServicePage** — "UAE's Most Trusted..." hero, 6 service types, 5-vehicle limo fleet (Mercedes E/S-Class, Escalade, GMC Yukon, V-Class, Denali, Sprinter), 800+ drivers section, bus/coach stats (800/800+/5000+), "Enquire Now" CTA, booking modal
+6. **AutocarePage** *(NEW)* — "Where Fleet Standards Meet Workshop Excellence" hero, 6 services, 4 features, insurance partners
+7. **TrucklinePage** — "Commercial Vehicle Leasing Built for UAE's Most Demanding Operations" hero, 4 services, sectors, client logos
+8. **UsedCarsPage** — "Pre-Owned Vehicles You Can Trust" hero, auction system, 6 sample vehicles, advantages, how it works
+9. **BusinessesPage** — "Our Brands" (6 cards with correct names/descriptions/links)
+10. **PartnersClientsPage** — "Trusted by UAE's Most Recognisable Names" hero, 6 client categories, 14 major events
+11. **DubaiMunicipalityPage** — "Proud Partners of Dubai Municipality" hero, 6 services, impact section
+12. **ServicesPage** — Filter tabs (All/Rental/Leasing/Chauffeur/Coach/Freight/Used), detailed service sections
+13. **LeasingPage** — Corporate leasing solutions
+14. **BookChauffeurPage** — Chauffeur booking flow
+15. **MediaCenterPage** — CMS-backed articles/news
+16. **AdminDashboardPage** — Admin CMS for Media Center
+17. **LeadershipPage, SustainabilityPage, CareersPage, ContactPage** — Supporting pages
+18. **RoyalLimousinePage, EmiratesTaxiPage, MobilityTechPage** — Legacy brand pages (retained)
 
-## API Endpoints
-- POST /api/contact — Submit enquiry
-- GET /api/contacts — Paginated retrieval
-- POST /api/bookings — Submit chauffeur booking
-- GET /api/bookings — Paginated retrieval of bookings
-- POST /api/auth/login — Admin JWT login with brute force protection
-- GET /api/auth/me — Current user session
-- POST /api/auth/logout — Clear auth cookies
-- POST /api/auth/refresh — Refresh access token
-- GET /api/articles — Public articles (filter by category, search)
-- GET /api/articles/:id — Single article
-- POST /api/articles — Create article (auth required)
-- PUT /api/articles/:id — Update article (auth required)
-- DELETE /api/articles/:id — Delete article (auth required)
-- POST /api/upload — File upload for images/PDFs (auth required)
+## Key Integrations
+- YouTube Embeds (no key required)
+- Admin CMS: JWT auth, React Quill, DOMPurify (XSS prevention)
+- MongoDB persistence for contacts, bookings, articles
 
-## Testing: 12 iterations + multiple self-tests
+## SEO
+- React Helmet with JSON-LD Schema
+- Per-page meta titles and descriptions matching strategy doc
 
-## Brand Guidelines Audit (Feb 2026)
-- Uploaded EGMG Logo1.png (orange icon + "EUROGULF MOBILITY GROUP") used site-wide: Nav, Footer, all division pages
-- Europcar Logo2.png (green "moving your way") used exclusively on Europcar page
-- Main tagline updated to "WE MOVE YOU!" per brand guidelines
-- All hero sections center-aligned with symmetrical text placement
-- No blank squares or broken logo images
-- Removed all brightness-0 invert filters from EGMG logo renders
-- Color palette verified: Orange #EE5A01 (50%), Black #000000 (40%), Gray #666666 (10%)
+## What's Been Completed (as of June 2026)
+- [x] Full 21+ page corporate site
+- [x] Admin CMS for Media Center (MongoDB, JWT, React Quill)
+- [x] EGMG Brand Guidelines (Orange/Black, Outfit/Roboto fonts)
+- [x] "Eurogulf Mobility" naming (not "EGMG" for public-facing text)
+- [x] Code quality fixes (XSS, React keys, hook deps, crash fix)
+- [x] **Content alignment with "Who We Are" PDF & Website Strategy doc** *(DONE)*
+- [x] Europcar page with 4-section CTAs (green buttons, redirect URLs correct)
+- [x] Chauffeur page with fleet/bus/coach stats per strategy doc
+- [x] Eurogulf Autocare page (NEW)
+- [x] Navigation restructured per strategy doc hierarchy
+- [x] All brand pages updated with strategy doc copy
+- [x] Deployment check passed
 
-## Content & Visual Audit (Feb 2026)
-- All hero images updated to UAE-specific photos (Dubai skyline, Sheikh Zayed Road, DXB airport)
-- Real EGMG product images from egmg.ae for Europcar fleet, Truckline, Goldcar divisions
-- Truckline client logos (10 real logos from egmg.ae) added
-- Social images section updated with Dubai skyline, Marina, cars with UAE backdrops
-- Sustainability images: EV with palm trees (UAE), Dubai buildings for solar
-- Contact hero: Dubai Burj Khalifa night skyline
-- All services section images replaced with Dubai-specific or EGMG product images
-- All 19 page heroes are center-aligned with symmetrical text placement
-- No generic European/American imagery remains anywhere on the site
-
-## Future Backlog
-1. CMS for media center
-2. WhatsApp Business live chat
-3. Analytics (GA/GTM)
-4. Performance optimization
+## Upcoming Tasks
+- [ ] WhatsApp Business API live chat integration (P1)
+- [ ] Google Analytics / Tag Manager integration (P2)
+- [ ] Component refactoring (AdminDashboardPage, HomePage, ServicesPage — large files)
+- [ ] Arabic language version (/ar)
+- [ ] SEO landing pages (car-rental-dubai, monthly-car-rental-dubai, etc.)
