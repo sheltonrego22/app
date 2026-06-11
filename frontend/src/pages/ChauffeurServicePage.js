@@ -64,7 +64,9 @@ function BookingModal({ defaultTab = 'oneway' }) {
         full_name: form.name, phone: form.phone, email: form.email,
         company: '', enquiry_type: `Chauffeur — ${tab === 'oneway' ? 'One-Way Transfer' : 'Disposal'}`, message: msg,
       });
-    } catch {}
+    } catch (err) {
+      console.error('Chauffeur booking submission failed:', err);
+    }
     setSubmitted(true);
     setSubmitting(false);
   };
@@ -188,7 +190,9 @@ function CoachEnquiryModal() {
         full_name: form.name, phone: form.phone, email: form.email,
         company: form.company, enquiry_type: `Coach / Staff Transport — ${form.type || 'General'}`, message: form.message,
       });
-    } catch {}
+    } catch (err) {
+      console.error('Coach enquiry submission failed:', err);
+    }
     setSubmitted(true);
     setSubmitting(false);
   };

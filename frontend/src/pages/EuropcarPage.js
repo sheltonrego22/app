@@ -216,7 +216,9 @@ export default function EuropcarPage() {
                             full_name: leaseForm.name, phone: leaseForm.phone, email: leaseForm.email,
                             company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
                           });
-                        } catch {}
+                        } catch (err) {
+                          console.error('Leasing enquiry submission failed:', err);
+                        }
                         setLeaseSubmitted(true);
                         setLeaseSubmitting(false);
                       }}
@@ -250,8 +252,8 @@ export default function EuropcarPage() {
               { icon: Car, title: "Car Rentals & Leasing", desc: "Daily, weekly, monthly, and yearly solutions for every traveller and business across the UAE." },
               { icon: Wrench, title: "Fleet Management", desc: "End-to-end fleet management for 500+ corporate clients with 3 A-Grade workshop facilities." },
               { icon: Globe, title: "International Car Hire", desc: "Book through Europcar's global network spanning 143 countries and 6,000+ locations worldwide." },
-            ].map((s, i) => (
-              <div key={i} className="bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group">
+            ].map((s) => (
+              <div key={s.title} className="bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group">
                 <s.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{s.title}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>
@@ -272,8 +274,8 @@ export default function EuropcarPage() {
             <p className="font-body text-[#666666]">Airports, malls, and business districts — wherever you need us.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {locations.map((loc, i) => (
-              <div key={i} data-testid={`europcar-location-${i}`} className={`bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${locationsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
+            {locations.map((loc) => (
+              <div key={loc.name} data-testid={`europcar-location-${loc.name.toLowerCase().replace(/\s+/g, '-')}`} className={`bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all`}>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#EE5A01] mt-0.5 flex-shrink-0" />
                   <div>
@@ -310,9 +312,9 @@ export default function EuropcarPage() {
               { img: "https://images.unsplash.com/photo-1582187764383-b1fe05d947fb?w=400&h=400&fit=crop", caption: "Burj Khalifa views and Europcar rides — a perfect match." },
               { img: "https://images.unsplash.com/photo-1575538439014-1b8bc5fcaa1d?w=400&h=400&fit=crop", caption: "Book your weekend adventure with Europcar Dubai." },
               { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=400&h=400&fit=crop", caption: "Dubai Marina cruising — made easy with Europcar." },
-            ].map((post, i) => (
+            ].map((post) => (
               <a
-                key={i}
+                key={post.caption}
                 href="https://www.instagram.com/europcardubai/"
                 target="_blank"
                 rel="noopener noreferrer"

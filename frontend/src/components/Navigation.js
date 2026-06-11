@@ -66,7 +66,7 @@ export default function Navigation() {
   useEffect(() => {
     setMobileOpen(false);
     setOpenDropdown(null);
-  }, [location]);
+  }, [location.pathname]);
 
   const getDropdownItems = (id) => {
     if (id === "brands") return brandsLinks;

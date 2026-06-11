@@ -9,8 +9,8 @@ import uuid
 import time
 
 BASE_URL = os.environ['REACT_APP_BACKEND_URL'].rstrip('/')
-ADMIN_EMAIL = "admin@egmg.ae"
-ADMIN_PASSWORD = "EgmgAdmin2026!"
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "EgmgAdmin2026!")
 
 
 @pytest.fixture(scope="module")
@@ -91,7 +91,7 @@ class TestArticlesPublic:
         r = requests.get(f"{BASE_URL}/api/articles", params={"featured": "true"})
         assert r.status_code == 200
         data = r.json()
-        assert all(a.get("featured") is True for a in data["articles"])
+        assert all(a.get("featured") == True for a in data["articles"])
 
 
 # ─── ARTICLES CRUD (auth) ─────────────────────────────
@@ -119,7 +119,7 @@ class TestArticlesCRUD:
         data = r.json()
         assert data["title"] == payload["title"]
         assert data["category"] == "Awards"
-        assert data["featured"] is True
+        assert data["featured"] == True
         assert "id" in data
         assert "_id" not in data
         TestArticlesCRUD.created_id = data["id"]

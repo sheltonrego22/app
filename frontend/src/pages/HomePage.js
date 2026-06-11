@@ -205,8 +205,8 @@ export default function HomePage() {
           </div>
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-4">
-              {fleetVehicles.map((v, i) => (
-                <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+              {fleetVehicles.map((v) => (
+                <CarouselItem key={v.name} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <div data-testid={`fleet-card-${i}`} className="bg-[#111111] border border-white/5 overflow-hidden group">
                     <div className="relative h-56 overflow-hidden">
                       <img src={v.img} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
@@ -265,8 +265,8 @@ export default function HomePage() {
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-black uppercase tracking-tight">Awards & Certifications</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {awards.map((a, i) => (
-              <div key={i} className="bg-white border border-black/5 p-5 text-center">
+            {awards.map((a) => (
+              <div key={a} className="bg-white border border-black/5 p-5 text-center">
                 <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mx-auto mb-3">
                   <Shield className="w-5 h-5 text-[#EE5A01]" />
                 </div>
@@ -315,10 +315,10 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {whyChooseUs.map((item, i) => (
+            {whyChooseUs.map((item) => (
               <div
-                key={i}
-                data-testid={`why-choose-${i}`}
+                key={item.title}
+                data-testid={`why-choose-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
                 className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
               >
                 <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mb-5">
@@ -370,13 +370,12 @@ export default function HomePage() {
 
           {/* Social Image Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {socialImages.map((item, i) => (
+            {socialImages.map((item) => (
               <a
-                key={i}
+                key={item.caption}
                 href="https://www.instagram.com/eurogulfmobility/"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-testid={`social-post-${i}`}
                 className="relative aspect-square overflow-hidden group"
               >
                 <img src={item.img} alt={item.caption} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
@@ -411,7 +410,7 @@ export default function HomePage() {
           <p className="font-mono text-xs tracking-[0.2em] text-[#666666] text-center mb-10 uppercase">Trusted by Leading Organisations</p>
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14">
             {PARTNER_LOGOS.map((logo, i) => (
-              <img key={i} src={logo} alt="Partner" data-testid={`partner-logo-${i}`} className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-40 hover:opacity-80 transition-opacity" loading="lazy" />
+              <img key={logo} src={logo} alt="Partner" data-testid={`partner-logo-${logo.slice(-10)}`} className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-40 hover:opacity-80 transition-opacity" loading="lazy" />
             ))}
           </div>
           <div className="text-center mt-8">
@@ -462,8 +461,8 @@ export default function HomePage() {
               { cat: "Awards", title: "Eurogulf Mobility Receives World Travel Award for Best Car Rental MENA 2024", date: "Extending a winning streak that began in 2005." },
               { cat: "Sustainability", title: "Driving the Future: Our Commitment to Green Mobility in the UAE", date: "Expanding our electric and hybrid vehicle fleet." },
               { cat: "Fleet", title: "Royal Limousine Expands Executive Fleet with BMW 7 Series and Audi A8", date: "Reinforcing our position as the UAE's premier luxury transport provider." },
-            ].map((post, i) => (
-              <Link key={i} to="/media" className="bg-[#111] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all group">
+            ].map((post) => (
+              <Link key={post.title} to="/media" className="bg-[#111] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all group">
                 <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">{post.cat}</span>
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2 group-hover:text-[#EE5A01] transition-colors leading-snug">{post.title}</h3>
                 <p className="font-body text-xs text-[#666]">{post.date}</p>

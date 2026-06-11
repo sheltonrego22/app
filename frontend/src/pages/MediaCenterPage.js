@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Calendar, ArrowRight, Search, Star, Video, FileDown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import DOMPurify from 'dompurify';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -37,7 +38,7 @@ export default function MediaCenterPage() {
   useEffect(() => {
     const cat = searchParams.get('category');
     if (cat && cat !== filter) setFilter(cat);
-  }, [searchParams]);
+  }, [searchParams, filter]);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -197,7 +198,7 @@ function ArticleCard({ article, expanded, onToggle }) {
         {expanded && (
           <div className="mt-4 pt-4 border-t border-[#222]">
             {a.body && (
-              <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={{ __html: a.body }} />
+              <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(a.body) }} />
             )}
             {a.video_url && (
               <div className="mt-4 aspect-video">
