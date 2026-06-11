@@ -230,11 +230,20 @@ export default function AboutPage() {
               <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">
                 A Family Business. A Regional Force.
               </h2>
-              <p className="font-body text-[#666666] leading-relaxed mb-6">
-                For nearly 50 years, Eurogulf Mobility Group has been a family-owned business that expanded from one rental counter to the region's most comprehensive mobility group. We foster innovation, equality, and excellence at every level.
-              </p>
+              <div className="bg-[#111] border border-white/5 p-5 mb-6">
+                <p className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase mb-2">Our Vision</p>
+                <p className="font-body text-sm text-[#EEEDE7] leading-relaxed italic">
+                  "To be recognised as the leader in quality and competitiveness in our industry, inspiring trust and excellence."
+                </p>
+              </div>
+              <div className="bg-[#111] border border-white/5 p-5 mb-6">
+                <p className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase mb-2">Our Mission</p>
+                <p className="font-body text-sm text-[#EEEDE7] leading-relaxed italic">
+                  "To deliver unparalleled quality in our services by embracing innovation, fostering talent, optimising our operations, and ensuring customer satisfaction through sustainable initiatives."
+                </p>
+              </div>
               <p className="font-body text-[#666666] leading-relaxed mb-8">
-                With over 1,200 professionals, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility in the UAE.
+                For nearly 50 years, Eurogulf Mobility has been a family-owned business that expanded from one rental counter to the region's most diversified mobility group. With over 1,200 professionals and a fleet of 10,000+ vehicles across the UAE, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility.
               </p>
               <Link to="/contact" className="btn-primary inline-block">
                 Get In Touch

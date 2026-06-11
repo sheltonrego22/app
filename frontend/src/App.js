@@ -1,8 +1,10 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ServicesPage from "@/pages/ServicesPage";
@@ -37,8 +39,10 @@ function ScrollToTop() {
 }
 
 function Layout({ children }) {
+  const { pathname } = useLocation();
   return (
     <div className="min-h-screen bg-brand-black">
+      <SEO pathname={pathname} />
       <Navigation />
       <ScrollToTop />
       <main>{children}</main>
@@ -49,8 +53,9 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -79,6 +84,7 @@ function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

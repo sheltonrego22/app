@@ -53,7 +53,7 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - DELETE /api/articles/:id — Delete article (auth required)
 - POST /api/upload — File upload for images/PDFs (auth required)
 
-## Testing: 11 iterations, all issues resolved
+## Testing: 12 iterations + multiple self-tests
 
 ## Brand Guidelines Audit (Feb 2026)
 - Uploaded EGMG Logo1.png (orange icon + "EUROGULF MOBILITY GROUP") used site-wide: Nav, Footer, all division pages
