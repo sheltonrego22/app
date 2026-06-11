@@ -63,7 +63,6 @@ export default function ContactPage() {
       setSubmitted(true);
       setFormData({ full_name: '', company: '', email: '', phone: '', enquiry_type: '', message: '' });
     } catch (err) {
-      console.error('Contact form error:', err);
     } finally {
       setSubmitting(false);
     }

@@ -64,8 +64,8 @@ export default function GoldcarPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {strengths.map((s, i) => (
-              <div key={i} data-testid={`goldcar-strength-${i}`} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${strengthsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+            {strengths.map((s) => (
+              <div key={s.title} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${strengthsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
                 <s.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{s.title}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>

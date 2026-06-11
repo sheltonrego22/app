@@ -53,7 +53,6 @@ export default function AdminDashboardPage() {
       setArticles(data.articles);
       setTotal(data.total);
     } catch (err) {
-      console.error('Failed to fetch articles', err);
     } finally {
       setLoading(false);
     }
@@ -79,7 +78,6 @@ export default function AdminDashboardPage() {
       resetForm();
       fetchArticles();
     } catch (err) {
-      console.error('Save failed', err);
     }
   };
 
@@ -89,7 +87,6 @@ export default function AdminDashboardPage() {
       await axios.delete(`${API}/api/articles/${id}`, { withCredentials: true });
       fetchArticles();
     } catch (err) {
-      console.error('Delete failed', err);
     }
   };
 
@@ -119,7 +116,6 @@ export default function AdminDashboardPage() {
       const { data } = await axios.post(`${API}/api/upload`, fd, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } });
       setForm((p) => ({ ...p, [field]: `${API}${data.url}` }));
     } catch (err) {
-      console.error('Upload failed', err);
     } finally {
       setUploading(false);
     }

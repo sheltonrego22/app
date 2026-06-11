@@ -83,8 +83,8 @@ export default function CareersPage() {
             <p className="font-body text-[#666666] max-w-lg mx-auto">Be part of a legacy that has been shaping the UAE's mobility landscape for nearly five decades.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((b, i) => (
-              <div key={i} data-testid={`career-benefit-${i}`} className={`bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all ${benefitsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+            {benefits.map((b) => (
+              <div key={b.title} className="bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all">
                 <b.icon className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{b.title}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{b.desc}</p>
@@ -125,15 +125,14 @@ export default function CareersPage() {
 
           {/* Job cards */}
           <div className="space-y-3">
-            {filtered.map((job, i) => (
+            {filtered.map((job) => (
               <div
-                key={i}
-                data-testid={`job-card-${i}`}
+                key={job.title}
                 className="bg-[#111111] border border-white/5 hover:border-[#EE5A01]/20 transition-all"
               >
                 <button
                   className="w-full flex items-center justify-between p-5 text-left"
-                  onClick={() => setExpandedJob(expandedJob === i ? null : i)}
+                  onClick={() => setExpandedJob(expandedJob === job.title ? null : job.title)}
                 >
                   <div className="flex items-center gap-4">
                     <Briefcase className="w-5 h-5 text-[#EE5A01] flex-shrink-0" />
@@ -148,9 +147,9 @@ export default function CareersPage() {
                       </div>
                     </div>
                   </div>
-                  {expandedJob === i ? <ChevronUp className="w-4 h-4 text-[#EE5A01]" /> : <ChevronDown className="w-4 h-4 text-[#666666]" />}
+                  {expandedJob === job.title ? <ChevronUp className="w-4 h-4 text-[#EE5A01]" /> : <ChevronDown className="w-4 h-4 text-[#666666]" />}
                 </button>
-                {expandedJob === i && (
+                {expandedJob === job.title && (
                   <div className="px-5 pb-5 border-t border-white/5 pt-4">
                     <p className="font-body text-sm text-[#666666] mb-4">
                       We are looking for a talented {job.title} to join our {job.dept} team. If you are passionate about mobility and want to grow with the UAE's largest diversified transport group, apply today.

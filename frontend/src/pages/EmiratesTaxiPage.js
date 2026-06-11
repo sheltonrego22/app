@@ -63,8 +63,8 @@ export default function EmiratesTaxiPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {certifications.map((c, i) => (
-              <div key={i} data-testid={`emirates-cert-${i}`} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${certsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
+            {certifications.map((c) => (
+              <div key={c.title} className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all group ${certsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
                 <div className="flex items-start gap-5">
                   <div className="w-14 h-14 bg-[#EE5A01]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#EE5A01]/20 transition-colors">
                     <c.icon className="w-7 h-7 text-[#EE5A01]" strokeWidth={1.5} />

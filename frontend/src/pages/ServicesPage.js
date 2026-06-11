@@ -4,6 +4,8 @@ import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Check, X, Plane, Us
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
+const CAROUSEL_OPTS = { align: "start", loop: true };
+
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/03d6711ff436da62df81b6c9cca8d1275c75b2ab6b777fee66e11032ac8b402a.png";
 const BOOKING_URL = "https://www.europcar.com/";
 const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";
@@ -185,8 +187,8 @@ export default function ServicesPage() {
                       <div className="p-3 font-heading font-bold text-xs text-[#EE5A01] tracking-wider uppercase text-center">Leasing</div>
                       <div className="p-3 font-heading font-bold text-xs text-[#666666] tracking-wider uppercase text-center">Buying</div>
                     </div>
-                    {leasingComparison.map((row, i) => (
-                      <div key={i} className="grid grid-cols-3 border-t border-white/5">
+                    {leasingComparison.map((row) => (
+                      <div key={row.feature} className="grid grid-cols-3 border-t border-white/5">
                         <div className="p-3 font-body text-xs text-[#EEEDE7]">{row.feature}</div>
                         <div className="p-3 flex items-center justify-center gap-2">
                           <Check className="w-3 h-3 text-[#EE5A01]" />
@@ -248,8 +250,8 @@ export default function ServicesPage() {
 
               {/* Service Icons */}
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 mb-14">
-                {chauffeurServices.map((s, i) => (
-                  <div key={i} className="bg-[#111111] border border-white/5 p-4 text-center">
+                {chauffeurServices.map((s) => (
+                  <div key={s.label} className="bg-[#111111] border border-white/5 p-4 text-center">
                     <s.icon className="w-6 h-6 text-[#EE5A01] mx-auto mb-2" strokeWidth={1.5} />
                     <span className="font-body text-xs text-[#EEEDE7]">{s.label}</span>
                   </div>
@@ -258,10 +260,10 @@ export default function ServicesPage() {
 
               {/* Fleet Cards Carousel */}
               <h3 className="font-heading font-bold text-lg text-[#EEEDE7] uppercase tracking-wider mb-6">Our Chauffeur Fleet</h3>
-              <Carousel opts={{ align: "start", loop: true }} className="w-full mb-10">
+              <Carousel opts={CAROUSEL_OPTS} className="w-full mb-10">
                 <CarouselContent className="-ml-4">
-                  {chauffeurFleet.map((v, i) => (
-                    <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                  {chauffeurFleet.map((v) => (
+                    <CarouselItem key={v.name} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                       <div className="bg-[#111111] border border-white/5 overflow-hidden">
                         <img src={v.img} alt={v.name} className="w-full h-48 object-cover" loading="lazy" />
                         <div className="p-4">

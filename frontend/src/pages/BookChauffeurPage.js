@@ -106,7 +106,6 @@ export default function BookChauffeurPage() {
       setBookingRef(res.data.reference);
       setSubmitted(true);
     } catch (err) {
-      console.error('Booking submission error:', err);
       setSubmitted(true);
       setBookingRef(`RL-${Date.now().toString().slice(-6)}`);
     } finally {

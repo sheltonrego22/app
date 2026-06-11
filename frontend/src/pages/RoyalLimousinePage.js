@@ -4,6 +4,8 @@ import { Plane, Building2, Users, Car, Monitor, MapPin, Shield, Crown } from 'lu
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
+const CAROUSEL_OPTS = { align: "start", loop: true };
+
 const HERO_IMG = "https://images.pexels.com/photos/12316002/pexels-photo-12316002.jpeg?auto=compress&cs=tinysrgb&w=1920";
 const LOGO_URL = "/egmg-logo-transparent.png";
 const PRODUCT_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Adobe-Express-file-4.webp";
@@ -79,8 +81,8 @@ export default function RoyalLimousinePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <div key={i} data-testid={`royal-limo-service-${i}`} className={`bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all group ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 3) + 1}`}>
+            {services.map((s) => (
+              <div key={s.title} className={`bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all group ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 3) + 1}`}>
                 <s.icon className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{s.label}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>
@@ -99,10 +101,10 @@ export default function RoyalLimousinePage() {
               Our Chauffeur Fleet
             </h2>
           </div>
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <Carousel opts={CAROUSEL_OPTS} className="w-full">
             <CarouselContent className="-ml-4">
               {fleet.map((v, i) => (
-                <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={v.name} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <div className="bg-[#111111] border border-white/5 overflow-hidden group">
                     <div className="relative h-48 overflow-hidden">
                       <img src={v.img} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />

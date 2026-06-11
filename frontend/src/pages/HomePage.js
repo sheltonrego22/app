@@ -4,6 +4,7 @@ import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Head
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
+const CAROUSEL_OPTS = { align: "start", loop: true };
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/f4a76c0c341f3929b9bd7c03799a166ba64f50dcd4a0197c233ed71d963409f6.png";
 
 const stats = [
@@ -203,7 +204,7 @@ export default function HomePage() {
               Our Fleet. Engineered for Every Need.
             </h2>
           </div>
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <Carousel opts={CAROUSEL_OPTS} className="w-full">
             <CarouselContent className="-ml-4">
               {fleetVehicles.map((v) => (
                 <CarouselItem key={v.name} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">

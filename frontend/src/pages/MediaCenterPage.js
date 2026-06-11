@@ -51,7 +51,6 @@ export default function MediaCenterPage() {
         setArticles(data.articles.filter((a) => a.published !== false));
         setTotal(data.total);
       } catch (err) {
-        console.error('Failed to fetch articles', err);
       } finally {
         setLoading(false);
       }

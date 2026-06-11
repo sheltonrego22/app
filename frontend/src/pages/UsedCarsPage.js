@@ -133,8 +133,8 @@ export default function UsedCarsPage() {
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">This Week's Stock</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {sampleVehicles.map((v, i) => (
-              <div key={i} className={`bg-[#111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${stockVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
+            {sampleVehicles.map((v) => (
+              <div key={v.name} className={`bg-[#111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${stockVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <span className="font-mono text-[10px] text-[#666]">{v.year} · {v.type}</span>

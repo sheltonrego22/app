@@ -301,8 +301,8 @@ export default function AboutPage() {
                     formatter={(v) => [`${v.toLocaleString()} vehicles`, 'Fleet Size']}
                   />
                   <Bar dataKey="vehicles" radius={[0, 0, 0, 0]}>
-                    {chartData.map((entry, i) => (
-                      <Cell key={i} fill={i === chartData.length - 1 ? '#EE5A01' : '#F17B34'} />
+                    {chartData.map((entry) => (
+                      <Cell key={entry.year} fill={entry.year === '2024' ? '#EE5A01' : '#F17B34'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -323,8 +323,8 @@ export default function AboutPage() {
             <p className="font-body text-[#666666] max-w-lg mx-auto">Nearly two decades of industry accolades and internationally certified operations.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-            {AWARD_IMAGES.map((a, i) => (
-              <div key={i} data-testid={`award-card-${i}`} className="bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all text-center group">
+            {AWARD_IMAGES.map((a) => (
+              <div key={a.title} className="bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all text-center group">
                 <div className="w-full h-20 flex items-center justify-center mb-4">
                   <img src={a.img} alt={a.title} className="max-h-20 w-auto object-contain group-hover:scale-105 transition-transform" loading="lazy" />
                 </div>

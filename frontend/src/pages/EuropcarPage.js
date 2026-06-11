@@ -217,7 +217,6 @@ export default function EuropcarPage() {
                             company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
                           });
                         } catch (err) {
-                          console.error('Leasing enquiry submission failed:', err);
                         }
                         setLeaseSubmitted(true);
                         setLeaseSubmitting(false);

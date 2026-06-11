@@ -91,7 +91,7 @@ class TestArticlesPublic:
         r = requests.get(f"{BASE_URL}/api/articles", params={"featured": "true"})
         assert r.status_code == 200
         data = r.json()
-        assert all(a.get("featured") == True for a in data["articles"])
+        assert all(a.get("featured") for a in data["articles"])
 
 
 # ─── ARTICLES CRUD (auth) ─────────────────────────────
@@ -119,7 +119,7 @@ class TestArticlesCRUD:
         data = r.json()
         assert data["title"] == payload["title"]
         assert data["category"] == "Awards"
-        assert data["featured"] == True
+        assert data["featured"]
         assert "id" in data
         assert "_id" not in data
         TestArticlesCRUD.created_id = data["id"]
@@ -136,7 +136,7 @@ class TestArticlesCRUD:
         assert r.status_code == 200, r.text
         data = r.json()
         assert data["title"] == "TEST_Updated_Title"
-        assert data["featured"] is False
+        assert not data["featured"]
 
         # Persistence verify
         g = requests.get(f"{BASE_URL}/api/articles/{aid}")
