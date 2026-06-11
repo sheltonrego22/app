@@ -32,6 +32,7 @@ export default function AdminDashboardPage() {
   const [filterCat, setFilterCat] = useState('All');
   const [showForm, setShowForm] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({ title: '', body: '', category: '', image_url: '', video_url: '', pdf_url: '', featured: false, published: true });
   const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ export default function AdminDashboardPage() {
     try {
       const { data } = await axios.get(`${API}/api/auth/me`, { withCredentials: true });
       setUser(data);
-    } catch {
+    } catch (_err) {
       navigate('/admin/login');
     }
   }, [navigate]);
@@ -53,6 +54,7 @@ export default function AdminDashboardPage() {
       setArticles(data.articles);
       setTotal(data.total);
     } catch (err) {
+      setError('Failed to load articles.');
     } finally {
       setLoading(false);
     }
@@ -78,6 +80,7 @@ export default function AdminDashboardPage() {
       resetForm();
       fetchArticles();
     } catch (err) {
+      setError(editing ? 'Failed to update article.' : 'Failed to create article.');
     }
   };
 
@@ -87,6 +90,7 @@ export default function AdminDashboardPage() {
       await axios.delete(`${API}/api/articles/${id}`, { withCredentials: true });
       fetchArticles();
     } catch (err) {
+      setError('Failed to delete article.');
     }
   };
 
@@ -116,6 +120,7 @@ export default function AdminDashboardPage() {
       const { data } = await axios.post(`${API}/api/upload`, fd, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } });
       setForm((p) => ({ ...p, [field]: `${API}${data.url}` }));
     } catch (err) {
+      setError('File upload failed. Please try again.');
     } finally {
       setUploading(false);
     }
@@ -158,6 +163,12 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/30 p-3 mb-6 flex items-center justify-between">
+            <p className="font-body text-sm text-red-400">{error}</p>
+            <button onClick={() => setError('')} className="text-red-400 text-xs hover:underline">Dismiss</button>
+          </div>
+        )}
         {/* Article Form */}
         {showForm && (
           <div data-testid="article-form" className="bg-[#111] border border-[#222] p-6 mb-8">
