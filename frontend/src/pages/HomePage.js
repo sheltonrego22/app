@@ -87,7 +87,7 @@ const whyChooseUs = [
 ];
 
 const socialImages = [
-  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — where we operate 14 locations" },
+  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — home of Eurogulf Mobility Group" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
   { img: "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=600&h=600&fit=crop", caption: "Tesla fleet on Sheikh Zayed Road" },
   { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=600&h=600&fit=crop", caption: "Our fleet across the Emirates" },

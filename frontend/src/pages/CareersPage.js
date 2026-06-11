@@ -38,7 +38,7 @@ const benefits = [
   { icon: TrendingUp, title: "Growth & Development", desc: "Structured career paths, training programs, and cross-functional exposure across 6 business divisions." },
   { icon: Users, title: "Team of 1,200+", desc: "Join a diverse, professional team that has been moving the UAE forward since 1976." },
   { icon: Heart, title: "People-First Culture", desc: "Built on our F.A.I.R. values — Fearless, Accountable, Innovative, Respectful." },
-  { icon: Shield, title: "Stability & Heritage", desc: "Nearly 50 years of operational excellence and a fleet of 12,000+ vehicles across 14 locations." },
+  { icon: Shield, title: "Stability & Heritage", desc: "Nearly 50 years of operational excellence and a fleet of 12,000+ vehicles across the UAE." },
 ];
 
 export default function CareersPage() {
@@ -64,7 +64,7 @@ export default function CareersPage() {
             Grow Your Career With Us
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Join the team behind the UAE's most diversified mobility group. With over 1,200 employees across 14 locations, Eurogulf Mobility Group offers a dynamic environment where your talent drives real impact.
+            Join the team behind the UAE's most diversified mobility group. With over 1,200 employees, Eurogulf Mobility Group offers a dynamic environment where your talent drives real impact.
           </p>
           <a href="#openings" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             View Open Positions

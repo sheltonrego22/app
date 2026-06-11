@@ -31,7 +31,7 @@ const coreValues = [
   { icon: Shield, title: "Fearless", desc: "We embrace bold decisions and take on challenges with courage. From launching the Europcar franchise in 1976 to expanding across all seven Emirates, fearlessness defines our journey." },
   { icon: Users, title: "Accountable", desc: "Every vehicle, every driver, every service touchpoint — we take ownership. ISO 9001:2015 certified operations and performance-graded teams ensure accountability at every level." },
   { icon: Award, title: "Innovative", desc: "From introducing electric vehicles to implementing GPS-tracked operations and two-way client reservation systems, we constantly evolve how the UAE moves." },
-  { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees and 14 locations. Every client and every colleague is treated with the respect they deserve." },
+  { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees. Every client and every colleague is treated with the respect they deserve." },
 ];
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
@@ -234,7 +234,7 @@ export default function AboutPage() {
                 For nearly 50 years, Eurogulf Mobility Group has been a family-owned business that expanded from one rental counter to the region's most comprehensive mobility group. We foster innovation, equality, and excellence at every level.
               </p>
               <p className="font-body text-[#666666] leading-relaxed mb-8">
-                With over 1,200 professionals across 14 locations, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility in the UAE.
+                With over 1,200 professionals, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility in the UAE.
               </p>
               <Link to="/contact" className="btn-primary inline-block">
                 Get In Touch

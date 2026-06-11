@@ -291,16 +291,33 @@ export default function ContactPage() {
       <section data-testid="map-section" className="bg-[#0a0a0a] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h3 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider mb-6 text-center">Find Our Headquarters</h3>
-          <div className="relative w-full overflow-hidden border border-white/5" style={{ paddingBottom: '40%', minHeight: '280px' }}>
+          <a
+            href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block relative w-full overflow-hidden border border-white/5 hover:border-[#EE5A01]/30 transition-colors group"
+            style={{ paddingBottom: '40%', minHeight: '280px' }}
+          >
             <iframe
               data-testid="google-map"
-              title="EGMG HQ — Al Quoz, Dubai"
+              title="Eurogulf Mobility Group HQ — Al Quoz, Dubai"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.550946199776!2d55.2176!3d25.1591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69d95455555%3A0x0!2sAl+Quoz+Industrial+Area+3%2C+Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
-              className="absolute inset-0 w-full h-full border-0"
+              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </a>
+          <div className="text-center mt-4">
+            <a
+              href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="map-directions-link"
+              className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase hover:underline"
+            >
+              Open in Google Maps →
+            </a>
           </div>
         </div>
       </section>

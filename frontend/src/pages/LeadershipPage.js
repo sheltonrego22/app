@@ -131,7 +131,7 @@ export default function LeadershipPage() {
             Join Our Team
           </h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            With over 1,200 professionals across 14 locations, Eurogulf Mobility Group offers careers that make an impact. Be part of the movement.
+            With over 1,200 professionals, Eurogulf Mobility Group offers careers that make an impact. Be part of the movement.
           </p>
           <a href="mailto:wemoveyou@eurogulf.ae" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors inline-block">
             Explore Careers

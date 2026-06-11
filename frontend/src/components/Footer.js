@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook } from 'lucide-react';
+import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook, MapPin } from 'lucide-react';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
 
@@ -95,6 +95,10 @@ export default function Footer() {
               <a href="mailto:wemoveyou@eurogulf.ae" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
                 <Mail className="w-4 h-4 text-[#EE5A01]" />
                 wemoveyou@eurogulf.ae
+              </a>
+              <a href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-[#666666] hover:text-[#EE5A01] transition-colors font-body">
+                <MapPin className="w-4 h-4 text-[#EE5A01]" />
+                Al Quoz Industrial 3, Dubai
               </a>
               <a
                 href="https://wa.me/971800364"

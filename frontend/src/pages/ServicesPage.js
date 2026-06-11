@@ -137,7 +137,7 @@ export default function ServicesPage() {
                     Rent the Right Car, Anywhere in the UAE
                   </h2>
                   <p className="font-body text-[#666666] leading-relaxed mb-6">
-                    Young, well-maintained fleet across 14 locations including all 3 Dubai Airport terminals, Atlantis The Palm, Emirates Towers, Dubai Hills Mall, and more. Europcar — No.1 in Europe, No.3 Worldwide, present in 143 countries, 6,000+ locations.
+                    Young, well-maintained fleet including locations at all 3 Dubai Airport terminals, Atlantis The Palm, Emirates Towers, Dubai Hills Mall, and more. Europcar — No.1 in Europe, No.3 Worldwide, present in 143 countries, 6,000+ locations.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {["Easy online booking", "24/7 Roadside assistance", "ISO-certified service", "International bookings in 143 countries"].map((f) => (
