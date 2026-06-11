@@ -8,21 +8,25 @@ Build a premium, futuristic multi-page corporate website for EGMG — Eurogulf M
 - **Backend**: FastAPI + MongoDB (contact form)
 - **Fonts**: Outfit / Manrope / JetBrains Mono
 
-## Pages (19 Total)
-1. Home (/) — Hero, Stats, 6 Services, Fleet Carousel, Trust Pillars, Awards, Divisions w/logos, Why Choose EGMG, Social Feed w/YouTube Shorts, Partner Logos, CTA
-2. About (/about) — "Your Vision, Our Journey" hero, Timeline, F.A.I.R. Values, Divisions, Awards (7 images)
-3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide PDF
-4. Contact (/contact) — Form (MongoDB), 14 locations, Google Maps
-5. Leadership (/leadership) — 9 leaders w/real photos
-6. Sustainability (/sustainability) — 4 pillars (verified stats only)
-7. Media Center (/media) — Dynamic CMS-powered articles, category filters, search, featured articles, expandable cards
-8-13. Division pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
-14. Businesses (/businesses) — Hub w/6 divisions
+## Pages (23 Total)
+1. Home (/) — Hero, Stats, Services, Fleet, Trust, Awards, Divisions, Why Choose, Social, Partners, CTA
+2. About (/about) — History, Timeline, Values, Divisions, Awards
+3. Services (/services) — Filter tabs, 6 service sections, Fleet Guide
+4. Contact (/contact) — Form (MongoDB), Google Maps with location link, 24/7 support
+5. Leadership (/leadership) — 9 leaders
+6. Sustainability (/sustainability) — 4 pillars
+7. Media Center (/media) — Dynamic CMS articles, category filters, search, featured
+8-13. Brand pages: Europcar, Goldcar, Royal Limousine, Emirates Taxi, Truckline, Used Cars
+14. Businesses (/businesses) — Hub for all 6 divisions
 15. Careers (/careers) — 26 jobs, department filters
-16. Book Chauffeur (/book-chauffeur) — 4-step booking wizard with MongoDB persistence
-17. Admin Login (/admin/login) — JWT auth with brute force protection
-18. Admin Dashboard (/admin) — Full CMS: create/edit/delete articles with rich text editor, image/PDF upload, video embeds
-19. 404 (*) — Error page
+16. Book Chauffeur (/book-chauffeur) — 4-step booking wizard with MongoDB
+17. Leasing (/leasing) — Personal & corporate leasing with ROI calculator
+18. Chauffeur Service (/chauffeur-service) — Service types, fleet, booking flow
+19. Admin Login (/admin/login) — JWT auth
+20. Admin Dashboard (/admin) — Full CMS
+21. Partners & Clients (/partners) — Partners (Esaad, Fazaa, Alsaada, insurance), Customers by sector, Major Events
+22. Dubai Municipality (/dubai-municipality) — Flagship partnership showcase
+23. 404 (*) — Error page
 
 ## Content Accuracy (Verified Feb 2026)
 - Tagline: "Your Vision, Our Journey" (from egmg.ae)

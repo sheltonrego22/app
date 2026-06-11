@@ -60,6 +60,9 @@
 .bg-brand-card { background-color: #111111; }
 .bg-brand-surface { background-color: #0a0a0a; }
 .bg-brand-cream { background-color: #EEEDE7; }
+.bg-brand-warm { background-color: #f5f2ec; }
+.bg-brand-light { background-color: #fafaf8; }
+.bg-brand-charcoal { background-color: #1a1a1a; }
 .text-brand-gray { color: #666666; }
 .text-brand-cream { color: #EEEDE7; }
 .border-brand-orange { border-color: #EE5A01; }

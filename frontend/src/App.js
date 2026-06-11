@@ -23,6 +23,8 @@ import LeasingPage from "@/pages/LeasingPage";
 import ChauffeurServicePage from "@/pages/ChauffeurServicePage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboardPage from "@/pages/AdminDashboardPage";
+import PartnersClientsPage from "@/pages/PartnersClientsPage";
+import DubaiMunicipalityPage from "@/pages/DubaiMunicipalityPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -69,6 +71,8 @@ function App() {
           <Route path="/chauffeur-service" element={<ChauffeurServicePage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/partners" element={<PartnersClientsPage />} />
+          <Route path="/dubai-municipality" element={<DubaiMunicipalityPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
