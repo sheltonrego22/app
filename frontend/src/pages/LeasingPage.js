@@ -91,8 +91,8 @@ export default function LeasingPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {personalFeatures.map((f) => (
-              <div key={f.title} className={`bg-[#111] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all ${featVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
+            {personalFeatures.map((f, idx) => (
+              <div key={f.title} className={`bg-[#111] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all ${featVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(idx % 4) + 1}`}>
                 <Check className="w-6 h-6 text-[#EE5A01] mb-4" />
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{f.title}</h3>
                 <p className="font-body text-sm text-[#666] leading-relaxed">{f.desc}</p>

@@ -206,9 +206,9 @@ export default function HomePage() {
           </div>
           <Carousel opts={CAROUSEL_OPTS} className="w-full">
             <CarouselContent className="-ml-4">
-              {fleetVehicles.map((v) => (
+              {fleetVehicles.map((v, idx) => (
                 <CarouselItem key={v.name} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                  <div data-testid={`fleet-card-${i}`} className="bg-[#111111] border border-white/5 overflow-hidden group">
+                  <div data-testid={`fleet-card-${idx}`} className="bg-[#111111] border border-white/5 overflow-hidden group">
                     <div className="relative h-56 overflow-hidden">
                       <img src={v.img} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       <div className="absolute bottom-3 left-3">
@@ -316,14 +316,14 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {whyChooseUs.map((item) => (
+            {whyChooseUs.map((item, idx) => (
               <div
                 key={item.title}
                 data-testid={`why-choose-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
-                className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
+                className={`bg-[#111111] border border-white/5 p-8 hover:border-[#EE5A01]/30 transition-all ${testimonialsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${idx + 1}`}
               >
                 <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mb-5">
-                  <span className="font-heading font-black text-lg text-[#EE5A01]">0{i + 1}</span>
+                  <span className="font-heading font-black text-lg text-[#EE5A01]">0{idx + 1}</span>
                 </div>
                 <h3 className="font-heading font-bold text-lg text-[#EEEDE7] mb-3">{item.title}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{item.desc}</p>

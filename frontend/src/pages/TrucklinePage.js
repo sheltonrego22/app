@@ -160,8 +160,8 @@ export default function TrucklinePage() {
         <div className="max-w-7xl mx-auto px-4">
           <p className="font-mono text-xs tracking-[0.2em] text-[#666] text-center mb-8 uppercase">Trusted by Leading Businesses Across the UAE</p>
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-            {clientLogos.map((logo) => (
-              <img key={logo} src={logo} alt={`Truckline client ${i + 1}`} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-100 transition-opacity" loading="lazy" />
+            {clientLogos.map((logo, idx) => (
+              <img key={logo} src={logo} alt={`Truckline client ${idx + 1}`} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-100 transition-opacity" loading="lazy" />
             ))}
           </div>
         </div>

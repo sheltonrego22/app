@@ -81,8 +81,8 @@ export default function RoyalLimousinePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s) => (
-              <div key={s.title} className={`bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all group ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 3) + 1}`}>
+            {services.map((s, idx) => (
+              <div key={s.title} className={`bg-[#111111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all group ${servicesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(idx % 3) + 1}`}>
                 <s.icon className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{s.label}</h3>
                 <p className="font-body text-sm text-[#666666] leading-relaxed">{s.desc}</p>
