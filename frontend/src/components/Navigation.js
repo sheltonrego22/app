@@ -31,13 +31,23 @@ const aboutLinks = [
   { label: "Careers", href: "/careers" },
 ];
 
+const insightsLinks = [
+  { label: "All Insights", href: "/media" },
+  { label: "Mobility News", href: "/media?category=Mobility+News" },
+  { label: "Traffic & Authority Updates", href: "/media?category=Traffic+%26+Authority+Updates" },
+  { label: "Road & Travel Guides", href: "/media?category=Road+%26+Travel+Guides" },
+  { label: "Fleet & Corporate Mobility", href: "/media?category=Fleet+%26+Corporate+Mobility" },
+  { label: "Technology & AI", href: "/mobility-technology" },
+  { label: "Eurogulf Mobility News", href: "/media?category=Company+Updates" },
+];
+
 const navLinks = [
   { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/about", hasDropdown: true, dropdownId: "about" },
   { label: "BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
   { label: "SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "solutions" },
   { label: "CLIENTS", href: "/partners" },
-  { label: "INSIGHTS", href: "/media" },
+  { label: "INSIGHTS", href: "/media", hasDropdown: true, dropdownId: "insights" },
   { label: "CONTACT", href: "/contact" },
 ];
 
@@ -62,6 +72,7 @@ export default function Navigation() {
     if (id === "brands") return brandsLinks;
     if (id === "solutions") return solutionsLinks;
     if (id === "about") return aboutLinks;
+    if (id === "insights") return insightsLinks;
     return [];
   };
 
@@ -176,6 +187,13 @@ export default function Navigation() {
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
               <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Solutions</span>
               {solutionsLinks.map((sl) => (
+                <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Insights</span>
+              {insightsLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>

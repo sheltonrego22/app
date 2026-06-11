@@ -10,7 +10,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 
 const API = process.env.REACT_APP_BACKEND_URL;
-const CATEGORIES = ["Press Releases", "Industry News", "Company Updates", "Awards", "Fleet", "Sustainability"];
+const CATEGORIES = ["Mobility News", "Traffic & Authority Updates", "Road & Travel Guides", "Fleet & Corporate Mobility", "Company Updates", "Press Releases", "Awards", "Fleet", "Sustainability"];
 
 const quillModules = {
   toolbar: [

@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Calendar, ArrowRight, Search, Star, Video, FileDown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const categories = ["All", "Press Releases", "Industry News", "Company Updates", "Awards", "Fleet", "Sustainability"];
+const categories = ["All", "Mobility News", "Traffic & Authority Updates", "Road & Travel Guides", "Fleet & Corporate Mobility", "Company Updates", "Press Releases", "Awards", "Fleet", "Sustainability"];
 
 const categoryColors = {
   "Press Releases": "bg-[#EE5A01]/10 text-[#EE5A01]",
+  "Mobility News": "bg-blue-500/10 text-blue-400",
+  "Traffic & Authority Updates": "bg-rose-500/10 text-rose-400",
+  "Road & Travel Guides": "bg-cyan-500/10 text-cyan-400",
+  "Fleet & Corporate Mobility": "bg-teal-500/10 text-teal-400",
   "Industry News": "bg-blue-500/10 text-blue-400",
   "Company Updates": "bg-purple-500/10 text-purple-400",
   Awards: "bg-amber-500/10 text-amber-400",
@@ -17,7 +22,9 @@ const categoryColors = {
 };
 
 export default function MediaCenterPage() {
-  const [filter, setFilter] = useState("All");
+  const [searchParams] = useSearchParams();
+  const initialCat = searchParams.get('category') || 'All';
+  const [filter, setFilter] = useState(initialCat);
   const [searchQuery, setSearchQuery] = useState("");
   const [articles, setArticles] = useState([]);
   const [total, setTotal] = useState(0);
@@ -25,7 +32,12 @@ export default function MediaCenterPage() {
   const [expandedId, setExpandedId] = useState(null);
   const [gridRef, gridVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Media Center — Eurogulf Mobility Group | News & Insights"; }, []);
+  useEffect(() => { document.title = filter !== "All" ? `${filter} — Eurogulf Mobility Insights` : "Insights & News — Eurogulf Mobility"; }, [filter]);
+
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat && cat !== filter) setFilter(cat);
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchArticles = async () => {
