@@ -238,7 +238,7 @@ export default function ServicesPage() {
             </div>
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-2xl mb-12">
-                <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Limo + Royal Limousine</span>
+                <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Chauffeur</span>
                 <h2 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
                   Arrive in Command.
                 </h2>
@@ -281,8 +281,8 @@ export default function ServicesPage() {
                 <Link to="/book-chauffeur" data-testid="chauffeur-book-btn" className="btn-primary inline-block text-center py-4">
                   Book a Chauffeur
                 </Link>
-                <Link to="/royal-limousine" className="btn-ghost inline-block text-center py-4">
-                  Royal Limousine Details
+                <Link to="/chauffeur-service" className="btn-ghost inline-block text-center py-4">
+                  Eurogulf Chauffeur Details
                 </Link>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function ServicesPage() {
                   />
                 </div>
                 <div>
-                  <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Royal Limousine Coach + Eurogulf Coaches</span>
+                  <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Chauffeur · Luxury Coaches</span>
                   <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
                     Passenger Transportation at Scale
                   </h2>
@@ -324,8 +324,8 @@ export default function ServicesPage() {
                     <Link to="/contact" data-testid="coach-quote-btn" className="btn-primary inline-block text-center">
                       Get a Group Transfer Quote
                     </Link>
-                    <Link to="/royal-limousine" className="btn-ghost inline-block text-center">
-                      View Coaches & Limo
+                    <Link to="/chauffeur-service" className="btn-ghost inline-block text-center">
+                      View Chauffeur & Coaches
                     </Link>
                   </div>
                 </div>

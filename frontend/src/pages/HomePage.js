@@ -10,7 +10,7 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 
 const stats = [
-  { value: 1976, suffix: "", label: "Founded" },
+  { value: 1976, suffix: "", label: "Founded", isYear: true },
   { value: 10000, suffix: "+", label: "Vehicles" },
   { value: 1200, suffix: "+", label: "Professionals" },
   { value: 14, suffix: "", label: "UAE Locations" },
@@ -66,13 +66,14 @@ const socialImages = [
   { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=600&h=600&fit=crop", caption: "Cars with the Dubai Marina skyline" },
 ];
 
-function StatItem({ value, suffix, label }) {
+function StatItem({ value, suffix, label, isYear }) {
   const [ref, isVisible] = useScrollAnimation(0.3);
   const count = useCounter(value, 2000, isVisible);
+  const displayValue = isYear ? count.toString() : count.toLocaleString();
   return (
     <div ref={ref} className="text-center px-3 py-6" data-testid={`stat-${label.toLowerCase().replace(/\s/g, '-')}`}>
       <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-bold text-[#EE5A01]">
-        {count.toLocaleString()}{suffix}
+        {displayValue}{suffix}
       </div>
       <div className="font-heading text-[10px] sm:text-xs tracking-[0.15em] text-[#EEEDE7] mt-2 uppercase">{label}</div>
     </div>
