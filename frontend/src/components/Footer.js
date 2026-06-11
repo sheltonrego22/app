@@ -4,12 +4,12 @@ import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook, MapPin } from 'luc
 const LOGO_URL = "/egmg-logo-transparent.png";
 
 const divisions = [
-  { name: "Europcar", href: "/europcar" },
-  { name: "Goldcar", href: "/goldcar" },
-  { name: "Royal Limousine", href: "/royal-limousine" },
-  { name: "Emirates Taxi", href: "/emirates-taxi" },
-  { name: "Truckline", href: "/truckline" },
-  { name: "Eurogulf Used Car Trading", href: "/used-cars" },
+  { name: "Europcar Dubai", href: "/europcar" },
+  { name: "Goldcar Dubai", href: "/goldcar" },
+  { name: "Eurogulf Chauffeur", href: "/chauffeur-service" },
+  { name: "Truckline Transport", href: "/truckline" },
+  { name: "Eurogulf Used Cars", href: "/used-cars" },
+  { name: "Eurogulf Autocare", href: "/autocare" },
 ];
 
 const locations = [
@@ -69,7 +69,7 @@ export default function Footer() {
           {/* Column 3: Our Businesses */}
           <div>
             <h4 className="font-heading font-bold text-[#EEEDE7] text-sm tracking-[0.1em] uppercase mb-6">
-              Our Businesses
+              Our Brands
             </h4>
             <ul className="space-y-2.5">
               {divisions.map((d) => (

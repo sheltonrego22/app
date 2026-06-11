@@ -17,46 +17,46 @@ const LOGOS = {
 
 const divisions = [
   {
-    name: "Europcar",
+    name: "Europcar Dubai",
     year: "1978",
     logo: LOGOS.europcar,
-    desc: "At Europcar Dubai, we deliver premium car rental and vehicle leasing across 143 countries. Flexible short-term rentals and long-term corporate leasing solutions, backed by a fleet of 12,000+ vehicles across 14 UAE locations.",
+    desc: "Premium car rental and leasing, powered by Europe's #1 rental brand. Present in 143 countries with 6,000+ locations. 5,000+ vehicles, 14 UAE locations, fleet age avg. 1.5 years.",
     href: "/europcar",
   },
   {
-    name: "Goldcar",
-    year: "1978",
+    name: "Goldcar Dubai",
+    year: "2019",
     logo: LOGOS.goldcar,
-    desc: "A leading brand in the low-cost car rental segment, Goldcar offers smart, fair, and value-for-money travel. Attractive pricing, 5-star fleet quality, and 30+ years of brand leadership in the value segment.",
+    desc: "Smart, affordable car hire — best price, no compromise. Europe's largest low-cost car rental brand with 35+ years of experience, now available across all Europcar Dubai outlets and Sharjah Airport.",
     href: "/goldcar",
   },
   {
-    name: "Royal Limousine",
-    year: "1998",
-    logo: LOGOS.royallimo,
-    desc: "Premium chauffeur service for personal and corporate clients. Highly trained, accredited chauffeurs with a fleet of new, well-maintained vehicles ensure every trip is safe, punctual, and memorable.",
-    href: "/royal-limousine",
-  },
-  {
-    name: "Emirates Taxi",
-    year: "2000",
+    name: "Eurogulf Chauffeur",
+    year: "1990",
     logo: LOGOS.egmg,
-    desc: "ISO 9001:2015 certified premium chauffeur service with RTA-approved vehicles. Quality-monitored operations with performance-graded drivers delivering consistently exceptional service.",
-    href: "/emirates-taxi",
+    desc: "Professional managed transportation across all 7 Emirates. 800+ RTA-approved drivers, premium sedan and SUV fleet, luxury coaches, airport transfers, corporate events, and staff transport solutions.",
+    href: "/chauffeur-service",
   },
   {
-    name: "Truckline",
+    name: "Truckline Transport",
     year: "2021",
     logo: LOGOS.truckline,
-    desc: "Specialized commercial fleet leasing — cars, trucks, vans, and chiller units for business operations across all Emirates. 24/7 support, free maintenance, and no down payment.",
+    desc: "Commercial vehicle leasing built for UAE businesses. Toyota Hiace, Nissan Urvan, 3-ton and 4.2-ton trucks, freezer and chiller units. Dedicated account manager, in-house maintenance, 24/7 recovery.",
     href: "/truckline",
   },
   {
-    name: "Eurogulf Used Car Trading",
+    name: "Eurogulf Used Cars",
     year: "1994",
     logo: LOGOS.usedcars,
-    desc: "Reliable, high-quality pre-owned vehicles from EGMG's managed fleet. A-Grade workshop inspected, full service history, and competitive pricing with over 1,000 satisfied customers.",
+    desc: "Certified pre-owned vehicles, backed by 50 years of fleet expertise. Professionally maintained by EGMG's 3 A-grade workshops, complete service history, transparent pricing.",
     href: "/used-cars",
+  },
+  {
+    name: "Eurogulf Autocare",
+    year: "1994",
+    logo: LOGOS.egmg,
+    desc: "A-grade service and maintenance for every vehicle in your fleet. Three fully equipped service centres, ISO-certified technicians, insurance panel approved. The backbone of EGMG's 10,000-vehicle fleet.",
+    href: "/autocare",
   },
 ];
 
@@ -73,12 +73,12 @@ export default function BusinessesPage() {
         <div className="absolute top-20 left-20 w-80 h-80 bg-[#EE5A01]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Six Divisions. One Vision.</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Six Brands. One Group.</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Our Businesses
+            Our Brands
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From car rental to premium chauffeur services, commercial fleet leasing to certified pre-owned vehicles — Eurogulf Mobility Group covers every dimension of mobility in the UAE.
+            EGMG holds the portfolio. The brands deliver the service. Six distinct mobility brands, each serving a specific customer need — from premium car rental to luxury chauffeur, commercial fleets to certified pre-owned vehicles.
           </p>
         </div>
       </section>

@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Users, Award, ArrowRight, Play, ChevronDown } from 'lucide-react';
+import { Shield, Users, Award, ArrowRight, ChevronDown, Lightbulb, Heart } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
 
 const milestones = [
-  { year: "1976", title: "Dubai Rent A Car LLC", desc: "Car Rental, Leasing & Transportation Services — the foundation of a mobility group in the UAE." },
-  { year: "1978", title: "Europcar Franchise", desc: "UAE's first international car rental brand partnership, bringing world-class standards to the region." },
-  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Launch of professional chauffeur services in Dubai, setting new standards for premium transportation." },
-  { year: "1994", title: "Eurogulf Garage & Used Cars", desc: "Establishment of A-Grade workshops and certified pre-owned vehicle trading operations." },
-  { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "Expansion into luxury coach transportation for corporate groups and events across Dubai." },
-  { year: "2013", title: "Eurogulf Limo Abu Dhabi", desc: "Premium chauffeur services extended to the capital, covering the entire UAE corridor." },
-  { year: "2018", title: "Eurogulf Luxury Coaches Abu Dhabi", desc: "Full-scale coach operations launched in Abu Dhabi for corporate and government clients." },
-  { year: "2021", title: "Truckline — Commercial Fleet", desc: "Launch of commercial vehicle division — vans, trucks, and chiller units for logistics." },
-  { year: "2024", title: "Eurogulf Mobility Group", desc: "Unified rebrand as Eurogulf Mobility, consolidating nearly 50 years of excellence under one identity." },
+  { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of EGMG — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
+  { year: "1978", title: "Europcar UAE Launched", desc: "EGMG becomes the official Europcar operator, introducing international-standard car rental services to Dubai and the region for the first time." },
+  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "EGMG expands into professional chauffeur services, launching Emirates Taxi and Royal Limousine — establishing what would become the group's managed transportation division." },
+  { year: "1994", title: "Eurogulf Garage & Used Cars", desc: "The group builds its automotive aftercare capabilities with the launch of Eurogulf Garage and Eurogulf Used Cars Trading, creating a closed-loop ecosystem for fleet management." },
+  { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "The expansion of passenger transportation into premium coaches, enabling EGMG to serve airlines, cruise operators, DMCs, and event organisers at scale." },
+  { year: "2013", title: "Eurogulf Limo — Abu Dhabi", desc: "EGMG extends its chauffeur operations to Abu Dhabi, becoming one of the very few transport operators licensed to provide professional chauffeur services across all seven Emirates of the UAE." },
+  { year: "2018", title: "Eurogulf Luxury Coaches — Abu Dhabi", desc: "Coach and bus operations expanded into the capital, reinforcing EGMG's unmatched all-Emirates transportation footprint." },
+  { year: "2021", title: "Truckline Transport Launched", desc: "EGMG enters the commercial vehicle leasing and logistics segment with the launch of Truckline Transport, offering vans, trucks, and chiller units to UAE businesses." },
+  { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group (EGMG) brand — reflecting the scope, scale, and ambition of the organisation." },
 ];
 
 const chartData = [
@@ -24,45 +24,36 @@ const chartData = [
   { year: '2022', vehicles: 6000 },
   { year: '2023', vehicles: 8000 },
   { year: '2024', vehicles: 9000 },
-  { year: '2025', vehicles: 12000 },
+  { year: '2025', vehicles: 10000 },
 ];
 
 const coreValues = [
-  { icon: Shield, title: "Fearless", desc: "We embrace bold decisions and take on challenges with courage. From launching the Europcar franchise in 1976 to expanding across all seven Emirates, fearlessness defines our journey." },
-  { icon: Users, title: "Accountable", desc: "Every vehicle, every driver, every service touchpoint — we take ownership. ISO 9001:2015 certified operations and performance-graded teams ensure accountability at every level." },
-  { icon: Award, title: "Innovative", desc: "From introducing electric vehicles to implementing GPS-tracked operations and two-way client reservation systems, we constantly evolve how the UAE moves." },
-  { icon: Shield, title: "Respectful", desc: "We foster a culture of inclusion, dignity, and professionalism across 1,200+ employees. Every client and every colleague is treated with the respect they deserve." },
+  { icon: Shield, title: "Fearless", desc: "We pursue growth, innovation, and bold decisions without hesitation. In an industry defined by logistics and precision, we embrace ambition and are unafraid to lead." },
+  { icon: Users, title: "Accountable", desc: "We take full ownership of every commitment we make — to our customers, our partners, and our people. Our word is our contract." },
+  { icon: Lightbulb, title: "Innovative", desc: "We continuously invest in technology, processes, and service design to stay ahead of the evolving needs of the market." },
+  { icon: Heart, title: "Respectful", desc: "We treat every individual — customer, employee, partner, or community member — with dignity, fairness, and the highest professional standards." },
 ];
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 
-const DIVISION_LOGOS = {
-  europcar: EUROPCAR_LOGO,
-  goldcar: EGMG_LOGO,
-  royallimo: EGMG_LOGO,
-  emiratestaxi: EGMG_LOGO,
-  truckline: EGMG_LOGO,
-  usedcars: EGMG_LOGO,
-};
-
-const AWARD_IMAGES = [
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png.webp", title: "ISO 9001:2015", desc: "Customer Focus, Leadership, Engagement, Process Approach, Improvement, Relationship Management." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png.webp", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East 2009." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png.webp", title: "Emirates Group Award", desc: "2008 Recognition of Support, 2011 Flight Crew Transportation Support." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "World Travel Awards", desc: "Best Car Rental Company MENA — 2005-2019, 2022, 2023 & 2024." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver (2004-05), Gold (2006, 2008), Platinum (2012)." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png.webp", title: "ISO 45001:2018", desc: "Occupational Health and Safety Management System." },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png.webp", title: "McDermott Award", desc: "Safest Transportation Service Provider 2010/2011." },
+const divisions = [
+  { name: "Europcar Dubai", desc: "Premium car rental and leasing, powered by Europe's #1 rental brand", href: "/europcar", logo: EUROPCAR_LOGO },
+  { name: "Goldcar Dubai", desc: "Smart, affordable car hire — best price, no compromise", href: "/goldcar", logo: EGMG_LOGO },
+  { name: "Eurogulf Chauffeur", desc: "Professional managed transportation across all 7 Emirates", href: "/chauffeur-service", logo: EGMG_LOGO },
+  { name: "Truckline Transport", desc: "Commercial vehicle leasing built for UAE businesses", href: "/truckline", logo: EGMG_LOGO },
+  { name: "Eurogulf Used Cars", desc: "Certified pre-owned vehicles, backed by 50 years of fleet expertise", href: "/used-cars", logo: EGMG_LOGO },
+  { name: "Eurogulf Autocare", desc: "A-grade service and maintenance for every vehicle in your fleet", href: "/autocare", logo: EGMG_LOGO },
 ];
 
-const divisions = [
-  { name: "Europcar Dubai", desc: "International car rental — 14 UAE locations, airport access", href: "/europcar", logo: DIVISION_LOGOS.europcar },
-  { name: "Goldcar UAE", desc: "Value-focused car rental brand for leisure travelers", href: "/goldcar", logo: DIVISION_LOGOS.goldcar },
-  { name: "Royal Limousine", desc: "Premium chauffeur & VIP limousine services", href: "/royal-limousine", logo: DIVISION_LOGOS.royallimo },
-  { name: "Emirates Taxi", desc: "ISO-certified professional taxi and transfers", href: "/emirates-taxi", logo: DIVISION_LOGOS.emiratestaxi },
-  { name: "Truckline", desc: "Commercial vans, trucks, and chiller units", href: "/truckline", logo: DIVISION_LOGOS.truckline },
-  { name: "Eurogulf Used Car", desc: "Certified pre-owned vehicles from managed fleet", href: "/used-cars", logo: DIVISION_LOGOS.usedcars },
+const AWARD_IMAGES = [
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png.webp", title: "ISO 9001:2015", desc: "Quality Management Systems" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png.webp", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png.webp", title: "Emirates Group Award", desc: "Flight Crew Transportation Support Recognition" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "Car Rental Global Award", desc: "Best Performance 2023 — Middle East & Africa Region" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver, Gold & Platinum (2004–2012)" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png.webp", title: "ISO 10002:2014", desc: "Customer Satisfaction Management" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png.webp", title: "McDermott Award", desc: "Safest Transportation Service Provider" },
 ];
 
 function TimelineItem({ milestone, index, isActive, onClick }) {
@@ -72,7 +63,6 @@ function TimelineItem({ milestone, index, isActive, onClick }) {
       className={`relative flex items-start gap-6 mb-12 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
       data-testid={`timeline-item-${index}`}
     >
-      {/* Content */}
       <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'}`}>
         <button onClick={onClick} className="text-left lg:text-inherit w-full">
           <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">{milestone.year}</span>
@@ -80,16 +70,12 @@ function TimelineItem({ milestone, index, isActive, onClick }) {
           <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
             <p className="font-body text-sm text-[#666666] leading-relaxed">{milestone.desc}</p>
           </div>
-          {!isActive && (
-            <ChevronDown className="w-4 h-4 text-[#EE5A01] mt-1 inline-block" />
-          )}
+          {!isActive && <ChevronDown className="w-4 h-4 text-[#EE5A01] mt-1 inline-block" />}
         </button>
       </div>
-      {/* Node */}
       <div className="flex flex-col items-center flex-shrink-0">
         <div className={`timeline-node ${isActive ? 'active' : ''}`} onClick={onClick} />
       </div>
-      {/* Spacer for opposite side */}
       <div className="flex-1 hidden lg:block" />
     </div>
   );
@@ -102,7 +88,7 @@ export default function AboutPage() {
   const [chartRef, chartVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About Eurogulf Mobility — Your Vision, Our Journey Since 1976"; }, []);
+  useEffect(() => { document.title = "About Eurogulf Mobility Group | 50 Years of UAE Mobility | Est. 1976"; }, []);
 
   return (
     <div data-testid="about-page">
@@ -111,16 +97,33 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <img src={ABOUT_HERO} alt="Dubai Skyline" className="w-full h-full object-cover grayscale" />
           <div className="absolute inset-0 bg-black/70" />
-          {/* Diagonal orange line */}
           <div className="absolute bottom-0 left-0 w-[120%] h-[3px] bg-[#EE5A01] origin-bottom-left -rotate-3" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-24">
-          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-8xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Your Vision, Our Journey
+          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
+            Five Decades at the Heart of the UAE's Mobility Story.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EE5A01] animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Moving the UAE forward since 1976
+            Discover the story behind the UAE's most diversified mobility group
           </p>
+        </div>
+      </section>
+
+      {/* ═══ OPENING COPY ═══ */}
+      <section className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="orange-accent-line mb-8" />
+          <div className="space-y-5 font-body text-[#999] leading-relaxed text-base sm:text-lg">
+            <p>
+              In 1976, a vision took shape in Dubai: to bring world-class vehicle rental services to a city and a nation on the cusp of transformation. Dubai Rent A Car LLC was founded that year, securing the exclusive Europcar franchise for Dubai and the Northern Emirates — a decision that would prove foundational to the company's next five decades of growth.
+            </p>
+            <p>
+              What followed was not simply the expansion of a car rental business. It was the deliberate and disciplined construction of a mobility group — a portfolio of complementary transportation brands, each developed in response to a clear market need, each built to the standards that the UAE's most discerning customers and most demanding institutions have come to expect.
+            </p>
+            <p>
+              Today, Eurogulf Mobility Group stands as one of the UAE's most established, most trusted, and most awarded transportation organisations. With over 10,000 vehicles under management, 1,200 employees, and operations spanning all seven Emirates, EGMG is not merely a participant in the UAE's mobility sector — it has helped shape it.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -130,10 +133,9 @@ export default function AboutPage() {
           <div className={`text-center mb-16 ${timelineVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Legacy
+              A Journey Built Over 50 Years
             </h2>
           </div>
-          {/* Vertical line */}
           <div className="relative">
             <div className="absolute left-[calc(50%-1px)] top-0 bottom-0 w-[2px] bg-[#EE5A01]/20 hidden lg:block" />
             <div className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-[#EE5A01]/20 lg:hidden" />
@@ -155,18 +157,18 @@ export default function AboutPage() {
         <div className="bg-[#EE5A01] p-12 sm:p-16 lg:p-20 flex flex-col justify-center">
           <span className="font-mono text-xs tracking-[0.2em] text-black/60 uppercase mb-4">Vision</span>
           <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white leading-snug">
-            To be recognized as the leader in quality and competitiveness in our industry, inspiring trust and excellence.
+            To be recognised as the leader in quality and competitiveness in our industry, inspiring trust and excellence.
           </h2>
         </div>
         <div className="bg-black p-12 sm:p-16 lg:p-20 flex flex-col justify-center">
           <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4">Mission</span>
           <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#EE5A01] leading-snug">
-            To deliver unparalleled quality in our services by embracing innovation, fostering talent, optimizing our operations, and ensuring customer satisfaction through sustainable initiatives.
+            To deliver unparalleled quality in our services by embracing innovation, fostering talent, optimising our operations, and ensuring customer satisfaction through sustainable initiatives.
           </h2>
         </div>
       </section>
 
-      {/* ═══ CORE VALUES ═══ */}
+      {/* ═══ CORE VALUES — F.A.I.R. ═══ */}
       <section data-testid="values-section" className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={valuesRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
@@ -191,13 +193,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ DIVISIONS ═══ */}
+      {/* ═══ OUR BRANDS ═══ */}
       <section data-testid="about-divisions" className="bg-black py-20 sm:py-28">
         <div ref={divisionsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Divisions
+              Our Brands
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -221,88 +223,25 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ LEADERSHIP / CULTURE ═══ */}
-      <section data-testid="leadership-section" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="orange-accent-line mb-6" />
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">
-                A Family Business. A Regional Force.
-              </h2>
-              <div className="bg-[#111] border border-white/5 p-5 mb-6">
-                <p className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase mb-2">Our Vision</p>
-                <p className="font-body text-sm text-[#EEEDE7] leading-relaxed italic">
-                  "To be recognised as the leader in quality and competitiveness in our industry, inspiring trust and excellence."
-                </p>
-              </div>
-              <div className="bg-[#111] border border-white/5 p-5 mb-6">
-                <p className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase mb-2">Our Mission</p>
-                <p className="font-body text-sm text-[#EEEDE7] leading-relaxed italic">
-                  "To deliver unparalleled quality in our services by embracing innovation, fostering talent, optimising our operations, and ensuring customer satisfaction through sustainable initiatives."
-                </p>
-              </div>
-              <p className="font-body text-[#666666] leading-relaxed mb-8">
-                For nearly 50 years, Eurogulf Mobility has been a family-owned business that expanded from one rental counter to the region's most diversified mobility group. With over 1,200 professionals and a fleet of 10,000+ vehicles across the UAE, we continue to invest in our people, technology, and sustainable practices to shape the future of mobility.
-              </p>
-              <Link to="/contact" className="btn-primary inline-block">
-                Get In Touch
-              </Link>
-            </div>
-            <div className="relative bg-[#111111] border border-white/5 aspect-video flex items-center justify-center">
-              <img
-                src="https://images.pexels.com/photos/5087165/pexels-photo-5087165.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop"
-                alt="EGMG Operations across Dubai"
-                className="w-full h-full object-cover opacity-50"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 bg-[#EE5A01] flex items-center justify-center cursor-pointer hover:bg-[#d45000] transition-colors">
-                  <Play className="w-6 h-6 text-black ml-1" fill="black" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ═══ FLEET GROWTH CHART ═══ */}
-      <section data-testid="fleet-growth-section" className="bg-black py-20 sm:py-28">
+      <section data-testid="fleet-growth-section" className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={chartRef} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${chartVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              Fleet Growth
-            </h2>
-            <p className="font-body text-[#666666]">
-              From 3,000 to 12,000 vehicles in 5 years — a testament to our commitment to growth.
-            </p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">Fleet Growth</h2>
+            <p className="font-body text-[#666666]">From 3,000 to 10,000+ vehicles — a testament to our commitment to growth.</p>
           </div>
           {chartVisible && (
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} barCategoryGap="25%">
                   <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
-                  <XAxis
-                    dataKey="year"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }}
-                    tickFormatter={(v) => `${v / 1000}K`}
-                  />
-                  <Tooltip
-                    contentStyle={{ background: '#111', border: '1px solid #333', fontFamily: 'Manrope' }}
-                    labelStyle={{ color: '#EEEDE7' }}
-                    itemStyle={{ color: '#EE5A01' }}
-                    formatter={(v) => [`${v.toLocaleString()} vehicles`, 'Fleet Size']}
-                  />
+                  <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }} tickFormatter={(v) => `${v / 1000}K`} />
+                  <Tooltip contentStyle={{ background: '#111', border: '1px solid #333', fontFamily: 'Manrope' }} labelStyle={{ color: '#EEEDE7' }} itemStyle={{ color: '#EE5A01' }} formatter={(v) => [`${v.toLocaleString()} vehicles`, 'Fleet Size']} />
                   <Bar dataKey="vehicles" radius={[0, 0, 0, 0]}>
                     {chartData.map((entry) => (
-                      <Cell key={entry.year} fill={entry.year === '2024' ? '#EE5A01' : '#F17B34'} />
+                      <Cell key={entry.year} fill={entry.year === '2025' ? '#EE5A01' : '#F17B34'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -313,14 +252,14 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ AWARDS & RECOGNITION ═══ */}
-      <section data-testid="awards-section" className="bg-[#0a0a0a] py-20 sm:py-28">
+      <section data-testid="awards-section" className="bg-black py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              Awards & Recognition
+              Validated by the Industry. Trusted by Our Clients.
             </h2>
-            <p className="font-body text-[#666666] max-w-lg mx-auto">Nearly two decades of industry accolades and internationally certified operations.</p>
+            <p className="font-body text-[#666666] max-w-2xl mx-auto">Eurogulf Mobility Group's commitment to operational excellence is not a claim — it is a record. Over five decades of service, the group has earned recognition from the world's most respected automotive and business organisations.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
             {AWARD_IMAGES.map((a) => (

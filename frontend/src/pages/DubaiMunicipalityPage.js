@@ -15,17 +15,17 @@ const stats = [
 const services = [
   { icon: Truck, title: "Vehicle Leasing", desc: "Full operational lease of 1,500+ vehicles — sedans, SUVs, pickup trucks, and utility vehicles — registered, insured, and maintained by Eurogulf Mobility Group." },
   { icon: BarChart3, title: "Fleet Management System", desc: "Web-based fleet operations software with real-time GPS tracking, live allocation, utilisation reporting, and predictive maintenance scheduling." },
-  { icon: Wrench, title: "Maintenance & Support", desc: "Comprehensive servicing through five Eurogulf Mobility Group-owned workshops. SLA-backed turnaround with dedicated mechanics assigned to the municipality account." },
-  { icon: Shield, title: "RFID & Car Sharing System", desc: "RFID-enabled access control, vehicle pooling and sharing system, and sterilisation protocols — all managed through a centralised platform." },
-  { icon: Clock, title: "Replacement & Roadside", desc: "Guaranteed replacement vehicles within 90 minutes. 24/7 roadside assistance, recovery, and accident management with a single point of contact." },
-  { icon: Users, title: "Dedicated Operations Team", desc: "On-site Eurogulf Mobility Group team embedded within Dubai Municipality operations — fleet coordinators, workshop liaisons, and a senior account manager." },
+  { icon: Shield, title: "RFID Card System Integration", desc: "RFID-enabled access control, vehicle pooling and car sharing system — all managed through a centralised platform." },
+  { icon: Wrench, title: "Full Maintenance & Mechanical Support", desc: "Comprehensive servicing through EGMG-owned workshops. SLA-backed turnaround with dedicated mechanics assigned to the municipality account." },
+  { icon: Clock, title: "Replacement Vehicles & Roadside Assistance", desc: "Guaranteed replacement vehicles. 24/7 roadside assistance, recovery, and accident management with a single point of contact." },
+  { icon: Users, title: "Car Washing & Vehicle Sterilisation", desc: "Regular car washing services and comprehensive vehicle sterilisation service for the entire managed fleet." },
 ];
 
 export default function DubaiMunicipalityPage() {
   const [servRef, servVisible] = useScrollAnimation();
   const [impactRef, impactVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Dubai Municipality Partnership — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Dubai Municipality Partnership — Eurogulf Mobility Group | Fleet Management"; }, []);
 
   return (
     <div data-testid="dubai-municipality-page">

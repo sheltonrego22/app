@@ -67,7 +67,7 @@ export default function TrucklinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [sectorsRef, sectorsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Truckline — Commercial Vehicle Leasing & Fleet Management | Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Truckline Transport | Commercial Vehicle Leasing UAE | Vans, Trucks & Chiller Units | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="truckline-page">
@@ -82,10 +82,10 @@ export default function TrucklinePage() {
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Your Fleet, Managed.
+            Commercial Vehicle Leasing Built for the UAE's Most Demanding Operations.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Operational leasing for commercial fleets across the UAE — from a single delivery van to a 500-vehicle distribution network. We handle registration, insurance, servicing, repairs, telematics, fuel and accident management. You focus on growing the business.
+            From last-mile delivery vans to temperature-controlled chiller trucks — Truckline Transport provides UAE businesses with the commercial fleet they need, without the burden of ownership. Every contract includes a dedicated account manager, in-house maintenance, and 24/7 support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <a href="#enquire" className="btn-primary">Request a Fleet Quote</a>

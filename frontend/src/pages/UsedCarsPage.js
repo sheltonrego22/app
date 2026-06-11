@@ -73,7 +73,7 @@ export default function UsedCarsPage() {
   const [stepsRef, stepsVisible] = useScrollAnimation();
   const [stockRef, stockVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Used Vehicle Sales — Weekly Silent Auction | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Eurogulf Used Cars | Certified Pre-Owned Vehicles Dubai | Ex-Fleet, Low Mileage, Verified"; }, []);
 
   return (
     <div data-testid="used-cars-page">
@@ -88,10 +88,10 @@ export default function UsedCarsPage() {
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Mobility Used Vehicles Division</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Ex-Europcar Fleet. Sold the Smart Way.
+            Pre-Owned Vehicles You Can Trust. Backed by 50 Years of Fleet Expertise.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            A weekly silent auction of cars retired from the Europcar Dubai operating-lease fleet — single-owner, full service history, inspected, and sold direct to B2B and B2C buyers across the UAE.
+            Every vehicle sold by Eurogulf Used Cars has been maintained to the highest fleet standards by EGMG's A-grade workshops. Low mileage. Full history. Transparent pricing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/contact" className="btn-primary">View Vehicles for Sale</Link>

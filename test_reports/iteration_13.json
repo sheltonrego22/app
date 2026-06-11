@@ -1,0 +1,47 @@
+{
+  "summary": "Iteration 13 - Frontend-only smoke + content-alignment validation of EGMG corporate site against the official Website Strategy document at https://egmg-premium.preview.emergentagent.com. Tested 13 routes: /, /about, /europcar, /goldcar, /chauffeur-service, /autocare (new), /businesses, /partners, /careers, /dubai-municipality, /used-cars, /truckline, /media, /contact, /leasing — all return 200 with correct H1s. Zero JS page errors. Navigation labels exactly match strategy doc (HOME, ABOUT EGMG, OUR BRANDS, CORPORATE SOLUTIONS, MEDIA & PRESS, CAREERS, CONTACT) with correct dropdowns (ABOUT EGMG: Who We Are/Our History & Milestones/Vision Mission & Values/Awards & Certifications/Sustainability/Leadership; OUR BRANDS: Europcar Dubai/Goldcar Dubai/Eurogulf Chauffeur/Truckline Transport/Eurogulf Used Cars/Eurogulf Autocare; CORPORATE SOLUTIONS: Fleet Management/Dubai Municipality Partnership/Corporate Accounts/Major Clients; MEDIA & PRESS: News & Press Releases/Events/Awards). HomePage hero '50 Years of Moving the UAE Forward.' renders correctly; 5-stat counter animates to final values FOUNDED 1,976 / VEHICLES 10,000+ / PROFESSIONALS 1,200+ / UAE LOCATIONS 14 / EMIRATES SERVED 7; all 6 brand cards present (Europcar Dubai/Goldcar Dubai/Eurogulf Chauffeur/Truckline Transport/Eurogulf Used Cars/Eurogulf Autocare); services strip ('EVERY MOBILITY NEED. ONE GROUP.'), partner logos ('TRUSTED BY THE UAE'S MOST RECOGNISED NAMES'), awards ('RECOGNISED FOR EXCELLENCE'), Dubai Municipality section, @eurogulfmobility social section, and final CTA banner all visible. AboutPage H1 = 'FIVE DECADES AT THE HEART OF THE UAE'S MOBILITY STORY.', F.A.I.R values (Fearless/Accountable/Innovative/Respectful) confirmed, Eurogulf Autocare included in the 6 brand cards. EuropcarPage: H1 'EUROPE'S #1 CAR RENTAL BRAND. NOW ACROSS THE UAE.', 5 CTAs with computed background rgb(45,140,60) = #2d8c3c (Book a Car / Book Your Rental Now / Book Your Monthly Rental / Book International / Book Online), short-term link → https://www.europcar.com/en-db, monthly link → https://www.europcardubai.ae/, leasing lead form has Your Name / Mobile Number / Email Address inputs, key facts bar (5,000+/1.5 Yr Avg/14/500+/3/24-7) and brand story sections render. ChauffeurServicePage: H1 'UAE'S MOST TRUSTED MANAGED TRANSPORTATION PARTNER.', bus & coach section shows '800+ Buses / 800+ RTA Drivers / 5,000+ Daily Trips' stat trio AND headline copy '800+ buses. 800+ RTA-approved drivers. 5,000+ daily trips. Operating 24/7 across the UAE.', and 'ENQUIRE NOW' CTA button is present (alongside 'EVENT TRANSPORTATION ENQUIRY'). AutocarePage (NEW) at /autocare renders with H1 'WHERE FLEET STANDARDS MEET WORKSHOP EXCELLENCE.' and About/Services/Why sections. GoldcarPage H1 'SMART TRAVEL STARTS HERE.', international story (35+, 60,000+) and Sharjah Airport exclusive highlight present. BusinessesPage shows all 6 brand cards with correct names. PartnersClientsPage H1 'OUR PARTNERS & CLIENTS' with all 6 categories rendered as section sub-headings (Aviation/Hospitality/Government & Municipal/Cruise & Maritime/Corporate & Technology/Travel & Events) plus the 'THE EVENTS THAT DEFINE DUBAI. THE MOBILITY BEHIND THEM.' events section. Footer brand list correct (all 6 brands). Mobile @ 390px: HomePage renders with no horizontal overflow (scrollWidth = innerWidth = 390), mobile menu button present. 404 page handled correctly for unknown routes.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "HomePage 5-stat counter — 'FOUNDED'",
+        "issue": "Animated counter renders the founding year as '1,976' with a thousands separator (because the same number-formatter is applied to every stat). Strategy doc copy is 'Founded 1976'. The comma on a 4-digit year looks unintentional; recommend special-casing the year stat to omit the comma (e.g., toLocaleString skipped for that stat, or render literal '1976').",
+        "selector": "Stat block with label 'FOUNDED'",
+        "priority": "LOW"
+      },
+      {
+        "component": "PartnersClientsPage hero H1",
+        "issue": "H1 reads 'OUR PARTNERS & CLIENTS' but the strategy doc page-title for this page is 'Trusted by the UAE's Most Recognisable Names'. That exact wording does exist as a section H2 on the HomePage but not as the /partners page H1. Decide whether the /partners H1 should be aligned with the strategy doc wording.",
+        "selector": "/partners h1",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_13.json"],
+  "action_items": [
+    "[LOW] Decide whether to render the 'Founded' stat as plain '1976' instead of '1,976' (HomePage stat counter formatter).",
+    "[LOW / OPTIONAL] Align /partners page H1 with strategy doc wording 'Trusted by the UAE's Most Recognisable Names' if desired; current H1 'OUR PARTNERS & CLIENTS' is acceptable but not the exact strategy copy."
+  ],
+  "critical_code_review_comments": [
+    "All 13 routes return 200 with correct H1s and zero JS page errors / pageerror events captured during automated traversal.",
+    "Europcar green (#2d8c3c, rgb(45,140,60)) confirmed via getComputedStyle on 5 CTAs on /europcar (Book a Car, Book Your Rental Now, Book Your Monthly Rental, Book International, Book Online). EGMG orange (#EE5A01) used elsewhere — brand-colour scoping correct.",
+    "Chauffeur bus section copy matches strategy doc exactly: '800+ buses. 800+ RTA-approved drivers. 5,000+ daily trips. Operating 24/7 across the UAE.' and the dedicated 'ENQUIRE NOW' CTA is present (alongside 'EVENT TRANSPORTATION ENQUIRY' label).",
+    "Europcar short-term rental links correctly to https://www.europcar.com/en-db and monthly rental correctly redirects to https://www.europcardubai.ae/ (verified via href inspection).",
+    "Europcar leasing lead form has all three required inputs (Your Name [text], Mobile Number [text], Email Address [email]) — no integration test executed for the actual submit endpoint (per scope: frontend only).",
+    "Navigation dropdown structure exactly matches strategy doc spec — all four dropdown menus (ABOUT EGMG, OUR BRANDS, CORPORATE SOLUTIONS, MEDIA & PRESS) populated correctly.",
+    "Mobile responsiveness on /, no horizontal overflow at 390px viewport; hamburger menu present.",
+    "404 handled via NotFoundPage (renders '404 — PAGE NOT FOUND') for unknown routes.",
+    "Footer brand list updated correctly to the 6 strategy-doc brands.",
+    "Prior iteration_12 'standalone EGMG' findings on About/Leadership/Businesses/Home iframe-title were NOT re-verified in this iteration — main agent confirmed scope did not include re-testing those replacements."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "98% — all 10 review-request checklist items pass; only 2 LOW cosmetic/copy nits raised (founded-year comma, partners H1 wording)."},
+  "test_credentials": "Admin CMS not tested this iteration (out of scope: content-alignment frontend only). Credentials per problem statement: admin@egmg.ae / EgmgAdmin2026!",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 13 confirms the strategy-doc content alignment is essentially complete. All 10 explicit checklist items in the review request pass. Two LOW nits only: (1) HomePage stats counter renders FOUNDED as '1,976' instead of '1976' due to global thousands separator; (2) /partners H1 is 'OUR PARTNERS & CLIENTS' instead of the strategy doc heading 'Trusted by the UAE's Most Recognisable Names'. No backend testing was performed (frontend-only request). Mobile responsiveness only spot-checked on /; main agent should consider broader mobile sweep if launching imminently.",
+  "rca of the issue": "n/a — no blocking issues found. The two LOW items are content/cosmetic decisions, not defects: the FOUNDED comma is a side-effect of a generic number formatter applied to all 5 stat values, fixable by special-casing the year (e.g. `index === 0 ? value.toString() : value.toLocaleString()`); the /partners H1 wording is a content choice — strategy doc lists 'Trusted by the UAE's Most Recognisable Names' as the page heading, but the implementation currently uses 'OUR PARTNERS & CLIENTS' as page H1 and the strategy wording as a section heading on the HomePage."
+}

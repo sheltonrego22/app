@@ -18,34 +18,35 @@ const partners = [
 ];
 
 const customers = {
-  "Airlines & Aviation": [
-    "Emirates", "Etihad Airways", "Air France", "KLM", "Lufthansa",
-    "Cathay Pacific", "Virgin Atlantic", "South African Airways", "dnata"
+  "Aviation": [
+    "Emirates", "Etihad Airways", "dnata", "Air France", "Virgin Atlantic",
+    "KLM", "Lufthansa", "Cathay Pacific", "South African Airways"
   ],
-  "Hospitality & Tourism": [
-    "Atlantis The Palm", "Jumeirah", "Emaar", "The Address", "Hyatt",
-    "Sofitel", "Four Seasons", "Hilton", "Desert Adventures", "Sharaf Tours"
+  "Hospitality": [
+    "Jumeirah", "Emaar", "Atlantis The Palm", "The Address Hotels + Resorts",
+    "Hyatt", "JA Resorts & Hotels", "Sofitel Luxury Hotels", "Hilton Worldwide"
   ],
-  "Government & Public Sector": [
-    "Dubai Municipality", "RTA", "Dubai Police"
+  "Government & Municipal": [
+    "Dubai Municipality"
   ],
-  "Cruise & Events": [
-    "Royal Caribbean International", "Carnival", "MSC Cruises", "Cunard",
-    "Costa Cruises", "Fred Olsen Cruise Lines", "AIDA", "Cirque du Soleil",
-    "DP World", "Expo 2020 Dubai", "Dubai Airshow"
+  "Cruise & Maritime": [
+    "Royal Caribbean International", "MSC Cruises", "Costa Cruises",
+    "Carnival", "Cunard", "Black Watch"
   ],
-  "Corporate & Industrial": [
-    "General Electric", "Samsung", "Panasonic", "LG", "Daikin", "Kärcher"
+  "Corporate & Technology": [
+    "General Electric", "Samsung", "LG", "Panasonic", "Noon",
+    "Al Naboodah", "Al Habtoor Group", "MBC Group", "Desert Adventures", "Ekar"
   ],
-  "Logistics & E-Commerce": [
-    "noon", "6thstreet.com", "iMile", "Zajil", "Barakat", "Al Rawabi"
+  "Travel & Events": [
+    "Sharaf Tours", "Al Rainab", "Barakat", "Pan Home Furnishings"
   ],
 };
 
 const majorEvents = [
-  "Expo 2020 Dubai", "Dubai Airshow", "Dubai Desert Classic", "DP World Tour",
-  "PGA Tour", "Cirque du Soleil", "Emirates Dubai Rugby Sevens",
-  "Dior Fashion Show", "Women Global Leaders Summit", "RISE Conference"
+  "Dubai International Film Festival", "PGA European Tour", "Cirque du Soleil",
+  "DP World", "Dubai World Cup", "Emirates Dubai Rugby 7s", "Global Village",
+  "Expo 2020 Dubai, UAE", "Dubai Airshow", "International Monetary Fund",
+  "RISE 2015 Dubai", "Dubai Calendar", "Atlantic Council", "Dior"
 ];
 
 export default function PartnersClientsPage() {
@@ -53,7 +54,7 @@ export default function PartnersClientsPage() {
   const [clientsRef, clientsVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Our Partners & Clients — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Our Clients | Eurogulf Mobility Group | Trusted by UAE's Leading Brands"; }, []);
 
   return (
     <div data-testid="partners-clients-page">
@@ -121,8 +122,8 @@ export default function PartnersClientsPage() {
         <div ref={eventsRef} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${eventsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Major Events Served</h2>
-            <p className="font-body text-[#666] max-w-lg mx-auto">From world-class exhibitions to global sporting events — Eurogulf Mobility Group delivers the transport backbone behind the UAE's largest occasions.</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">The Events That Define Dubai. The Mobility Behind Them.</h2>
+            <p className="font-body text-[#666] max-w-lg mx-auto">The UAE's most high-profile events rely on EGMG for their transportation logistics.</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">
             {majorEvents.map((e) => (

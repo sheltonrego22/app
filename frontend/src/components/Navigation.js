@@ -4,50 +4,44 @@ import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
 
+const aboutLinks = [
+  { label: "Who We Are", href: "/about" },
+  { label: "Our History & Milestones", href: "/about" },
+  { label: "Vision, Mission & Values", href: "/about" },
+  { label: "Awards & Certifications", href: "/about" },
+  { label: "Sustainability", href: "/sustainability" },
+  { label: "Leadership", href: "/leadership" },
+];
+
 const brandsLinks = [
   { label: "Europcar Dubai", href: "/europcar" },
   { label: "Goldcar Dubai", href: "/goldcar" },
   { label: "Eurogulf Chauffeur", href: "/chauffeur-service" },
   { label: "Truckline Transport", href: "/truckline" },
   { label: "Eurogulf Used Cars", href: "/used-cars" },
-  { label: "All Brands", href: "/businesses" },
+  { label: "Eurogulf Autocare", href: "/autocare" },
 ];
 
-const solutionsLinks = [
-  { label: "Car Rental", href: "/europcar" },
-  { label: "Corporate Leasing", href: "/leasing" },
-  { label: "Chauffeur Services", href: "/chauffeur-service" },
-  { label: "Book a Chauffeur", href: "/book-chauffeur" },
-  { label: "Commercial Fleet", href: "/truckline" },
-  { label: "Used Vehicles", href: "/used-cars" },
-  { label: "All Solutions", href: "/services" },
+const corporateLinks = [
+  { label: "Fleet Management", href: "/leasing" },
+  { label: "Dubai Municipality Partnership", href: "/dubai-municipality" },
+  { label: "Corporate Accounts", href: "/contact" },
+  { label: "Major Clients", href: "/partners" },
 ];
 
-const aboutLinks = [
-  { label: "Our Story", href: "/about" },
-  { label: "Leadership", href: "/leadership" },
-  { label: "Sustainability", href: "/sustainability" },
-  { label: "Dubai Municipality", href: "/dubai-municipality" },
-  { label: "Careers", href: "/careers" },
-];
-
-const insightsLinks = [
-  { label: "All Insights", href: "/media" },
-  { label: "Mobility News", href: "/media?category=Mobility+News" },
-  { label: "Traffic & Authority Updates", href: "/media?category=Traffic+%26+Authority+Updates" },
-  { label: "Road & Travel Guides", href: "/media?category=Road+%26+Travel+Guides" },
-  { label: "Fleet & Corporate Mobility", href: "/media?category=Fleet+%26+Corporate+Mobility" },
-  { label: "Technology & AI", href: "/mobility-technology" },
-  { label: "Eurogulf Mobility News", href: "/media?category=Company+Updates" },
+const mediaLinks = [
+  { label: "News & Press Releases", href: "/media" },
+  { label: "Events", href: "/media?category=Company+Updates" },
+  { label: "Awards", href: "/about" },
 ];
 
 const navLinks = [
   { label: "HOME", href: "/" },
-  { label: "ABOUT", href: "/about", hasDropdown: true, dropdownId: "about" },
-  { label: "BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
-  { label: "SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "solutions" },
-  { label: "CLIENTS", href: "/partners" },
-  { label: "INSIGHTS", href: "/media", hasDropdown: true, dropdownId: "insights" },
+  { label: "ABOUT EGMG", href: "/about", hasDropdown: true, dropdownId: "about" },
+  { label: "OUR BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
+  { label: "CORPORATE SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
+  { label: "MEDIA & PRESS", href: "/media", hasDropdown: true, dropdownId: "media" },
+  { label: "CAREERS", href: "/careers" },
   { label: "CONTACT", href: "/contact" },
 ];
 
@@ -70,9 +64,9 @@ export default function Navigation() {
 
   const getDropdownItems = (id) => {
     if (id === "brands") return brandsLinks;
-    if (id === "solutions") return solutionsLinks;
+    if (id === "corporate") return corporateLinks;
     if (id === "about") return aboutLinks;
-    if (id === "insights") return insightsLinks;
+    if (id === "media") return mediaLinks;
     return [];
   };
 
@@ -103,8 +97,8 @@ export default function Navigation() {
                 >
                   <Link
                     to={link.href}
-                    data-testid={`nav-link-${link.label.toLowerCase()}`}
-                    className={`font-heading text-xs tracking-[0.1em] px-4 py-2 transition-colors duration-200 flex items-center gap-1 ${
+                    data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    className={`font-heading text-[11px] tracking-[0.08em] px-3 py-2 transition-colors duration-200 flex items-center gap-1 ${
                       location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7] hover:text-[#EE5A01]'
                     }`}
                   >
@@ -115,7 +109,7 @@ export default function Navigation() {
                   {link.hasDropdown && openDropdown === link.dropdownId && (
                     <div
                       data-testid={`${link.dropdownId}-dropdown`}
-                      className="absolute top-full left-0 w-56 bg-[#111111] border border-white/10 py-2 z-50"
+                      className="absolute top-full left-0 w-60 bg-[#111111] border border-white/10 py-2 z-50"
                     >
                       {getDropdownItems(link.dropdownId).map((sl) => (
                         <Link
@@ -171,29 +165,29 @@ export default function Navigation() {
             ))}
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">About</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">About EGMG</span>
               {aboutLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Brands</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Our Brands</span>
               {brandsLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Solutions</span>
-              {solutionsLinks.map((sl) => (
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Corporate Solutions</span>
+              {corporateLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Insights</span>
-              {insightsLinks.map((sl) => (
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Media & Press</span>
+              {mediaLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
