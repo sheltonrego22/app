@@ -93,7 +93,7 @@ const seoData = {
   },
   '/businesses': {
     title: 'Our Brands — Eurogulf Mobility',
-    description: 'Explore the Eurogulf Mobility family of brands: Europcar, Goldcar, Eurogulf Chauffeur, Truckline, Eurogulf Used Cars, and Eurogulf Autocare.',
+    description: 'Explore the Eurogulf Mobility family of brands: Europcar, Goldcar, Eurogulf Premium Chauffeur, Truckline, Eurogulf Used Cars, and Eurogulf Auto Garage.',
     keywords: 'Eurogulf Mobility brands, Europcar Dubai, Goldcar, Royal Limousine',
   },
 };

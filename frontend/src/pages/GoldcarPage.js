@@ -25,7 +25,7 @@ export default function GoldcarPage() {
   const [strengthsRef, strengthsVisible] = useScrollAnimation();
   const [aboutRef, aboutVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Goldcar Dubai | Value Self-Drive Mobility"; }, []);
+  useEffect(() => { document.title = "Goldcar Dubai | Budget Short Term Rentals"; }, []);
 
   return (
     <div data-testid="goldcar-page">

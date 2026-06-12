@@ -19,9 +19,9 @@ const stats = [
 
 const brands = [
   { icon: Car, title: "Europcar", promise: "Premium self-drive rental, monthly mobility, and long-term leasing support across Dubai and the Northern Emirates.", link: "/europcar", cta: "Explore Europcar" },
-  { icon: Tag, title: "Goldcar", promise: "Value-focused self-drive mobility for customers seeking accessible and practical rental options within the wider group ecosystem.", link: "/goldcar", cta: "Explore Goldcar" },
-  { icon: Truck, title: "Truckline", promise: "Commercial vehicle leasing and specialist fleet solutions for operational, logistics, and workforce mobility needs.", link: "/truckline", cta: "Explore Truckline" },
-  { icon: Crown, title: "Eurogulf Premium Chauffeur", promise: "Chauffeur-driven and managed transport services for airport transfer, VIP, staff movement, and event mobility.", link: "/chauffeur-service", cta: "Explore Chauffeur" },
+  { icon: Tag, title: "Goldcar", promise: "Budget short-term rentals for customers seeking accessible and practical rental options within the wider group ecosystem.", link: "/goldcar", cta: "Explore Goldcar" },
+  { icon: Truck, title: "Truckline Transport", promise: "Commercial vehicle leasing and fleet management solutions for operational, logistics, and workforce mobility needs.", link: "/truckline", cta: "Explore Truckline" },
+  { icon: Crown, title: "Eurogulf Premium Chauffeur", promise: "Managed transport and driven services for airport transfer, VIP, staff movement, and event mobility.", link: "/chauffeur-service", cta: "Explore Chauffeur" },
   { icon: Wrench, title: "Eurogulf Auto Garage", promise: "Vehicle service, repair, maintenance, and workshop support within the wider transport ecosystem.", link: "/autocare", cta: "Learn More" },
   { icon: Building2, title: "Eurogulf Used Cars", promise: "Approved used vehicle sales backed by the wider group platform.", link: "/used-cars", cta: "Browse Vehicles" },
 ];

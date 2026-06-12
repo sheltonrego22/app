@@ -4,32 +4,12 @@ import { Briefcase, MapPin, ChevronDown, ChevronUp, Send, Users, TrendingUp, Hea
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const jobListings = [
-  { title: "Bus Driver", dept: "Operations" },
-  { title: "Mobile Service Mechanic", dept: "Workshop" },
-  { title: "SOP Administrator", dept: "Operations" },
-  { title: "Technician", dept: "Workshop" },
-  { title: "Car Wash Cleaner", dept: "Operations" },
   { title: "BDE / Client Solution Specialist", dept: "Sales" },
-  { title: "Recovery Driver", dept: "Operations" },
-  { title: "Drivers (Permanent)", dept: "Operations" },
-  { title: "Accounts Assistant", dept: "Finance" },
-  { title: "Senior Manager - Employee Relations", dept: "HR" },
   { title: "Rental Agent", dept: "Sales" },
-  { title: "HSE Officer", dept: "Operations" },
-  { title: "RAK Rental Agent", dept: "Sales" },
-  { title: "Graphic Designer", dept: "Marketing" },
-  { title: "National Sales Manager", dept: "Sales" },
-  { title: "Mechanic - G3", dept: "Workshop" },
-  { title: "Painter - G3", dept: "Workshop" },
-  { title: "Wheel Service Technician", dept: "Workshop" },
+  { title: "Mobile Service Mechanic", dept: "Workshop" },
   { title: "Airport Shift In-Charge", dept: "Operations" },
-  { title: "Call Centre Agent", dept: "Sales" },
-  { title: "Heavy Driver (DRC)", dept: "Operations" },
-  { title: "Heavy Driver (EK)", dept: "Operations" },
-  { title: "Light Driver (ET)", dept: "Operations" },
-  { title: "Light Driver (Garage)", dept: "Operations" },
+  { title: "Graphic Designer", dept: "Marketing" },
   { title: "Learning & Development Executive", dept: "HR" },
-  { title: "PRO", dept: "Admin" },
 ];
 
 const departments = ["All", ...new Set(jobListings.map(j => j.dept))];

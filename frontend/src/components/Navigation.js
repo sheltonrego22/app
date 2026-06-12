@@ -42,6 +42,7 @@ const navLinks = [
   { label: "CORPORATE SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
   { label: "MEDIA & PRESS", href: "/media", hasDropdown: true, dropdownId: "media" },
   { label: "CAREERS", href: "/careers" },
+  { label: "PARTNER WITH US", href: "/partner" },
   { label: "CONTACT", href: "/contact" },
 ];
 

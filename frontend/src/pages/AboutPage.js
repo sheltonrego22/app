@@ -21,9 +21,9 @@ const milestones = [
 
 const divisions = [
   { name: "Europcar", desc: "Premium self-drive rental, monthly mobility, and long-term leasing support across Dubai and the Northern Emirates", href: "/europcar", logo: EUROPCAR_LOGO },
-  { name: "Goldcar", desc: "Value-focused self-drive mobility for customers seeking accessible and practical rental options", href: "/goldcar", logo: EGMG_LOGO },
-  { name: "Truckline", desc: "Commercial vehicle leasing and specialist fleet solutions for operational and logistics needs", href: "/truckline", logo: EGMG_LOGO },
-  { name: "Eurogulf Premium Chauffeur", desc: "Chauffeur-driven and managed transport for airport transfer, VIP, staff movement, and events", href: "/chauffeur-service", logo: EGMG_LOGO },
+  { name: "Goldcar", desc: "Budget short-term rentals for customers seeking accessible and practical options", href: "/goldcar", logo: EGMG_LOGO },
+  { name: "Truckline Transport", desc: "Commercial vehicle leasing and fleet management solutions for operational needs", href: "/truckline", logo: EGMG_LOGO },
+  { name: "Eurogulf Premium Chauffeur", desc: "Managed transport and driven services for airport transfer, VIP, staff, and events", href: "/chauffeur-service", logo: EGMG_LOGO },
   { name: "Eurogulf Auto Garage", desc: "Vehicle service, repair, maintenance, and workshop support within the wider ecosystem", href: "/autocare", logo: EGMG_LOGO },
   { name: "Eurogulf Used Cars", desc: "Approved used vehicle sales backed by the wider group platform", href: "/used-cars", logo: EGMG_LOGO },
 ];

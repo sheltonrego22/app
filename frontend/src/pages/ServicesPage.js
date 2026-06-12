@@ -282,7 +282,7 @@ export default function ServicesPage() {
                   Book a Chauffeur
                 </Link>
                 <Link to="/chauffeur-service" className="btn-ghost inline-block text-center py-4">
-                  Eurogulf Chauffeur Details
+                  Eurogulf Premium Chauffeur Details
                 </Link>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function ServicesPage() {
                   />
                 </div>
                 <div>
-                  <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Chauffeur · Luxury Coaches</span>
+                  <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Premium Chauffeur · Luxury Coaches</span>
                   <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
                     Passenger Transportation at Scale
                   </h2>
