@@ -33,6 +33,7 @@ const corporateLinks = [
 const retailLinks = [
   { label: "Rent a Car (Europcar / Goldcar)", href: "/europcar" },
   { label: "Book Your Monthly Rental", href: "/europcar" },
+  { label: "Book Your Premium Chauffeur", href: "/chauffeur-service" },
   { label: "Outbound Reservations", href: "/europcar", sub: "Rent a vehicle outside of UAE" },
   { label: "Buy Pre-Owned", href: "/used-cars" },
 ];
