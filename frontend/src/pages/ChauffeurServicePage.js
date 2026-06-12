@@ -246,7 +246,7 @@ export default function ChauffeurServicePage() {
   const [coachRef, coachVisible] = useScrollAnimation();
   const [driversRef, driversVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Chauffeur Dubai | Luxury Managed Transportation UAE | All 7 Emirates"; }, []);
+  useEffect(() => { document.title = "Eurogulf Premium Chauffeur | Managed Transport Services UAE"; }, []);
 
   return (
     <div data-testid="chauffeur-service-page">
@@ -259,12 +259,12 @@ export default function ChauffeurServicePage() {
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" />
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Chauffeur</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Premium Chauffeur</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            UAE's Most Trusted Managed Transportation Partner.
+            Eurogulf Premium Chauffeur
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From a single executive sedan to a fleet of 800 coaches — Eurogulf Chauffeur delivers precision-managed transportation across all seven Emirates. One of the very few operators licensed to do so.
+            Premium chauffeur-driven and managed transport solutions for business, VIP, airport transfer, staff movement, and event mobility requirements across the UAE.
           </p>
           <div className="flex flex-wrap gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Dialog>
@@ -301,13 +301,13 @@ export default function ChauffeurServicePage() {
       <section className="bg-[#0a0a0a] py-20 sm:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="orange-accent-line mb-6" />
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">About Eurogulf Chauffeur</h2>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">Managed Transport Solutions</h2>
           <div className="space-y-4 font-body text-[#999] leading-relaxed">
             <p>
-              Since 1990, what began as Royal Limousine and Emirates Taxi has grown into one of the UAE's most respected and operationally sophisticated managed transportation businesses. Today, operating under the Eurogulf Chauffeur brand — with dedicated divisions in Dubai and Abu Dhabi — the group provides an unmatched breadth of passenger transportation services.
+              Eurogulf Premium Chauffeur delivers premium chauffeur-driven and managed transport solutions for individual and business mobility needs. These services operate through the wider Eurogulf Mobility Group structure and are handled through specialist follow-up rather than direct self-service quotation.
             </p>
             <p>
-              Eurogulf Chauffeur holds the rare distinction of being <strong className="text-[#EEEDE7]">licensed and fully operational across all seven Emirates of the UAE</strong> — a testament to the group's commitment to regulatory compliance, operational excellence, and the trust it has earned from both government authorities and private sector clients over more than three decades of service.
+              These solutions can support both B2C and B2B requirements and are suitable for one-off journeys as well as ongoing managed arrangements, including airport transfers, corporate and VIP transport, staff and crew shuttle services, events, hospitality movement, and property-related transport support.
             </p>
           </div>
         </div>
@@ -483,8 +483,8 @@ export default function ChauffeurServicePage() {
       {/* CTA */}
       <section className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">Ready to Ride?</h2>
-          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">Book your chauffeur in under 60 seconds. Fixed fares, no surge, professional drivers.</p>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-4">Need Chauffeur or Managed Transport Support?</h2>
+          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">Submit an enquiry and a specialist team member will follow up with the appropriate next steps.</p>
           <Dialog>
             <DialogTrigger asChild>
               <button className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors inline-block">Book Your Chauffeur</button>

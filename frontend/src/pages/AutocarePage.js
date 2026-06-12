@@ -27,7 +27,7 @@ export default function AutocarePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [featuresRef, featuresVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Autocare | A-Grade Vehicle Service Centre Dubai | Fleet Maintenance UAE"; }, []);
+  useEffect(() => { document.title = "Eurogulf Auto Garage | Vehicle Service, Repair & Workshop Support"; }, []);
 
   return (
     <div data-testid="autocare-page">
@@ -37,12 +37,12 @@ export default function AutocarePage() {
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" />
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Autocare</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Eurogulf Auto Garage</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Where Fleet Standards Meet Workshop Excellence.
+            Eurogulf Auto Garage
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Three A-grade service centres. ISO-certified technicians. The backbone of EGMG's 10,000-vehicle fleet — and now available for your vehicles too.
+            Automotive support and technical servicing capability positioned as part of the wider EGMG mobility ecosystem. Vehicle servicing, repair, workshop support, and maintenance capability within the wider mobility group.
           </p>
           <div className="flex flex-wrap gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/contact" className="btn-primary">Book a Service</Link>
@@ -55,7 +55,7 @@ export default function AutocarePage() {
       <section className="bg-[#0a0a0a] py-20 sm:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="orange-accent-line mb-6" />
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">About Eurogulf Autocare</h2>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">About Eurogulf Auto Garage</h2>
           <div className="space-y-4 font-body text-[#999] leading-relaxed">
             <p>
               Eurogulf Autocare has been the silent engine behind EGMG's operational excellence for over three decades. As the in-house workshop infrastructure supporting one of the UAE's largest vehicle fleets, our service centres are built and operated to standards that most retail garages simply cannot match.
@@ -95,7 +95,7 @@ export default function AutocarePage() {
         <div ref={featuresRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${featuresVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">Why Eurogulf Autocare</h2>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">Why Eurogulf Auto Garage</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {features.map((f, i) => (

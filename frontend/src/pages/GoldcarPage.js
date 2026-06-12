@@ -25,7 +25,7 @@ export default function GoldcarPage() {
   const [strengthsRef, strengthsVisible] = useScrollAnimation();
   const [aboutRef, aboutVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Goldcar Dubai | Affordable Car Rental UAE | Europe's Largest Low-Cost Rental Brand"; }, []);
+  useEffect(() => { document.title = "Goldcar Dubai | Value Self-Drive Mobility"; }, []);
 
   return (
     <div data-testid="goldcar-page">
@@ -42,7 +42,7 @@ export default function GoldcarPage() {
             Smart Travel Starts Here.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Europe's leading low-cost car rental brand — delivering exceptional value to UAE travellers, with the reliability and standards of the Europcar Mobility Group.
+            A value-led self-drive mobility offering designed for customers seeking accessible, practical rental solutions with straightforward convenience.
           </p>
           <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="goldcar-hero-book-btn" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             Book at Best Prices

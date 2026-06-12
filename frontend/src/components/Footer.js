@@ -6,10 +6,10 @@ const LOGO_URL = "/egmg-logo-transparent.png";
 const divisions = [
   { name: "Europcar Dubai", href: "/europcar" },
   { name: "Goldcar Dubai", href: "/goldcar" },
-  { name: "Eurogulf Chauffeur", href: "/chauffeur-service" },
+  { name: "Eurogulf Premium Chauffeur", href: "/chauffeur-service" },
   { name: "Truckline Transport", href: "/truckline" },
   { name: "Eurogulf Used Cars", href: "/used-cars" },
-  { name: "Eurogulf Autocare", href: "/autocare" },
+  { name: "Eurogulf Auto Garage", href: "/autocare" },
 ];
 
 const locations = [

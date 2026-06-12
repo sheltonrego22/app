@@ -78,10 +78,10 @@ export default function EuropcarPage() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
           <img src={LOGO_URL} alt="Europcar" className="h-10 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Europe's #1 Car Rental Brand. Now Across the UAE.
+            Europcar — Premium Car Rental and Long Term Leasing Services
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Premium vehicles, seamless service, and an international network spanning 143 countries — delivered by the UAE's most experienced car rental operator since 1978.
+            Europcar is one of the world's most established mobility brands, with origins dating back to Paris in 1949. In the UAE, Europcar serves customers across Dubai and the Northern Emirates through short-term rental, monthly mobility solutions, and long-term leasing support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-hero-book-btn" style={{ background: EUROPCAR_GREEN }} className="text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:opacity-90 transition-opacity inline-block text-center">
@@ -112,14 +112,14 @@ export default function EuropcarPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="orange-accent-line mb-6" />
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">
-            The World's Premier Rental Brand — With a UAE Story Like No Other
+            About Europcar
           </h2>
           <div className="space-y-4 font-body text-[#999] leading-relaxed">
             <p>
-              Europcar is Europe's number one vehicle rental company — and one of the world's most recognised mobility brands. Headquartered in France, the brand is present in more than 143 countries through a network of over 6,000 rental locations and more than 600 airports worldwide.
+              Europcar is one of the world's most established mobility brands, with origins dating back to Paris in 1949 and decades of international expansion across Europe and beyond. Over time, the brand developed through subsidiaries, franchise growth, international network expansion, and evolving reservation capabilities, helping establish Europcar as a recognised global name in car rental and mobility services.
             </p>
             <p>
-              In the UAE, Europcar Dubai is operated exclusively by Dubai Rent A Car Co. LLC, a subsidiary of Eurogulf Mobility Group — making Europcar Dubai not simply a franchise, but a deeply embedded, UAE-native operation with nearly five decades of local expertise behind every interaction.
+              In the UAE, Europcar serves customers across Dubai and the Northern Emirates through short-term rental, monthly mobility solutions, and long-term leasing support, with the brand positioned as a premium, service-led mobility offering within the wider EGMG ecosystem.
             </p>
           </div>
         </div>
@@ -132,10 +132,10 @@ export default function EuropcarPage() {
             <div>
               <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: EUROPCAR_GREEN }}>Daily · Weekly · Monthly</span>
               <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
-                The Right Car for Every Occasion
+                Short-Term Rental
               </h2>
               <p className="font-body text-[#999] leading-relaxed mb-4">
-                Whether you are a short-stay visitor arriving at Dubai International, a business traveller between assignments, or a long-term resident who needs flexible mobility — Europcar Dubai has the rental product that fits.
+                Daily and weekly rentals across Dubai and the Northern Emirates, supported by airport service points, downtown branches, and delivery options within the operating area. Designed for flexibility and convenience, this solution gives residents, visitors, and business users access to a young, well-maintained fleet and a dependable premium rental experience.
               </p>
               <p className="font-body text-sm text-[#666] mb-6">
                 Delivery available within 3–4 hours to your home, hotel, or office within Dubai, Sharjah, and Ajman for AED 52.50 — or collect from any of our 14 branch locations.
@@ -173,10 +173,10 @@ export default function EuropcarPage() {
       {/* MONTHLY RENTAL */}
       <section className="py-16 sm:py-20" style={{ background: '#e8f5e9' }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: EUROPCAR_GREEN }}>Monthly Rental Made Easy</span>
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mt-3 mb-4">Monthly Car Rental</h2>
+          <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: EUROPCAR_GREEN }}>Monthly Rental / Subscription</span>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mt-3 mb-4">Monthly Rental Made Easy</h2>
           <p className="font-body text-[#555] max-w-2xl mx-auto mb-4 leading-relaxed">
-            Flexible monthly rental solutions for UAE residents, long-stay visitors, and businesses that need a vehicle without the long-term commitment. Fixed monthly rate includes insurance, maintenance, 24/7 roadside assistance, and a replacement vehicle — plus free doorstep delivery and collection within Dubai, Sharjah, and Ajman.
+            A flexible medium-term mobility option for customers who want more than a short rental without commitment. Experience mileage and tenure flexibility, and access to a broad vehicle range, from economy cars and sedans to premium vehicles and full-size SUVs. Europcar monthly rental is built to deliver fair value, convenience, and consistent service across Dubai and the Northern Emirates.
           </p>
           <p className="font-body text-sm text-[#777] mb-8">Mileage packages available from 3,000 km/month, with upgrades to 4,000 and 5,000 km available on request.</p>
           <a href={MONTHLY_URL} target="_blank" rel="noopener noreferrer" data-testid="europcar-monthly-book" style={{ background: EUROPCAR_GREEN }} className="text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:opacity-90 transition-opacity inline-block text-center">
@@ -190,13 +190,13 @@ export default function EuropcarPage() {
         <div ref={leasingRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-14 items-start ${leasingVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div>
-              <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: EUROPCAR_GREEN }}>12–48 Month Leasing</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase" style={{ color: EUROPCAR_GREEN }}>Long-Term Leasing</span>
               <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
-                Intelligent Fleet Solutions
+                Vehicle Long-Term Leasing
               </h2>
-              <p className="font-heading text-base text-[#999] mb-4">No down payment. No depreciation. No unexpected costs. Just a fixed monthly rate and a fleet that works as hard as you do.</p>
+              <p className="font-heading text-base text-[#999] mb-4">Tailor-made leasing solutions for customers seeking longer-duration mobility for 12 months to 48 months or more.</p>
               <p className="font-body text-[#666] leading-relaxed mb-6">
-                For businesses managing corporate fleets and for individuals seeking a smarter alternative to vehicle ownership, Europcar Dubai's Vehicle Leasing Division offers tailor-made long-term leasing solutions for terms of 12 to 48 months.
+                With customized mileage options, Europcar offers a practical alternative to ownership, including longer-term vehicle selection preferences, subject to commercial terms and availability. A smart solution for customers who want predictable monthly mobility, reduced ownership complexity, and the flexibility to align their vehicle choice with their personal needs.
               </p>
 
               {/* Lease vs Buy Table */}

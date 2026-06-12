@@ -238,7 +238,7 @@ export default function ServicesPage() {
             </div>
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-2xl mb-12">
-                <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Chauffeur</span>
+                <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Premium Chauffeur</span>
                 <h2 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-[#EEEDE7] uppercase tracking-tight mt-3 mb-4">
                   Arrive in Command.
                 </h2>

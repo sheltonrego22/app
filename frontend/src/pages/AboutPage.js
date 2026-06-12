@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Users, Award, ArrowRight, ChevronDown, Lightbulb, Heart } from 'lucide-react';
+import { Shield, Users, Award, ArrowRight, ChevronDown, Lightbulb, Heart, MapPin, Globe } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
+const EGMG_LOGO = "/egmg-logo-transparent.png";
+const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
 
 const milestones = [
   { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of EGMG — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
@@ -18,32 +19,13 @@ const milestones = [
   { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group (EGMG) brand — reflecting the scope, scale, and ambition of the organisation." },
 ];
 
-const chartData = [
-  { year: '2020', vehicles: 3000 },
-  { year: '2021', vehicles: 4000 },
-  { year: '2022', vehicles: 6000 },
-  { year: '2023', vehicles: 8000 },
-  { year: '2024', vehicles: 9000 },
-  { year: '2025', vehicles: 10000 },
-];
-
-const coreValues = [
-  { icon: Shield, title: "Fearless", desc: "We pursue growth, innovation, and bold decisions without hesitation. In an industry defined by logistics and precision, we embrace ambition and are unafraid to lead." },
-  { icon: Users, title: "Accountable", desc: "We take full ownership of every commitment we make — to our customers, our partners, and our people. Our word is our contract." },
-  { icon: Lightbulb, title: "Innovative", desc: "We continuously invest in technology, processes, and service design to stay ahead of the evolving needs of the market." },
-  { icon: Heart, title: "Respectful", desc: "We treat every individual — customer, employee, partner, or community member — with dignity, fairness, and the highest professional standards." },
-];
-
-const EGMG_LOGO = "/egmg-logo-transparent.png";
-const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
-
 const divisions = [
-  { name: "Europcar Dubai", desc: "Premium car rental and leasing, powered by Europe's #1 rental brand", href: "/europcar", logo: EUROPCAR_LOGO },
-  { name: "Goldcar Dubai", desc: "Smart, affordable car hire — best price, no compromise", href: "/goldcar", logo: EGMG_LOGO },
-  { name: "Eurogulf Chauffeur", desc: "Professional managed transportation across all 7 Emirates", href: "/chauffeur-service", logo: EGMG_LOGO },
-  { name: "Truckline Transport", desc: "Commercial vehicle leasing built for UAE businesses", href: "/truckline", logo: EGMG_LOGO },
-  { name: "Eurogulf Used Cars", desc: "Certified pre-owned vehicles, backed by 50 years of fleet expertise", href: "/used-cars", logo: EGMG_LOGO },
-  { name: "Eurogulf Autocare", desc: "A-grade service and maintenance for every vehicle in your fleet", href: "/autocare", logo: EGMG_LOGO },
+  { name: "Europcar", desc: "Premium self-drive rental, monthly mobility, and long-term leasing support across Dubai and the Northern Emirates", href: "/europcar", logo: EUROPCAR_LOGO },
+  { name: "Goldcar", desc: "Value-focused self-drive mobility for customers seeking accessible and practical rental options", href: "/goldcar", logo: EGMG_LOGO },
+  { name: "Truckline", desc: "Commercial vehicle leasing and specialist fleet solutions for operational and logistics needs", href: "/truckline", logo: EGMG_LOGO },
+  { name: "Eurogulf Premium Chauffeur", desc: "Chauffeur-driven and managed transport for airport transfer, VIP, staff movement, and events", href: "/chauffeur-service", logo: EGMG_LOGO },
+  { name: "Eurogulf Auto Garage", desc: "Vehicle service, repair, maintenance, and workshop support within the wider ecosystem", href: "/autocare", logo: EGMG_LOGO },
+  { name: "Eurogulf Used Cars", desc: "Approved used vehicle sales backed by the wider group platform", href: "/used-cars", logo: EGMG_LOGO },
 ];
 
 const AWARD_IMAGES = [
@@ -59,10 +41,7 @@ const AWARD_IMAGES = [
 function TimelineItem({ milestone, index, isActive, onClick }) {
   const isEven = index % 2 === 0;
   return (
-    <div
-      className={`relative flex items-start gap-6 mb-12 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
-      data-testid={`timeline-item-${index}`}
-    >
+    <div className={`relative flex items-start gap-6 mb-12 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`} data-testid={`timeline-item-${index}`}>
       <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'}`}>
         <button onClick={onClick} className="text-left lg:text-inherit w-full">
           <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">{milestone.year}</span>
@@ -84,15 +63,13 @@ function TimelineItem({ milestone, index, isActive, onClick }) {
 export default function AboutPage() {
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [timelineRef, timelineVisible] = useScrollAnimation();
-  const [valuesRef, valuesVisible] = useScrollAnimation();
-  const [chartRef, chartVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About Eurogulf Mobility Group | 50 Years of UAE Mobility | Est. 1976"; }, []);
+  useEffect(() => { document.title = "About Eurogulf Mobility Group | A Connected Mobility Ecosystem"; }, []);
 
   return (
     <div data-testid="about-page">
-      {/* ═══ HERO ═══ */}
+      {/* HERO */}
       <section data-testid="about-hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={ABOUT_HERO} alt="Dubai Skyline" className="w-full h-full object-cover grayscale" />
@@ -101,114 +78,89 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-24">
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Five Decades at the Heart of the UAE's Mobility Story.
+            A Connected Mobility Ecosystem
           </h1>
-          <p className="font-body text-base sm:text-lg text-[#EE5A01] animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Discover the story behind the UAE's most diversified mobility group
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Eurogulf Mobility Group brings together multiple transport and mobility capabilities under one operating platform, helping individuals and businesses access practical, reliable, and professionally managed solutions across the UAE.
           </p>
         </div>
       </section>
 
-      {/* ═══ OPENING COPY ═══ */}
+      {/* WHO WE ARE */}
       <section className="bg-[#0a0a0a] py-20 sm:py-28">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="orange-accent-line mb-8" />
-          <div className="space-y-5 font-body text-[#999] leading-relaxed text-base sm:text-lg">
+          <div className="orange-accent-line mb-6" />
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">Who We Are</h2>
+          <div className="space-y-5 font-body text-[#999] leading-relaxed text-base">
             <p>
-              In 1976, a vision took shape in Dubai: to bring world-class vehicle rental services to a city and a nation on the cusp of transformation. Dubai Rent A Car LLC was founded that year, securing the exclusive Europcar franchise for Dubai and the Northern Emirates — a decision that would prove foundational to the company's next five decades of growth.
-            </p>
-            <p>
-              What followed was not simply the expansion of a car rental business. It was the deliberate and disciplined construction of a mobility group — a portfolio of complementary transportation brands, each developed in response to a clear market need, each built to the standards that the UAE's most discerning customers and most demanding institutions have come to expect.
-            </p>
-            <p>
-              Today, Eurogulf Mobility Group stands as one of the UAE's most established, most trusted, and most awarded transportation organisations. With over 10,000 vehicles under management, 1,200 employees, and operations spanning all seven Emirates, EGMG is not merely a participant in the UAE's mobility sector — it has helped shape it.
+              Eurogulf Mobility Group is a diversified mobility and transportation platform serving customers across multiple vehicle and service categories. The group combines self-drive rental, leasing, chauffeur-driven transport, commercial vehicle support, workshop capability, and used vehicle sales into one connected ecosystem.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ═══ LEGACY TIMELINE ═══ */}
+      {/* UAE PRESENCE */}
+      <section className="bg-black py-16 sm:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+            <div className="lg:col-span-3">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-6 h-6 text-[#EE5A01]" />
+                <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight">UAE Presence</h2>
+              </div>
+              <p className="font-body text-[#999] leading-relaxed">
+                Headquartered in Al Quoz, Dubai, the group is supported by a broader network of operating locations across the UAE through the businesses within its portfolio. This structure helps maintain stronger service access, more responsive support, and better operational continuity across different customer needs.
+              </p>
+            </div>
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <Globe className="w-6 h-6 text-[#EE5A01]" />
+                <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight">How the Portfolio Works</h2>
+              </div>
+              <p className="font-body text-[#999] leading-relaxed text-sm">
+                Each brand in the portfolio is designed to serve a specific mobility use case, while benefiting from the strength of the wider group.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EUROPCAR NOTE */}
+      <section className="bg-[#0a0a0a] py-12 border-y border-white/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="font-body text-sm text-[#999] leading-relaxed">
+            Europcar is a central part of that ecosystem in Dubai and the Northern Emirates, with service coverage across Dubai, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain, while Abu Dhabi city operations remain under a separate franchise structure.
+          </p>
+        </div>
+      </section>
+
+      {/* LEGACY TIMELINE */}
       <section data-testid="timeline-section" className="bg-black py-20 sm:py-28">
         <div ref={timelineRef} className="max-w-4xl mx-auto px-4">
           <div className={`text-center mb-16 ${timelineVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              A Journey Built Over 50 Years
-            </h2>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">Our Journey</h2>
           </div>
           <div className="relative">
             <div className="absolute left-[calc(50%-1px)] top-0 bottom-0 w-[2px] bg-[#EE5A01]/20 hidden lg:block" />
             <div className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-[#EE5A01]/20 lg:hidden" />
             {milestones.map((m, i) => (
-              <TimelineItem
-                key={m.year}
-                milestone={m}
-                index={i}
-                isActive={activeTimeline === i}
-                onClick={() => setActiveTimeline(activeTimeline === i ? -1 : i)}
-              />
+              <TimelineItem key={m.year} milestone={m} index={i} isActive={activeTimeline === i} onClick={() => setActiveTimeline(activeTimeline === i ? -1 : i)} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ VISION & MISSION ═══ */}
-      <section data-testid="vision-mission-section" className="grid grid-cols-1 lg:grid-cols-2 min-h-[50vh]">
-        <div className="bg-[#EE5A01] p-12 sm:p-16 lg:p-20 flex flex-col justify-center">
-          <span className="font-mono text-xs tracking-[0.2em] text-black/60 uppercase mb-4">Vision</span>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white leading-snug">
-            To be recognised as the leader in quality and competitiveness in our industry, inspiring trust and excellence.
-          </h2>
-        </div>
-        <div className="bg-black p-12 sm:p-16 lg:p-20 flex flex-col justify-center">
-          <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4">Mission</span>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#EE5A01] leading-snug">
-            To deliver unparalleled quality in our services by embracing innovation, fostering talent, optimising our operations, and ensuring customer satisfaction through sustainable initiatives.
-          </h2>
-        </div>
-      </section>
-
-      {/* ═══ CORE VALUES — F.A.I.R. ═══ */}
-      <section data-testid="values-section" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div ref={valuesRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-14 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-            <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Values — F.A.I.R.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {coreValues.map((v, i) => (
-              <div
-                key={v.title}
-                data-testid={`value-card-${i}`}
-                className={`bg-[#111111] border border-white/5 p-8 ${valuesVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
-              >
-                <v.icon className="w-10 h-10 text-[#EE5A01] mb-5" strokeWidth={1.5} />
-                <h3 className="font-heading font-bold text-xl text-[#EEEDE7] mb-3">{v.title}</h3>
-                <p className="font-body text-sm text-[#666666] leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ OUR BRANDS ═══ */}
-      <section data-testid="about-divisions" className="bg-black py-20 sm:py-28">
+      {/* OUR BRANDS */}
+      <section data-testid="about-divisions" className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={divisionsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">
-              Our Brands
-            </h2>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight">Our Brands</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {divisions.map((d, i) => (
-              <div
-                key={d.name}
-                data-testid={`about-division-${i}`}
-                className={`bg-[#111111] border border-white/5 p-6 hover:border-[#EE5A01] transition-all group ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
-              >
+              <div key={d.name} data-testid={`about-division-${i}`} className={`bg-[#111111] border border-white/5 p-6 hover:border-[#EE5A01] transition-all group ${divisionsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}>
                 <div className="w-full h-10 flex items-center mb-4">
                   <img src={d.logo} alt={d.name} className="h-8 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity" loading="lazy" />
                 </div>
@@ -223,43 +175,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ FLEET GROWTH CHART ═══ */}
-      <section data-testid="fleet-growth-section" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div ref={chartRef} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-14 ${chartVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-            <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">Fleet Growth</h2>
-            <p className="font-body text-[#666666]">From 3,000 to 10,000+ vehicles — a testament to our commitment to growth.</p>
-          </div>
-          {chartVisible && (
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="25%">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
-                  <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#666', fontFamily: 'JetBrains Mono', fontSize: 12 }} tickFormatter={(v) => `${v / 1000}K`} />
-                  <Tooltip contentStyle={{ background: '#111', border: '1px solid #333', fontFamily: 'Manrope' }} labelStyle={{ color: '#EEEDE7' }} itemStyle={{ color: '#EE5A01' }} formatter={(v) => [`${v.toLocaleString()} vehicles`, 'Fleet Size']} />
-                  <Bar dataKey="vehicles" radius={[0, 0, 0, 0]}>
-                    {chartData.map((entry) => (
-                      <Cell key={entry.year} fill={entry.year === '2025' ? '#EE5A01' : '#F17B34'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ═══ AWARDS & RECOGNITION ═══ */}
+      {/* AWARDS & RECOGNITION */}
       <section data-testid="awards-section" className="bg-black py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              Validated by the Industry. Trusted by Our Clients.
-            </h2>
-            <p className="font-body text-[#666666] max-w-2xl mx-auto">Eurogulf Mobility Group's commitment to operational excellence is not a claim — it is a record. Over five decades of service, the group has earned recognition from the world's most respected automotive and business organisations.</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">Awards & Recognition</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
             {AWARD_IMAGES.map((a) => (

@@ -64,7 +64,7 @@ export default function CareersPage() {
             Grow Your Career With Us
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Join the team behind the UAE's most diversified mobility group. With over 1,200 employees, Eurogulf Mobility Group offers a dynamic environment where your talent drives real impact.
+            Join a group that helps keep people, businesses, and operations moving. At EGMG, career opportunities span multiple mobility and automotive service areas, creating room for growth across customer-facing, operational, commercial, and support roles.
           </p>
           <a href="#openings" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             View Open Positions

@@ -67,7 +67,7 @@ export default function TrucklinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [sectorsRef, sectorsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Truckline Transport | Commercial Vehicle Leasing UAE | Vans, Trucks & Chiller Units | Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Truckline - Commercial Vehicle Leasing and Specialist Fleet Solutions"; }, []);
 
   return (
     <div data-testid="truckline-page">
@@ -82,10 +82,10 @@ export default function TrucklinePage() {
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Commercial Vehicle Leasing Built for the UAE's Most Demanding Operations.
+            Truckline — Commercial Vehicle Leasing and Specialist Fleet Solutions
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From last-mile delivery vans to temperature-controlled chiller trucks — Truckline Transport provides UAE businesses with the commercial fleet they need, without the burden of ownership. Every contract includes a dedicated account manager, in-house maintenance, and 24/7 support.
+            Commercial mobility solutions built around operational need, business efficiency, and long-term fleet practicality. As part of the wider Eurogulf Mobility ecosystem, Truckline is positioned to support tailored fleet requirements rather than a fixed one-size-fits-all leasing proposition.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <a href="#enquire" className="btn-primary">Request a Fleet Quote</a>
@@ -171,14 +171,14 @@ export default function TrucklinePage() {
       <section id="enquire" className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">
-            Tell Us Your Fleet. We'll Quote in 48h.
+            Need a Commercial Fleet Discussion?
           </h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            Send us a brief — vehicle types, quantity, tenure and any operational constraints. Our commercial team will come back with a tailored operating-lease proposal within two business days.
+            What strengthens Truckline is the wider platform behind it: mobility expertise, group support capability, workshop infrastructure, and a broader ecosystem that can support more than just vehicle supply.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="mailto:truckline@egmg.ae?subject=Fleet%20Quote%20Request" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors text-center flex items-center justify-center gap-2">
-              <Mail className="w-4 h-4" /> Email Truckline
+              <Mail className="w-4 h-4" /> Speak to Our Team
             </a>
             <Link to="/contact" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">
               Send a Brief

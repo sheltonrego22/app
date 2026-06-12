@@ -18,12 +18,12 @@ const stats = [
 ];
 
 const brands = [
-  { icon: Car, title: "Europcar Dubai", promise: "Premium car rental and leasing, powered by Europe's #1 rental brand.", link: "/europcar", cta: "Explore Europcar" },
-  { icon: Tag, title: "Goldcar Dubai", promise: "Smart, affordable car hire — best price, no compromise.", link: "/goldcar", cta: "Explore Goldcar" },
-  { icon: Crown, title: "Eurogulf Chauffeur", promise: "Professional managed transportation across all 7 Emirates.", link: "/chauffeur-service", cta: "Explore Chauffeur" },
-  { icon: Truck, title: "Truckline Transport", promise: "Commercial vehicle leasing built for UAE businesses.", link: "/truckline", cta: "Explore Truckline" },
-  { icon: Building2, title: "Eurogulf Used Cars", promise: "Certified pre-owned vehicles, backed by 50 years of fleet expertise.", link: "/used-cars", cta: "Browse Vehicles" },
-  { icon: Wrench, title: "Eurogulf Autocare", promise: "A-grade service and maintenance for every vehicle in your fleet.", link: "/autocare", cta: "Learn More" },
+  { icon: Car, title: "Europcar", promise: "Premium self-drive rental, monthly mobility, and long-term leasing support across Dubai and the Northern Emirates.", link: "/europcar", cta: "Explore Europcar" },
+  { icon: Tag, title: "Goldcar", promise: "Value-focused self-drive mobility for customers seeking accessible and practical rental options within the wider group ecosystem.", link: "/goldcar", cta: "Explore Goldcar" },
+  { icon: Truck, title: "Truckline", promise: "Commercial vehicle leasing and specialist fleet solutions for operational, logistics, and workforce mobility needs.", link: "/truckline", cta: "Explore Truckline" },
+  { icon: Crown, title: "Eurogulf Premium Chauffeur", promise: "Chauffeur-driven and managed transport services for airport transfer, VIP, staff movement, and event mobility.", link: "/chauffeur-service", cta: "Explore Chauffeur" },
+  { icon: Wrench, title: "Eurogulf Auto Garage", promise: "Vehicle service, repair, maintenance, and workshop support within the wider transport ecosystem.", link: "/autocare", cta: "Learn More" },
+  { icon: Building2, title: "Eurogulf Used Cars", promise: "Approved used vehicle sales backed by the wider group platform.", link: "/used-cars", cta: "Browse Vehicles" },
 ];
 
 const servicesStrip = [
@@ -149,7 +149,7 @@ export default function HomePage() {
             </div>
             <div className="lg:col-span-2 flex flex-col gap-4">
               <p className="font-mono text-[10px] tracking-[0.25em] text-[#EE5A01] uppercase mb-2">Our Brand Portfolio</p>
-              {["Europcar Dubai", "Goldcar Dubai", "Eurogulf Chauffeur", "Truckline Transport", "Eurogulf Used Cars", "Eurogulf Autocare"].map((name, i) => (
+              {["Europcar", "Goldcar", "Truckline", "Eurogulf Premium Chauffeur", "Eurogulf Auto Garage", "Eurogulf Used Cars"].map((name, i) => (
                 <div key={name} className={`bg-[#111] border border-white/5 p-4 flex items-center gap-3 hover:border-[#EE5A01]/30 transition-all ${introVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
                   <div className="w-2 h-2 bg-[#EE5A01] flex-shrink-0" />
                   <span className="font-heading font-bold text-sm text-[#EEEDE7]">{name}</span>

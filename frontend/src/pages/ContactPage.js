@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Phone, Mail, Globe, MapPin, Instagram, Linkedin, Youtube, Send, MessageCircle, ExternalLink, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Shield, AlertTriangle, Car, Truck, Check } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,341 +8,282 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-const CONTACT_HERO = "https://images.pexels.com/photos/33354945/pexels-photo-33354945.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop";
-const BOOKING_URL = "https://www.europcar.com/";
+const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const enquiryTypes = [
-  "Car Rental", "Chauffeur Booking", "Fleet Lease", "Group Transfer", "Truck / Commercial", "General"
+  "Car Rental — New Booking",
+  "Monthly Rental Enquiry",
+  "Long-Term Leasing",
+  "Chauffeur / Managed Transport",
+  "Commercial Fleet (Truckline)",
+  "Existing Rental Support",
+  "Roadside Assistance",
+  "Used Vehicle Enquiry",
+  "Corporate Account",
+  "General Enquiry",
 ];
 
-const locations = [
-  { name: "Europcar Head Office", address: "Street 6, P.O. Box 2533, Al Quoz Industrial Area, Dubai", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Dubai Airport T2", address: "Terminal 2, Arrival Hall, Deira, Dubai", hours: "24/7" },
-  { name: "Dubai Airport T3", address: "Arrival Hall, Terminal 3, P.O. Box 2533, Dubai", hours: "24/7" },
-  { name: "Atlantis — The Palm", address: "The Palm Island, P.O. Box 2533, Dubai", hours: "Daily 8AM-10PM" },
-  { name: "Emirates Towers", address: "Sheikh Zayed Road, Dubai", hours: "Daily 8AM-10PM" },
-  { name: "Dubai Hills Mall", address: "Dubai Hills Estate, Dubai", hours: "Daily 10AM-10PM" },
-  { name: "Al Maktoum Airport (DWC)", address: "Dubai South, Dubai", hours: "Daily 6AM-12AM" },
-  { name: "Sharjah Airport", address: "SHJ International Airport — Arrival Lounge", hours: "24/7" },
-  { name: "Sharjah Office", address: "Abu Al Reesh Building, Ground Floor, P.O. Box 31227, Sharjah", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Ras Al Khaimah", address: "Aminity RAKIA Building, Tower 1, P.O. Box 2533, RAK", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Fujairah", address: "Al Awadhi Office, Hamad Bin Abdulla Road, P.O. Box 9766, Fujairah", hours: "Sun-Thu 8AM-6PM" },
-  { name: "EuroGulf Showroom", address: "Nad Al Hamar Road, Ras Al Khor Industrial Area 3, Dubai", hours: "Sun-Thu 8AM-6PM" },
-  { name: "Jebel Ali Free Zone", address: "JAFZA, Dubai", hours: "Sun-Thu 8AM-6PM" },
-  { name: "G3 Workshop — Al Quoz", address: "30 First Al Khail Street, Al Quoz Industrial Area 3, Dubai", hours: "Sun-Thu 8AM-6PM" },
+const emirates = ["Dubai", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah", "Umm Al Quwain"];
+
+const contactChannels = [
+  {
+    icon: Phone,
+    title: "Reservations & New Enquiries",
+    desc: "For new bookings, rental quotations, and pre-booking support.",
+    action: "800 EUROPCAR (800 387 67227)",
+    email: "reservations@europcar.ae",
+    note: "Main channel for reservations, quotations, and pre-pickup support.",
+  },
+  {
+    icon: Shield,
+    title: "Existing Customer Support",
+    desc: "For help with an active rental, after-sales support, invoicing, deposits, tolls, fines, or maintenance coordination.",
+    action: null,
+    email: "customer.service@europcar.ae",
+    note: "Assigned to existing rental and after-sales support matters.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "Emergency Roadside Assistance",
+    desc: "For emergencies while on rent — 24/7 roadside assistance. In case of accident: ensure safety, contact emergency services, obtain police report, then call us.",
+    action: "800 364 or 800 EUROPCAR (800 387 67227)",
+    email: null,
+    note: "24/7 emergency support.",
+  },
+  {
+    icon: Truck,
+    title: "Leasing, Fleet & Managed Transport",
+    desc: "For long-term leasing, personal leasing, corporate fleet requirements, or chauffeur and managed transport services — submit an enquiry and a specialist team member will follow up.",
+    action: null,
+    email: null,
+    note: "Routed to specialist follow-up rather than generic quoting.",
+  },
 ];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    full_name: '', company: '', email: '', phone: '', enquiry_type: '', message: ''
-  });
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
+  const [channelsRef, channelsVisible] = useScrollAnimation();
+  const [formRef, formVisible] = useScrollAnimation();
   const [submitted, setSubmitted] = useState(false);
-  const [locationsRef, locationsVisible] = useScrollAnimation();
+  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    enquiry_type: '', name: '', phone: '', email: '', company: '', preferred_time: '', emirate: '', message: '',
+  });
 
-  useEffect(() => { document.title = "Contact Eurogulf Mobility — Let's Move You Forward"; }, []);
+  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  const validate = () => {
-    const e = {};
-    if (!formData.full_name.trim()) e.full_name = "Full name is required";
-    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) e.email = "Valid email is required";
-    if (!formData.phone.trim()) e.phone = "Phone number is required";
-    if (!formData.enquiry_type) e.enquiry_type = "Please select an enquiry type";
-    if (!formData.message.trim()) e.message = "Message is required";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
+  useEffect(() => { document.title = "Contact Us — Eurogulf Mobility Group"; }, []);
 
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    if (!validate()) return;
+  const handleSubmit = async () => {
+    if (!form.name || !form.phone || !form.email || !form.enquiry_type) return;
     setSubmitting(true);
     try {
-      await axios.post(`${API}/contact`, formData);
-      setSubmitted(true);
-      setFormData({ full_name: '', company: '', email: '', phone: '', enquiry_type: '', message: '' });
-    } catch (err) {
-    } finally {
-      setSubmitting(false);
-    }
+      await axios.post(`${API}/contact`, {
+        full_name: form.name,
+        phone: form.phone,
+        email: form.email,
+        company: form.company || '',
+        enquiry_type: form.enquiry_type,
+        message: `[${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | Preferred contact: ${form.preferred_time}` : ''}${form.emirate ? ` | Emirate: ${form.emirate}` : ''}`,
+      });
+    } catch (err) { /* handled */ }
+    setSubmitted(true);
+    setSubmitting(false);
   };
 
   return (
     <div data-testid="contact-page">
-      {/* ═══ HERO ═══ */}
-      <section data-testid="contact-hero" className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={CONTACT_HERO} alt="Dubai skyline" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/65" />
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
-        </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-16 text-center">
+      {/* HERO */}
+      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
+        <div className="absolute top-20 right-20 w-80 h-80 bg-[#EE5A01]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Let's Move You Forward.
+            Contact Us
           </h1>
-          <p className="font-body text-base text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Our team is available 24/7 to assist with bookings, enquiries, and fleet solutions. Call us toll-free at 800 364.
+          <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Get in touch with Eurogulf Mobility Group and our specialist teams for rental, leasing, chauffeur, fleet, and mobility support. Whether you are making a new booking, managing an existing service, requesting roadside assistance, or submitting a business mobility enquiry, we will direct you to the right team.
           </p>
         </div>
       </section>
 
-      {/* ═══ CONTACT FORM ═══ */}
-      <section data-testid="contact-form-section" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            {/* Form */}
-            <div className="lg:col-span-3">
-              <div className="orange-accent-line mb-6" />
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-8">
-                Send Your Enquiry
-              </h2>
-
-              {submitted ? (
-                <div data-testid="form-success-message" className="bg-[#111111] border border-[#EE5A01]/30 p-10 text-center">
-                  <div className="w-16 h-16 bg-[#EE5A01]/10 flex items-center justify-center mx-auto mb-4">
-                    <Send className="w-7 h-7 text-[#EE5A01]" />
-                  </div>
-                  <h3 className="font-heading font-bold text-xl text-[#EEEDE7] mb-2">Message Sent!</h3>
-                  <p className="font-body text-sm text-[#666666]">Our team will get back to you within 24 hours.</p>
-                  <button onClick={() => setSubmitted(false)} className="btn-primary mt-6 text-sm">Send Another</button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} data-testid="contact-form" className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <Label htmlFor="full_name" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Full Name *</Label>
-                      <Input
-                        id="full_name"
-                        data-testid="input-full-name"
-                        value={formData.full_name}
-                        onChange={(e) => setFormData(p => ({ ...p, full_name: e.target.value }))}
-                        className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none h-12"
-                        placeholder="John Smith"
-                      />
-                      {errors.full_name && <p className="text-[#EE5A01] text-xs mt-1 font-body">{errors.full_name}</p>}
-                    </div>
-                    <div>
-                      <Label htmlFor="company" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Company</Label>
-                      <Input
-                        id="company"
-                        data-testid="input-company"
-                        value={formData.company}
-                        onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))}
-                        className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none h-12"
-                        placeholder="Company Name (Optional)"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <Label htmlFor="email" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        data-testid="input-email"
-                        value={formData.email}
-                        onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
-                        className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none h-12"
-                        placeholder="name@company.com"
-                      />
-                      {errors.email && <p className="text-[#EE5A01] text-xs mt-1 font-body">{errors.email}</p>}
-                    </div>
-                    <div>
-                      <Label htmlFor="phone" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Phone *</Label>
-                      <Input
-                        id="phone"
-                        data-testid="input-phone"
-                        value={formData.phone}
-                        onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
-                        className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none h-12"
-                        placeholder="+971 50 XXX XXXX"
-                      />
-                      {errors.phone && <p className="text-[#EE5A01] text-xs mt-1 font-body">{errors.phone}</p>}
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="enquiry_type" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Enquiry Type *</Label>
-                    <Select
-                      value={formData.enquiry_type}
-                      onValueChange={(v) => setFormData(p => ({ ...p, enquiry_type: v }))}
-                    >
-                      <SelectTrigger data-testid="select-enquiry-type" className="bg-black border-[#333] text-[#EEEDE7] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none h-12">
-                        <SelectValue placeholder="Select enquiry type" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-[#111111] border-[#333]">
-                        {enquiryTypes.map((t) => (
-                          <SelectItem key={t} value={t} className="text-[#EEEDE7] focus:bg-[#EE5A01]/10 focus:text-[#EE5A01]">
-                            {t}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.enquiry_type && <p className="text-[#EE5A01] text-xs mt-1 font-body">{errors.enquiry_type}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="message" className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Message *</Label>
-                    <Textarea
-                      id="message"
-                      data-testid="input-message"
-                      value={formData.message}
-                      onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
-                      className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] focus:ring-[#EE5A01] rounded-none min-h-[120px]"
-                      placeholder="Tell us about your requirements..."
-                    />
-                    {errors.message && <p className="text-[#EE5A01] text-xs mt-1 font-body">{errors.message}</p>}
-                  </div>
-                  <button
-                    type="submit"
-                    data-testid="contact-submit-btn"
-                    disabled={submitting}
-                    className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {submitting ? 'SENDING...' : 'SEND YOUR ENQUIRY'}
-                    <Send className="w-4 h-4" />
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Sidebar */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* WhatsApp */}
-              <a
-                href="https://wa.me/97144569900"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="whatsapp-btn"
-                className="flex items-center gap-4 bg-[#25D366] p-5 hover:bg-[#1fb855] transition-colors group"
-              >
-                <MessageCircle className="w-8 h-8 text-white" />
-                <div>
-                  <p className="font-heading font-bold text-white text-sm">Chat on WhatsApp</p>
-                  <p className="text-white/70 text-xs font-body">Instant response during business hours</p>
-                </div>
-              </a>
-
-              {/* Quick Contact */}
-              <div className="bg-[#111111] border border-white/5 p-6 space-y-5">
-                <h3 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider">Quick Contact</h3>
-                <a href="tel:800364" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
-                  <Phone className="w-4 h-4 text-[#EE5A01]" /> 800 364 (Toll-Free)
-                </a>
-                <a href="mailto:wemoveyou@eurogulf.ae" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
-                  <Mail className="w-4 h-4 text-[#EE5A01]" /> wemoveyou@eurogulf.ae
-                </a>
-                <a href="https://www.egmg.ae" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-body text-sm">
-                  <Globe className="w-4 h-4 text-[#EE5A01]" /> www.egmg.ae
-                </a>
-                <div className="flex gap-4 pt-3 border-t border-white/5">
-                  <a href="https://www.instagram.com/eurogulfmobilitygroup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
-                    <Instagram className="w-5 h-5" />
-                  </a>
-                  <a href="https://www.linkedin.com/company/eurogulf-mobility-group/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="https://www.youtube.com/@eurogulfmobilitygroup" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-[#EE5A01] hover:text-[#F17B34] transition-colors">
-                    <Youtube className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ LOCATIONS ═══ */}
-      <section data-testid="locations-section" className="bg-black py-20 sm:py-28">
-        <div ref={locationsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-14 ${locationsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+      {/* INTENT-BASED CONTACT CHANNELS */}
+      <section className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div ref={channelsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-14 ${channelsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-4">
-              14 Locations Across the UAE
-            </h2>
-            <p className="font-body text-[#666666]">Find us at airports, malls, and key business districts.</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">How Can We Help?</h2>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {locations.map((loc, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {contactChannels.map((ch, i) => (
               <div
-                key={loc.name}
-                data-testid={`location-card-${i}`}
-                className={`bg-[#111111] border border-white/5 p-5 hover:border-[#EE5A01]/30 transition-all ${locationsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${(i % 4) + 1}`}
+                key={ch.title}
+                data-testid={`contact-channel-${i}`}
+                className={`bg-[#111] border border-white/5 p-7 hover:border-[#EE5A01]/30 transition-all ${channelsVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}
               >
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-[#EE5A01] mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-heading font-bold text-sm text-[#EEEDE7] mb-1">{loc.name}</h3>
-                    <p className="font-body text-xs text-[#666666] mb-1">{loc.address}</p>
-                    <div className="flex items-center gap-1.5 mt-2">
-                      <Clock className="w-3 h-3 text-[#EE5A01]" />
-                      <span className="font-mono text-[10px] text-[#EE5A01]">{loc.hours}</span>
-                    </div>
-                  </div>
-                </div>
+                <ch.icon className="w-7 h-7 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2">{ch.title}</h3>
+                <p className="font-body text-sm text-[#999] leading-relaxed mb-4">{ch.desc}</p>
+                {ch.action && (
+                  <a href={`tel:${ch.action.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-[#EE5A01] font-heading text-sm font-bold mb-2">
+                    <Phone className="w-4 h-4" /> {ch.action}
+                  </a>
+                )}
+                {ch.email && (
+                  <a href={`mailto:${ch.email}`} className="flex items-center gap-2 text-[#EE5A01] font-heading text-sm font-bold mb-2">
+                    <Mail className="w-4 h-4" /> {ch.email}
+                  </a>
+                )}
+                <p className="font-mono text-[10px] text-[#666] tracking-wider mt-2">{ch.note}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ MAP ═══ */}
-      <section data-testid="map-section" className="bg-[#0a0a0a] border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h3 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider mb-6 text-center">Find Our Headquarters</h3>
-          <a
-            href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block relative w-full overflow-hidden border border-white/5 hover:border-[#EE5A01]/30 transition-colors group"
-            style={{ paddingBottom: '40%', minHeight: '280px' }}
-          >
-            <iframe
-              data-testid="google-map"
-              title="Eurogulf Mobility Group HQ — Al Quoz, Dubai"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.550946199776!2d55.2176!3d25.1591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69d95455555%3A0x0!2sAl+Quoz+Industrial+Area+3%2C+Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
-              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </a>
-          <div className="text-center mt-4">
-            <a
-              href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="map-directions-link"
-              className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase hover:underline"
-            >
-              Open in Google Maps →
-            </a>
+      {/* SMART CONTACT FORM */}
+      <section className="bg-black py-20 sm:py-28">
+        <div ref={formRef} className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-14 ${formVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Submit an Enquiry</h2>
+            <p className="font-body text-[#666]">Select your enquiry type and we'll route you to the right specialist team.</p>
+          </div>
+
+          {!submitted ? (
+            <div data-testid="contact-form" className="bg-[#111] border border-white/5 p-8">
+              <div className="space-y-5">
+                {/* Enquiry Type - FIRST */}
+                <div>
+                  <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Enquiry Type *</Label>
+                  <Select value={form.enquiry_type} onValueChange={(v) => set('enquiry_type', v)}>
+                    <SelectTrigger data-testid="enquiry-type-select" className="bg-black border-[#333] text-[#EEEDE7] rounded-none h-12 text-sm">
+                      <SelectValue placeholder="What do you need help with?" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#111] border-[#333]">
+                      {enquiryTypes.map(t => (
+                        <SelectItem key={t} value={t} className="text-[#EEEDE7] focus:bg-[#EE5A01]/10">{t}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Full Name *</Label>
+                    <Input data-testid="contact-name" value={form.name} onChange={e => set('name', e.target.value)} placeholder="Your full name" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
+                  </div>
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Mobile Number *</Label>
+                    <Input data-testid="contact-phone" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+971 XX XXX XXXX" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Email Address *</Label>
+                    <Input data-testid="contact-email" type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="your@email.com" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
+                  </div>
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Company Name</Label>
+                    <Input value={form.company} onChange={e => set('company', e.target.value)} placeholder="Optional" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Preferred Contact Time</Label>
+                    <Select value={form.preferred_time} onValueChange={(v) => set('preferred_time', v)}>
+                      <SelectTrigger className="bg-black border-[#333] text-[#EEEDE7] rounded-none h-11 text-sm">
+                        <SelectValue placeholder="Select time" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111] border-[#333]">
+                        {["Morning (9am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Any time"].map(t => (
+                          <SelectItem key={t} value={t} className="text-[#EEEDE7] focus:bg-[#EE5A01]/10">{t}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Pickup / Service Emirate</Label>
+                    <Select value={form.emirate} onValueChange={(v) => set('emirate', v)}>
+                      <SelectTrigger className="bg-black border-[#333] text-[#EEEDE7] rounded-none h-11 text-sm">
+                        <SelectValue placeholder="Select emirate" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111] border-[#333]">
+                        {emirates.map(e => (
+                          <SelectItem key={e} value={e} className="text-[#EEEDE7] focus:bg-[#EE5A01]/10">{e}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Message</Label>
+                  <Textarea data-testid="contact-message" value={form.message} onChange={e => set('message', e.target.value)} placeholder="Tell us more about your requirement..." className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none min-h-[100px] text-sm" />
+                </div>
+
+                <button
+                  data-testid="contact-submit-btn"
+                  onClick={handleSubmit}
+                  disabled={submitting || !form.name || !form.phone || !form.email || !form.enquiry_type}
+                  className="w-full bg-[#EE5A01] text-black font-heading font-bold text-sm tracking-[0.05em] py-4 hover:bg-[#d45000] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  <Send className="w-4 h-4" />
+                  {submitting ? 'Submitting...' : 'Submit Enquiry'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div data-testid="contact-success" className="bg-[#111] border border-[#EE5A01]/30 p-10 text-center">
+              <div className="w-16 h-16 bg-[#EE5A01] flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-black" />
+              </div>
+              <h3 className="font-heading font-bold text-xl text-[#EEEDE7] mb-2">Enquiry Submitted</h3>
+              <p className="font-body text-sm text-[#666]">Thank you. A specialist team member will follow up with the appropriate next steps.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* COVERAGE */}
+      <section className="bg-[#0a0a0a] py-16 sm:py-20 border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+              <h3 className="font-heading font-bold text-lg text-[#EEEDE7] uppercase tracking-wider mb-4">Coverage</h3>
+              <p className="font-body text-sm text-[#999] leading-relaxed">
+                Europcar Dubai and Northern Emirates supports customers across Dubai, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Abu Dhabi city, Al Ain, and the Western Region are operated by a separate Europcar franchise, although Abu Dhabi Airport return support is available where applicable.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-heading font-bold text-lg text-[#EEEDE7] uppercase tracking-wider mb-4">Location</h3>
+              <p className="font-body text-sm text-[#999] leading-relaxed mb-4">
+                Headquartered in Al Quoz, Dubai, Eurogulf Mobility Group is supported by a broader network of operating locations across the UAE through the various businesses within its portfolio.
+              </p>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-[#EE5A01] mt-0.5 flex-shrink-0" />
+                <p className="font-body text-sm text-[#EEEDE7]">Al Quoz Industrial Area 3, Dubai, UAE</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ INTERNATIONAL BOOKINGS ═══ */}
-      <section data-testid="international-section" className="bg-[#0a0a0a] py-16 border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div>
-              <h3 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight mb-3">
-                Book Eurogulf Mobility Group Services Worldwide
-              </h3>
-              <p className="font-body text-[#666666]">
-                143 countries, 6,000+ locations, 600+ airports worldwide through our Europcar partnership.
-              </p>
-            </div>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="international-book-btn"
-              className="btn-primary flex items-center gap-2 flex-shrink-0"
-            >
-              Book Internationally <ExternalLink className="w-4 h-4" />
-            </a>
-          </div>
+      {/* QUICK CONTACT */}
+      <section className="bg-[#EE5A01] py-12">
+        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-8">
+          <a href="tel:800364" className="flex items-center gap-2 text-black font-heading font-bold text-sm">
+            <Phone className="w-5 h-5" /> 800 364
+          </a>
+          <a href="https://wa.me/971800364" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-black font-heading font-bold text-sm">
+            <MessageCircle className="w-5 h-5" /> WhatsApp
+          </a>
+          <a href="mailto:wemoveyou@eurogulf.ae" className="flex items-center gap-2 text-black font-heading font-bold text-sm">
+            <Mail className="w-5 h-5" /> wemoveyou@eurogulf.ae
+          </a>
         </div>
       </section>
     </div>

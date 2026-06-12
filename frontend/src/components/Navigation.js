@@ -16,10 +16,10 @@ const aboutLinks = [
 const brandsLinks = [
   { label: "Europcar Dubai", href: "/europcar" },
   { label: "Goldcar Dubai", href: "/goldcar" },
-  { label: "Eurogulf Chauffeur", href: "/chauffeur-service" },
+  { label: "Eurogulf Premium Chauffeur", href: "/chauffeur-service" },
   { label: "Truckline Transport", href: "/truckline" },
   { label: "Eurogulf Used Cars", href: "/used-cars" },
-  { label: "Eurogulf Autocare", href: "/autocare" },
+  { label: "Eurogulf Auto Garage", href: "/autocare" },
 ];
 
 const corporateLinks = [
