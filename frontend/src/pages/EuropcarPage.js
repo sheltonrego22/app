@@ -196,7 +196,7 @@ export default function EuropcarPage() {
               </h2>
               <p className="font-heading text-base text-[#999] mb-4">Tailor-made leasing solutions for customers seeking longer-duration mobility for 12 months to 48 months or more.</p>
               <p className="font-body text-[#666] leading-relaxed mb-6">
-                With customized mileage options, Europcar offers a practical alternative to ownership, including longer-term vehicle selection preferences, subject to commercial terms and availability. A smart solution for customers who want predictable monthly mobility, reduced ownership complexity, and the flexibility to align their vehicle choice with their personal needs.
+                With customised mileage options, Europcar offers a practical alternative to ownership, including longer-term vehicle selection preferences, subject to commercial terms and availability. A smart solution for customers who want predictable monthly mobility, reduced ownership complexity, and the flexibility to align their vehicle choice with their personal needs.
               </p>
 
               {/* Lease vs Buy Table */}

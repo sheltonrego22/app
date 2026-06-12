@@ -1,0 +1,63 @@
+{
+  "summary": "Comprehensive frontend QA of EGMG site (desktop 1920x1080 + mobile 375x800). All previously flagged brand-name leakage (iteration_14) is now resolved: zero occurrences of 'Eurogulf Chauffeur' (bare) or 'Eurogulf Autocare' anywhere in /app/frontend/src or in the rendered DOM/SEO meta of all 12 tested pages. Navigation (8 items + 3 mega/standard dropdowns), brand colors (Europcar green #2D8C3C vs orange #EE5A01 elsewhere), all hero copy, footer brand list, mobile hamburger menu, and FAQ search/accordion layout all PASS. One minor semantic issue and one form-feedback observation noted below.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Contact form submission (/contact)",
+        "issue": "After clicking 'Submit Enquiry' with all required fields filled, no visible success toast / confirmation message / error message is rendered on the page. No JS console errors. Cannot confirm whether the form actually posted to a backend endpoint or silently failed. User receives zero feedback either way — this is a UX gap. Recommend adding a success toast or redirect on success and inline error highlights on validation failure.",
+        "affected_selectors": ["button[type='submit']:has-text('Submit Enquiry')", "form on /contact"]
+      }
+    ],
+    "design_issues": [
+      {
+        "screen": "/partner",
+        "issues": ["Partner enquiry form inputs (name, company, mobile, email, partnership-type select, textarea, Submit Partnership Enquiry button) are NOT wrapped in a <form> element. Works functionally but breaks native browser form semantics (no Enter-to-submit, no built-in validation events, weaker a11y). Recommend wrapping fields in <form onSubmit={...}>."]
+      }
+    ]
+  },
+  "verified_working": [
+    "Homepage: hero + 6 brand cards (Europcar / Goldcar / Truckline / Eurogulf Premium Chauffeur / Eurogulf Auto Garage / Eurogulf Used Cars) + 'Explore Our Brands' & 'Get a Corporate Quote' CTAs",
+    "Navigation: 8 top-level items (HOME | ABOUT EGMG | OUR BRANDS | MOBILITY SOLUTIONS | SUPPORT & RESOURCES | CAREERS | PARTNER WITH US | CONTACT) + 800 364 phone + GET A QUOTE button",
+    "ABOUT EGMG dropdown: 5 items (Who We Are, Our History & Milestones, Awards & Certifications, Sustainability, Leadership)",
+    "OUR BRANDS dropdown: 6 items, all using NEW names (Europcar Dubai, Goldcar Dubai, Eurogulf Premium Chauffeur, Truckline Transport, Eurogulf Used Cars, Eurogulf Auto Garage)",
+    "MOBILITY SOLUTIONS mega-menu: 11 items (B2B: Fleet Consultancy, Customised Commercial Vehicle Leasing, Corporate Rental, Staff Transport & Mobility Solutions, Managed Transport for Events & Delegations, Digital Fleet Management & Tracking | B2C: Rent a Car (Europcar / Goldcar), Book Your Monthly Rental, Book Your Premium Chauffeur, Outbound Reservations, Buy Pre-Owned)",
+    "SUPPORT & RESOURCES dropdown: 5 items (24/7 Contact & Live Chat, FAQ & Help Center, Download Center, Corporate Client Portal, Driver / Partner Portal)",
+    "About page (/about): H1 'A Connected Mobility Ecosystem' + 'Who We Are' + 'UAE Presence' + 'How the Portfolio Works' sections + 15 milestone years (1976→2026, exceeds the 9-milestone spec)",
+    "Europcar page (/europcar): H1 + 6-stat key facts bar (5,000+ vehicles, 1.5 Yr Avg Fleet Age, 14 UAE Locations, 500+ Corporate Clients, 3 A-Grade Workshops, 24/7 Customer Service) + 1949 origin + Short-Term / Monthly / Leasing sections + 5 GREEN CTAs at rgb(45,140,60) = #2D8C3C",
+    "Chauffeur page (/chauffeur-service): H1 'Eurogulf Premium Chauffeur' + Where This Service Fits + Service Approach + 'SUBMIT TRANSPORT ENQUIRY' button correctly opens enquiry modal (role=dialog)",
+    "Truckline page (/truckline): H1 + commercial fleet content + Speak to Our Team CTA",
+    "Contact page (/contact): 'Submit an Enquiry' + form labels in order [ENQUIRY TYPE * → FULL NAME * → MOBILE NUMBER * → EMAIL ADDRESS * → COMPANY NAME → PREFERRED CONTACT TIME → PICKUP / SERVICE EMIRATE → MESSAGE] confirming ENQUIRY TYPE is FIRST field per spec",
+    "FAQ page (/faq): hero + search input + 6 categories (About EGMG, Our Services, Rental & Booking, Leasing & Fleet, Chauffeur & Managed Transport, Support & Emergencies) + accordion expand chevrons rendered",
+    "Partner page (/partner): H1 + 4 section headings (WHY PARTNER WITH EGMG, WHO WE WORK WITH, EXAMPLE PARTNERSHIP OPPORTUNITIES, START THE CONVERSATION) + 5 form inputs + Submit Partnership Enquiry CTA",
+    "Businesses page (/businesses): H1 'Specialist Brands for Every Mobility Need' + brand portfolio intro + 6 brand cards with correct new names",
+    "Goldcar page (/goldcar): H1 'Smart Travel Starts Here' + Sharjah Airport highlight",
+    "Autocare page (/autocare): H1 'Eurogulf Auto Garage' + zero 'Eurogulf Autocare' leakage (previously failing)",
+    "Downloads page (/downloads): 'Europcar Fleet Guide' card present with Download CTA",
+    "Portal page (/portal/corporate): CORPORATE CLIENT PORTAL + DRIVER / PARTNER PORTAL cards each with 'Request Portal Access' link",
+    "Footer: all 6 brand names rendered correctly (Europcar Dubai, Goldcar Dubai, Eurogulf Premium Chauffeur, Truckline Transport, Eurogulf Used Cars, Eurogulf Auto Garage) — no 'Autocare' / bare 'Chauffeur'",
+    "Mobile (375x800): zero horizontal overflow (body=375, window=375), hamburger menu opens on click, all 8 top-level nav items visible in mobile drawer, sub-groups (ABOUT EGMG, OUR BRANDS) rendered with their items",
+    "SEO meta description (default site): 'Eurogulf Mobility — UAE's trusted mobility group since 1976. Car rental, corporate leasing, premium chauffeur services, bus transportation, fleet management, and used vehicle sales. 10,000+ vehicles. 1,200+ professionals.' — no old brand names",
+    "Zero JS console errors during full test session across all pages"
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "(MEDIUM) Add visible success / error feedback to Contact page form submission — currently silent submit with no confirmation toast or message. Verify the POST endpoint is actually being called and surface the result.",
+    "(LOW) Wrap the Partner page enquiry inputs in a proper <form onSubmit={...}> element on /partner for accessibility, Enter-to-submit behaviour, and native validation."
+  ],
+  "critical_code_review_comments": [
+    "Brand-rename cleanup is now complete and verified via grep -rn 'Eurogulf Chauffeur\\|Eurogulf Autocare' /app/frontend/src/ → 0 matches. Good to harden going forward with a CI grep guard so the old strings cannot be reintroduced.",
+    "Contact form lacks user-facing submit feedback — UX regression risk; users may double-submit or assume failure.",
+    "Partner page form is not a semantic <form> element; should be refactored for a11y and to consolidate with the Contact form pattern used elsewhere.",
+    "Consider centralising brand-name strings (and the brand-color map Europcar=#2D8C3C, all-others=#EE5A01) into a single config/constants file to prevent drift in future renames or theming changes."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "~98% — all 16 spec checkpoints from the review request pass; 2 minor non-blocking issues (contact-form feedback, partner-form semantics) noted"},
+  "test_credentials": "Admin CMS credentials in request (admin@egmg.ae / EgmgAdmin2026!) were not exercised — frontend public-pages QA only per request.",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All previously flagged content/brand-name issues from iteration_14 are resolved. The site is in a strong state. Two non-blocking improvements remain: (1) contact-form lacks submit feedback, (2) partner-page inputs are not in a <form>. If main agent fixes those, retest the /contact submit flow end-to-end (look for toast / route change) and confirm /partner inputs are inside <form> with onSubmit handler.",
+  "rca of the issue": "Contact-form silent-submit: reproduce by visiting /contact, selecting any Enquiry Type, filling Full Name + Mobile + Email + Message, clicking 'Submit Enquiry'. Result: no toast, no inline message, no URL change, no console error. Root cause likely either (a) submit handler swallows the promise without setting UI state, or (b) the handler is wired but the success/error UI components are missing from the JSX. Mitigation: add a status state (idle | submitting | success | error) and conditionally render a success banner / toast / redirect on resolution and inline error text on rejection. Partner-form semantic gap: reproduce via DOM inspection of /partner — fields exist but no ancestor <form> element. Mitigation: wrap the inputs and Submit button in <form onSubmit={handleSubmit}> and call e.preventDefault() in the handler."
+}

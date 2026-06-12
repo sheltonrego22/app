@@ -7,6 +7,24 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const faqCategories = [
   {
+    title: "About EGMG",
+    items: [
+      { q: "What makes Eurogulf Mobility unique?", a: "Key differentiators include: a multi-brand mobility ecosystem, one of the largest fleet operators in the UAE with approximately 12,000 vehicles, 360-degree land-based mobility through integrated services (rental, leasing, and managed transport), and a strong presence at airports, city locations, and across all seven Emirates." },
+      { q: "Can customers use multiple services across the group?", a: "Yes. EGMG enables customers to transition between self-drive rental, chauffeur services, and leasing solutions depending on their needs." },
+      { q: "Where do you operate?", a: "We serve customers across Dubai, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Our chauffeur and managed transport services operate across all seven Emirates." },
+      { q: "What does the Eurogulf service centre do?", a: "The service centre handles fleet maintenance and servicing, preventive and corrective repairs, and support for rental and leasing fleet operations." },
+    ],
+  },
+  {
+    title: "Our Services",
+    items: [
+      { q: "What services do you offer?", a: "We provide a full range of mobility solutions, including self-drive car rental (daily, weekly, monthly), long-term leasing (personal and corporate), chauffeur-driven car services, and staff and group transport solutions." },
+      { q: "What is the difference between Europcar and Goldcar?", a: "Europcar is the premium, full-service rental brand with a wide vehicle selection. Goldcar is the budget-friendly option for short-term rentals." },
+      { q: "Do you provide chauffeur-driven cars?", a: "Yes. We offer professional chauffeur services for airport transfers, corporate travel, events, and special occasions." },
+      { q: "What is Managed Transport Services (MTS)?", a: "MTS is EGMG's chauffeur-driven and logistics solution, covering airport transfers, corporate transport, staff transport, and events and group movements." },
+    ],
+  },
+  {
     title: "Rental & Booking",
     items: [
       { q: "How do I book a rental car?", a: "You can book through Europcar Dubai's website, by calling 800 EUROPCAR (800 387 67227), or by visiting any of our 14 UAE locations. Airport counters at DXB T1, T2, T3, DWC, and Sharjah Airport are available 24/7." },
@@ -18,7 +36,7 @@ const faqCategories = [
   {
     title: "Leasing & Fleet",
     items: [
-      { q: "What lease terms are available?", a: "Europcar offers tailor-made leasing solutions for 12 to 48 months or more, with customized mileage options. Submit an enquiry through our contact form and a specialist will follow up." },
+      { q: "What lease terms are available?", a: "Europcar offers tailor-made leasing solutions for 12 to 48 months or more, with customised mileage options. Submit an enquiry through our contact form and a specialist will follow up." },
       { q: "Is there a down payment for leasing?", a: "No. Europcar leasing solutions do not require a down payment. Monthly payments are fixed and predictable, covering registration, insurance, and maintenance." },
       { q: "How do I enquire about corporate fleet solutions?", a: "For corporate fleet, long-term leasing, or managed transport requirements, submit an enquiry through the contact form or email reservations@europcar.ae. These are routed to specialist follow-up." },
     ],
