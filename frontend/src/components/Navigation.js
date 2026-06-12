@@ -22,10 +22,19 @@ const brandsLinks = [
 ];
 
 const corporateLinks = [
-  { label: "Fleet Management", href: "/leasing" },
-  { label: "Dubai Municipality Partnership", href: "/dubai-municipality" },
-  { label: "Corporate Accounts", href: "/contact" },
-  { label: "Major Clients", href: "/partners" },
+  { label: "Fleet Consultancy", href: "/leasing", sub: "Commercial & non-commercial vehicles" },
+  { label: "Customised Commercial Vehicle Leasing", href: "/truckline" },
+  { label: "Corporate Rental", href: "/europcar" },
+  { label: "Staff Transport & Mobility Solutions", href: "/chauffeur-service" },
+  { label: "Managed Transport for Events & Delegations", href: "/chauffeur-service" },
+  { label: "Digital Fleet Management & Tracking", href: "/dubai-municipality" },
+];
+
+const retailLinks = [
+  { label: "Rent a Car (Europcar / Goldcar)", href: "/europcar" },
+  { label: "Book Your Monthly Rental", href: "/europcar" },
+  { label: "Outbound Reservations", href: "/europcar", sub: "Rent a vehicle outside of UAE" },
+  { label: "Buy Pre-Owned", href: "/used-cars" },
 ];
 
 const supportLinks = [
@@ -40,7 +49,7 @@ const navLinks = [
   { label: "HOME", href: "/" },
   { label: "ABOUT EGMG", href: "/about", hasDropdown: true, dropdownId: "about" },
   { label: "OUR BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
-  { label: "CORPORATE SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
+  { label: "MOBILITY SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
   { label: "SUPPORT & RESOURCES", href: "/contact", hasDropdown: true, dropdownId: "support" },
   { label: "CAREERS", href: "/careers" },
   { label: "PARTNER WITH US", href: "/partner" },
@@ -66,10 +75,44 @@ export default function Navigation() {
 
   const getDropdownItems = (id) => {
     if (id === "brands") return brandsLinks;
-    if (id === "corporate") return corporateLinks;
     if (id === "about") return aboutLinks;
     if (id === "support") return supportLinks;
     return [];
+  };
+
+  const renderDropdown = (dropdownId) => {
+    if (dropdownId === "corporate") {
+      return (
+        <div data-testid="corporate-dropdown" className="absolute top-full left-1/2 -translate-x-1/2 w-[540px] bg-[#111111] border border-white/10 py-4 px-5 z-50 grid grid-cols-2 gap-6">
+          <div>
+            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Corporate / B2B</span>
+            {corporateLinks.map((sl) => (
+              <Link key={sl.label} to={sl.href} className="block px-1 py-2 font-body text-sm text-[#EEEDE7] hover:text-[#EE5A01] transition-colors leading-tight">
+                {sl.label}
+                {sl.sub && <span className="block text-[10px] text-[#666] mt-0.5">{sl.sub}</span>}
+              </Link>
+            ))}
+          </div>
+          <div>
+            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Retail / B2C</span>
+            {retailLinks.map((sl) => (
+              <Link key={sl.label} to={sl.href} className="block px-1 py-2 font-body text-sm text-[#EEEDE7] hover:text-[#EE5A01] transition-colors leading-tight">
+                {sl.label}
+                {sl.sub && <span className="block text-[10px] text-[#666] mt-0.5">{sl.sub}</span>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    const items = getDropdownItems(dropdownId);
+    return (
+      <div data-testid={`${dropdownId}-dropdown`} className="absolute top-full left-0 w-64 bg-[#111111] border border-white/10 py-2 z-50">
+        {items.map((sl) => (
+          <Link key={sl.label} to={sl.href} className="block px-5 py-2.5 text-sm font-body text-[#EEEDE7] hover:text-[#EE5A01] hover:bg-white/5 transition-colors">{sl.label}</Link>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -108,22 +151,7 @@ export default function Navigation() {
                     {link.hasDropdown && <ChevronDown className="w-2.5 h-2.5" />}
                   </Link>
 
-                  {link.hasDropdown && openDropdown === link.dropdownId && (
-                    <div
-                      data-testid={`${link.dropdownId}-dropdown`}
-                      className="absolute top-full left-0 w-64 bg-[#111111] border border-white/10 py-2 z-50"
-                    >
-                      {getDropdownItems(link.dropdownId).map((sl) => (
-                        <Link
-                          key={sl.label}
-                          to={sl.href}
-                          className="block px-5 py-2.5 text-sm font-body text-[#EEEDE7] hover:text-[#EE5A01] hover:bg-white/5 transition-colors"
-                        >
-                          {sl.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  {link.hasDropdown && openDropdown === link.dropdownId && renderDropdown(link.dropdownId)}
                 </div>
               ))}
             </div>
@@ -181,8 +209,15 @@ export default function Navigation() {
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Corporate Solutions</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Mobility Solutions — Corporate / B2B</span>
               {corporateLinks.map((sl) => (
+                <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Mobility Solutions — Retail / B2C</span>
+              {retailLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
