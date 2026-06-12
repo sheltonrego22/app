@@ -38,7 +38,8 @@ export default function MediaCenterPage() {
   useEffect(() => {
     const cat = searchParams.get('category');
     if (cat && cat !== filter) setFilter(cat);
-  }, [searchParams, filter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -51,13 +52,14 @@ export default function MediaCenterPage() {
         setArticles(data.articles.filter((a) => a.published !== false));
         setTotal(data.total);
       } catch (err) {
+        console.error('Failed to fetch articles:', err);
       } finally {
         setLoading(false);
       }
     };
     const debounce = setTimeout(fetchArticles, 300);
     return () => clearTimeout(debounce);
-  }, [filter, searchQuery]);
+  }, [filter, searchQuery, API]);
 
   const featuredArticles = articles.filter((a) => a.featured);
   const regularArticles = articles.filter((a) => !a.featured);

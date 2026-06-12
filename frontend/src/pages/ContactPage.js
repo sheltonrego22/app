@@ -85,7 +85,9 @@ export default function ContactPage() {
         enquiry_type: form.enquiry_type,
         message: `[${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | Preferred contact: ${form.preferred_time}` : ''}${form.emirate ? ` | Emirate: ${form.emirate}` : ''}`,
       });
-    } catch (err) { /* handled */ }
+    } catch (err) {
+      console.error('Contact form submission failed:', err);
+    }
     setSubmitted(true);
     setSubmitting(false);
   };

@@ -43,7 +43,7 @@ export default function AdminDashboardPage() {
     } catch (_err) {
       navigate('/admin/login');
     }
-  }, [navigate]);
+  }, [navigate, API]);
 
   const fetchArticles = useCallback(async () => {
     try {
@@ -58,7 +58,7 @@ export default function AdminDashboardPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterCat, searchQuery]);
+  }, [filterCat, searchQuery, API]);
 
   useEffect(() => { checkAuth(); }, [checkAuth]);
   useEffect(() => { if (user) fetchArticles(); }, [user, fetchArticles]);

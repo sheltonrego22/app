@@ -43,7 +43,9 @@ function EnquiryModal() {
         full_name: form.name, phone: form.phone, email: form.email,
         company: form.company, enquiry_type: `Chauffeur / Managed Transport — ${form.type || 'General'}`, message: form.message,
       });
-    } catch (err) { /* handled */ }
+    } catch (err) {
+      console.error('Transport enquiry failed:', err);
+    }
     setSubmitted(true);
     setSubmitting(false);
   };

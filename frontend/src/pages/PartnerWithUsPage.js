@@ -58,7 +58,9 @@ export default function PartnerWithUsPage() {
         company: form.company, enquiry_type: `Partnership — ${form.type || 'General'}`,
         message: form.message,
       });
-    } catch (err) { /* handled */ }
+    } catch (err) {
+      console.error('Partner enquiry failed:', err);
+    }
     setSubmitted(true);
     setSubmitting(false);
   };

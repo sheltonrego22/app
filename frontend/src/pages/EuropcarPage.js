@@ -243,7 +243,9 @@ export default function EuropcarPage() {
                             full_name: leaseForm.name, phone: leaseForm.phone, email: leaseForm.email,
                             company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
                           });
-                        } catch (err) { /* handled */ }
+                        } catch (err) {
+          console.error('Leasing enquiry failed:', err);
+        }
                         setLeaseSubmitted(true);
                         setLeaseSubmitting(false);
                       }}
