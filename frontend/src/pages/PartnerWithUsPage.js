@@ -156,7 +156,7 @@ export default function PartnerWithUsPage() {
           </div>
 
           {!submitted ? (
-            <div data-testid="partner-form" className="bg-[#111] border border-white/5 p-8">
+            <form data-testid="partner-form" className="bg-[#111] border border-white/5 p-8" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -195,14 +195,14 @@ export default function PartnerWithUsPage() {
                 </div>
                 <button
                   data-testid="partner-submit"
-                  onClick={handleSubmit}
+                  type="submit"
                   disabled={submitting || !form.name || !form.phone || !form.email}
                   className="w-full bg-[#EE5A01] text-black font-heading font-bold text-sm tracking-[0.05em] py-4 hover:bg-[#d45000] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" /> {submitting ? 'Submitting...' : 'Submit Partnership Enquiry'}
                 </button>
               </div>
-            </div>
+            </form>
           ) : (
             <div className="bg-[#111] border border-[#EE5A01]/30 p-10 text-center">
               <Check className="w-10 h-10 text-[#EE5A01] mx-auto mb-4" />
