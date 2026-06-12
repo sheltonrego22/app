@@ -30,6 +30,9 @@ import DubaiMunicipalityPage from "@/pages/DubaiMunicipalityPage";
 import MobilityTechPage from "@/pages/MobilityTechPage";
 import AutocarePage from "@/pages/AutocarePage";
 import PartnerWithUsPage from "@/pages/PartnerWithUsPage";
+import FAQPage from "@/pages/FAQPage";
+import DownloadsPage from "@/pages/DownloadsPage";
+import PortalPage from "@/pages/PortalPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -84,6 +87,10 @@ function App() {
           <Route path="/mobility-technology" element={<MobilityTechPage />} />
           <Route path="/autocare" element={<AutocarePage />} />
           <Route path="/partner" element={<PartnerWithUsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/downloads" element={<DownloadsPage />} />
+          <Route path="/portal/corporate" element={<PortalPage />} />
+          <Route path="/portal/driver" element={<PortalPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

@@ -7,7 +7,6 @@ const LOGO_URL = "/egmg-logo-transparent.png";
 const aboutLinks = [
   { label: "Who We Are", href: "/about" },
   { label: "Our History & Milestones", href: "/about" },
-  { label: "Vision, Mission & Values", href: "/about" },
   { label: "Awards & Certifications", href: "/about" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "Leadership", href: "/leadership" },
@@ -29,10 +28,12 @@ const corporateLinks = [
   { label: "Major Clients", href: "/partners" },
 ];
 
-const mediaLinks = [
-  { label: "News & Press Releases", href: "/media" },
-  { label: "Events", href: "/media?category=Company+Updates" },
-  { label: "Awards", href: "/about" },
+const supportLinks = [
+  { label: "24/7 Contact & Live Chat", href: "/contact" },
+  { label: "FAQ & Help Center", href: "/faq" },
+  { label: "Download Center", href: "/downloads" },
+  { label: "Corporate Client Portal", href: "/portal/corporate" },
+  { label: "Driver / Partner Portal", href: "/portal/driver" },
 ];
 
 const navLinks = [
@@ -40,7 +41,7 @@ const navLinks = [
   { label: "ABOUT EGMG", href: "/about", hasDropdown: true, dropdownId: "about" },
   { label: "OUR BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
   { label: "CORPORATE SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
-  { label: "MEDIA & PRESS", href: "/media", hasDropdown: true, dropdownId: "media" },
+  { label: "SUPPORT & RESOURCES", href: "/contact", hasDropdown: true, dropdownId: "support" },
   { label: "CAREERS", href: "/careers" },
   { label: "PARTNER WITH US", href: "/partner" },
   { label: "CONTACT", href: "/contact" },
@@ -67,7 +68,7 @@ export default function Navigation() {
     if (id === "brands") return brandsLinks;
     if (id === "corporate") return corporateLinks;
     if (id === "about") return aboutLinks;
-    if (id === "media") return mediaLinks;
+    if (id === "support") return supportLinks;
     return [];
   };
 
@@ -99,18 +100,18 @@ export default function Navigation() {
                   <Link
                     to={link.href}
                     data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                    className={`font-heading text-[11px] tracking-[0.08em] px-3 py-2 transition-colors duration-200 flex items-center gap-1 ${
+                    className={`font-heading text-[10px] tracking-[0.06em] px-2.5 py-2 transition-colors duration-200 flex items-center gap-0.5 whitespace-nowrap ${
                       location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7] hover:text-[#EE5A01]'
                     }`}
                   >
                     {link.label}
-                    {link.hasDropdown && <ChevronDown className="w-3 h-3" />}
+                    {link.hasDropdown && <ChevronDown className="w-2.5 h-2.5" />}
                   </Link>
 
                   {link.hasDropdown && openDropdown === link.dropdownId && (
                     <div
                       data-testid={`${link.dropdownId}-dropdown`}
-                      className="absolute top-full left-0 w-60 bg-[#111111] border border-white/10 py-2 z-50"
+                      className="absolute top-full left-0 w-64 bg-[#111111] border border-white/10 py-2 z-50"
                     >
                       {getDropdownItems(link.dropdownId).map((sl) => (
                         <Link
@@ -187,8 +188,8 @@ export default function Navigation() {
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Media & Press</span>
-              {mediaLinks.map((sl) => (
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Support & Resources</span>
+              {supportLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
             </div>
