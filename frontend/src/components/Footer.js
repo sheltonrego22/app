@@ -49,10 +49,9 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "About Us", href: "/about" },
-                { label: "Our Businesses", href: "/businesses" },
-                { label: "Our Services", href: "/services" },
-                { label: "Leadership", href: "/leadership" },
-                { label: "Sustainability", href: "/sustainability" },
+                { label: "Our Brands", href: "/businesses" },
+                { label: "Mobility Solutions", href: "/services" },
+                { label: "Partner With Us", href: "/partner" },
                 { label: "Media Center", href: "/media" },
                 { label: "Careers", href: "/careers" },
                 { label: "Contact Us", href: "/contact" },

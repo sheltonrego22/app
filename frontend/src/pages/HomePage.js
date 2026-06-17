@@ -97,7 +97,7 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-14 sm:h-16 w-auto mx-auto mb-6 animate-fade-in" />
-          <p className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-6 animate-fade-in">The UAE's Premier Mobility & Transportation Holding · Since 1976</p>
+          <p className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-6 animate-fade-in">WE MOVE YOU! · Since 1976</p>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-8xl leading-[0.9] tracking-tight text-[#EEEDE7] mb-6 animate-fade-in-up">
             50 Years of Moving the UAE Forward.
           </h1>
@@ -354,9 +354,10 @@ export default function HomePage() {
       {/* ═══ CTA BANNER ═══ */}
       <section data-testid="cta-banner" className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-black uppercase tracking-tight mb-4">
-            Whether You're Renting for a Day or Managing a Fleet of 1,000 — We Have a Solution Built for You.
+          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-black uppercase tracking-tight mb-2">
+            WE MOVE YOU!
           </h2>
+          <p className="font-body text-black/70 mb-6">Whether you're renting for a day or managing a fleet of 1,000 — we have a solution built for you.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link to="/europcar" data-testid="cta-rent-btn" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">
               Rent a Car
