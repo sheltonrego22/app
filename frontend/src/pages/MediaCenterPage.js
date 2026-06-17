@@ -198,9 +198,10 @@ function ArticleCard({ article, expanded, onToggle }) {
 
         {expanded && (
           <div className="mt-4 pt-4 border-t border-[#222]">
-            {a.body && (
-              <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(a.body) }} />
-            )}
+            {a.body && (() => {
+              const sanitizedHtml = { __html: DOMPurify.sanitize(a.body) };
+              return <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={sanitizedHtml} />;
+            })()}
             {a.video_url && (
               <div className="mt-4 aspect-video">
                 <iframe src={a.video_url} title={a.title} className="w-full h-full border border-[#333]" allowFullScreen loading="lazy" />
