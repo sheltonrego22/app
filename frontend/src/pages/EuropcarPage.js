@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Globe, MapPin, Clock, Wrench, Phone, ArrowRight, Shield, Car, Download, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Input } from '@/components/ui/input';
-import axios from 'axios';
+import { LeasingLeadForm } from '@/components/europcar/LeasingLeadForm';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=1400&h=700&fit=crop";
 const LOGO_URL = "/europcar-logo.png";
@@ -60,9 +59,6 @@ export default function EuropcarPage() {
   const [leasingRef, leasingVisible] = useScrollAnimation();
   const [intlRef, intlVisible] = useScrollAnimation();
   const [locationsRef, locationsVisible] = useScrollAnimation();
-  const [leaseForm, setLeaseForm] = useState({ name: '', phone: '', email: '' });
-  const [leaseSubmitted, setLeaseSubmitted] = useState(false);
-  const [leaseSubmitting, setLeaseSubmitting] = useState(false);
 
   useEffect(() => { document.title = "Europcar Dubai | Premium Car Rental, Monthly Rental & Long-Term Leasing UAE | 1,200+ Vehicles"; }, []);
 
@@ -220,48 +216,7 @@ export default function EuropcarPage() {
             </div>
 
             <div>
-              {/* Leasing Lead Form */}
-              {!leaseSubmitted ? (
-                <div data-testid="leasing-lead-form" className="bg-[#111] border border-white/5 p-6">
-                  <p className="font-body text-sm text-[#EEEDE7]/80 mb-2">
-                    Want to find out more about leasing from Europcar? Leave us your details and one of our consultants will get back to you shortly.
-                  </p>
-                  <p className="font-body text-xs text-[#666] mb-4 italic">
-                    Looking for a smarter way to drive long-term in the UAE? Speak to the Europcar leasing team about flexible personal and corporate leasing solutions from 12 to 48 months.
-                  </p>
-                  <div className="space-y-3">
-                    <Input data-testid="lease-name" value={leaseForm.name} onChange={(e) => setLeaseForm(p => ({ ...p, name: e.target.value }))} placeholder="Your Name" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
-                    <Input data-testid="lease-phone" value={leaseForm.phone} onChange={(e) => setLeaseForm(p => ({ ...p, phone: e.target.value }))} placeholder="Mobile Number" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
-                    <Input data-testid="lease-email" type="email" value={leaseForm.email} onChange={(e) => setLeaseForm(p => ({ ...p, email: e.target.value }))} placeholder="Email Address" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
-                    <button
-                      data-testid="lease-submit"
-                      disabled={leaseSubmitting || !leaseForm.name || !leaseForm.phone || !leaseForm.email}
-                      onClick={async () => {
-                        setLeaseSubmitting(true);
-                        try {
-                          await axios.post(`${API}/api/contact`, {
-                            full_name: leaseForm.name, phone: leaseForm.phone, email: leaseForm.email,
-                            company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
-                          });
-                        } catch (err) {
-          if (process.env.NODE_ENV === 'development') console.error('Leasing:', err);
-        }
-                        setLeaseSubmitted(true);
-                        setLeaseSubmitting(false);
-                      }}
-                      style={{ background: EUROPCAR_GREEN }}
-                      className="w-full text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50"
-                    >
-                      {leaseSubmitting ? 'Submitting...' : 'Find Out More About Leasing Now'}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-[#111] border p-6 text-center" style={{ borderColor: EUROPCAR_GREEN }}>
-                  <Check className="w-8 h-8 mx-auto mb-3" style={{ color: EUROPCAR_GREEN }} />
-                  <p className="font-heading font-bold text-sm text-[#EEEDE7]">Thank you! Our leasing consultant will contact you shortly.</p>
-                </div>
-              )}
+              <LeasingLeadForm API={API} />
 
               {/* Why EGMG Leasing */}
               <div className="mt-6 space-y-3">
