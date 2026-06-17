@@ -31,6 +31,14 @@ import PartnerWithUsPage from "@/pages/PartnerWithUsPage";
 import FAQPage from "@/pages/FAQPage";
 import DownloadsPage from "@/pages/DownloadsPage";
 import PortalPage from "@/pages/PortalPage";
+import SEOCarRentalDubai from "@/pages/seo/SEOCarRentalDubai";
+import SEOMonthlyRental from "@/pages/seo/SEOMonthlyRental";
+import SEOChauffeurDubai from "@/pages/seo/SEOChauffeurDubai";
+import SEOCommercialLeasing from "@/pages/seo/SEOCommercialLeasing";
+import SEOCarLeasingDubai from "@/pages/seo/SEOCarLeasingDubai";
+import HomePageAr from "@/pages/ar/HomePageAr";
+import AboutPageAr from "@/pages/ar/AboutPageAr";
+import ContactPageAr from "@/pages/ar/ContactPageAr";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -89,6 +97,14 @@ function App() {
           <Route path="/downloads" element={<DownloadsPage />} />
           <Route path="/portal/corporate" element={<PortalPage />} />
           <Route path="/portal/driver" element={<PortalPage />} />
+          <Route path="/car-rental-dubai" element={<SEOCarRentalDubai />} />
+          <Route path="/monthly-car-rental-dubai" element={<SEOMonthlyRental />} />
+          <Route path="/chauffeur-service-dubai" element={<SEOChauffeurDubai />} />
+          <Route path="/commercial-vehicle-leasing-uae" element={<SEOCommercialLeasing />} />
+          <Route path="/car-leasing-dubai" element={<SEOCarLeasingDubai />} />
+          <Route path="/ar" element={<HomePageAr />} />
+          <Route path="/ar/about" element={<AboutPageAr />} />
+          <Route path="/ar/contact" element={<ContactPageAr />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
