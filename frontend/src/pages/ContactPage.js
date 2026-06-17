@@ -202,7 +202,7 @@ export default function ContactPage() {
                         <SelectValue placeholder="Select time" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#111] border-[#333]">
-                        {["Morning (9am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Any time"].map(t => (
+                        {["Morning (9am to 12pm)", "Afternoon (12pm to 4pm)", "Evening (4pm to 7pm)", "Any time"].map(t => (
                           <SelectItem key={t} value={t} className="text-[#EEEDE7] focus:bg-[#EE5A01]/10">{t}</SelectItem>
                         ))}
                       </SelectContent>

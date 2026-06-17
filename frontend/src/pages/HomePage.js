@@ -32,10 +32,10 @@ const PARTNER_LOGOS = [
   { name: "Al Khoory Automobiles", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-32.png.webp" },
   { name: "IMT Dubai", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-33.png.webp" },
   { name: "Europcar", url: "/europcar-logo.png" },
-  { name: "ADNOC", url: "https://logo.clearbit.com/adnoc.ae?size=200" },
+  { name: "ADNOC", url: "/partners/adnoc-logo.svg" },
   { name: "Emirates", url: "https://egmg.ae/wp-content/uploads/2025/06/Emirates-Logo.png-768x403-1.webp" },
-  { name: "DP World", url: "https://logo.clearbit.com/dpworld.com?size=200" },
-  { name: "Dubai Holding", url: "https://logo.clearbit.com/dubaiholding.com?size=200" },
+  { name: "DP World", url: "/partners/dpworld-logo.svg" },
+  { name: "Dubai Holding", url: "/partners/dubai-holding-logo.svg" },
 ];
 
 const awards = [
@@ -248,9 +248,7 @@ export default function HomePage() {
                     alt={logo.name}
                     className="max-h-12 sm:max-h-14 w-auto object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity"
                     loading="lazy"
-                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
                   />
-                  <span className="hidden font-heading font-bold text-xs text-[#EEEDE7]/50 group-hover:text-[#EEEDE7]/90 transition-colors tracking-wider uppercase">{logo.name}</span>
                 </div>
                 <span className="font-body text-[9px] text-[#555] group-hover:text-[#999] transition-colors tracking-wider uppercase">{logo.name}</span>
               </div>
@@ -394,7 +392,7 @@ export default function HomePage() {
               <iframe
                 data-testid="youtube-embed-2"
                 src="https://www.youtube.com/embed/KiCi2eo3PuE?rel=0&modestbranding=1"
-                title="It's not just a fleet — It's the scale and innovation of Eurogulf Mobility Group"
+                title="It's not just a fleet. It's the scale and innovation of Eurogulf Mobility Group"
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
