@@ -52,7 +52,7 @@ export default function MediaCenterPage() {
         setArticles(data.articles.filter((a) => a.published !== false));
         setTotal(data.total);
       } catch (err) {
-        console.error('Failed to fetch articles:', err);
+        if (process.env.NODE_ENV === 'development') console.error('Articles:', err);
       } finally {
         setLoading(false);
       }

@@ -11,7 +11,13 @@ const PASSENGER_OPTIONS = [
 
 export function VehicleStep({ form, errors, set }) {
   const vehicles = VEHICLES[form.passengers] || [];
-  const gridCols = vehicles.length === 1 ? 'grid-cols-1 max-w-md mx-auto' : vehicles.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+
+  const getGridCols = (count) => {
+    if (count === 1) return 'grid-cols-1 max-w-md mx-auto';
+    if (count === 2) return 'grid-cols-1 sm:grid-cols-2';
+    return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+  };
+  const gridCols = getGridCols(vehicles.length);
 
   return (
     <div data-testid="step-vehicle" className="animate-fade-in">

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { logError } from '@/utils/logger';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -86,7 +87,7 @@ export default function ContactPage() {
         message: `[${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | Preferred contact: ${form.preferred_time}` : ''}${form.emirate ? ` | Emirate: ${form.emirate}` : ''}`,
       });
     } catch (err) {
-      console.error('Contact form submission failed:', err);
+      logError('ContactForm', err);
     }
     setSubmitted(true);
     setSubmitting(false);

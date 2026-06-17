@@ -44,7 +44,7 @@ function EnquiryModal() {
         company: form.company, enquiry_type: `Chauffeur / Managed Transport — ${form.type || 'General'}`, message: form.message,
       });
     } catch (err) {
-      console.error('Transport enquiry failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Transport:', err);
     }
     setSubmitted(true);
     setSubmitting(false);

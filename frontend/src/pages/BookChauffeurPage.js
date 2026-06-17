@@ -91,7 +91,7 @@ export default function BookChauffeurPage() {
       const res = await axios.post(`${API}/bookings`, payload);
       setBookingRef(res.data.reference);
     } catch (err) {
-      console.error('Booking submission failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Booking:', err);
       setBookingRef(`RL-${Date.now().toString().slice(-6)}`);
     } finally {
       setSubmitted(true);

@@ -59,7 +59,7 @@ export default function PartnerWithUsPage() {
         message: form.message,
       });
     } catch (err) {
-      console.error('Partner enquiry failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Partner enquiry:', err);
     }
     setSubmitted(true);
     setSubmitting(false);

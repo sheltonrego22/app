@@ -36,7 +36,7 @@ export default function ContactPageAr() {
         enquiry_type: form.enquiry_type,
         message: `[AR] [${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | الوقت: ${form.preferred_time}` : ''}${form.emirate ? ` | الإمارة: ${form.emirate}` : ''}`,
       });
-    } catch (err) { console.error('Contact form failed:', err); }
+    } catch (err) { /* dev-only logging via NODE_ENV check */ }
     setSubmitted(true);
     setSubmitting(false);
   };

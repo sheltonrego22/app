@@ -74,6 +74,8 @@ export default function Navigation() {
     setOpenDropdown(null);
   }, [location.pathname]);
 
+  // navLinks is module-level constant, stable reference
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const mobileTopLinks = useMemo(() => navLinks.filter(l => !l.hasDropdown), []);
 
   const getDropdownItems = (id) => {

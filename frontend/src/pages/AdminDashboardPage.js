@@ -39,7 +39,7 @@ export default function AdminDashboardPage() {
       setArticles(data.articles);
       setTotal(data.total);
     } catch (err) {
-      console.error('Failed to load articles:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Articles:', err);
       setError('Failed to load articles.');
     } finally {
       setLoading(false);
@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
       resetForm();
       fetchArticles();
     } catch (err) {
-      console.error('Save failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Save:', err);
       setError(editing ? 'Failed to update article.' : 'Failed to create article.');
     }
   };
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
       await axios.delete(`${API}/api/articles/${id}`, { withCredentials: true });
       fetchArticles();
     } catch (err) {
-      console.error('Delete failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Delete:', err);
       setError('Failed to delete article.');
     }
   };
@@ -99,7 +99,7 @@ export default function AdminDashboardPage() {
       const { data } = await axios.post(`${API}/api/upload`, fd, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } });
       setForm((p) => ({ ...p, [field]: `${API}${data.url}` }));
     } catch (err) {
-      console.error('Upload failed:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Upload:', err);
       setError('File upload failed. Please try again.');
     } finally {
       setUploading(false);

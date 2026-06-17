@@ -76,7 +76,9 @@ export function ArticleEditor({ form, setForm, editing, uploading, onSave, onCan
         </div>
         <div className="flex items-center gap-3 pt-2">
           <button onClick={onSave} disabled={uploading} data-testid="btn-save-article" className="btn-primary text-xs py-2.5 px-6 disabled:opacity-50">
-            {uploading ? 'Uploading...' : editing ? 'Update Article' : 'Publish Article'}
+            {uploading && 'Uploading...'}
+            {!uploading && editing && 'Update Article'}
+            {!uploading && !editing && 'Publish Article'}
           </button>
           <button onClick={onCancel} className="btn-ghost text-xs py-2.5 px-6">Cancel</button>
         </div>
