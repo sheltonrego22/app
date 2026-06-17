@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 
@@ -73,6 +73,8 @@ export default function Navigation() {
     setMobileOpen(false);
     setOpenDropdown(null);
   }, [location.pathname]);
+
+  const mobileTopLinks = useMemo(() => navLinks.filter(l => !l.hasDropdown), []);
 
   const getDropdownItems = (id) => {
     if (id === "brands") return brandsLinks;
@@ -189,7 +191,7 @@ export default function Navigation() {
             <X className="w-8 h-8" />
           </button>
           <div className="flex flex-col items-center justify-start gap-5 pt-24 pb-12 px-6 min-h-full">
-            {navLinks.filter(l => !l.hasDropdown).map((link) => (
+            {mobileTopLinks.map((link) => (
               <Link key={link.label} to={link.href} className={`font-heading text-xl font-bold tracking-[0.1em] transition-colors ${location.pathname === link.href ? 'text-[#EE5A01]' : 'text-[#EEEDE7]'}`} onClick={() => setMobileOpen(false)}>
                 {link.label}
               </Link>
