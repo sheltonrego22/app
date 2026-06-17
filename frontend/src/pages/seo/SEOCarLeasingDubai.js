@@ -11,7 +11,7 @@ const benefits = [
 ];
 
 export default function SEOCarLeasingDubai() {
-  useEffect(() => { document.title = "Car Leasing Dubai | Long-Term Vehicle Leasing UAE | Europcar by EGMG"; }, []);
+  useEffect(() => { document.title = "Car Leasing Dubai | Long-Term Vehicle Leasing UAE | Europcar by Eurogulf Mobility Group"; }, []);
 
   return (
     <div>

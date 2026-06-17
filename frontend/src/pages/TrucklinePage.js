@@ -24,7 +24,7 @@ export default function TrucklinePage() {
   const [fleetRef, fleetVisible] = useScrollAnimation();
   const [whyRef, whyVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Truckline Transport - Commercial Vehicle Leasing and Fleet Management Solutions"; }, []);
+  useEffect(() => { document.title = "Truckline Transport | Operational Vehicle Leasing & Fleet Management UAE"; }, []);
 
   return (
     <div data-testid="truckline-page">

@@ -18,9 +18,9 @@ const insurancePartners = ["GIG", "QIC", "Oman Insurance", "Tokio Marine", "Noor
 
 const features = [
   { icon: Shield, title: "A-Grade Insurance Panel", desc: "Approved on the panels of the UAE's most reputed insurance companies." },
-  { icon: Wrench, title: "3 Service Centres", desc: "Three fully equipped A-grade workshops supporting EGMG's 10,000-vehicle fleet." },
+  { icon: Wrench, title: "3 Service Centres", desc: "Three fully equipped A-grade workshops supporting the group's 10,000-vehicle fleet." },
   { icon: Clock, title: "ISO Certified", desc: "ISO 9001:2015 certified technicians and quality management systems." },
-  { icon: CheckCircle, title: "30+ Years Experience", desc: "Over three decades as the backbone of EGMG's fleet maintenance operations." },
+  { icon: CheckCircle, title: "30+ Years Experience", desc: "Over three decades as the backbone of Eurogulf Mobility Group's fleet maintenance operations." },
 ];
 
 export default function AutocarePage() {
@@ -42,7 +42,7 @@ export default function AutocarePage() {
             Eurogulf Auto Garage
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Automotive support and technical servicing capability positioned as part of the wider EGMG mobility ecosystem. Vehicle servicing, repair, workshop support, and maintenance capability within the wider mobility group.
+            Automotive support and technical servicing capability positioned as part of the wider Eurogulf Mobility Group ecosystem. Vehicle servicing, repair, workshop support, and maintenance capability within the wider mobility group.
           </p>
           <div className="flex flex-wrap gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/contact" className="btn-primary">Book a Service</Link>
@@ -58,7 +58,7 @@ export default function AutocarePage() {
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-6">About Eurogulf Auto Garage</h2>
           <div className="space-y-4 font-body text-[#999] leading-relaxed">
             <p>
-              Eurogulf Auto Garage has been the silent engine behind EGMG's operational excellence for over three decades. As the in-house workshop infrastructure supporting one of the UAE's largest vehicle fleets, our service centres are built and operated to standards that most retail garages simply cannot match.
+              Eurogulf Auto Garage has been the silent engine behind Eurogulf Mobility Group's operational excellence for over three decades. As the in-house workshop infrastructure supporting one of the UAE's largest vehicle fleets, our service centres are built and operated to standards that most retail garages simply cannot match.
             </p>
             <p>
               All three Eurogulf Auto Garage facilities hold A-grade status on the panels of the UAE's most reputed insurance companies — a recognition of our technical standards, safety practices, and quality of output. Now, these same world-class services are available to external clients and fleet operators seeking uncompromising maintenance quality.

@@ -17,7 +17,7 @@ export default function SEOChauffeurDubai() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase block mb-4">Eurogulf Premium Chauffeur · Part of EGMG</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase block mb-4">Eurogulf Premium Chauffeur · Part of Eurogulf Mobility Group</span>
           <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4">Chauffeur Service Dubai</h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8">
             Professional chauffeur-driven and managed transport solutions across the UAE. Airport transfers, corporate mobility, event logistics, and dedicated driver services — handled through specialist follow-up.

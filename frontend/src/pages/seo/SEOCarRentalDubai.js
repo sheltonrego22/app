@@ -22,7 +22,7 @@ const locations = [
 export default function SEOCarRentalDubai() {
   const [benefitsRef, benefitsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Car Rental Dubai | Rent a Car in Dubai from AED 99/day | Europcar by EGMG"; }, []);
+  useEffect(() => { document.title = "Car Rental Dubai | Rent a Car in Dubai from AED 99/day | Europcar by Eurogulf Mobility Group"; }, []);
 
   return (
     <div>

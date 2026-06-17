@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
             <Lock className="w-7 h-7 text-black" />
           </div>
           <h1 className="font-heading font-black text-2xl text-[#EEEDE7] uppercase tracking-tight">Admin Access</h1>
-          <p className="font-body text-xs text-[#666] mt-1">EGMG Media Center CMS</p>
+          <p className="font-body text-xs text-[#666] mt-1">Eurogulf Mobility Group Media Center CMS</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">

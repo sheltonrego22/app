@@ -8,14 +8,14 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
 
 const milestones = [
-  { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of EGMG — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
-  { year: "1978", title: "Europcar UAE Launched", desc: "EGMG becomes the official Europcar operator, introducing international-standard car rental services to Dubai and the region for the first time." },
-  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "EGMG expands into professional chauffeur services, launching Emirates Taxi and Royal Limousine — establishing what would become the group's managed transportation division." },
+  { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of Eurogulf Mobility Group — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
+  { year: "1978", title: "Europcar UAE Launched", desc: "Eurogulf Mobility Group becomes the official Europcar operator, introducing international-standard car rental services to Dubai and the region for the first time." },
+  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Eurogulf Mobility Group expands into professional chauffeur services, launching Emirates Taxi and Royal Limousine — establishing what would become the group's managed transportation division." },
   { year: "1994", title: "Eurogulf Garage & Used Cars", desc: "The group builds its automotive aftercare capabilities with the launch of Eurogulf Garage and Eurogulf Used Cars Trading, creating a closed-loop ecosystem for fleet management." },
-  { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "The expansion of passenger transportation into premium coaches, enabling EGMG to serve airlines, cruise operators, DMCs, and event organisers at scale." },
-  { year: "2013", title: "Eurogulf Limo — Abu Dhabi", desc: "EGMG extends its chauffeur operations to Abu Dhabi, becoming one of the very few transport operators licensed to provide professional chauffeur services across all seven Emirates of the UAE." },
-  { year: "2018", title: "Eurogulf Luxury Coaches — Abu Dhabi", desc: "Coach and bus operations expanded into the capital, reinforcing EGMG's unmatched all-Emirates transportation footprint." },
-  { year: "2021", title: "Truckline Transport Launched", desc: "EGMG enters the commercial vehicle leasing and logistics segment with the launch of Truckline Transport, offering vans, trucks, and chiller units to UAE businesses." },
+  { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "The expansion of passenger transportation into premium coaches, enabling the group to serve airlines, cruise operators, DMCs, and event organisers at scale." },
+  { year: "2013", title: "Eurogulf Limo — Abu Dhabi", desc: "Eurogulf Mobility Group extends its chauffeur operations to Abu Dhabi, becoming one of the very few transport operators licensed to provide professional chauffeur services across all seven Emirates of the UAE." },
+  { year: "2018", title: "Eurogulf Luxury Coaches — Abu Dhabi", desc: "Coach and bus operations expanded into the capital, reinforcing the group's unmatched all-Emirates transportation footprint." },
+  { year: "2021", title: "Truckline Transport Launched", desc: "Eurogulf Mobility Group enters the commercial vehicle leasing and logistics segment with the launch of Truckline Transport, offering vans, trucks, and chiller units to UAE businesses." },
   { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group (EGMG) brand — reflecting the scope, scale, and ambition of the organisation." },
 ];
 
@@ -67,7 +67,7 @@ export default function AboutPage() {
   const [timelineRef, timelineVisible] = useScrollAnimation();
   const [divisionsRef, divisionsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "About Eurogulf Mobility Group | A Connected Mobility Ecosystem"; }, []);
+  useEffect(() => { document.title = "About Eurogulf Mobility Group | Integrated Mobility Ecosystem UAE"; }, []);
 
   return (
     <div data-testid="about-page">

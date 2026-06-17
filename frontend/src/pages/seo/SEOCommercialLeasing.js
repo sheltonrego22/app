@@ -9,7 +9,7 @@ const capabilities = [
 ];
 
 export default function SEOCommercialLeasing() {
-  useEffect(() => { document.title = "Commercial Vehicle Leasing UAE | Fleet Solutions | Truckline by EGMG"; }, []);
+  useEffect(() => { document.title = "Commercial Vehicle Leasing UAE | Fleet Solutions | Truckline by Eurogulf Mobility Group"; }, []);
 
   return (
     <div>
@@ -17,7 +17,7 @@ export default function SEOCommercialLeasing() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase block mb-4">Truckline Transport · Part of EGMG</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase block mb-4">Truckline Transport · Part of Eurogulf Mobility Group</span>
           <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4">Commercial Vehicle Leasing UAE</h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8">
             Truckline delivers commercial mobility solutions for businesses that rely on vehicles to support operations, logistics, service delivery, and workforce movement across the UAE.

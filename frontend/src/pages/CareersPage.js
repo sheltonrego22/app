@@ -44,7 +44,7 @@ export default function CareersPage() {
             Grow Your Career With Us
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Join a group that helps keep people, businesses, and operations moving. At EGMG, career opportunities span multiple mobility and automotive service areas, creating room for growth across customer-facing, operational, commercial, and support roles.
+            Join a group that helps keep people, businesses, and operations moving. At Eurogulf Mobility Group, career opportunities span multiple mobility and automotive service areas, creating room for growth across customer-facing, operational, commercial, and support roles.
           </p>
           <a href="#openings" className="btn-primary inline-block animate-fade-in" style={{ animationDelay: '0.4s' }}>
             View Open Positions
@@ -52,7 +52,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* WHY EGMG */}
+      {/* WHY EUROGULF MOBILITY GROUP */}
       <section className="bg-[#0a0a0a] py-20 sm:py-28">
         <div ref={benefitsRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${benefitsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>

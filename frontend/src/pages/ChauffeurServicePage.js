@@ -95,7 +95,7 @@ export default function ChauffeurServicePage() {
   const [fleetRef, fleetVisible] = useScrollAnimation();
   const [serviceRef, serviceVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Premium Chauffeur | Managed Transport and Driven Services"; }, []);
+  useEffect(() => { document.title = "Premier Chauffeur Services in Dubai | Eurogulf Premium Chauffeur"; }, []);
 
   return (
     <div data-testid="chauffeur-service-page">

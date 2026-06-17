@@ -7,6 +7,9 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 const partners = [
   { name: "Europcar Mobility Group", sector: "Global Mobility" },
   { name: "Goldcar", sector: "Global Mobility" },
+  { name: "Al Khoory Automobiles", sector: "Automotive Partner" },
+  { name: "IMT Dubai", sector: "Events & Entertainment" },
+  { name: "ADNOC", sector: "Energy & Government" },
   { name: "Esaad", sector: "Government Programme" },
   { name: "Fazaa", sector: "Government Programme" },
   { name: "Al Saada Card", sector: "Government Programme" },
@@ -123,7 +126,7 @@ export default function PartnersClientsPage() {
           <div className={`text-center mb-14 ${eventsVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">The Events That Define Dubai. The Mobility Behind Them.</h2>
-            <p className="font-body text-[#666] max-w-lg mx-auto">The UAE's most high-profile events rely on EGMG for their transportation logistics.</p>
+            <p className="font-body text-[#666] max-w-lg mx-auto">The UAE's most high-profile events rely on Eurogulf Mobility Group for their transportation logistics.</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">
             {majorEvents.map((e) => (

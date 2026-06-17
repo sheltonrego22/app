@@ -58,7 +58,7 @@ export default function PortalPage() {
                 <div className="flex-1">
                   <h2 className="font-heading font-black text-xl text-[#EEEDE7] uppercase tracking-tight mb-2">Driver / Partner Portal</h2>
                   <p className="font-body text-sm text-[#999] leading-relaxed mb-4">
-                    Access driver schedules, trip assignments, compliance documentation, and operational resources. Available to registered drivers and transport partners within the EGMG network.
+                    Access driver schedules, trip assignments, compliance documentation, and operational resources. Available to registered drivers and transport partners within the Eurogulf Mobility Group network.
                   </p>
                   <div className="flex items-center gap-2 text-[#666] font-body text-xs mb-4">
                     <Lock className="w-3.5 h-3.5" /> Secure login required · Contact operations for access

@@ -37,7 +37,7 @@ export default function GoldcarPage() {
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={LOGO_URL} alt="Goldcar by EGMG" className="h-10 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <img src={LOGO_URL} alt="Goldcar by Eurogulf Mobility Group" className="h-10 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Smart Travel Starts Here.
           </h1>

@@ -22,18 +22,19 @@ const brandsLinks = [
 ];
 
 const corporateLinks = [
-  { label: "Fleet Consultancy", href: "/leasing", sub: "Commercial & non-commercial vehicles" },
+  { label: "Operational Leasing", href: "/leasing" },
+  { label: "Staff Transport", href: "/chauffeur-service" },
+  { label: "Fleet Management", href: "/dubai-municipality" },
   { label: "Customised Commercial Vehicle Leasing", href: "/truckline" },
-  { label: "Corporate Rental", href: "/europcar" },
-  { label: "Staff Transport & Mobility Solutions", href: "/chauffeur-service" },
   { label: "Managed Transport for Events & Delegations", href: "/chauffeur-service" },
   { label: "Digital Fleet Management & Tracking", href: "/dubai-municipality" },
 ];
 
 const retailLinks = [
-  { label: "Rent a Car (Europcar / Goldcar)", href: "/europcar" },
+  { label: "Car Rental", href: "/europcar" },
+  { label: "Premium Chauffeur", href: "/chauffeur-service" },
+  { label: "Airport Transfers", href: "/chauffeur-service" },
   { label: "Book Your Monthly Rental", href: "/europcar" },
-  { label: "Book Your Premium Chauffeur", href: "/chauffeur-service" },
   { label: "Outbound Reservations", href: "/europcar", sub: "Rent a vehicle outside of UAE" },
   { label: "Buy Pre-Owned", href: "/used-cars" },
 ];
@@ -48,7 +49,7 @@ const supportLinks = [
 
 const navLinks = [
   { label: "HOME", href: "/" },
-  { label: "ABOUT EGMG", href: "/about", hasDropdown: true, dropdownId: "about" },
+  { label: "ABOUT", href: "/about", hasDropdown: true, dropdownId: "about" },
   { label: "OUR BRANDS", href: "/businesses", hasDropdown: true, dropdownId: "brands" },
   { label: "MOBILITY SOLUTIONS", href: "/services", hasDropdown: true, dropdownId: "corporate" },
   { label: "SUPPORT & RESOURCES", href: "/contact", hasDropdown: true, dropdownId: "support" },
@@ -90,7 +91,7 @@ export default function Navigation() {
       return (
         <div data-testid="corporate-dropdown" className="absolute top-full left-1/2 -translate-x-1/2 w-[540px] bg-[#111111] border border-white/10 py-4 px-5 z-50 grid grid-cols-2 gap-6">
           <div>
-            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Corporate / B2B</span>
+            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Corporate / B2B Mobility</span>
             {corporateLinks.map((sl) => (
               <Link key={sl.label} to={sl.href} className="block px-1 py-2 font-body text-sm text-[#EEEDE7] hover:text-[#EE5A01] transition-colors leading-tight">
                 {sl.label}
@@ -99,7 +100,7 @@ export default function Navigation() {
             ))}
           </div>
           <div>
-            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Retail / B2C</span>
+            <span className="block font-heading text-[10px] tracking-[0.2em] text-[#EE5A01] uppercase mb-3 px-1">Rental / B2C Mobility</span>
             {retailLinks.map((sl) => (
               <Link key={sl.label} to={sl.href} className="block px-1 py-2 font-body text-sm text-[#EEEDE7] hover:text-[#EE5A01] transition-colors leading-tight">
                 {sl.label}
@@ -214,7 +215,7 @@ export default function Navigation() {
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Mobility Solutions — Corporate / B2B</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Corporate / B2B Mobility</span>
               {corporateLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}

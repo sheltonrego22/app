@@ -84,7 +84,7 @@ export default function HomePage() {
   const [partnersRef, partnersVisible] = useScrollAnimation();
   const [municipalityRef, municipalityVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Eurogulf Mobility Group | UAE's Premier Mobility & Transportation Holding | Est. 1976"; }, []);
+  useEffect(() => { document.title = "Eurogulf Mobility Group | Integrated Mobility Solutions UAE | Since 1976"; }, []);
 
   return (
     <div data-testid="home-page">
@@ -141,7 +141,7 @@ export default function HomePage() {
                   For half a century, Eurogulf Mobility Group has been at the foundation of the UAE's transportation landscape. What began in 1976 as Dubai Rent A Car LLC — the exclusive operator of the Europcar franchise for Dubai and the Northern Emirates — has evolved into one of the region's most diversified, trusted, and recognised mobility groups.
                 </p>
                 <p>
-                  Today, EGMG manages a portfolio of six distinct mobility brands, each serving a specific customer need: from premium car rental and corporate leasing, to luxury chauffeur services, affordable short-term hire, commercial vehicle leasing, and pre-owned vehicle trading. With a professionally managed fleet exceeding 10,000 vehicles, a team of over 1,200 dedicated employees, and a presence spanning 14 locations across the UAE, EGMG is not simply a car rental company — it is the UAE's most complete mobility partner.
+                  Today, Eurogulf Mobility Group manages a portfolio of six distinct mobility brands, each serving a specific customer need: from premium car rental and corporate leasing, to luxury chauffeur services, affordable short-term hire, commercial vehicle leasing, and pre-owned vehicle trading. With a professionally managed fleet exceeding 10,000 vehicles, a team of over 1,200 dedicated employees, and a presence spanning 14 locations across the UAE, Eurogulf Mobility Group is not simply a car rental company — it is the UAE's most complete mobility partner.
                 </p>
               </div>
             </div>
@@ -258,10 +258,10 @@ export default function HomePage() {
                 Proud Partners of Dubai Municipality
               </h2>
               <p className="font-body text-[#999] leading-relaxed mb-4">
-                Among the many distinctions that define EGMG's standing, none speaks more clearly to the group's operational capability than its partnership with Dubai Municipality — one of the most respected government authorities in the region.
+                Among the many distinctions that define the group's standing, none speaks more clearly to the group's operational capability than its partnership with Dubai Municipality — one of the most respected government authorities in the region.
               </p>
               <p className="font-body text-[#999] leading-relaxed mb-6">
-                As a proud supplier and strategic partner, EGMG provides full fleet management solutions across a fleet exceeding 1,500 vehicles — operated by a dedicated team working directly from Dubai Municipality's Transportation Department.
+                As a proud supplier and strategic partner, Eurogulf Mobility Group provides full fleet management solutions across a fleet exceeding 1,500 vehicles — operated by a dedicated team working directly from Dubai Municipality's Transportation Department.
               </p>
               <Link to="/dubai-municipality" className="btn-primary inline-block">Explore This Partnership</Link>
             </div>
@@ -282,11 +282,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ SOCIAL & VIDEO ═══ */}
+      {/* ═══ FEATURED SOCIALS ═══ */}
+      <section data-testid="featured-socials" className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="orange-accent-line mx-auto mb-6" />
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">What's Happening at Eurogulf Mobility Group</h2>
+            <p className="font-body text-[#666]">Stories from across our brands and community</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
+              <div className="h-48 bg-gradient-to-br from-[#EE5A01]/20 to-black flex items-center justify-center">
+                <span className="font-heading font-black text-5xl text-[#EE5A01] opacity-30">IMT</span>
+              </div>
+              <div className="p-6">
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Events</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Main Mobility Partner for IMT Dubai Vaudeville 2026</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Driving the spotlight at the UAE's premier events. Eurogulf Mobility Group is proud to be the official mobility partner for IMT Dubai's Vaudeville 2026.</p>
+              </div>
+            </div>
+            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
+              <div className="h-48 bg-gradient-to-br from-green-500/10 to-black flex items-center justify-center">
+                <span className="font-heading font-black text-5xl text-green-500/30">♥</span>
+              </div>
+              <div className="p-6">
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Health & Wellbeing</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Together for Healthier Journeys</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Marking World Health Day 2026, Eurogulf Mobility Group reaffirms its commitment to traveller well-being — safer vehicles, trained drivers, and wellness-first mobility.</p>
+              </div>
+            </div>
+            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
+              <div className="h-48 bg-gradient-to-br from-[#EE5A01]/10 to-black flex items-center justify-center">
+                <span className="font-heading font-black text-5xl text-[#EE5A01]/30">★</span>
+              </div>
+              <div className="p-6">
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Careers</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Drive Your Career with Eurogulf</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Now hiring: professional drivers and a Process Analyst for ISO 9001 excellence. Join a team that powers mobility across the UAE.</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              <Instagram className="w-4 h-4" /> FOLLOW ON INSTAGRAM
+            </a>
+            <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
+              FOLLOW ON LINKEDIN
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ VIDEOS & GALLERY ═══ */}
       <section data-testid="social-section" className="bg-black py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] mb-4 uppercase">Follow Our Journey</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] mb-4 uppercase">See Us in Action</p>
             <h2 className="font-heading font-bold text-xl sm:text-2xl text-[#EEEDE7]">
               @eurogulfmobility
             </h2>
@@ -308,7 +359,7 @@ export default function HomePage() {
               <iframe
                 data-testid="youtube-embed-2"
                 src="https://www.youtube.com/embed/KiCi2eo3PuE?rel=0&modestbranding=1"
-                title="It's not just a fleet — It's the scale and innovation of EGMG"
+                title="It's not just a fleet — It's the scale and innovation of Eurogulf Mobility Group"
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

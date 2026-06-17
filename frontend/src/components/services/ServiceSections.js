@@ -105,7 +105,7 @@ export function LeasingSection() {
               </div>
             </div>
             <div className="relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=800&h=600&fit=crop" alt="EGMG Fleet" className="w-full h-[400px] object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=800&h=600&fit=crop" alt="Eurogulf Mobility Group Fleet" className="w-full h-[400px] object-cover" loading="lazy" />
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ const included = [
 ];
 
 export default function SEOMonthlyRental() {
-  useEffect(() => { document.title = "Monthly Car Rental Dubai | Flexible Monthly Hire from Europcar | EGMG"; }, []);
+  useEffect(() => { document.title = "Monthly Car Rental Dubai | Flexible Monthly Hire from Europcar | Eurogulf Mobility Group"; }, []);
 
   return (
     <div>

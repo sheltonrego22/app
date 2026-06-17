@@ -98,7 +98,7 @@ export default function PartnerWithUsPage() {
         <div ref={whyRef} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${whyVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">Why Partner With EGMG</h2>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight">Why Partner With Eurogulf Mobility Group</h2>
           </div>
           <div className="space-y-4">
             {whyPartner.map((item, i) => (
@@ -154,7 +154,7 @@ export default function PartnerWithUsPage() {
           <div className="text-center mb-10">
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight mb-3">Start the Conversation</h2>
-            <p className="font-body text-sm text-[#666]">If your business sees an opportunity to work with EGMG, we would be glad to start the conversation. Share a few details with us, and our team will review the opportunity and come back to you.</p>
+            <p className="font-body text-sm text-[#666]">If your business sees an opportunity to work with Eurogulf Mobility Group, we would be glad to start the conversation. Share a few details with us, and our team will review the opportunity and come back to you.</p>
           </div>
 
           {!submitted ? (

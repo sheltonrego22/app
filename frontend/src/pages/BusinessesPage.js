@@ -19,7 +19,7 @@ const divisions = [
     name: "Goldcar",
     subtitle: "Budget Short Term Rentals",
     logo: GOLDCAR_LOGO,
-    desc: "A value-oriented self-drive offering positioned within the wider EGMG mobility portfolio.",
+    desc: "A value-oriented self-drive offering positioned within the wider Eurogulf Mobility Group portfolio.",
     href: "/goldcar",
   },
   {
@@ -78,7 +78,7 @@ export default function BusinessesPage() {
       <section className="bg-[#0a0a0a] py-12 border-b border-white/5">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="font-body text-[#999] leading-relaxed">
-            EGMG's brand portfolio reflects the breadth of mobility and automotive support it offers across the UAE. Each brand plays a distinct role within the group, helping customers and partners access the right service, vehicle, or mobility model for their needs.
+            Eurogulf Mobility Group's brand portfolio reflects the breadth of mobility and automotive support it offers across the UAE. Each brand plays a distinct role within the group, helping customers and partners access the right service, vehicle, or mobility model for their needs.
           </p>
         </div>
       </section>

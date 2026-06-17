@@ -60,7 +60,7 @@ export default function EuropcarPage() {
   const [intlRef, intlVisible] = useScrollAnimation();
   const [locationsRef, locationsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Europcar Dubai | Premium Car Rental, Monthly Rental & Long-Term Leasing UAE | 1,200+ Vehicles"; }, []);
+  useEffect(() => { document.title = "Europcar Dubai | Premium Car Rental & Operational Leasing UAE"; }, []);
 
   return (
     <div data-testid="europcar-page">
@@ -115,7 +115,7 @@ export default function EuropcarPage() {
               Europcar is one of the world's most established mobility brands, with origins dating back to Paris in 1949 and decades of international expansion across Europe and beyond. Over time, the brand developed through subsidiaries, franchise growth, international network expansion, and evolving reservation capabilities, helping establish Europcar as a recognised global name in car rental and mobility services.
             </p>
             <p>
-              In the UAE, Europcar serves customers across Dubai and the Northern Emirates through short-term rental, monthly mobility solutions, and long-term leasing support, with the brand positioned as a premium, service-led mobility offering within the wider EGMG ecosystem.
+              In the UAE, Europcar serves customers across Dubai and the Northern Emirates through short-term rental, monthly mobility solutions, and long-term leasing support, with the brand positioned as a premium, service-led mobility offering within the wider Eurogulf Mobility Group ecosystem.
             </p>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function EuropcarPage() {
             <div>
               <LeasingLeadForm API={API} />
 
-              {/* Why EGMG Leasing */}
+              {/* Why Eurogulf Mobility Group Leasing */}
               <div className="mt-6 space-y-3">
                 {["Leasing expertise since 1976", "ISO 9001:2015 certified operations", "Dedicated fleet management team", "3 A-grade in-house workshops", "24/7 roadside assistance and recovery", "500+ loyal corporate clients"].map((item) => (
                   <div key={item} className="flex items-center gap-2">

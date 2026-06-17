@@ -91,7 +91,7 @@ export default function UsedCarsPage() {
             Pre-Owned Vehicles You Can Trust. Backed by 50 Years of Fleet Expertise.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Every vehicle sold by Eurogulf Used Cars has been maintained to the highest fleet standards by EGMG's A-grade workshops. Low mileage. Full history. Transparent pricing.
+            Every vehicle sold by Eurogulf Used Cars has been maintained to the highest fleet standards by Eurogulf Mobility Group's A-grade workshops. Low mileage. Full history. Transparent pricing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/contact" className="btn-primary">View Vehicles for Sale</Link>
