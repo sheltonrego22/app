@@ -47,7 +47,7 @@ export default function PartnerWithUsPage() {
   const [form, setForm] = useState({ name: '', company: '', phone: '', email: '', type: '', message: '' });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  useEffect(() => { document.title = "Partner With Us — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Partner With Us | Eurogulf Mobility Group"; }, []);
 
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email) return;
@@ -55,7 +55,7 @@ export default function PartnerWithUsPage() {
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
-        company: form.company, enquiry_type: `Partnership — ${form.type || 'General'}`,
+        company: form.company, enquiry_type: `Partnership: ${form.type || 'General'}`,
         message: form.message,
       });
     } catch (err) {
@@ -73,7 +73,7 @@ export default function PartnerWithUsPage() {
         <div className="absolute top-20 left-20 w-96 h-96 bg-[#EE5A01]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={EGMG_LOGO} alt="EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" />
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Partner With Us
           </h1>

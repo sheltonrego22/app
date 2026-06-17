@@ -47,7 +47,7 @@ export default function ContactPageAr() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={EGMG_LOGO} alt="EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" />
+          <img src={EGMG_LOGO} alt="يوروجلف موبيليتي" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl text-[#EEEDE7] mb-4">{t.contact.title}</h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto">{t.contact.heroSub}</p>
         </div>

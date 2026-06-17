@@ -17,7 +17,7 @@ const departments = ["All", ...new Set(jobListings.map(j => j.dept))];
 const benefits = [
   { icon: TrendingUp, title: "Growth & Development", desc: "Structured career paths, training programs, and cross-functional exposure across 6 business divisions." },
   { icon: Users, title: "Team of 1,200+", desc: "Join a diverse, professional team that has been moving the UAE forward since 1976." },
-  { icon: Heart, title: "People-First Culture", desc: "Built on our F.A.I.R. values — Fearless, Accountable, Innovative, Respectful." },
+  { icon: Heart, title: "People-First Culture", desc: "Built on our F.A.I.R. values: Fearless, Accountable, Innovative, Respectful." },
   { icon: Shield, title: "Stability & Heritage", desc: "Nearly 50 years of operational excellence and a fleet of 12,000+ vehicles across the UAE." },
 ];
 
@@ -27,7 +27,7 @@ export default function CareersPage() {
   const [benefitsRef, benefitsVisible] = useScrollAnimation();
   const [listingsRef, listingsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Careers — Join Our Team | Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Careers | Join Our Team | Eurogulf Mobility"; }, []);
 
   const filtered = activeDept === "All" ? jobListings : jobListings.filter(j => j.dept === activeDept);
 

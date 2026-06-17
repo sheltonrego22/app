@@ -6,7 +6,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 const BOOKING_URL = "https://www.europcar.com/en-db";
 
 const benefits = [
-  "Young fleet — average age 1.5 years",
+  "Young fleet with average age of 1.5 years",
   "Airport pickup at DXB T1, T2, T3, DWC, and Sharjah",
   "14 locations across Dubai and Northern Emirates",
   "CDW insurance and 24/7 roadside assistance included",
@@ -35,7 +35,7 @@ export default function SEOCarRentalDubai() {
             Car Rental Dubai
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8">
-            Rent a car in Dubai from Europcar — premium vehicles, flexible terms, and seamless airport pickup across all Dubai terminals. Daily, weekly, and monthly rentals available from one of the UAE's most trusted mobility providers.
+            Rent a car in Dubai from Europcar with premium vehicles, flexible terms, and seamless airport pickup across all Dubai terminals. Daily, weekly, and monthly rentals available from one of the UAE's most trusted mobility providers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="bg-[#2d8c3c] text-white font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:opacity-90 transition-opacity text-center">Book Your Rental Now</a>

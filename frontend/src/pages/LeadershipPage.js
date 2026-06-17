@@ -11,12 +11,12 @@ const owners = [
 
 const leaders = [
   { name: "Essa Sharaf", role: "Group Director", initials: "ES", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-8.png.webp", desc: "Essa is responsible for steering group-wide initiatives and supporting cross-functional leadership. He works closely with all teams to ensure strategic objectives are executed with discipline and purpose." },
-  { name: "Marius Anton", role: "GM – Sales and Operations", initials: "MA", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Marius-e1769774473388.png.webp", desc: "Marius leads the commercial operations of EGMG with a focus on revenue growth, market expansion, and customer-centric innovation. He plays a key role in integrating emerging technologies and optimizing business performance." },
+  { name: "Marius Anton", role: "GM, Sales and Operations", initials: "MA", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Marius-e1769774473388.png.webp", desc: "Marius leads the commercial operations of Eurogulf Mobility Group with a focus on revenue growth, market expansion, and customer-centric innovation. He plays a key role in integrating emerging technologies and optimizing business performance." },
   { name: "Rajesh Kuttinath", role: "Group Finance Controller", initials: "RK", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr-Rajesh-e1769672050584.png.webp", desc: "Rajesh manages the financial health of the organization, overseeing reporting, compliance, and financial strategy. His role supports sound decision-making across all business units." },
   { name: "Jonathan Lavender", role: "Director of People, Process and Technology", initials: "JL", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Jonathan-Lavender-e1769671995601.png.webp", desc: "Jonathan oversees the integration of people strategy, operational processes, and technology solutions to drive organizational efficiency and digital transformation across the group." },
-  { name: "Mohamad Ali Al Maazmi", role: "Director – Commercial & Government Affairs", initials: "MM", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Mohamad-Ali-Al-Maazmi-e1769759322881.png.webp", desc: "Mohamad manages commercial partnerships and government relations, ensuring EGMG maintains strong institutional relationships and regulatory compliance across all Emirates." },
-  { name: "Omar Al Osaimi", role: "Director – Government & Employee Relations", initials: "OA", img: "https://egmg.ae/wp-content/uploads/2026/02/Omar-Al-Osaimi-e1771246920822.webp", desc: "Omar leads government liaison and employee relations initiatives, fostering productive relationships with regulatory bodies and ensuring a positive workplace environment." },
-  { name: "Mari Parian", role: "Director – People and Culture", initials: "MP", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Ms.-Mari-e1769774792891.png.webp", desc: "Mari drives the people agenda at EGMG, fostering a culture of inclusion, performance, and continuous learning. Her work ensures that talent development aligns with business objectives." },
+  { name: "Mohamad Ali Al Maazmi", role: "Director, Commercial & Government Affairs", initials: "MM", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Mr.-Mohamad-Ali-Al-Maazmi-e1769759322881.png.webp", desc: "Mohamad manages commercial partnerships and government relations, ensuring Eurogulf Mobility Group maintains strong institutional relationships and regulatory compliance across all Emirates." },
+  { name: "Omar Al Osaimi", role: "Director, Government & Employee Relations", initials: "OA", img: "https://egmg.ae/wp-content/uploads/2026/02/Omar-Al-Osaimi-e1771246920822.webp", desc: "Omar leads government liaison and employee relations initiatives, fostering productive relationships with regulatory bodies and ensuring a positive workplace environment." },
+  { name: "Mari Parian", role: "Director, People and Culture", initials: "MP", img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2026/01/Ms.-Mari-e1769774792891.png.webp", desc: "Mari drives the people agenda at Eurogulf Mobility Group, fostering a culture of inclusion, performance, and continuous learning. Her work ensures that talent development aligns with business objectives." },
 ];
 
 function LeaderCard({ leader, index, isOwner }) {
@@ -66,14 +66,14 @@ function LeaderCard({ leader, index, isOwner }) {
 export default function LeadershipPage() {
   const [heroRef, heroVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Leadership — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Leadership | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="leadership-page">
       {/* ═══ HERO ═══ */}
       <section data-testid="leadership-hero" className="relative min-h-[60vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="EGMG Leadership" className="w-full h-full object-cover" />
+          <img src={HERO_IMG} alt="Eurogulf Mobility Group Leadership" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-16 pt-32">

@@ -8,7 +8,7 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const personalFeatures = [
   { title: "All-Inclusive Monthly Rate", desc: "Insurance, maintenance, replacement vehicle, and 24/7 roadside assistance included in one predictable payment." },
-  { title: "Flexible 12–48 Month Terms", desc: "Choose the duration that suits your lifestyle. No penalties for extending your lease." },
+  { title: "Flexible 12 to 48 Month Terms", desc: "Choose the duration that suits your lifestyle. No penalties for extending your lease." },
   { title: "New Models Every Year", desc: "Drive the latest 2025/2026 models from Toyota, Nissan, Hyundai, Kia, Audi and BMW." },
   { title: "Zero Down Payment Options", desc: "Get on the road with no upfront cost. First month plus security deposit only." },
   { title: "Free Delivery & Collection", desc: "Complimentary vehicle delivery and collection across Dubai and Sharjah." },
@@ -41,7 +41,7 @@ export default function LeasingPage() {
   const [term, setTerm] = useState("36");
   const [vehicleClass, setVehicleClass] = useState("premium");
 
-  useEffect(() => { document.title = "Corporate & Personal Car Leasing — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Corporate & Personal Car Leasing | Eurogulf Mobility"; }, []);
 
   const vehicle = vehicleClasses.find((v) => v.value === vehicleClass);
   const termMonths = parseInt(term);
@@ -87,7 +87,7 @@ export default function LeasingPage() {
             Operational Leasing. Engineered for the UAE.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Move from capex to opex, free your balance sheet, and outsource the day-to-day of running a fleet — registration, insurance, servicing, repairs, telematics and replacement vehicles. Trusted by 280+ UAE corporates since 1976.
+            Move from capex to opex, free your balance sheet, and outsource the day-to-day of running a fleet: registration, insurance, servicing, repairs, telematics and replacement vehicles. Trusted by 280+ UAE corporates since 1976.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Link to="/contact" className="btn-primary">Request a Quote</Link>
@@ -105,7 +105,7 @@ export default function LeasingPage() {
               Your Car, Your Terms. No Commitment Stress.
             </h2>
             <p className="font-body text-[#666] max-w-xl mx-auto">
-              Skip the hassle of ownership. Get a brand-new vehicle delivered to your door — maintenance, insurance, and roadside assistance all included in one predictable monthly payment.
+              Skip the hassle of ownership. Get a brand-new vehicle delivered to your door with maintenance, insurance, and roadside assistance all included in one predictable monthly payment.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -171,8 +171,8 @@ export default function LeasingPage() {
         <div ref={calcRef} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-14 ${calcVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Corporate ROI Calculator</h2>
-            <p className="font-body text-[#666] max-w-lg mx-auto">See how much your fleet saves with leasing. Side-by-side comparison vs buying outright.</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Fleet Savings Calculator</h2>
+            <p className="font-body text-[#666] max-w-lg mx-auto">See how much your fleet saves with operational leasing. Adjust fleet size and term to compare against buying outright.</p>
           </div>
 
           <div className="bg-[#111] border border-white/5 p-6 sm:p-8">
@@ -224,7 +224,8 @@ export default function LeasingPage() {
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/contact" className="btn-primary inline-block">Get a Custom Quote for Your Fleet</Link>
+            <Link to="/contact" data-testid="fleet-calculator-cta" className="btn-primary inline-block">Customize Your Lease</Link>
+            <p className="font-body text-xs text-[#666] mt-3">Speak to our fleet specialists for a tailored savings proposal.</p>
           </div>
         </div>
       </section>
@@ -233,7 +234,7 @@ export default function LeasingPage() {
       <section className="bg-[#EE5A01] py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">Ready to Start Leasing?</h2>
-          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">Whether it is a single car or a fleet of 500 — we deliver mobility solutions that move your business forward.</p>
+          <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">Whether it is a single car or a fleet of 500, we deliver mobility solutions that move your business forward.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors text-center">Talk to Sales</Link>
             <a href="https://wa.me/97145063030" target="_blank" rel="noopener noreferrer" className="bg-transparent text-black font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">WhatsApp Us</a>

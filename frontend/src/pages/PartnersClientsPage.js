@@ -73,7 +73,7 @@ export default function PartnersClientsPage() {
             Our Partners & Clients
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            For nearly 50 years, Eurogulf Mobility Group has been the mobility partner of choice for the UAE's most respected organisations — from airlines and luxury hotels to government entities and global corporations.
+            For nearly 50 years, Eurogulf Mobility Group has been the mobility partner of choice for the UAE's most respected organisations, from airlines and luxury hotels to government entities and global corporations.
           </p>
         </div>
       </section>

@@ -5,7 +5,7 @@ import { Download, FileText, BookOpen, CreditCard } from 'lucide-react';
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const downloads = [
-  { icon: BookOpen, title: "EGMG Corporate Brochure", desc: "Overview of Eurogulf Mobility Group, our brands, and service capabilities.", format: "PDF", size: "4.2 MB" },
+  { icon: BookOpen, title: "Eurogulf Mobility Group Corporate Brochure", desc: "Overview of Eurogulf Mobility Group, our brands, and service capabilities.", format: "PDF", size: "4.2 MB" },
   { icon: FileText, title: "Europcar Fleet Guide", desc: "Complete vehicle range across short-term, monthly, and leasing categories.", format: "PDF", size: "2.8 MB", href: "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf" },
   { icon: CreditCard, title: "Europcar Rate Card", desc: "Current rental rates for daily, weekly, and monthly hire across the UAE.", format: "PDF", size: "1.1 MB" },
   { icon: FileText, title: "Truckline Commercial Fleet Guide", desc: "Commercial vehicle categories, leasing terms, and fleet support overview.", format: "PDF", size: "1.8 MB" },
@@ -14,7 +14,7 @@ const downloads = [
 ];
 
 export default function DownloadsPage() {
-  useEffect(() => { document.title = "Download Center — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Download Center | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="downloads-page">

@@ -5,7 +5,7 @@ import { Lock, ArrowRight, Building2, Truck } from 'lucide-react';
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 export default function PortalPage() {
-  useEffect(() => { document.title = "Client & Partner Portals — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Client & Partner Portals | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="portal-page">
@@ -14,7 +14,7 @@ export default function PortalPage() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 pt-28 pb-12 text-center">
-          <img src={EGMG_LOGO} alt="EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" />
+          <img src={EGMG_LOGO} alt="Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" />
           <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Client & Partner Portals
           </h1>

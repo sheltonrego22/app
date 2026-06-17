@@ -13,9 +13,9 @@ const stats = [
 ];
 
 const services = [
-  { icon: Truck, title: "Vehicle Leasing", desc: "Full operational lease of 1,500+ vehicles — sedans, SUVs, pickup trucks, and utility vehicles — registered, insured, and maintained by Eurogulf Mobility Group." },
+  { icon: Truck, title: "Vehicle Leasing", desc: "Full operational lease of 1,500+ vehicles including sedans, SUVs, pickup trucks, and utility vehicles, all registered, insured, and maintained by Eurogulf Mobility Group." },
   { icon: BarChart3, title: "Fleet Management System", desc: "Web-based fleet operations software with real-time GPS tracking, live allocation, utilisation reporting, and predictive maintenance scheduling." },
-  { icon: Shield, title: "RFID Card System Integration", desc: "RFID-enabled access control, vehicle pooling and car sharing system — all managed through a centralised platform." },
+  { icon: Shield, title: "RFID Card System Integration", desc: "RFID-enabled access control, vehicle pooling and car sharing system, all managed through a centralised platform." },
   { icon: Wrench, title: "Full Maintenance & Mechanical Support", desc: "Comprehensive servicing through Eurogulf Mobility Group workshops. SLA-backed turnaround with dedicated mechanics assigned to the municipality account." },
   { icon: Clock, title: "Replacement Vehicles & Roadside Assistance", desc: "Guaranteed replacement vehicles. 24/7 roadside assistance, recovery, and accident management with a single point of contact." },
   { icon: Users, title: "Car Washing & Vehicle Sterilisation", desc: "Regular car washing services and comprehensive vehicle sterilisation service for the entire managed fleet." },
@@ -25,7 +25,7 @@ export default function DubaiMunicipalityPage() {
   const [servRef, servVisible] = useScrollAnimation();
   const [impactRef, impactVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Dubai Municipality Partnership — Eurogulf Mobility Group | Fleet Management"; }, []);
+  useEffect(() => { document.title = "Dubai Municipality Partnership | Eurogulf Mobility Group | Fleet Management"; }, []);
 
   return (
     <div data-testid="dubai-municipality-page">
@@ -41,7 +41,7 @@ export default function DubaiMunicipalityPage() {
             Dubai Municipality
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Full fleet management for one of the UAE's most important government entities. Over 1,500 vehicles leased, maintained, tracked, and managed by Eurogulf Mobility Group — supporting the operations that keep Dubai running.
+            Full fleet management for one of the UAE's most important government entities. Over 1,500 vehicles leased, maintained, tracked, and managed by Eurogulf Mobility Group, supporting the operations that keep Dubai running.
           </p>
           <Link to="/contact" className="btn-primary animate-fade-in inline-block" style={{ animationDelay: '0.4s' }}>Explore Corporate Fleet Solutions</Link>
         </div>
@@ -65,7 +65,7 @@ export default function DubaiMunicipalityPage() {
           <div className={`text-center mb-16 ${servVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">What We Deliver</h2>
-            <p className="font-body text-[#666] max-w-xl mx-auto">A fully managed fleet ecosystem — from vehicle acquisition to disposal — operating at government-grade reliability standards.</p>
+            <p className="font-body text-[#666] max-w-xl mx-auto">A fully managed fleet ecosystem, from vehicle acquisition to disposal, operating at government-grade reliability standards.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s, i) => (
@@ -89,9 +89,9 @@ export default function DubaiMunicipalityPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               { title: "Operational Continuity", desc: "Dubai Municipality's field teams depend on reliable transport every day. Our 98.5% uptime guarantee ensures they're never off the road." },
-              { title: "Cost Efficiency", desc: "By transitioning from ownership to operational leasing, the municipality reduced fleet TCO by an estimated 20% — freeing capital for core civic projects." },
+              { title: "Cost Efficiency", desc: "By transitioning from ownership to operational leasing, the municipality reduced fleet TCO by an estimated 20%, freeing capital for core civic projects." },
               { title: "Environmental Compliance", desc: "Our fleet meets the latest UAE emissions standards and includes hybrid and electric vehicles aligned with Dubai's Clean Energy Strategy 2050." },
-              { title: "Scalability", desc: "The partnership has grown from an initial fleet of 200 vehicles to over 1,500 — demonstrating the model's scalability and Eurogulf Mobility Group's delivery capability." },
+              { title: "Scalability", desc: "The partnership has grown from an initial fleet of 200 vehicles to over 1,500, demonstrating the model's scalability and Eurogulf Mobility Group's delivery capability." },
             ].map((item, i) => (
               <div key={item.title} className={`bg-white border border-black/5 p-6 flex gap-4 ${impactVisible ? 'scroll-visible' : 'scroll-hidden'} stagger-${i + 1}`}>
                 <Check className="w-6 h-6 text-[#EE5A01] flex-shrink-0 mt-1" />

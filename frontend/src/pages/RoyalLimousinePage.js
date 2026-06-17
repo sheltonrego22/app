@@ -31,7 +31,7 @@ export default function RoyalLimousinePage() {
   const [servicesRef, servicesVisible] = useScrollAnimation();
   const [fleetRef, fleetVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Royal Limousine — Premium Chauffeur Service | Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Royal Limousine | Premium Chauffeur Service | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="royal-limousine-page">
@@ -43,7 +43,7 @@ export default function RoyalLimousinePage() {
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={LOGO_URL} alt="Royal Limousine by EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <img src={LOGO_URL} alt="Royal Limousine by Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Royal Treatment on the Move
           </h1>

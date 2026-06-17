@@ -39,7 +39,7 @@ export default function TrucklinePage() {
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <span className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-4 block animate-fade-in">Truckline · Powered by Eurogulf Mobility</span>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Truckline Transport — Commercial Vehicle Leasing and Fleet Management Solutions
+            Truckline Transport: Commercial Vehicle Leasing and Fleet Management Solutions
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Commercial mobility solutions built around operational need, business efficiency, and long-term fleet practicality.

@@ -23,7 +23,7 @@ const highlights = [
 ];
 
 const rentalComparison = [
-  { feature: "Duration", daily: "1–6 days", weekly: "7–21 days", monthly: "22–30 days+" },
+  { feature: "Duration", daily: "1 to 6 days", weekly: "7 to 21 days", monthly: "22 to 30 days+" },
   { feature: "Insurance", daily: "CDW Included", weekly: "CDW Included", monthly: "CDW Included" },
   { feature: "Mileage", daily: "Unlimited UAE", weekly: "Unlimited UAE", monthly: "3,000 km/month" },
   { feature: "Delivery", daily: "AED 52.50/trip", weekly: "AED 52.50/trip", monthly: "FREE" },
@@ -42,9 +42,9 @@ const leasingComparison = [
 ];
 
 const airportLocations = [
-  "Dubai International Airport — Terminal 1",
-  "Dubai International Airport — Terminal 2",
-  "Dubai International Airport — Terminal 3",
+  "Dubai International Airport, Terminal 1",
+  "Dubai International Airport, Terminal 2",
+  "Dubai International Airport, Terminal 3",
   "Al Maktoum International Airport (DWC)",
   "Sharjah International Airport",
 ];
@@ -74,7 +74,7 @@ export default function EuropcarPage() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
           <img src={LOGO_URL} alt="Europcar" className="h-10 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Europcar — Premium Car Rental and Long Term Leasing Services
+            Europcar: Premium Car Rental and Long Term Leasing Services
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Europcar is one of the world's most established mobility brands, with origins dating back to Paris in 1949. In the UAE, Europcar serves customers across Dubai and the Northern Emirates through short-term rental, monthly mobility solutions, and long-term leasing support.
@@ -134,7 +134,7 @@ export default function EuropcarPage() {
                 Daily and weekly rentals across Dubai and the Northern Emirates, supported by airport service points, downtown branches, and delivery options within the operating area. Designed for flexibility and convenience, this solution gives residents, visitors, and business users access to a young, well-maintained fleet and a dependable premium rental experience.
               </p>
               <p className="font-body text-sm text-[#666] mb-6">
-                Delivery available within 3–4 hours to your home, hotel, or office within Dubai, Sharjah, and Ajman for AED 52.50 — or collect from any of our 14 branch locations.
+                Delivery available within 3 to 4 hours to your home, hotel, or office within Dubai, Sharjah, and Ajman for AED 52.50, or collect from any of our 14 branch locations.
               </p>
 
               {/* Comparison Table */}
@@ -242,7 +242,7 @@ export default function EuropcarPage() {
                 One Account. 143 Countries. A Car Wherever You Land.
               </h2>
               <p className="font-body text-[#999] leading-relaxed mb-6">
-                As the exclusive UAE operator of the Europcar franchise, Europcar Dubai connects UAE residents and businesses to the world's most comprehensive international car rental network. Whether you're travelling to Paris, New York, Sydney, or Cape Town — your Europcar account ensures a quality vehicle is available at your destination.
+                As the exclusive UAE operator of the Europcar franchise, Europcar Dubai connects UAE residents and businesses to the world's most comprehensive international car rental network. Whether you're travelling to Paris, New York, Sydney, or Cape Town, your Europcar account ensures a quality vehicle is available at your destination.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[

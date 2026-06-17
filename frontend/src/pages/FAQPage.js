@@ -78,7 +78,7 @@ function FAQItem({ q, a }) {
 export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => { document.title = "FAQ & Help Center — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "FAQ & Help Center | Eurogulf Mobility Group"; }, []);
 
   const filteredCategories = faqCategories.map(cat => ({
     ...cat,

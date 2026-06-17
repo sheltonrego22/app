@@ -61,7 +61,7 @@ export default function AutocarePage() {
               Eurogulf Auto Garage has been the silent engine behind Eurogulf Mobility Group's operational excellence for over three decades. As the in-house workshop infrastructure supporting one of the UAE's largest vehicle fleets, our service centres are built and operated to standards that most retail garages simply cannot match.
             </p>
             <p>
-              All three Eurogulf Auto Garage facilities hold A-grade status on the panels of the UAE's most reputed insurance companies — a recognition of our technical standards, safety practices, and quality of output. Now, these same world-class services are available to external clients and fleet operators seeking uncompromising maintenance quality.
+              All three Eurogulf Auto Garage facilities hold A-grade status on the panels of the UAE's most reputed insurance companies, a recognition of our technical standards, safety practices, and quality of output. Now, these same world-class services are available to external clients and fleet operators seeking uncompromising maintenance quality.
             </p>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function AutocarePage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mb-4">Book Your Vehicle Service</h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            Whether you need routine maintenance or comprehensive repairs — Eurogulf Auto Garage delivers A-grade workshop quality.
+            Whether you need routine maintenance or comprehensive repairs, Eurogulf Auto Garage delivers A-grade workshop quality.
           </p>
           <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111] transition-colors inline-block">
             Contact Us

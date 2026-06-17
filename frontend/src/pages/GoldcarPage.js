@@ -10,7 +10,7 @@ const BOOKING_URL = "https://www.goldcar.com/en-gb/car-rental/locations/dubai/";
 const strengths = [
   { icon: Shield, title: "High Standards of Quality", desc: "With over 35 years of industry experience, Goldcar delivers reliable service backed by proven operational excellence and the standards of the Europcar Mobility Group." },
   { icon: Clock, title: "24-Hour Customer Service", desc: "Round-the-clock roadside assistance ensures you are never left stranded. Our support team is just one call away, day or night." },
-  { icon: Star, title: "5-Star Vehicle Fleet", desc: "A wide selection of well-maintained standard and compact vehicles — young fleet, backed by a globally recognised, ISO-certified operator." },
+  { icon: Star, title: "5-Star Vehicle Fleet", desc: "A wide selection of well-maintained standard and compact vehicles with a young fleet, backed by a globally recognised, ISO-certified operator." },
 ];
 
 const whatMakesDifferent = [
@@ -18,7 +18,7 @@ const whatMakesDifferent = [
   "Access to the full Europcar Dubai branch and airport network",
   "Young, well-maintained fleet of standard and compact vehicles",
   "The backing of a globally recognised, ISO-certified operator",
-  "Simple, fast booking — online, by phone, or at the airport",
+  "Simple, fast booking: online, by phone, or at the airport",
 ];
 
 export default function GoldcarPage() {
@@ -63,7 +63,7 @@ export default function GoldcarPage() {
                 Goldcar is the largest low-cost car rental brand in Europe, with over 35 years of experience in delivering smart, fair, and value-for-money travel experiences to millions of customers across the continent. The brand manages a fleet of more than 60,000 vehicles through a network of 100 offices spanning Spain, Portugal, Italy, France, Greece, Croatia, Turkey, Malta, and beyond.
               </p>
               <p>
-                Goldcar is a brand of the Europcar Mobility Group — the same global organisation that brings Europcar's premium standards to over 143 countries. As part of this ecosystem, Goldcar customers benefit from the group's operational infrastructure, safety standards, and customer service capabilities, while enjoying the most competitive rental rates in the market.
+                Goldcar is a brand of the Europcar Mobility Group, the same global organisation that brings Europcar's premium standards to over 143 countries. As part of this ecosystem, Goldcar customers benefit from the group's operational infrastructure, safety standards, and customer service capabilities, while enjoying the most competitive rental rates in the market.
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
@@ -114,7 +114,7 @@ export default function GoldcarPage() {
                 What Makes Goldcar Different
               </h2>
               <p className="font-body text-[#999] leading-relaxed mb-6">
-                In the UAE, Goldcar services are offered through all Europcar Dubai outlets across Dubai and the Northern Emirates, with an exclusive dedicated counter at Sharjah International Airport — making Goldcar the smart choice for budget-conscious travellers arriving through one of the region's fastest-growing aviation hubs.
+                In the UAE, Goldcar services are offered through all Europcar Dubai outlets across Dubai and the Northern Emirates, with an exclusive dedicated counter at Sharjah International Airport, making Goldcar the smart choice for budget-conscious travellers arriving through one of the region's fastest-growing aviation hubs.
               </p>
               <ul className="space-y-3 mb-8">
                 {whatMakesDifferent.map((b) => (
@@ -131,7 +131,7 @@ export default function GoldcarPage() {
                   <MapPin className="w-4 h-4 text-[#EE5A01]" />
                   <span className="font-heading font-bold text-sm text-[#EEEDE7]">Exclusive Location</span>
                 </div>
-                <p className="font-body text-sm text-[#999]">Sharjah International Airport counter — dedicated Goldcar service for all Sharjah arrivals.</p>
+                <p className="font-body text-sm text-[#999]">Sharjah International Airport counter with dedicated Goldcar service for all Sharjah arrivals.</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary inline-block text-center">

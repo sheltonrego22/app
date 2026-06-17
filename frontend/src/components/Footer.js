@@ -28,12 +28,12 @@ export default function Footer() {
           <div>
             <img
               src={LOGO_URL}
-              alt="EGMG"
+              alt="Eurogulf Mobility Group"
               className="h-10 w-auto mb-6"
               style={{ objectFit: 'contain' }}
             />
             <p className="font-body text-sm text-[#666666] leading-relaxed mb-4">
-              Eurogulf Mobility Group — UAE's most trusted mobility conglomerate since 1976. 
+              Eurogulf Mobility Group, the UAE's most trusted mobility conglomerate since 1976. 
               From premium chauffeur services to comprehensive fleet solutions.
             </p>
             <p className="font-heading font-bold text-[#EE5A01] text-lg tracking-[0.05em]">

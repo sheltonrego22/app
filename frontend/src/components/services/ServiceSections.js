@@ -233,7 +233,7 @@ export function UsedCarsSection() {
             <div>
               <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Eurogulf Used Cars</span>
               <h2 className="font-heading font-black text-3xl sm:text-4xl text-black uppercase tracking-tight mt-3 mb-4">Quality Certified. Priced Right.</h2>
-              <p className="font-body text-[#666666] leading-relaxed mb-6">Certified pre-owned vehicles from the Eurogulf Mobility Group fleet — maintained to A-Grade workshop standards.</p>
+              <p className="font-body text-[#666666] leading-relaxed mb-6">Certified pre-owned vehicles from the Eurogulf Mobility Group fleet, maintained to A-Grade workshop standards.</p>
               <ul className="space-y-3 mb-8">
                 {["Multi-point inspection", "Full service history", "Competitive pricing", "Warranty available"].map((f) => (
                   <li key={f} className="flex items-center gap-3">

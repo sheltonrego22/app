@@ -55,7 +55,7 @@ const divisions = [
 export default function BusinessesPage() {
   const [gridRef, gridVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Our Brands — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Our Brands | Eurogulf Mobility Group"; }, []);
 
   return (
     <div data-testid="businesses-page">

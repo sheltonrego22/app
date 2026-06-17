@@ -41,7 +41,7 @@ function EnquiryModal() {
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
-        company: form.company, enquiry_type: `Chauffeur / Managed Transport — ${form.type || 'General'}`, message: form.message,
+        company: form.company, enquiry_type: `Chauffeur / Managed Transport: ${form.type || 'General'}`, message: form.message,
       });
     } catch (err) {
       if (process.env.NODE_ENV === 'development') console.error('Transport:', err);

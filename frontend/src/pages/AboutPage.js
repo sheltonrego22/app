@@ -8,15 +8,15 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
 
 const milestones = [
-  { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of Eurogulf Mobility Group — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
+  { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of Eurogulf Mobility Group, established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
   { year: "1978", title: "Europcar UAE Launched", desc: "Eurogulf Mobility Group becomes the official Europcar operator, introducing international-standard car rental services to Dubai and the region for the first time." },
-  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Eurogulf Mobility Group expands into professional chauffeur services, launching Emirates Taxi and Royal Limousine — establishing what would become the group's managed transportation division." },
+  { year: "1990", title: "Emirates Taxi & Royal Limousine", desc: "Eurogulf Mobility Group expands into professional chauffeur services, launching Emirates Taxi and Royal Limousine, establishing what would become the group's managed transportation division." },
   { year: "1994", title: "Eurogulf Garage & Used Cars", desc: "The group builds its automotive aftercare capabilities with the launch of Eurogulf Garage and Eurogulf Used Cars Trading, creating a closed-loop ecosystem for fleet management." },
   { year: "1998", title: "Royal Limousine Luxury Coaches", desc: "The expansion of passenger transportation into premium coaches, enabling the group to serve airlines, cruise operators, DMCs, and event organisers at scale." },
-  { year: "2013", title: "Eurogulf Limo — Abu Dhabi", desc: "Eurogulf Mobility Group extends its chauffeur operations to Abu Dhabi, becoming one of the very few transport operators licensed to provide professional chauffeur services across all seven Emirates of the UAE." },
-  { year: "2018", title: "Eurogulf Luxury Coaches — Abu Dhabi", desc: "Coach and bus operations expanded into the capital, reinforcing the group's unmatched all-Emirates transportation footprint." },
+  { year: "2013", title: "Eurogulf Limo: Abu Dhabi", desc: "Eurogulf Mobility Group extends its chauffeur operations to Abu Dhabi, becoming one of the very few transport operators licensed to provide professional chauffeur services across all seven Emirates of the UAE." },
+  { year: "2018", title: "Eurogulf Luxury Coaches: Abu Dhabi", desc: "Coach and bus operations expanded into the capital, reinforcing the group's unmatched all-Emirates transportation footprint." },
   { year: "2021", title: "Truckline Transport Launched", desc: "Eurogulf Mobility Group enters the commercial vehicle leasing and logistics segment with the launch of Truckline Transport, offering vans, trucks, and chiller units to UAE businesses." },
-  { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group (EGMG) brand — reflecting the scope, scale, and ambition of the organisation." },
+  { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group brand, reflecting the scope, scale, and ambition of the organisation." },
 ];
 
 const GOLDCAR_LOGO = "/goldcar-logo.png";
@@ -34,8 +34,8 @@ const AWARD_IMAGES = [
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png.webp", title: "ISO 9001:2015", desc: "Quality Management Systems" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png.webp", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png.webp", title: "Emirates Group Award", desc: "Flight Crew Transportation Support Recognition" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "Car Rental Global Award", desc: "Best Performance 2023 — Middle East & Africa Region" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver, Gold & Platinum (2004–2012)" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "Car Rental Global Award", desc: "Best Performance 2023, Middle East & Africa Region" },
+  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver, Gold & Platinum (2004 to 2012)" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png.webp", title: "ISO 10002:2014", desc: "Customer Satisfaction Management" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png.webp", title: "McDermott Award", desc: "Safest Transportation Service Provider" },
 ];
@@ -80,7 +80,7 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-24">
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            A Connected Mobility Ecosystem
+            A Legacy of Movement
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Eurogulf Mobility Group brings together multiple transport and mobility capabilities under one operating platform, helping individuals and businesses access practical, reliable, and professionally managed solutions across the UAE.

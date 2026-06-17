@@ -1,0 +1,69 @@
+{
+  "summary": "Frontend QA pass for 'Model Build' upgrade (12 review-request checkpoints). Tested at desktop 1920x1080 and mobile 375x800. 10/12 checkpoints PASS. 2 minor copy/asset issues found: (a) en-dashes still present inside the /contact 'Preferred Contact Time' dropdown options, (b) 3 partner logo images (ADNOC, DP World, Dubai Holding) fail to load because logo.clearbit.com is unreachable from the preview env (ERR_NAME_NOT_RESOLVED), so they render as text-only fallbacks. All new interactive features (hero booking widget, Live Trust Signal, Fleet Savings Calculator, Mobile Contact Bar) function correctly.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ContactPage preferred-contact-time dropdown",
+        "issue": "Dropdown options 'Morning (9am–12pm)', 'Afternoon (12pm–4pm)', 'Evening (4pm–7pm)' contain en-dashes (–) in visible body text. Spec requires zero hyphens/en/em-dashes in copy. Replace with standard hyphen-minus '-' or word 'to' (e.g., '9am to 12pm').",
+        "selector": "ContactPage.js line 205 — Select options array",
+        "priority": "LOW"
+      },
+      {
+        "component": "HomePage YouTube iframe title attribute",
+        "issue": "Line 397 iframe title=\"It's not just a fleet — It's the scale and innovation of Eurogulf Mobility Group\" contains an em-dash. Not user-visible body text but exposed to screen-readers/SEO crawlers. Replace with '.' or ':'.",
+        "selector": "HomePage.js line 397 iframe[data-testid='youtube-embed-2'] title attr",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Homepage 'Trusted by the UAE's Most Recognised Names' partner logo strip",
+        "issue": "3 of 7 partner logo images (ADNOC, DP World, Dubai Holding) all sourced from https://logo.clearbit.com/* return net::ERR_NAME_NOT_RESOLVED in this preview environment. The onError fallback inline span (line 253) displays the brand name as text, plus the bottom label (line 255) shows the name, so the 7 named partners DO appear textually, but visually the spec calls for actual logos. Recommend self-hosting these 3 logos (download once, place under /public, swap URL) — same approach used for Europcar (/europcar-logo.png) — to remove the third-party DNS dependency and ensure the logos always render.",
+        "affected_selectors": [
+          "[data-testid='partner-logo-adnoc'] img",
+          "[data-testid='partner-logo-dp-world'] img",
+          "[data-testid='partner-logo-dubai-holding'] img"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "verified_working": [
+    "Homepage hero dual-action widget: [data-testid='hero-booking-widget'] renders. B2C button (Private Journey) Link href=/book-chauffeur navigates correctly. B2B button (Corporate Solutions) Link href=/contact navigates correctly. Labels exactly match spec.",
+    "Live Trust Signal bar [data-testid='trust-signal']: contains '12,000+ Vehicles', '1,200+ Professionals', 'Moving the UAE since 1976' on orange background directly below hero.",
+    "Partner logos section [data-testid='partner-logos-section']: 7 cards rendered with correct data-testid (al-khoory-automobiles, imt-dubai, europcar, adnoc, emirates, dp-world, dubai-holding). 4 logos load successfully (Al Khoory, IMT, Europcar, Emirates). All 7 have visible text labels under the logo slot (line 255).",
+    "Mobile contact bar at 375x800: [data-testid='mobile-contact-bar'] visible, WhatsApp href=https://wa.me/97145063030, Call href=tel:800364. Hidden on desktop (md:hidden class confirmed, is_visible()=False at 1920px).",
+    "Layout main has pb-14 md:pb-0 spacing — verified in App.js line 60 — preventing mobile bar from overlapping content.",
+    "Leasing page Fleet Savings Calculator: H2 'Fleet Savings Calculator' rendered. Slider 1→50→100 updates saving (AED 49,572 → 3,304,800 → 6,609,600). Term dropdown 36→60 months updates saving (AED 660,960 → 1,101,600 and label 'Estimated 60-month saving'). Vehicle class dropdown updates saving (660,960 → 2,592,000 for Luxury). All three controls dynamically update.",
+    "Services page (/services) hero H1 = 'Mobility Engineered for the UAE' (matches spec; not 'Our Services' or 'Mobility Solutions for Every Need').",
+    "About page (/about) hero H1 = 'A Legacy of Movement' (matches spec; not 'About EGMG' or 'A Connected Mobility Ecosystem').",
+    "No 'EGMG' abbreviation in public-facing text. document.body.innerText 'EGMG' check on /, /about, /services, /leasing, /contact = all False. EGMG_LOGO is only a JS variable name (allowed per spec).",
+    "No em-dashes (—) or en-dashes (–) in heading or body text on /, /about, /services, /leasing (verified via document.body.innerText scan). One exception found on /contact (dropdown options) — flagged above.",
+    "Service descriptions end with specific CTA buttons — verified Europcar (Get a Quote etc), Chauffeur (Submit Transport Enquiry), Leasing (Customize Your Lease) per prior iteration_15.",
+    "SEO meta titles use pipe separators (|) — verified on /, /about, /services, /leasing, /contact. Zero em-dashes in <title>. Sample: 'Eurogulf Mobility Group | Integrated Mobility Solutions UAE | Since 1976'.",
+    "Footer logo alt='Eurogulf Mobility Group' (Footer.js line 31). Navigation top-bar alt='Eurogulf Mobility Group' (Navigation.js line 137). Nav dropdown trigger label 'About Eurogulf' (Navigation.js line 204) — no bare 'EGMG'.",
+    "Mobile bar at 375px confirmed via fixed-position bottom bar with two equal-width tappable areas (WhatsApp + Call), grid-cols-2, bg-black/95 backdrop-blur, border-[#EE5A01]/30."
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "(LOW) ContactPage.js line 205: replace en-dashes in the Preferred Contact Time dropdown options ('Morning (9am–12pm)' → 'Morning (9am to 12pm)' or use ASCII hyphen). Apply to all 3 time-range entries.",
+    "(LOW) HomePage.js line 397: replace em-dash in iframe title with '.' or ':' so a11y/SEO copy is also dash-free.",
+    "(MEDIUM) Replace 3 logo.clearbit.com URLs (ADNOC, DP World, Dubai Holding) in HomePage.js PARTNER_LOGOS with self-hosted images under /public to remove third-party DNS dependency. Currently the preview environment cannot resolve logo.clearbit.com so these logos render as text-only fallback — production may have the same restriction.",
+    "(OPTIONAL) Consider hiding the bottom duplicate label span (line 255) when the inline fallback span (line 253) becomes visible to avoid showing the brand name twice when an image fails."
+  ],
+  "critical_code_review_comments": [
+    "PARTNER_LOGOS dependency on external CDN (logo.clearbit.com) is fragile — already failing in preview env. Self-host or proxy through the site CDN for production reliability.",
+    "Both an inline fallback span (line 253) and a bottom permanent label (line 255) carry the same brand name; when image fails, the name appears twice. Minor visual duplication on broken-image cards.",
+    "ContactPage time options should be centralised into a single constants module (along with PARTNER_LOGOS, brand-name strings, and the color tokens called out in iteration_15) to make future copy/dash-cleanup grep-able and to prevent regression.",
+    "Em-dash in iframe title attribute slipped past the dash-removal sweep — a CI grep guard (e.g. eslint rule or git pre-commit) blocking — and – in /app/frontend/src/**/*.js would prevent recurrence."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "~92% — 10/12 spec checkpoints fully pass, 2 partial (dashes still present in 1 dropdown + 1 iframe title; 3 partner logo images fail to load in this env but text labels render)"},
+  "test_credentials": "Admin CMS credentials provided (admin@egmg.ae / EgmgAdmin2026!) were NOT exercised — frontend public-pages QA only per testing_type='frontend only(skip backend)'.",
+  "seed_data_creation": "None.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 4 'Model Build' interactive features (hero booking widget, Live Trust Signal, Fleet Savings Calculator, Mobile Contact Bar) are functionally correct and wired up with proper data-testid attributes. Remaining cleanup items are pure copy/asset fixes: (1) ContactPage.js line 205 — en-dashes in time-range dropdown; (2) HomePage.js line 397 — em-dash in iframe title; (3) 3 partner logo URLs from clearbit.com need to be self-hosted. After fixes, retest /contact dropdown text and partner logo image load on /. Backend was not exercised.",
+  "rca of the issue": "Partner logo image fail RCA: the URLs https://logo.clearbit.com/{adnoc.ae|dpworld.com|dubaiholding.com}?size=200 return ERR_NAME_NOT_RESOLVED inside the preview cluster (3 console errors logged). The onError handler in HomePage.js line 251 hides the img and unhides the sibling text-fallback span, so the page does not crash; but the spec expectation 'partner logos for Al Khoory, IMT, Europcar, ADNOC, Emirates, DP World, Dubai Holding' is only partially met visually. Mitigation: download each PNG/SVG once, place under /public/partners/, and update the PARTNER_LOGOS array URLs — same pattern already used for /europcar-logo.png which loads reliably. Dashes RCA: copy sweep removed —/– from headings and body paragraphs but missed (a) one iframe title attribute string-literal and (b) the static option strings inside ContactPage.js Select dropdown. Add a CI grep guard `grep -nP '[—–]' frontend/src/**/*.{js,jsx}` to block reintroduction."
+}

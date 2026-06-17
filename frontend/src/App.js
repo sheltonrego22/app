@@ -5,6 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import MobileContactBar from "@/components/MobileContactBar";
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ServicesPage from "@/pages/ServicesPage";
@@ -56,8 +57,9 @@ function Layout({ children }) {
       <SEO pathname={pathname} />
       <Navigation />
       <ScrollToTop />
-      <main>{children}</main>
+      <main className="pb-14 md:pb-0">{children}</main>
       <Footer />
+      <MobileContactBar />
     </div>
   );
 }

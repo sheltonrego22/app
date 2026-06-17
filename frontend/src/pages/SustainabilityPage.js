@@ -48,7 +48,7 @@ export default function SustainabilityPage() {
   const [pillarsRef, pillarsVisible] = useScrollAnimation();
   const [initiativesRef, initiativesVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Sustainability — Eurogulf Mobility Group | Driving a Greener Future"; }, []);
+  useEffect(() => { document.title = "Sustainability | Eurogulf Mobility Group | Driving a Greener Future"; }, []);
 
   return (
     <div data-testid="sustainability-page">
@@ -65,7 +65,7 @@ export default function SustainabilityPage() {
             Driving a Greener Future
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            At Eurogulf Mobility Group, our journey toward sustainability is more than a goal — it's a commitment to shaping a cleaner, smarter, and more responsible future for mobility.
+            At Eurogulf Mobility Group, our journey toward sustainability is more than a goal. It is a commitment to shaping a cleaner, smarter, and more responsible future for mobility.
           </p>
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function SustainabilityPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="orange-accent-line mx-auto mb-8" />
           <p className="font-body text-lg text-[#EEEDE7]/80 leading-relaxed">
-            We believe that transportation should not only move people but also protect the environment. That's why we are actively integrating eco-conscious practices across our operations — from low-carbon fleet initiatives and solar-powered facilities to the gradual introduction of electric vehicles into our offering.
+            We believe that transportation should not only move people but also protect the environment. That's why we are actively integrating eco-conscious practices across our operations, from low-carbon fleet initiatives and solar-powered facilities to the gradual introduction of electric vehicles into our offering.
           </p>
         </div>
       </section>

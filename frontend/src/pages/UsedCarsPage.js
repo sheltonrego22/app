@@ -14,9 +14,9 @@ const advantages = [
 ];
 
 const auctionSteps = [
-  { num: "1", title: "Stock Refresh", desc: "A new batch of 6–10 ex-fleet vehicles is published every Tuesday at 15:00 GST." },
-  { num: "2", title: "Inspect & Decide", desc: "Browse full specs, 4–5 photos per car, inspection grade and complete service history." },
-  { num: "3", title: "Silent Bid", desc: "Place a sealed bid in AED 500 increments. You only see your own bids — never others." },
+  { num: "1", title: "Stock Refresh", desc: "A new batch of 6 to 10 ex-fleet vehicles is published every Tuesday at 15:00 GST." },
+  { num: "2", title: "Inspect & Decide", desc: "Browse full specs, 4 to 5 photos per car, inspection grade and complete service history." },
+  { num: "3", title: "Silent Bid", desc: "Place a sealed bid in AED 500 increments. You only see your own bids, never others." },
   { num: "4", title: "Cycle Close", desc: "Auction closes every Monday at 12:00 GST. Winners notified within 2 hours." },
 ];
 
@@ -164,7 +164,7 @@ export default function UsedCarsPage() {
           <div className={`text-center mb-16 ${advVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mx-auto mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">Not Just Used. Ex-Eurogulf-Managed.</h2>
-            <p className="font-body text-[#666] max-w-xl mx-auto">Every vehicle in the silent auction came directly from the Europcar Dubai operating-lease fleet — we know every kilometre, every service, and every owner from day one.</p>
+            <p className="font-body text-[#666] max-w-xl mx-auto">Every vehicle in the silent auction came directly from the Europcar Dubai operating-lease fleet. We know every kilometre, every service, and every owner from day one.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {advantages.map((a, i) => (
@@ -199,7 +199,7 @@ export default function UsedCarsPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
             {[
-              { title: "View Online", desc: "Full inventory, 4–5 photos, specs and inspection grade." },
+              { title: "View Online", desc: "Full inventory, 4 to 5 photos, specs and inspection grade." },
               { title: "In-Person Inspection", desc: "Book a 30-minute viewing at any Eurogulf Mobility Group branch." },
               { title: "Browse as Guest", desc: "View the full stock without an account. Sign in only to bid." },
             ].map((item) => (

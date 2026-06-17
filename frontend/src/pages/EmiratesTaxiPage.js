@@ -25,7 +25,7 @@ const features = [
 export default function EmiratesTaxiPage() {
   const [certsRef, certsVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Emirates Taxi — Premium Chauffeur Service | Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Emirates Taxi | Premium Chauffeur Service | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="emirates-taxi-page">
@@ -37,7 +37,7 @@ export default function EmiratesTaxiPage() {
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">
-          <img src={LOGO_URL} alt="Emirates Taxi by EGMG" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
+          <img src={LOGO_URL} alt="Emirates Taxi by Eurogulf Mobility Group" className="h-12 w-auto mx-auto mb-6 opacity-90" loading="lazy" />
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
             Reliable. Safe. Comfortable.
           </h1>
@@ -59,7 +59,7 @@ export default function EmiratesTaxiPage() {
               Certified Excellence
             </h2>
             <p className="font-body text-[#666666] max-w-lg mx-auto">
-              Our commitment to quality is not just a promise — it is independently certified and award-winning.
+              Our commitment to quality is not just a promise; it is independently certified and award-winning.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,7 +125,7 @@ export default function EmiratesTaxiPage() {
             Every Trip. Safe & Punctual.
           </h2>
           <p className="font-body text-black/70 mb-8 max-w-lg mx-auto">
-            Experience the Emirates Taxi difference — ISO-certified quality, RTA-approved vehicles, and award-winning service.
+            Experience the Emirates Taxi difference: ISO-certified quality, RTA-approved vehicles, and award-winning service.
           </p>
           <Link to="/contact" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors inline-block">
             Contact Us Today

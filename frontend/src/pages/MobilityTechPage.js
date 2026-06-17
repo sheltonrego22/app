@@ -6,26 +6,26 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const techAreas = [
-  { icon: Radio, title: "GPS Fleet Tracking & Telematics", desc: "Real-time GPS monitoring across our 10,000+ vehicle fleet. Live location, speed alerts, geofencing, and route optimisation — giving fleet managers full visibility and control." },
+  { icon: Radio, title: "GPS Fleet Tracking & Telematics", desc: "Real-time GPS monitoring across our 12,000+ vehicle fleet. Live location, speed alerts, geofencing, and route optimisation, giving fleet managers full visibility and control." },
   { icon: Gauge, title: "Predictive Maintenance", desc: "Sensor-driven diagnostics that predict component failures before they happen. Reduced downtime, fewer breakdowns, and extended vehicle lifecycle across five Eurogulf Mobility workshops." },
-  { icon: MapPin, title: "Smart Allocation & Dispatching", desc: "AI-powered vehicle assignment that matches driver availability, vehicle type, and proximity to deliver the fastest possible response — critical for our chauffeur and taxi operations." },
+  { icon: MapPin, title: "Smart Allocation & Dispatching", desc: "AI-powered vehicle assignment that matches driver availability, vehicle type, and proximity to deliver the fastest possible response. Critical for our chauffeur and taxi operations." },
   { icon: Eye, title: "Driver Behaviour Analytics", desc: "Telematics-driven scoring for acceleration, braking, speed, and idle time. Coaching insights that improve safety, reduce fuel costs, and elevate service quality." },
-  { icon: Zap, title: "Electric & Hybrid Fleet Integration", desc: "Charge-cycle management, range optimisation, and energy-cost analytics for our growing EV fleet — supporting the UAE's Net Zero 2050 strategy." },
-  { icon: BarChart3, title: "Fleet Operations Software", desc: "Web-based fleet management platform for vehicle lifecycle tracking, maintenance scheduling, insurance management, and consolidated reporting — used across all Eurogulf Mobility divisions." },
+  { icon: Zap, title: "Electric & Hybrid Fleet Integration", desc: "Charge-cycle management, range optimisation, and energy-cost analytics for our growing EV fleet, supporting the UAE's Net Zero 2050 strategy." },
+  { icon: BarChart3, title: "Fleet Operations Software", desc: "Web-based fleet management platform for vehicle lifecycle tracking, maintenance scheduling, insurance management, and consolidated reporting. Used across all Eurogulf Mobility divisions." },
 ];
 
 const futureVision = [
   { title: "Autonomous Fleet Readiness", desc: "Monitoring UAE regulatory frameworks for autonomous vehicles and preparing our fleet infrastructure for ADAS and Level 4 autonomy integration." },
   { title: "Smart Parking & Payment", desc: "Cashless, RFID-enabled vehicle access, parking management, and digital toll integration across our managed fleet." },
   { title: "Connected Mobility Ecosystem", desc: "A unified digital platform connecting rental bookings, chauffeur dispatch, fleet management, and maintenance scheduling into a single customer experience." },
-  { title: "AI-Powered Customer Service", desc: "Natural language booking, real-time ride tracking, and predictive customer support — reducing friction at every touchpoint." },
+  { title: "AI-Powered Customer Service", desc: "Natural language booking, real-time ride tracking, and predictive customer support, reducing friction at every touchpoint." },
 ];
 
 export default function MobilityTechPage() {
   const [techRef, techVisible] = useScrollAnimation();
   const [futureRef, futureVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = "Mobility Technology & Innovation — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Mobility Technology & Innovation | Eurogulf Mobility"; }, []);
 
   return (
     <div data-testid="mobility-tech-page">

@@ -19,7 +19,7 @@ const filterTabs = [
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  useEffect(() => { document.title = "Mobility Solutions — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Mobility Solutions | Eurogulf Mobility Group"; }, []);
 
   const show = (category) => activeFilter === "all" || activeFilter === category;
 
@@ -35,10 +35,10 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-24">
           <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] mb-4 uppercase animate-fade-in">Complete Mobility Solutions</p>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-[#EEEDE7] uppercase tracking-tight mb-4 animate-fade-in-up">
-            Mobility Solutions for Every Need
+            Mobility Engineered for the UAE
           </h1>
           <p className="font-body text-base text-[#666666] max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            From individual travellers to enterprise fleets — Eurogulf Mobility Group delivers the UAE's most comprehensive transport solutions under one roof.
+            From individual travellers to enterprise fleets, Eurogulf Mobility Group delivers the UAE's most comprehensive transport solutions under one roof.
           </p>
           <a href={FLEET_GUIDE_URL} target="_blank" rel="noopener noreferrer" data-testid="fleet-guide-download"
             className="inline-flex items-center gap-2 mt-6 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all animate-fade-in"

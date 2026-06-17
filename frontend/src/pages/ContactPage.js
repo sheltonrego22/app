@@ -12,7 +12,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const enquiryTypes = [
-  "Car Rental — New Booking",
+  "Car Rental: New Booking",
   "Monthly Rental Enquiry",
   "Long-Term Leasing",
   "Chauffeur / Managed Transport",
@@ -46,7 +46,7 @@ const contactChannels = [
   {
     icon: AlertTriangle,
     title: "Emergency Roadside Assistance",
-    desc: "For emergencies while on rent — 24/7 roadside assistance. In case of accident: ensure safety, contact emergency services, obtain police report, then call us.",
+    desc: "For emergencies while on rent, 24/7 roadside assistance. In case of accident: ensure safety, contact emergency services, obtain police report, then call us.",
     action: "800 364 or 800 EUROPCAR (800 387 67227)",
     email: null,
     note: "24/7 emergency support.",
@@ -54,7 +54,7 @@ const contactChannels = [
   {
     icon: Truck,
     title: "Leasing, Fleet & Managed Transport",
-    desc: "For long-term leasing, personal leasing, corporate fleet requirements, or chauffeur and managed transport services — submit an enquiry and a specialist team member will follow up.",
+    desc: "For long-term leasing, personal leasing, corporate fleet requirements, or chauffeur and managed transport services. Submit an enquiry and a specialist team member will follow up.",
     action: null,
     email: null,
     note: "Routed to specialist follow-up rather than generic quoting.",
@@ -72,7 +72,7 @@ export default function ContactPage() {
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  useEffect(() => { document.title = "Contact Us — Eurogulf Mobility Group"; }, []);
+  useEffect(() => { document.title = "Contact Us | Eurogulf Mobility Group"; }, []);
 
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email || !form.enquiry_type) return;

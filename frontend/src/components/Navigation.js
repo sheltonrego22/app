@@ -201,7 +201,7 @@ export default function Navigation() {
             ))}
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">About EGMG</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">About Eurogulf</span>
               {aboutLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}
@@ -222,7 +222,7 @@ export default function Navigation() {
             </div>
 
             <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-full max-w-xs">
-              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Mobility Solutions — Retail / B2C</span>
+              <span className="font-heading text-[10px] text-[#EE5A01] tracking-[0.25em] uppercase">Mobility Solutions: Retail / B2C</span>
               {retailLinks.map((sl) => (
                 <Link key={sl.label} to={sl.href} className="font-body text-sm text-[#666] hover:text-[#EE5A01]" onClick={() => setMobileOpen(false)}>{sl.label}</Link>
               ))}

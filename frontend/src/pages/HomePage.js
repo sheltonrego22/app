@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Instagram, Wrench, Award, CheckCircle } from 'lucide-react';
+import { Car, Building2, Crown, Truck, Tag, ArrowRight, Wrench, Award, CheckCircle, Users, Briefcase } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 
 const HERO_BG = "https://images.unsplash.com/photo-1459787915554-b34915863013?w=1600&h=900&fit=crop&q=80";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
-const EUROPCAR_LOGO = "/europcar-logo.png";
 
 const stats = [
   { value: 1976, suffix: "", label: "Founded", isYear: true },
-  { value: 10000, suffix: "+", label: "Vehicles" },
+  { value: 12000, suffix: "+", label: "Vehicles" },
   { value: 1200, suffix: "+", label: "Professionals" },
   { value: 14, suffix: "", label: "UAE Locations" },
   { value: 7, suffix: "", label: "Emirates Served" },
@@ -29,26 +28,18 @@ const servicesStrip = [
   "Commercial Fleet Leasing", "Used Car Trading", "Fleet Management", "Event Transportation", "International Car Hire"
 ];
 
-const partnerNames = [
-  "Emirates", "Etihad Airways", "dnata", "Dubai Municipality", "Jumeirah", "Emaar",
-  "Atlantis The Palm", "The Address Hotels", "Air France", "Hyatt", "General Electric",
-  "Virgin Atlantic", "JA Resorts", "Al Habtoor Group", "MBC Group", "Hilton Worldwide",
-  "Samsung", "LG", "KLM", "Lufthansa", "Cathay Pacific", "Noon", "Sofitel",
-  "Royal Caribbean", "MSC Cruises"
-];
-
 const PARTNER_LOGOS = [
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-32.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-33.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-23.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-24.png.webp",
-  "https://egmg.ae/wp-content/uploads/2025/06/Emirates-Logo.png-768x403-1.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-25.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-34.png.webp",
+  { name: "Al Khoory Automobiles", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-32.png.webp" },
+  { name: "IMT Dubai", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-33.png.webp" },
+  { name: "Europcar", url: "/europcar-logo.png" },
+  { name: "ADNOC", url: "https://logo.clearbit.com/adnoc.ae?size=200" },
+  { name: "Emirates", url: "https://egmg.ae/wp-content/uploads/2025/06/Emirates-Logo.png-768x403-1.webp" },
+  { name: "DP World", url: "https://logo.clearbit.com/dpworld.com?size=200" },
+  { name: "Dubai Holding", url: "https://logo.clearbit.com/dubaiholding.com?size=200" },
 ];
 
 const awards = [
-  { title: "Car Rental Global Award — Best Performance 2023", sub: "Middle East & Africa Region" },
+  { title: "Car Rental Global Award, Best Performance 2023", sub: "Middle East & Africa Region" },
   { title: "Best Business Performance 2018", sub: "Middle East & Africa Region" },
   { title: "Best Car Rental Company in the Middle East", sub: "Business Travel Awards" },
   { title: "ISO 9001:2015", sub: "Quality Management" },
@@ -95,28 +86,65 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center pt-20">
           <img src={EGMG_LOGO} alt="Eurogulf Mobility" className="h-14 sm:h-16 w-auto mx-auto mb-6 animate-fade-in" />
           <p className="font-mono text-xs tracking-[0.3em] text-[#EE5A01] uppercase mb-6 animate-fade-in">WE MOVE YOU! · Since 1976</p>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-8xl leading-[0.9] tracking-tight text-[#EEEDE7] mb-6 animate-fade-in-up">
             50 Years of Moving the UAE Forward.
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            From a single Europcar franchise in 1976 to a multi-brand mobility powerhouse — Eurogulf Mobility Group connects people, businesses, and governments across all seven Emirates.
+            From a single Europcar franchise in 1976 to a multi-brand mobility powerhouse, Eurogulf Mobility Group connects people, businesses, and governments across all seven Emirates.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.45s' }}>
-            <Link to="/businesses" data-testid="hero-explore-btn" className="btn-primary text-center">
-              Explore Our Brands
-            </Link>
-            <Link to="/contact" data-testid="hero-quote-btn" className="btn-ghost text-center">
-              Get a Corporate Quote
-            </Link>
+
+          {/* ═══ DUAL-ACTION BOOKING WIDGET ═══ */}
+          <div data-testid="hero-booking-widget" className="max-w-xl mx-auto animate-fade-in" style={{ animationDelay: '0.45s' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Link
+                to="/book-chauffeur"
+                data-testid="hero-b2c-btn"
+                className="group bg-[#EE5A01] hover:bg-[#d45000] transition-all p-5 text-left"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <Users className="w-5 h-5 text-black" />
+                  <span className="font-heading font-bold text-xs tracking-[0.1em] text-black uppercase">Private Journey</span>
+                </div>
+                <p className="font-body text-xs text-black/70 mb-3">Book a chauffeur, rent a car, or arrange an airport transfer for yourself.</p>
+                <span className="inline-flex items-center gap-1.5 font-heading font-bold text-[11px] text-black tracking-wider group-hover:gap-2.5 transition-all">
+                  BOOK NOW <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+              <Link
+                to="/contact"
+                data-testid="hero-b2b-btn"
+                className="group bg-transparent border-2 border-[#EEEDE7]/30 hover:border-[#EE5A01] transition-all p-5 text-left"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <Briefcase className="w-5 h-5 text-[#EE5A01]" />
+                  <span className="font-heading font-bold text-xs tracking-[0.1em] text-[#EEEDE7] uppercase">Corporate Solutions</span>
+                </div>
+                <p className="font-body text-xs text-[#EEEDE7]/60 mb-3">Fleet leasing, staff transport, event logistics, and managed mobility for your business.</p>
+                <span className="inline-flex items-center gap-1.5 font-heading font-bold text-[11px] text-[#EE5A01] tracking-wider group-hover:gap-2.5 transition-all">
+                  GET A QUOTE <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <div className="w-[1px] h-12 bg-[#EE5A01]/40" />
           <span className="font-mono text-[10px] text-[#666666] tracking-[0.2em]">SCROLL</span>
+        </div>
+      </section>
+
+      {/* ═══ LIVE TRUST SIGNAL ═══ */}
+      <section data-testid="trust-signal" className="bg-[#EE5A01] py-4">
+        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-center">
+          <span className="font-heading font-black text-sm sm:text-base text-black tracking-tight">12,000+ Vehicles</span>
+          <span className="hidden sm:block w-1.5 h-1.5 bg-black/40 rounded-full" />
+          <span className="font-heading font-black text-sm sm:text-base text-black tracking-tight">1,200+ Professionals</span>
+          <span className="hidden sm:block w-1.5 h-1.5 bg-black/40 rounded-full" />
+          <span className="font-heading font-black text-sm sm:text-base text-black tracking-tight">Moving the UAE since 1976</span>
         </div>
       </section>
 
@@ -134,14 +162,14 @@ export default function HomePage() {
             <div className="lg:col-span-3">
               <div className="orange-accent-line mb-6" />
               <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] uppercase tracking-tight mb-6">
-                A Legacy Built on Movement.
+                A Legacy Built on Movement
               </h2>
               <div className="space-y-4 font-body text-[#999] leading-relaxed">
                 <p>
-                  For half a century, Eurogulf Mobility Group has been at the foundation of the UAE's transportation landscape. What began in 1976 as Dubai Rent A Car LLC — the exclusive operator of the Europcar franchise for Dubai and the Northern Emirates — has evolved into one of the region's most diversified, trusted, and recognised mobility groups.
+                  For half a century, Eurogulf Mobility Group has been at the foundation of the UAE's transportation landscape. What began in 1976 as Dubai Rent A Car LLC, the exclusive operator of the Europcar franchise for Dubai and the Northern Emirates, has evolved into one of the region's most diversified, trusted, and recognised mobility groups.
                 </p>
                 <p>
-                  Today, Eurogulf Mobility Group manages a portfolio of six distinct mobility brands, each serving a specific customer need: from premium car rental and corporate leasing, to luxury chauffeur services, affordable short-term hire, commercial vehicle leasing, and pre-owned vehicle trading. With a professionally managed fleet exceeding 10,000 vehicles, a team of over 1,200 dedicated employees, and a presence spanning 14 locations across the UAE, Eurogulf Mobility Group is not simply a car rental company — it is the UAE's most complete mobility partner.
+                  Today, Eurogulf Mobility Group manages a portfolio of six distinct mobility brands, each serving a specific customer need: from premium car rental and corporate leasing, to luxury chauffeur services, affordable short-term hire, commercial vehicle leasing, and pre-owned vehicle trading. With a professionally managed fleet exceeding 12,000 vehicles, a team of over 1,200 dedicated employees, and a presence spanning 14 locations across the UAE, Eurogulf Mobility Group is the nation's most complete mobility partner.
                 </p>
               </div>
             </div>
@@ -208,17 +236,24 @@ export default function HomePage() {
               Trusted by the UAE's Most Recognised Names
             </h2>
             <p className="font-body text-sm text-[#666] max-w-2xl mx-auto">
-              From global airlines and luxury hospitality groups to government authorities and multinational corporations — the UAE's most demanding organisations have relied on Eurogulf Mobility Group for decades.
+              From global airlines and luxury hospitality groups to government authorities and multinational corporations, the UAE's most demanding organisations have relied on Eurogulf Mobility Group for decades.
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14 mb-8">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center mb-8">
             {PARTNER_LOGOS.map((logo) => (
-              <img key={logo} src={logo} alt="Partner" className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-40 hover:opacity-80 transition-opacity" loading="lazy" />
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            {partnerNames.map((name) => (
-              <span key={name} className="font-body text-xs text-[#555]">{name}</span>
+              <div key={logo.name} data-testid={`partner-logo-${logo.name.toLowerCase().replace(/\s+/g, '-')}`} className="flex flex-col items-center gap-2 group">
+                <div className="h-12 sm:h-14 w-full flex items-center justify-center">
+                  <img
+                    src={logo.url}
+                    alt={logo.name}
+                    className="max-h-12 sm:max-h-14 w-auto object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity"
+                    loading="lazy"
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                  />
+                  <span className="hidden font-heading font-bold text-xs text-[#EEEDE7]/50 group-hover:text-[#EEEDE7]/90 transition-colors tracking-wider uppercase">{logo.name}</span>
+                </div>
+                <span className="font-body text-[9px] text-[#555] group-hover:text-[#999] transition-colors tracking-wider uppercase">{logo.name}</span>
+              </div>
             ))}
           </div>
           <div className="text-center mt-8">
@@ -258,10 +293,10 @@ export default function HomePage() {
                 Proud Partners of Dubai Municipality
               </h2>
               <p className="font-body text-[#999] leading-relaxed mb-4">
-                Among the many distinctions that define the group's standing, none speaks more clearly to the group's operational capability than its partnership with Dubai Municipality — one of the most respected government authorities in the region.
+                Among the many distinctions that define the group's standing, none speaks more clearly to its operational capability than the partnership with Dubai Municipality, one of the most respected government authorities in the region.
               </p>
               <p className="font-body text-[#999] leading-relaxed mb-6">
-                As a proud supplier and strategic partner, Eurogulf Mobility Group provides full fleet management solutions across a fleet exceeding 1,500 vehicles — operated by a dedicated team working directly from Dubai Municipality's Transportation Department.
+                As a proud supplier and strategic partner, Eurogulf Mobility Group provides full fleet management solutions across a fleet exceeding 1,500 vehicles, operated by a dedicated team working directly from Dubai Municipality's Transportation Department.
               </p>
               <Link to="/dubai-municipality" className="btn-primary inline-block">Explore This Partnership</Link>
             </div>
@@ -308,7 +343,7 @@ export default function HomePage() {
               <div className="p-6">
                 <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Health & Wellbeing</span>
                 <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Together for Healthier Journeys</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Marking World Health Day 2026, Eurogulf Mobility Group reaffirms its commitment to traveller well-being — safer vehicles, trained drivers, and wellness-first mobility.</p>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Marking World Health Day 2026, Eurogulf Mobility Group reaffirms its commitment to traveller well-being through safer vehicles, trained drivers, and wellness-first mobility.</p>
               </div>
             </div>
             <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
@@ -324,7 +359,7 @@ export default function HomePage() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              <Instagram className="w-4 h-4" /> FOLLOW ON INSTAGRAM
+              FOLLOW ON INSTAGRAM
             </a>
             <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
               FOLLOW ON LINKEDIN
@@ -387,7 +422,7 @@ export default function HomePage() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              <Instagram className="w-4 h-4" /> INSTAGRAM
+              INSTAGRAM
             </a>
             <a href="https://www.youtube.com/@EurogulfMobilityGroup-x1n" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
               YOUTUBE
@@ -408,7 +443,7 @@ export default function HomePage() {
           <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-black uppercase tracking-tight mb-2">
             WE MOVE YOU!
           </h2>
-          <p className="font-body text-black/70 mb-6">Whether you're renting for a day or managing a fleet of 1,000 — we have a solution built for you.</p>
+          <p className="font-body text-black/70 mb-6">Whether you're renting for a day or managing a fleet of 1,000, we have a solution built for you.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link to="/europcar" data-testid="cta-rent-btn" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm tracking-[0.05em] px-8 py-4 hover:bg-[#111111] transition-colors text-center">
               Rent a Car

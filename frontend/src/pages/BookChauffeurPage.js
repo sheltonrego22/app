@@ -53,7 +53,7 @@ export default function BookChauffeurPage() {
   const [submitting, setSubmitting] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
 
-  useEffect(() => { document.title = "Book Your Chauffeur — Eurogulf Mobility"; }, []);
+  useEffect(() => { document.title = "Book Your Chauffeur | Eurogulf Mobility"; }, []);
 
   const set = (key, val) => {
     setForm((p) => ({ ...p, [key]: val }));

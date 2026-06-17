@@ -33,7 +33,7 @@ export default function MediaCenterPage() {
   const [expandedId, setExpandedId] = useState(null);
   const [gridRef, gridVisible] = useScrollAnimation();
 
-  useEffect(() => { document.title = filter !== "All" ? `${filter} — Eurogulf Mobility Insights` : "Insights & News — Eurogulf Mobility"; }, [filter]);
+  useEffect(() => { document.title = filter !== "All" ? `${filter} | Eurogulf Mobility Insights` : "Insights & News | Eurogulf Mobility"; }, [filter]);
 
   useEffect(() => {
     const cat = searchParams.get('category');
@@ -77,7 +77,7 @@ export default function MediaCenterPage() {
             Media Center
           </h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/70 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            The latest from Eurogulf Mobility Group — press releases, industry insights, fleet updates, and awards.
+            The latest from Eurogulf Mobility Group: press releases, industry insights, fleet updates, and awards.
           </p>
         </div>
       </section>
