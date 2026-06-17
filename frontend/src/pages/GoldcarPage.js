@@ -4,7 +4,7 @@ import { Check, Star, Clock, Shield, Car, Globe, MapPin } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=1400&h=700&fit=crop";
-const LOGO_URL = "/egmg-logo-transparent.png";
+const LOGO_URL = "/goldcar-logo.png";
 const BOOKING_URL = "https://www.goldcar.com/en-gb/car-rental/locations/dubai/";
 
 const strengths = [
@@ -141,7 +141,7 @@ export default function GoldcarPage() {
               </div>
             </div>
             <div className="relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1714156313350-297f464ab12f?w=800&h=500&fit=crop" alt="Goldcar fleet in Dubai" className="w-full h-[420px] object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=800&h=500&fit=crop" alt="Goldcar fleet in Dubai" className="w-full h-[420px] object-cover" loading="lazy" />
             </div>
           </div>
         </div>

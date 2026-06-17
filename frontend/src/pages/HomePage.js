@@ -2,12 +2,10 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Building2, Crown, Bus, Truck, Tag, ArrowRight, Shield, Clock, Headphones, MapPin, Instagram, Wrench, Award, CheckCircle } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
-const CAROUSEL_OPTS = { align: "start", loop: true };
-const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/a56c4b9d-53c0-46d6-8ecc-d67faee11d28/images/f4a76c0c341f3929b9bd7c03799a166ba64f50dcd4a0197c233ed71d963409f6.png";
+const HERO_BG = "https://images.unsplash.com/photo-1459787915554-b34915863013?w=1600&h=900&fit=crop&q=80";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
-const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+const EUROPCAR_LOGO = "/europcar-logo.png";
 
 const stats = [
   { value: 1976, suffix: "", label: "Founded", isYear: true },
@@ -58,12 +56,12 @@ const awards = [
 ];
 
 const socialImages = [
-  { img: "https://images.unsplash.com/photo-1587671094293-b91d3b5b14b6?w=600&h=600&fit=crop", caption: "Dubai skyline — home of Eurogulf Mobility Group" },
+  { img: "https://images.unsplash.com/photo-1607414851776-f2fcc379fb48?w=600&h=600&fit=crop", caption: "Dubai skyline at golden hour" },
   { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
-  { img: "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=600&h=600&fit=crop", caption: "Tesla fleet on Sheikh Zayed Road" },
-  { img: "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=600&h=600&fit=crop", caption: "Our fleet across the Emirates" },
-  { img: "https://images.pexels.com/photos/5087165/pexels-photo-5087165.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop", caption: "Dubai highways — our daily routes" },
-  { img: "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=600&h=600&fit=crop", caption: "Cars with the Dubai Marina skyline" },
+  { img: "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=600&h=600&fit=crop", caption: "Sheikh Zayed Road, Dubai" },
+  { img: "https://images.unsplash.com/photo-1652707228067-25672fa0b082?w=600&h=600&fit=crop", caption: "Dubai Marina by night" },
+  { img: "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=600&h=600&fit=crop", caption: "Dubai streets and skyline" },
+  { img: "https://images.unsplash.com/photo-1459787915554-b34915863013?w=600&h=600&fit=crop", caption: "Aerial view of Dubai" },
 ];
 
 function StatItem({ value, suffix, label, isYear }) {

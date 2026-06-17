@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const EGMG_LOGO = "/egmg-logo-transparent.png";
-const HERO_IMG = "https://images.unsplash.com/photo-1693946953973-3d9ddaf7a977?w=1400&h=700&fit=crop";
+const HERO_IMG = "https://images.unsplash.com/photo-1607414851776-f2fcc379fb48?w=1400&h=700&fit=crop";
 
 const useCases = [
   "Airport transfers across UAE airports.",

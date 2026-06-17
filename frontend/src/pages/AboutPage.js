@@ -5,7 +5,7 @@ import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 
 const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
-const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+const EUROPCAR_LOGO = "/europcar-logo.png";
 
 const milestones = [
   { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of EGMG — established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
@@ -19,9 +19,11 @@ const milestones = [
   { year: "2024", title: "Eurogulf Mobility Group", desc: "The formal consolidation of all group entities under the Eurogulf Mobility Group (EGMG) brand — reflecting the scope, scale, and ambition of the organisation." },
 ];
 
+const GOLDCAR_LOGO = "/goldcar-logo.png";
+
 const divisions = [
   { name: "Europcar", desc: "Premium self-drive rental, monthly mobility, and long-term leasing support across Dubai and the Northern Emirates", href: "/europcar", logo: EUROPCAR_LOGO },
-  { name: "Goldcar", desc: "Budget short-term rentals for customers seeking accessible and practical options", href: "/goldcar", logo: EGMG_LOGO },
+  { name: "Goldcar", desc: "Budget short-term rentals for customers seeking accessible and practical options", href: "/goldcar", logo: GOLDCAR_LOGO },
   { name: "Truckline Transport", desc: "Commercial vehicle leasing and fleet management solutions for operational needs", href: "/truckline", logo: EGMG_LOGO },
   { name: "Eurogulf Premium Chauffeur", desc: "Managed transport and driven services for airport transfer, VIP, staff, and events", href: "/chauffeur-service", logo: EGMG_LOGO },
   { name: "Eurogulf Auto Garage", desc: "Vehicle service, repair, maintenance, and workshop support within the wider ecosystem", href: "/autocare", logo: EGMG_LOGO },

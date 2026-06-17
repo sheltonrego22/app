@@ -5,8 +5,8 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 
-const HERO_IMG = "https://images.unsplash.com/photo-1694377161535-da07da1b1632?w=1400&h=700&fit=crop";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+const HERO_IMG = "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=1400&h=700&fit=crop";
+const LOGO_URL = "/europcar-logo.png";
 const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
 const BOOKING_URL = "https://www.europcar.com/en-db";
 const MONTHLY_URL = "https://www.europcardubai.ae";

@@ -14,8 +14,6 @@ import SustainabilityPage from "@/pages/SustainabilityPage";
 import MediaCenterPage from "@/pages/MediaCenterPage";
 import EuropcarPage from "@/pages/EuropcarPage";
 import GoldcarPage from "@/pages/GoldcarPage";
-import RoyalLimousinePage from "@/pages/RoyalLimousinePage";
-import EmiratesTaxiPage from "@/pages/EmiratesTaxiPage";
 import TrucklinePage from "@/pages/TrucklinePage";
 import UsedCarsPage from "@/pages/UsedCarsPage";
 import CareersPage from "@/pages/CareersPage";
@@ -71,8 +69,8 @@ function App() {
           <Route path="/media" element={<MediaCenterPage />} />
           <Route path="/europcar" element={<EuropcarPage />} />
           <Route path="/goldcar" element={<GoldcarPage />} />
-          <Route path="/royal-limousine" element={<RoyalLimousinePage />} />
-          <Route path="/emirates-taxi" element={<EmiratesTaxiPage />} />
+          <Route path="/royal-limousine" element={<ChauffeurServicePage />} />
+          <Route path="/emirates-taxi" element={<ChauffeurServicePage />} />
           <Route path="/truckline" element={<TrucklinePage />} />
           <Route path="/used-cars" element={<UsedCarsPage />} />
           <Route path="/careers" element={<CareersPage />} />

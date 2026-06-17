@@ -4,7 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
-const EUROPCAR_LOGO = "https://customer-assets.emergentagent.com/job_egmg-premium/artifacts/xfzdgz6a_Logo2.png";
+const EUROPCAR_LOGO = "/europcar-logo.png";
+const GOLDCAR_LOGO = "/goldcar-logo.png";
 
 const divisions = [
   {
@@ -17,7 +18,7 @@ const divisions = [
   {
     name: "Goldcar",
     subtitle: "Budget Short Term Rentals",
-    logo: EGMG_LOGO,
+    logo: GOLDCAR_LOGO,
     desc: "A value-oriented self-drive offering positioned within the wider EGMG mobility portfolio.",
     href: "/goldcar",
   },

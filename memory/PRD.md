@@ -12,52 +12,37 @@ Build a premium, futuristic multi-page corporate website for Eurogulf Mobility G
 ## Navigation Structure
 HOME | ABOUT EGMG | OUR BRANDS | MOBILITY SOLUTIONS | SUPPORT & RESOURCES | CAREERS | PARTNER WITH US | CONTACT
 
-### MOBILITY SOLUTIONS (Mega-Menu)
+### MOBILITY SOLUTIONS (Mega-Menu - B2B/B2C Split)
 **Corporate / B2B:** Fleet Consultancy, Customised Commercial Vehicle Leasing, Corporate Rental, Staff Transport & Mobility Solutions, Managed Transport for Events & Delegations, Digital Fleet Management & Tracking
 **Retail / B2C:** Rent a Car (Europcar/Goldcar), Book Your Monthly Rental, Book Your Premium Chauffeur, Outbound Reservations, Buy Pre-Owned
 
-### SUPPORT & RESOURCES
-24/7 Contact & Live Chat, FAQ & Help Center, Download Center, Corporate Client Portal, Driver/Partner Portal
-
-## Brand Names (Approved)
-- Europcar (Premium Car Rental and Long Term Leasing Services)
-- Goldcar (Budget Short Term Rentals)
-- Truckline Transport (Commercial Vehicle Leasing and Fleet Management Solutions)
-- Eurogulf Premium Chauffeur (Managed Transport and Driven Services)
-- Eurogulf Auto Garage (Workshop & Maintenance)
-- Eurogulf Used Cars (Pre-Owned Vehicles)
+## Brand Names & Logos (Updated June 2026)
+- Europcar → /europcar-logo.png (green/yellow uploaded logo)
+- Goldcar → /goldcar-logo.png (lime/black uploaded logo)
+- Truckline Transport
+- Eurogulf Premium Chauffeur
+- Eurogulf Auto Garage
+- Eurogulf Used Cars
+- EGMG Master → /egmg-logo-transparent.png, /egmg-logo-black.png
 
 ## Pages (25+)
-1. HomePage — Hero, stats, 6 brand cards, partners, awards, Dubai Municipality, social, CTA
-2. AboutPage — "A Connected Mobility Ecosystem", Who We Are, UAE Presence, Portfolio, timeline, awards
-3. BusinessesPage — "Specialist Brands for Every Mobility Need", 6 brand cards
-4. EuropcarPage — 1949 origins, Short-Term/Monthly/Leasing sections, green CTAs
-5. GoldcarPage — "Smart Travel Starts Here", Sharjah Airport
-6. ChauffeurServicePage — "Eurogulf Premium Chauffeur", use cases, service approach, fleet
-7. TrucklinePage — "Commercial Vehicle Leasing and Fleet Management Solutions"
-8. AutocarePage — "Eurogulf Auto Garage"
-9. UsedCarsPage — Pre-owned vehicles
-10. ContactPage — Intent-based routing, smart form (enquiry type first)
-11. FAQPage — 6 categories, searchable, accordion
-12. DownloadsPage — Brochures, rate cards, terms
-13. PortalPage — Corporate & Driver portal access
-14. PartnerWithUsPage — B2B partnership enquiries
-15. PartnersClientsPage — Client logos, major events
-16. DubaiMunicipalityPage — Government partnership
-17. ServicesPage, LeasingPage, BookChauffeurPage, CareersPage
-18. MediaCenterPage + AdminDashboardPage (CMS)
-19. LeadershipPage, SustainabilityPage, MobilityTechPage
+All pages use UAE-relevant imagery (Dubai skyline, Sheikh Zayed Road, local landmarks).
+Legacy pages (RoyalLimousinePage, EmiratesTaxiPage) removed — routes redirect to ChauffeurServicePage.
+
+## Third-Party Integrations
+- LeadConnector chat widget (loaded via index.html script tag)
+- YouTube embeds
+- Admin CMS: JWT auth, React Quill, DOMPurify
 
 ## Completed (June 2026)
-- [x] Full 25+ page corporate site with all content aligned to strategy docs
-- [x] Global brand rename: Eurogulf Premium Chauffeur, Eurogulf Auto Garage
-- [x] Navigation with MOBILITY SOLUTIONS mega-menu (B2B/B2C)
-- [x] SUPPORT & RESOURCES section (FAQ, Downloads, Portals)
-- [x] Partner With Us page with enquiry form
-- [x] Contact page with intent-based routing
-- [x] Comprehensive QA: 98% pass, zero JS errors, mobile responsive
-- [x] Health endpoint for Kubernetes deployment
-- [x] Admin CMS (MongoDB, JWT, React Quill, DOMPurify)
+- [x] Full 25+ page corporate site
+- [x] Brand logos updated (Europcar, Goldcar, EGMG from uploaded assets)
+- [x] All images UAE-relevant
+- [x] Legacy pages removed (Royal Limousine, Emirates Taxi → redirect to Chauffeur)
+- [x] LeadConnector chat widget integrated
+- [x] Health endpoint for Kubernetes
+- [x] Code quality fixes (hooks, error handlers, XSS)
+- [x] Comprehensive QA: 98% pass rate
 
 ## Upcoming
 - [ ] WhatsApp Business API live chat (P1)
