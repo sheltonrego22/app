@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Sun, Moon, Globe } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
 
@@ -63,6 +64,8 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
+  const { theme, toggle } = useTheme();
+  const isAr = location.pathname.startsWith('/ar');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -162,8 +165,25 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* CTA + Mobile Toggle */}
-            <div className="flex items-center gap-3">
+            {/* CTA + Theme + Lang + Mobile Toggle */}
+            <div className="flex items-center gap-2">
+              <button
+                data-testid="theme-toggle"
+                onClick={toggle}
+                className="p-2 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
+              <Link
+                to={isAr ? '/' : '/ar'}
+                data-testid="lang-toggle"
+                className="p-2 text-[#EEEDE7] hover:text-[#EE5A01] transition-colors font-heading text-xs tracking-wider flex items-center gap-1"
+                aria-label="Switch language"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{isAr ? 'EN' : 'عربي'}</span>
+              </Link>
               <a href="tel:800364" className="hidden lg:flex items-center gap-2 font-heading text-xs text-[#EEEDE7] tracking-wider hover:text-[#EE5A01] transition-colors">
                 <Phone className="w-3.5 h-3.5 text-[#EE5A01]" /> 800 364
               </a>

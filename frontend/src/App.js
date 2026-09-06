@@ -2,10 +2,12 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "@/hooks/useTheme";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import MobileContactBar from "@/components/MobileContactBar";
+import RouteAnalytics from "@/components/RouteAnalytics";
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ServicesPage from "@/pages/ServicesPage";
@@ -40,6 +42,12 @@ import SEOCarLeasingDubai from "@/pages/seo/SEOCarLeasingDubai";
 import HomePageAr from "@/pages/ar/HomePageAr";
 import AboutPageAr from "@/pages/ar/AboutPageAr";
 import ContactPageAr from "@/pages/ar/ContactPageAr";
+import ServicesPageAr from "@/pages/ar/ServicesPageAr";
+import EuropcarPageAr from "@/pages/ar/EuropcarPageAr";
+import ChauffeurPageAr from "@/pages/ar/ChauffeurPageAr";
+import LeasingPageAr from "@/pages/ar/LeasingPageAr";
+import CareersPageAr from "@/pages/ar/CareersPageAr";
+import PartnerPageAr from "@/pages/ar/PartnerPageAr";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -57,6 +65,7 @@ function Layout({ children }) {
       <SEO pathname={pathname} />
       <Navigation />
       <ScrollToTop />
+      <RouteAnalytics />
       <main className="pb-14 md:pb-0">{children}</main>
       <Footer />
       <MobileContactBar />
@@ -67,6 +76,7 @@ function Layout({ children }) {
 function App() {
   return (
     <HelmetProvider>
+      <ThemeProvider>
       <BrowserRouter>
         <Layout>
         <Routes>
@@ -107,10 +117,17 @@ function App() {
           <Route path="/ar" element={<HomePageAr />} />
           <Route path="/ar/about" element={<AboutPageAr />} />
           <Route path="/ar/contact" element={<ContactPageAr />} />
+          <Route path="/ar/services" element={<ServicesPageAr />} />
+          <Route path="/ar/europcar" element={<EuropcarPageAr />} />
+          <Route path="/ar/chauffeur-service" element={<ChauffeurPageAr />} />
+          <Route path="/ar/leasing" element={<LeasingPageAr />} />
+          <Route path="/ar/careers" element={<CareersPageAr />} />
+          <Route path="/ar/partner" element={<PartnerPageAr />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
+    </ThemeProvider>
     </HelmetProvider>
   );
 }

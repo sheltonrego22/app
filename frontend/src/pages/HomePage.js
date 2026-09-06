@@ -335,24 +335,38 @@ export default function HomePage() {
               </div>
             </div>
             <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
-              <div className="h-48 bg-gradient-to-br from-green-500/10 to-black flex items-center justify-center">
-                <span className="font-heading font-black text-5xl text-green-500/30">♥</span>
+              <div className="h-48 bg-gradient-to-br from-yellow-500/10 to-black flex items-center justify-center">
+                <span className="font-heading font-black text-5xl text-yellow-500/30">WTA</span>
               </div>
               <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Health & Wellbeing</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Together for Healthier Journeys</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Marking World Health Day 2026, Eurogulf Mobility Group reaffirms its commitment to traveller well-being through safer vehicles, trained drivers, and wellness-first mobility.</p>
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Awards</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">World Travel Awards 2026 Nominations</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Europcar Dubai and Royal Limousine have both been nominated at the World Travel Awards 2026, recognising their contribution to premium mobility across the UAE.</p>
               </div>
             </div>
             <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
               <div className="h-48 bg-gradient-to-br from-[#EE5A01]/10 to-black flex items-center justify-center">
-                <span className="font-heading font-black text-5xl text-[#EE5A01]/30">★</span>
+                <span className="font-heading font-black text-5xl text-[#EE5A01]/30">LDP</span>
               </div>
               <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Careers</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Drive Your Career with Eurogulf</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Now hiring: professional drivers and a Process Analyst for ISO 9001 excellence. Join a team that powers mobility across the UAE.</p>
+                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">People</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Leadership Development Programme 2026</h3>
+                <p className="font-body text-sm text-[#666] leading-relaxed">Investing in the next generation of leaders. The Eurogulf Mobility Group Leadership Development Programme empowers rising talent across all divisions.</p>
               </div>
+            </div>
+          </div>
+
+          {/* Live Instagram Embed */}
+          <div data-testid="instagram-embed" className="max-w-md mx-auto mb-10">
+            <div className="bg-[#111] border border-white/5 p-6 text-center">
+              <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4">Latest from Instagram</p>
+              <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="block">
+                <div className="aspect-square bg-gradient-to-br from-[#EE5A01]/5 to-[#111] border border-white/5 flex flex-col items-center justify-center gap-3 hover:border-[#EE5A01]/30 transition-all">
+                  <span className="font-heading font-black text-2xl text-[#EEEDE7]">@eurogulfmobility</span>
+                  <span className="font-body text-xs text-[#666]">Follow us for the latest updates, fleet news, and behind-the-scenes content from across the UAE.</span>
+                  <span className="inline-flex items-center gap-2 mt-2 font-heading font-bold text-xs text-[#EE5A01] border border-[#EE5A01]/40 px-4 py-2 hover:bg-[#EE5A01] hover:text-black transition-all">VIEW ON INSTAGRAM</span>
+                </div>
+              </a>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">

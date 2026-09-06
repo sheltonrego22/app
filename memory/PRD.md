@@ -3,39 +3,23 @@
 ## Architecture
 - **Frontend**: React + Tailwind CSS + Shadcn UI (port 3000, craco build)
 - **Backend**: FastAPI + MongoDB (port 8001)
-- **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray), #2d8c3c (Europcar green)
-- **Build**: `yarn build` (craco build) — 0 warnings, 0 errors. Output: 315 kB JS + 18 kB CSS gzipped.
+- **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
+- **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
-## Completed (Final Audit — Sept 2026)
-- [x] **Build passes clean**: Zero ESLint warnings, zero compilation errors
-- [x] **All 7 partner logos self-hosted**: SVGs under /public/partners/ — no external CDN dependency
-- [x] **Meta tags cleaned**: index.html title/description use pipes (|), no em-dashes, updated to "12,000+ vehicles"
-- [x] **ESLint warnings fixed**: AdminDashboardPage, MediaCenterPage — `API` removed from dependency arrays
-- [x] **CareersPage bug fixed**: Undefined `i` variable in data-testid replaced with job title slug
-- [x] **File uploads migrated**: From ephemeral pod storage to MongoDB (base64) for persistence across deploys
-- [x] **Deployment check**: PASS — env vars, CORS, ports, supervisor, MongoDB all verified
+## Completed (Theme, Arabic, Analytics, Social — Sept 2026)
+- [x] **Light/Dark Theme Toggle**: Sun/moon icon in nav, CSS custom properties, localStorage persistence, system prefers-color-scheme on first visit. Light palette: #FFFFFF bg, #F5F2EC cards, #1A1A1A text. Hero sections keep light text over dark images.
+- [x] **Language Switcher**: Globe icon + EN/عربي in nav, links between / and /ar paths
+- [x] **9 Arabic Pages (Full RTL)**: /ar, /ar/about, /ar/contact, /ar/services, /ar/europcar, /ar/chauffeur-service, /ar/leasing, /ar/careers, /ar/partner — all with complete MSA content
+- [x] **GA4 + GTM Integration**: GTM container snippet in index.html (placeholder GTM-XXXXXXX), RouteAnalytics component pushes virtual_page_view events on SPA route changes, analytics.js helpers
+- [x] **Updated Featured Socials**: IMT Dubai Vaudeville 2026, World Travel Awards 2026 nominations, Leadership Development Programme 2026 + Instagram embed CTA
+- [x] **Arabic Translations**: Extended i18n/ar.js with services, europcar, chauffeur, leasing, careers, partnerWithUs sections
 
-## Completed (Model Build Upgrade — June 2026)
-- [x] Logo & Trust Overhaul: 7 named partner logos, "Live Trust Signal" bar
-- [x] Dual-Action Hero Widget: "Private Journey (B2C)" + "Corporate Solutions (B2B)"
-- [x] Mobile Sticky Contact Bar: WhatsApp + Call buttons (md:hidden)
-- [x] Fleet Savings Calculator on /leasing with slider and dropdowns
-- [x] Impact-Driven Headers: "Mobility Engineered for the UAE", "A Legacy of Movement"
-- [x] Copy Cleanup: All em-dashes/en-dashes removed from 30+ pages
-- [x] EGMG Naming Audit: 100% "Eurogulf Mobility Group" in all public text
-- [x] SEO Meta Titles: All pages use pipe separators (|)
-- [x] Service-to-CTA Flow: Every service section ends with specific CTA
-
-## Previously Completed (June 2026)
-- [x] 30+ page corporate site aligned to strategy docs
-- [x] Component splitting for code quality
-- [x] 5 SEO landing pages
-- [x] Arabic version: /ar (homepage, about, contact)
-- [x] B2B/B2C mega-menu navigation
-- [x] LeadConnector chat widget
+## Previous Completions
+- [x] Model Build Upgrade: Partner logos, Trust Signal, Dual-Action Hero, Mobile Contact Bar, Fleet Savings Calculator, Impact Headers, Copy Cleanup
+- [x] 30+ page corporate site, 5 SEO pages, component splitting, B2B/B2C nav, LeadConnector chat
 
 ## Upcoming
-- [ ] Full Arabic Content Implementation (P1)
+- [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
 - [ ] WhatsApp Business API live chat integration (P1)
-- [ ] Google Analytics / Tag Manager (P2)
 - [ ] Portal Authentication Systems (P2)
+- [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

@@ -1,0 +1,32 @@
+{
+  "summary": "Frontend-only testing of the 5-feature upgrade (Theme toggle, Arabic RTL pages, GA4/GTM dataLayer, updated Featured Socials + Instagram, Language switcher). 11/11 requested items PASS. Theme toggle switches data-theme attribute on <html>, body bg toggles rgb(255,255,255) <-> rgb(0,0,0), body color toggles rgb(26,26,26) <-> rgb(238,237,231), localStorage key 'egmg-theme' persists across reload, system preference respected on fresh load. Language toggle: EN shows 'عربي' link (-> /ar), AR shows 'EN' link (-> /). All 8 Arabic pages (/ar, /ar/about, /ar/contact, /ar/services, /ar/europcar, /ar/chauffeur-service, /ar/leasing, /ar/careers, /ar/partner) load with dir='rtl' and rich Arabic H1s (verified 'حلول تنقل مصممة للإمارات' on services, 'يوروبكار: تأجير سيارات متميز...' on europcar, 'وصولك يليق بمكانتك' on chauffeur, 'التأجير التشغيلي. مصمم للإمارات.' on leasing, 'انضم إلى فريق يحرك الإمارات' on careers, 'شراكة معنا' on partner, 'إرث من الحركة' on about, 'اتصل بنا' on contact). Arabic Leasing Fleet Savings Calculator slider dispatches native input event, body text updates on change. Arabic Chauffeur form has 4 inputs, Arabic Partner form has 5 inputs, Arabic Careers has 2 mailto apply buttons. Featured Socials cards updated: 'IMT Dubai Vaudeville', 'World Travel Awards', 'Leadership Development' all present on homepage; Instagram embed CTA section present. GTM: window.dataLayer is an array; gtm.js entry present; RouteAnalytics pushes 'virtual_page_view' events on SPA navigation (verified 2 events after home->services nav with page_location + page_title).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "HomePageAr", "issue": "React warning in console: 'Each child in a list should have a unique key prop. Check the render method of HomePageAr.' Missing key={} on a mapped list in the Arabic homepage.", "selector": "n/a (console warning)", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Light theme - Homepage hero", "issues": ["When data-theme='light', the hero H1 'X Years of Moving the UAE Forward' becomes dark (rgb(26,26,26)) but sits over the dark Dubai skyline background image, making the headline very low-contrast/unreadable. Suggest a light-theme override that either (a) keeps hero H1 white/cream, or (b) adds a stronger light overlay/gradient on the hero image in light mode."]},
+      {"screen": "Light theme - Navigation", "issues": ["Nav menu links inherit cream/light text over the light nav background in light mode, resulting in poor contrast on some nav items. Verify all nav text uses theme-aware color tokens in light mode."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix missing React key prop in HomePageAr mapped list (search src/pages/ar/HomePageAr.js for .map( that renders JSX without key={}).",
+    "Improve light-theme contrast for hero H1 and nav menu items — currently hero title and some nav links are hard to read in light mode."
+  ],
+  "critical_code_review_comments": [
+    "Light theme CSS is override-based and generally works, but there is no override for the hero <h1> color on the English homepage, causing dark text over the dark hero image in light mode. Add a [data-theme='light'] rule that either keeps hero H1 cream or increases hero image dark overlay.",
+    "HomePageAr has a React key-prop warning — pass unique keys (id or index-based) to the mapped children.",
+    "GTM placeholder ID (GTM-XXXXXXX) is expected per requirements; dataLayer is functioning. Before production, replace with real GTM ID."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100% functional (11/11 checks pass); 2 cosmetic/warning issues"},
+  "test_credentials": "Admin CMS: admin@egmg.ae / EgmgAdmin2026! (not exercised — frontend-only per request)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 5 upgrade features are functional. Theme toggle test approach: clear localStorage, reload, then click [data-testid='theme-toggle']. Body bg becomes rgb(0,0,0) in dark and rgb(255,255,255) in light; localStorage key is 'egmg-theme' (values: 'dark'|'light'). Note: on fresh visit in Chromium test env, system prefers light so data-theme initializes to 'light'. dataLayer virtual_page_view events include page_location and page_title. Arabic pages all use div[dir='rtl'] wrapper (not html[dir]). The only remaining issues are cosmetic light-mode contrast on hero + a React key warning on HomePageAr.",
+  "rca of the issue": "React key warning: a .map() in HomePageAr renders sibling elements without unique key= prop. Light-theme hero contrast: index.css [data-theme='light'] overrides body bg/color but does not override the hero section H1 which sits over a dark background image; the global text color inversion makes the H1 dark, reducing contrast against the image."
+}

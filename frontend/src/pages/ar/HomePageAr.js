@@ -10,7 +10,7 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 
 const stats = [
   { value: 1976, suffix: "", label: t.home.statsFoundedLabel, isYear: true },
-  { value: 10000, suffix: "+", label: t.home.statsVehiclesLabel },
+  { value: 12000, suffix: "+", label: t.home.statsVehiclesLabel },
   { value: 1200, suffix: "+", label: t.home.statsProfessionalsLabel },
   { value: 14, suffix: "", label: t.home.statsLocationsLabel },
   { value: 7, suffix: "", label: t.home.statsEmiratesLabel },
@@ -76,7 +76,7 @@ export default function HomePageAr() {
           <div className={`${introVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
             <div className="orange-accent-line mb-6" />
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#EEEDE7] mb-6">{t.home.legacyTitle}</h2>
-            <p className="font-body text-[#999] leading-loose text-lg">{t.home.legacyText}</p>
+            <p className="font-body text-[#999] leading-loose text-lg">{t.home.legacyText1}</p>
           </div>
         </div>
       </section>
