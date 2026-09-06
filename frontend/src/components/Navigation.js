@@ -5,6 +5,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { getNavData, toArPath, toEnPath } from '@/i18n/navData';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
+const LOGO_LIGHT_URL = "/egmg-logo-dark-text.png";
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -94,7 +95,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link to={isAr ? '/ar' : '/'} data-testid="nav-logo" className="flex-shrink-0">
-              <img src={LOGO_URL} alt="Eurogulf Mobility Group" className="h-12 w-auto" style={{ objectFit: 'contain' }} />
+              <img src={theme === 'light' ? LOGO_LIGHT_URL : LOGO_URL} alt="Eurogulf Mobility Group" className="h-12 w-auto" style={{ objectFit: 'contain' }} />
             </Link>
 
             {/* Desktop Nav */}

@@ -18,8 +18,8 @@ const stats = [
 
 const brands = [
   { icon: Car, title: t.brands.europcar, promise: t.brands.europcarDesc, link: "/ar/europcar" },
-  { icon: Tag, title: t.brands.goldcar, promise: t.brands.goldcarDesc, link: "/goldcar" },
-  { icon: Truck, title: t.brands.truckline, promise: t.brands.trucklineDesc, link: "/truckline" },
+  { icon: Tag, title: t.brands.goldcar, promise: t.brands.goldcarDesc, link: "/ar/goldcar" },
+  { icon: Truck, title: t.brands.truckline, promise: t.brands.trucklineDesc, link: "/ar/truckline" },
   { icon: Crown, title: t.brands.chauffeur, promise: t.brands.chauffeurDesc, link: "/ar/chauffeur-service" },
   { icon: Wrench, title: t.brands.autoGarage, promise: t.brands.autoGarageDesc, link: "/autocare" },
   { icon: Building2, title: t.brands.usedCars, promise: t.brands.usedCarsDesc, link: "/used-cars" },

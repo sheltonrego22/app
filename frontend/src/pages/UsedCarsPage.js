@@ -29,7 +29,7 @@ const sampleVehicles = [
   { name: "Nissan X-Trail 2.5 SV", year: "2022", type: "Mid-Size SUV", km: "55k km", color: "Diamond Black", grade: "A", bid: "Contact for price" },
 ];
 
-function AuctionTimer() {
+export function AuctionTimer({ labels = ['D', 'H', 'M', 'S'] }) {
   const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
   useEffect(() => {
     const getNext = () => {
@@ -57,13 +57,13 @@ function AuctionTimer() {
   }, []);
   return (
     <div data-testid="auction-timer" className="flex items-center gap-1 font-mono text-2xl sm:text-3xl text-[#EE5A01] font-bold">
-      <span>{String(time.d).padStart(2, '0')}</span><span className="text-[#666] text-lg">D</span>
+      <span>{String(time.d).padStart(2, '0')}</span><span className="text-[#666] text-lg">{labels[0]}</span>
       <span className="text-[#666]">:</span>
-      <span>{String(time.h).padStart(2, '0')}</span><span className="text-[#666] text-lg">H</span>
+      <span>{String(time.h).padStart(2, '0')}</span><span className="text-[#666] text-lg">{labels[1]}</span>
       <span className="text-[#666]">:</span>
-      <span>{String(time.m).padStart(2, '0')}</span><span className="text-[#666] text-lg">M</span>
+      <span>{String(time.m).padStart(2, '0')}</span><span className="text-[#666] text-lg">{labels[2]}</span>
       <span className="text-[#666]">:</span>
-      <span>{String(time.s).padStart(2, '0')}</span><span className="text-[#666] text-lg">S</span>
+      <span>{String(time.s).padStart(2, '0')}</span><span className="text-[#666] text-lg">{labels[3]}</span>
     </div>
   );
 }

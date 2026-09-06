@@ -48,6 +48,11 @@ import ChauffeurPageAr from "@/pages/ar/ChauffeurPageAr";
 import LeasingPageAr from "@/pages/ar/LeasingPageAr";
 import CareersPageAr from "@/pages/ar/CareersPageAr";
 import PartnerPageAr from "@/pages/ar/PartnerPageAr";
+import GoldcarPageAr from "@/pages/ar/GoldcarPageAr";
+import TrucklinePageAr from "@/pages/ar/TrucklinePageAr";
+import AutocarePageAr from "@/pages/ar/AutocarePageAr";
+import UsedCarsPageAr from "@/pages/ar/UsedCarsPageAr";
+import SustainabilityPageAr from "@/pages/ar/SustainabilityPageAr";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -123,6 +128,11 @@ function App() {
           <Route path="/ar/leasing" element={<LeasingPageAr />} />
           <Route path="/ar/careers" element={<CareersPageAr />} />
           <Route path="/ar/partner" element={<PartnerPageAr />} />
+          <Route path="/ar/goldcar" element={<GoldcarPageAr />} />
+          <Route path="/ar/truckline" element={<TrucklinePageAr />} />
+          <Route path="/ar/autocare" element={<AutocarePageAr />} />
+          <Route path="/ar/used-cars" element={<UsedCarsPageAr />} />
+          <Route path="/ar/sustainability" element={<SustainabilityPageAr />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

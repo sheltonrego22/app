@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook, MapPin } from 'lucide-react';
 import { getNavData } from '@/i18n/navData';
+import { useTheme } from '@/hooks/useTheme';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
+const LOGO_LIGHT_URL = "/egmg-logo-dark-text.png";
 
 const socials = [
   { href: "https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/", label: "Facebook", Icon: Facebook },
@@ -13,6 +15,7 @@ const socials = [
 
 export default function Footer() {
   const { pathname } = useLocation();
+  const { theme } = useTheme();
   const isAr = pathname.startsWith('/ar');
   const { brandsLinks, footer: f } = getNavData(isAr);
   const headerCls = `font-heading font-bold text-[#EEEDE7] text-sm ${isAr ? '' : 'tracking-[0.1em] uppercase'} mb-6`;
@@ -23,7 +26,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <img src={LOGO_URL} alt="Eurogulf Mobility Group" className="h-10 w-auto mb-6" style={{ objectFit: 'contain' }} />
+            <img src={theme === 'light' ? LOGO_LIGHT_URL : LOGO_URL} alt="Eurogulf Mobility Group" className="h-10 w-auto mb-6" style={{ objectFit: 'contain' }} />
             <p className="font-body text-sm text-[#666666] leading-relaxed mb-4">{f.about}</p>
             <p className={`font-heading font-bold text-[#EE5A01] text-lg ${isAr ? '' : 'tracking-[0.05em]'}`}>{f.tagline}</p>
           </div>

@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend validation of the 5 new Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability), homepage Instagram embeds, dark-text logo swap, language toggle mapping for the new routes, Arabic nav dropdowns, Arabic AuctionTimer with Arabic unit letters, English /used-cars regression, and console-error regression on /, /ar, /ar/about, /europcar. All items pass with no app-level runtime errors (third-party GTM/Instagram noise ignored per instructions).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Instagram embed relies on scripts.instagram.com; ensure a graceful fallback (branded card already handles this well).",
+    "Consider adding a subtle loading placeholder for Instagram iframes to prevent CLS on slow networks."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only)", "frontend": "100%"},
+  "test_credentials": "N/A (public pages)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Verified: all 5 new AR pages render with dir='rtl', Cairo font h1, correct testids, correct hero color rgb(238,237,231) in light mode. AR /used-cars auction-timer uses Arabic unit letters ي س د ث and counts down. EN /used-cars timer still uses D H M S and counts down. Instagram: [data-testid='instagram-posts'] present on /; embed.js processes the 3 blockquote.instagram-media into 3 iframes (post-processing removes the blockquote nodes, which is expected Instagram embed behavior). Branded [data-testid='instagram-embed'] card still present. Logo swap: light theme -> /egmg-logo-dark-text.png in nav + footer; dark theme -> /egmg-logo-transparent.png; theme-toggle click switches immediately. Language toggle maps all 5 new routes correctly in both directions. Arabic /ar nav brands-dropdown contains the 4 brand AR links; about-dropdown contains /ar/sustainability. AR home page has links to /ar/goldcar and /ar/truckline (2 occurrences each — hero and section). No app runtime errors on /, /ar, /ar/about, /europcar.",
+  "rca of the issue": "No issues found."
+}

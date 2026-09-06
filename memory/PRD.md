@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Arabic Brand Pages + Live Instagram — Sept 2026)
+- [x] **5 new Arabic RTL pages**: `/ar/goldcar`, `/ar/truckline`, `/ar/autocare`, `/ar/used-cars`, `/ar/sustainability` (inline Arabic content, Cairo font, `ar-*-hero` testids, Arabic auction timer labels)
+- [x] **Live Instagram posts**: 3 real posts from @eurogulfmobility embedded on the homepage via `instagram.com/embed.js` (`src/config/social.js`), branded card kept underneath
+- [x] **Light-mode logo**: generated `/egmg-logo-dark-text.png`; nav + footer swap logo by theme
+- [x] Language toggle + Arabic nav/footer map all 14 Arabic routes
+
 ## Completed (Arabic Nav/Footer, Image Fix, Light Hero Polish — Sept 2026)
 - [x] **Arabic Navigation + Footer**: `/ar` routes render RTL nav/footer with Arabic labels and Arabic hrefs (data in `src/i18n/navData.js`); language toggle maps to the equivalent page (`/contact` <-> `/ar/contact`, no Arabic page -> `/ar`)
 - [x] **Cairo Arabic web font** + zero letter-spacing for `[dir="rtl"]`
@@ -27,8 +33,8 @@
 - [x] 30+ page corporate site, 5 SEO pages, component splitting, B2B/B2C nav, LeadConnector chat
 
 ## Upcoming
-- [ ] Add 3 Instagram post URLs to `src/config/social.js` (user to supply)
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
+- [ ] Remaining Arabic pages: /ar/media, /ar/leadership, /ar/faq, /ar/downloads, /ar/businesses, SEO landing pages
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)
