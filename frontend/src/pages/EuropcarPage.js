@@ -6,7 +6,7 @@ import { LeasingLeadForm } from '@/components/europcar/LeasingLeadForm';
 
 const HERO_IMG = "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=1400&h=700&fit=crop";
 const LOGO_URL = "/europcar-logo.png";
-const FLEET_IMG = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp";
+const FLEET_IMG = "https://egmg.ae/wp-content/uploads/2025/06/Resize-image-project-4.png";
 const BOOKING_URL = "https://www.europcar.com/en-db";
 const MONTHLY_URL = "https://www.europcardubai.ae";
 const FLEET_GUIDE_URL = "https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf";

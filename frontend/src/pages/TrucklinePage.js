@@ -7,16 +7,16 @@ const EGMG_LOGO = "/egmg-logo-transparent.png";
 const HERO_IMG = "https://images.unsplash.com/photo-1698348186158-253ce97914f9?w=1400&h=700&fit=crop";
 
 const clientLogos = [
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-4.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-3.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-2.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-9.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-8.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-11.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-10.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-7.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-6.png.webp",
-  "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/l-5.png.webp",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-4.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-3.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-2.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-9.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-8.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-11.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-10.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-7.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-6.png",
+  "https://egmg.ae/wp-content/uploads/2025/06/l-5.png",
 ];
 
 export default function TrucklinePage() {

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Building2, Crown, Truck, Tag, ArrowRight, Wrench, Award, CheckCircle, Users, Briefcase } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
+import InstagramPosts from '@/components/InstagramPosts';
 
 const HERO_BG = "https://images.unsplash.com/photo-1459787915554-b34915863013?w=1600&h=900&fit=crop&q=80";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
@@ -48,7 +49,7 @@ const awards = [
 
 const socialImages = [
   { img: "https://images.unsplash.com/photo-1607414851776-f2fcc379fb48?w=600&h=600&fit=crop", caption: "Dubai skyline at golden hour" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp", caption: "Europcar fleet ready for the road" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Resize-image-project-4.png", caption: "Europcar fleet ready for the road" },
   { img: "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=600&h=600&fit=crop", caption: "Sheikh Zayed Road, Dubai" },
   { img: "https://images.unsplash.com/photo-1652707228067-25672fa0b082?w=600&h=600&fit=crop", caption: "Dubai Marina by night" },
   { img: "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=600&h=600&fit=crop", caption: "Dubai streets and skyline" },
@@ -357,6 +358,7 @@ export default function HomePage() {
           </div>
 
           {/* Live Instagram Embed */}
+          <InstagramPosts />
           <div data-testid="instagram-embed" className="max-w-md mx-auto mb-10">
             <div className="bg-[#111] border border-white/5 p-6 text-center">
               <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4">Latest from Instagram</p>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Shield, Users, Award, ArrowRight, ChevronDown, Lightbulb, Heart, MapPin, Globe } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
 
-const ABOUT_HERO = "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-24-e1736166597319-822x1024.jpg.webp";
+const ABOUT_HERO = "https://egmg.ae/wp-content/uploads/2025/06/file-24-e1736166597319-822x1024.jpg";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
 
@@ -31,13 +31,13 @@ const divisions = [
 ];
 
 const AWARD_IMAGES = [
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png.webp", title: "ISO 9001:2015", desc: "Quality Management Systems" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png.webp", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png.webp", title: "Emirates Group Award", desc: "Flight Crew Transportation Support Recognition" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png.webp", title: "Car Rental Global Award", desc: "Best Performance 2023, Middle East & Africa Region" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png.webp", title: "MENA Travel Awards", desc: "Silver, Gold & Platinum (2004 to 2012)" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png.webp", title: "ISO 10002:2014", desc: "Customer Satisfaction Management" },
-  { img: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png.webp", title: "McDermott Award", desc: "Safest Transportation Service Provider" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-08-13-at-6.04.18%E2%80%AFPM-1-1.png", title: "ISO 9001:2015", desc: "Quality Management Systems" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-08-13-at-6.04.28%E2%80%AFPM-e1723911915966-1.png", title: "Business Travel Awards", desc: "Best Car Rental Company in the Middle East" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-08-13-at-6.04.55%E2%80%AFPM-1.png", title: "Emirates Group Award", desc: "Flight Crew Transportation Support Recognition" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-08-13-at-6.05.04%E2%80%AFPM-1.png", title: "Car Rental Global Award", desc: "Best Performance 2023, Middle East & Africa Region" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-09-09-at-2.45.02%E2%80%AFPM-1.png", title: "MENA Travel Awards", desc: "Silver, Gold & Platinum (2004 to 2012)" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-09-09-at-2.46.28%E2%80%AFPM.png", title: "ISO 10002:2014", desc: "Customer Satisfaction Management" },
+  { img: "https://egmg.ae/wp-content/uploads/2025/06/Screenshot-2024-09-09-at-2.47.54%E2%80%AFPM-1.png", title: "McDermott Award", desc: "Safest Transportation Service Provider" },
 ];
 
 function TimelineItem({ milestone, index, isActive, onClick }) {

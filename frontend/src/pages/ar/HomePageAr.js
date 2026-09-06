@@ -17,10 +17,10 @@ const stats = [
 ];
 
 const brands = [
-  { icon: Car, title: t.brands.europcar, promise: t.brands.europcarDesc, link: "/europcar" },
+  { icon: Car, title: t.brands.europcar, promise: t.brands.europcarDesc, link: "/ar/europcar" },
   { icon: Tag, title: t.brands.goldcar, promise: t.brands.goldcarDesc, link: "/goldcar" },
   { icon: Truck, title: t.brands.truckline, promise: t.brands.trucklineDesc, link: "/truckline" },
-  { icon: Crown, title: t.brands.chauffeur, promise: t.brands.chauffeurDesc, link: "/chauffeur-service" },
+  { icon: Crown, title: t.brands.chauffeur, promise: t.brands.chauffeurDesc, link: "/ar/chauffeur-service" },
   { icon: Wrench, title: t.brands.autoGarage, promise: t.brands.autoGarageDesc, link: "/autocare" },
   { icon: Building2, title: t.brands.usedCars, promise: t.brands.usedCarsDesc, link: "/used-cars" },
 ];
@@ -46,19 +46,19 @@ export default function HomePageAr() {
   return (
     <div dir="rtl" className="font-body">
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section data-testid="ar-home-hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={HERO_BG} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
           <img src={EGMG_LOGO} alt="يوروجلف موبيليتي" className="h-14 sm:h-16 w-auto mx-auto mb-6" />
-          <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-6">{t.home.tagline} · {t.home.since}</p>
+          <p className="font-mono text-xs text-[#EE5A01] mb-6">{t.home.tagline} · {t.home.since}</p>
           <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-8xl leading-[0.9] text-[#EEEDE7] mb-6">{t.home.heroTitle}</h1>
           <p className="font-body text-base sm:text-lg text-[#EEEDE7]/80 max-w-2xl mx-auto mb-10 leading-relaxed">{t.home.heroSub}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/ar/brands" className="btn-primary text-center">{t.home.exploreBtn}</Link>
-            <Link to="/ar/contact" className="btn-ghost text-center">{t.home.quoteBtn}</Link>
+            <Link to="/ar/services" data-testid="ar-hero-explore-btn" className="btn-primary text-center">{t.home.exploreBtn}</Link>
+            <Link to="/ar/contact" data-testid="ar-hero-quote-btn" className="btn-ghost text-center">{t.home.quoteBtn}</Link>
           </div>
         </div>
       </section>
@@ -109,9 +109,9 @@ export default function HomePageAr() {
           <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-black mb-2">{t.home.ctaTitle}</h2>
           <p className="font-body text-black/70 mb-6">{t.home.ctaSub}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/europcar" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm px-8 py-4 hover:bg-[#111111] transition-colors text-center">{t.home.rentBtn}</Link>
-            <Link to="/chauffeur-service" className="bg-transparent text-black font-heading font-bold text-sm px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">{t.home.chauffeurBtn}</Link>
-            <Link to="/contact" className="bg-transparent text-black font-heading font-bold text-sm px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">{t.home.corporateBtn}</Link>
+            <Link to="/ar/europcar" className="bg-black text-[#EEEDE7] font-heading font-bold text-sm px-8 py-4 hover:bg-[#111111] transition-colors text-center">{t.home.rentBtn}</Link>
+            <Link to="/ar/chauffeur-service" className="bg-transparent text-black font-heading font-bold text-sm px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">{t.home.chauffeurBtn}</Link>
+            <Link to="/ar/contact" className="bg-transparent text-black font-heading font-bold text-sm px-8 py-4 border-2 border-black hover:bg-black hover:text-[#EEEDE7] transition-all text-center">{t.home.corporateBtn}</Link>
           </div>
         </div>
       </section>

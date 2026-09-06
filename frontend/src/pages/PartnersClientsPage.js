@@ -62,7 +62,7 @@ export default function PartnersClientsPage() {
   return (
     <div data-testid="partners-clients-page">
       {/* HERO */}
-      <section className="relative min-h-[55vh] flex items-center overflow-hidden bg-black">
+      <section data-testid="partners-hero" className="relative min-h-[55vh] flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute top-20 right-20 w-80 h-80 bg-[#EE5A01]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />

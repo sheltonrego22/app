@@ -68,7 +68,7 @@ export default function PartnerWithUsPage() {
   return (
     <div data-testid="partner-page">
       {/* HERO */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
+      <section data-testid="partner-hero" className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute top-20 left-20 w-96 h-96 bg-[#EE5A01]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />

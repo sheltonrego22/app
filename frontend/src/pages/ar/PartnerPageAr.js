@@ -32,7 +32,7 @@ export default function PartnerPageAr() {
 
   return (
     <div dir="rtl" data-testid="partner-page-ar" className="font-body">
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
+      <section data-testid="ar-partner-hero" className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#111_0%,#000_50%,#0a0a0a_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#EE5A01]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-16 text-center">

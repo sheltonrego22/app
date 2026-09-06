@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400&family=Cairo:wght@400;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -185,6 +185,13 @@ code {
 [data-theme="light"] section[data-testid="hero-section"] h1,
 [data-theme="light"] section[data-testid="hero-section"] p { color: #EEEDE7 !important; }
 [data-theme="light"] section[data-testid="hero-section"] .text-\[\#EEEDE7\]\/80 { color: rgba(238,237,231,0.8) !important; }
+[data-theme="light"] section[data-testid*="-hero"] .text-\[\#EEEDE7\]\/80 { color: rgba(238,237,231,0.8) !important; }
+[data-theme="light"] section[data-testid*="-hero"] .text-\[\#EE5A01\],
+[data-theme="light"] section[data-testid="hero-section"] .text-\[\#EE5A01\] { color: #EE5A01 !important; }
+[data-theme="light"] section[data-testid*="-hero"] .btn-ghost,
+[data-theme="light"] section[data-testid="hero-section"] .btn-ghost { color: #EEEDE7; border-color: #EEEDE7; }
+[data-theme="light"] section[data-testid*="-hero"] .btn-ghost:hover,
+[data-theme="light"] section[data-testid="hero-section"] .btn-ghost:hover { color: #EE5A01; border-color: #EE5A01; }
 
 /* Light: nav text readable on light background */
 [data-theme="light"] nav .text-\[\#EEEDE7\] { color: #1A1A1A !important; }
@@ -193,6 +200,11 @@ code {
 /* Light: mobile menu overlay stays dark */
 [data-theme="light"] [data-testid="mobile-menu-overlay"] { background-color: #000 !important; }
 [data-theme="light"] [data-testid="mobile-menu-overlay"] .text-\[\#EEEDE7\] { color: #EEEDE7 !important; }
+
+/* ═══ Arabic (RTL) typography ═══ */
+[dir="rtl"], [dir="rtl"] * { font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif !important; }
+[dir="rtl"] * { letter-spacing: 0 !important; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { line-height: 1.2; }
 
 /* ═══ Mobile-First Responsive Utilities ═══ */
 img { max-width: 100%; height: auto; }

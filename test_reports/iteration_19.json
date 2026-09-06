@@ -1,0 +1,47 @@
+{
+  "summary": "Frontend regression for Eurogulf: verified Arabic nav+footer translations & RTL, hover dropdowns, language toggle mapping, Arabic Cairo font, light-mode hero contrast across 9 tagged pages, image loading on 5 key pages, Arabic homepage CTAs and inner /ar routes, InstagramPosts hidden while embed present, mobile /ar menu, theme toggle persistence, and one backend smoke curl.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/health", "issue": "Returns 404 (health endpoint defined as GET /health at root only, not under /api). Not a regression, informational."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "HomePageAr", "issue": "React warning 'Each child in a list should have a unique key prop' still fires on /ar. Iteration 18 flagged the same. Likely duplicate key in brands.map (uses key={b.title}) — verify brand titles are unique in i18n/ar.js, or stats labels not colliding. Non-breaking but should be fixed.", "selector": "/ar HomePageAr render", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Resolve HomePageAr duplicate React key warning (check brands.map key uniqueness in /app/frontend/src/pages/ar/HomePageAr.js and /app/frontend/src/i18n/ar.js brand titles; switch key to link or index)."
+  ],
+  "critical_code_review_comments": [
+    "HomePageAr.js: key={b.title} risks collision. Prefer key={b.link} or key={`${b.title}-${i}`}."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (smoke)", "frontend": "~98% (all specified checks pass except pre-existing key warning)"},
+  "seed_data_creation": "One TEST_ contact via POST /api/contact for smoke.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "test_results_detail": {
+    "en_nav": {"dir": "ltr", "home": "HOME", "about": "ABOUT", "brands": "OUR BRANDS", "book_text": "GET A QUOTE", "book_href": "/contact"},
+    "ar_nav": {"dir": "rtl", "home": "الرئيسية", "about": "عن المجموعة", "brands": "علاماتنا التجارية", "book_text": "احصل على عرض سعر", "book_href": "/ar/contact"},
+    "ar_dropdowns_visible": {"brands": true, "corporate": true, "about": true, "support": true, "brands_first_href": "/ar/europcar"},
+    "ar_footer": {"dir": "rtl", "whatsapp_text": "تحدث معنا عبر واتساب", "contains_copyright": "مجموعة يوروجلف للتنقل", "contains_headers": ["روابط سريعة","علاماتنا التجارية","تواصل معنا"]},
+    "lang_toggle_mapping": {"/contact": "/ar/contact", "/ar/contact": "/contact", "/leasing": "/ar/leasing", "/goldcar": "/ar", "/ar/careers": "/careers", "/": "/ar", "/ar": "/"},
+    "ar_typography": {"h1_font_startsWith_Cairo": true, "p_font_startsWith_Cairo": true, "nav_letter_spacing": "normal"},
+    "light_hero_h1_color_rgb238_237_231_on": ["/ar","/ar/about","/ar/services","/ar/leasing","/contact","/faq","/partner","/car-rental-dubai","/portal/corporate"],
+    "home_light": {"h1": "rgb(238, 237, 231)", "tagline_WE_MOVE_YOU_color": "rgb(238, 90, 1)", "body_bg": "rgb(255, 255, 255)"},
+    "home_dark_body_bg": "rgb(0, 0, 0)",
+    "images_broken": {"home_social_section": 0, "home_all": 0, "leadership": 0, "about": 0, "truckline": 0, "europcar": 0, "note": "No <img> had complete=true && naturalWidth=0. Some below-fold lazy images had complete=false at snapshot time, expected."},
+    "ar_home_ctas": {"explore_btn_href": "/ar/services", "quote_btn_href": "/ar/contact", "europcar_links_count_on_ar": 3, "ar_europcar_dir_rtl": true, "ar_chauffeur_dir_rtl": true},
+    "instagram": {"home_instagram_embed_present": true, "home_instagram_posts_absent": true},
+    "mobile_ar_menu": {"overlay_opens": true, "contains_arabic_headers": true},
+    "theme_toggle": {"before": "light", "after_click": "dark", "localStorage_egmg_theme": "dark"},
+    "backend_smoke": {"GET /api/": 200, "POST /api/contact (full_name,email,phone,message,enquiry_type)": 200}
+  },
+  "context_for_next_testing_agent": "Arabic nav/footer translation, light-mode hero contrast, language toggle mapping, Cairo font, image loads, /ar inner pages all verified passing. Only outstanding issue is a benign React duplicate-key warning on HomePageAr (already present in iter 18). Backend contact endpoint is POST /api/contact (singular), not /api/contacts. Health endpoint is only /health (no /api prefix).",
+  "rca_of_the_issue": "HomePageAr key warning: brands.map uses key={b.title}; if any two brand titles in i18n/ar.js resolve to the same Arabic string (or if stats labels collide), React logs the warning. Mitigation: switch to key={b.link} which is unique per route."
+}

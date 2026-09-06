@@ -49,7 +49,7 @@ export function CarRentalSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative overflow-hidden">
-              <img src="https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/Resize-image-project-4.png.webp" alt="Europcar Dubai Fleet" className="w-full h-[400px] object-cover" loading="lazy" />
+              <img src="https://egmg.ae/wp-content/uploads/2025/06/Resize-image-project-4.png" alt="Europcar Dubai Fleet" className="w-full h-[400px] object-cover" loading="lazy" />
             </div>
             <div>
               <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Daily · Weekly · Monthly</span>
