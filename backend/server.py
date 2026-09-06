@@ -14,7 +14,8 @@ import bcrypt
 import jwt
 import uuid
 import secrets
-import shutil
+import base64
+from fastapi.responses import Response
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta
@@ -36,9 +37,6 @@ async def health_check():
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-UPLOAD_DIR = Path("/app/backend/uploads")
-UPLOAD_DIR.mkdir(exist_ok=True)
 
 # ══════════════════ PASSWORD HELPERS ══════════════════
 
@@ -277,14 +275,22 @@ async def upload_file(request: Request, file: UploadFile = File(...)):
     allowed = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".pdf", ".doc", ".docx"}
     if ext not in allowed:
         raise HTTPException(status_code=400, detail=f"File type {ext} not allowed")
+    content = await file.read()
+    encoded = base64.b64encode(content).decode("utf-8")
+    mime_map = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp", ".gif": "image/gif", ".pdf": "application/pdf", ".doc": "application/msword", ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+    mime = mime_map.get(ext, "application/octet-stream")
     filename = f"{uuid.uuid4().hex}{ext}"
-    filepath = UPLOAD_DIR / filename
-    with open(filepath, "wb") as f:
-        shutil.copyfileobj(file.file, f)
+    await db.uploads.insert_one({"filename": filename, "mime": mime, "data": encoded, "original": file.filename})
     url = f"/api/uploads/{filename}"
     return {"url": url, "filename": filename}
 
-from fastapi.staticfiles import StaticFiles
+@api_router.get("/uploads/{filename}")
+async def get_upload(filename: str):
+    doc = await db.uploads.find_one({"filename": filename})
+    if not doc:
+        raise HTTPException(status_code=404, detail="File not found")
+    content = base64.b64decode(doc["data"])
+    return Response(content=content, media_type=doc.get("mime", "application/octet-stream"), headers={"Cache-Control": "public, max-age=31536000"})
 
 # ══════════════════ ARTICLES CMS ══════════════════
 
@@ -354,9 +360,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Serve uploaded files
-app.mount("/api/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 # ══════════════════ STARTUP ══════════════════
 

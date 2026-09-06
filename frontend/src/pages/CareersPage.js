@@ -136,7 +136,7 @@ export default function CareersPage() {
                     </p>
                     <a
                       href="mailto:wemoveyou@eurogulf.ae"
-                      data-testid={`apply-btn-${i}`}
+                      data-testid={`apply-btn-${job.title.toLowerCase().replace(/\s+/g, '-')}`}
                       className="inline-flex items-center gap-2 bg-[#EE5A01] text-black font-heading font-bold text-xs tracking-[0.05em] px-5 py-2.5 hover:bg-[#F17B34] transition-colors"
                     >
                       <Send className="w-3 h-3" />

@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
     } catch (_err) {
       navigate('/admin/login');
     }
-  }, [navigate, API]);
+  }, [navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchArticles = useCallback(async () => {
     try {
@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterCat, searchQuery, API]);
+  }, [filterCat, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { checkAuth(); }, [checkAuth]);
   useEffect(() => { if (user) fetchArticles(); }, [user, fetchArticles]);

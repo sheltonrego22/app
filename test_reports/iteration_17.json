@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only smoke + regression testing across Homepage, Services, About, Leasing (Fleet Savings Calculator), Contact, Europcar, Admin Login, Footer, and Navigation. All 12 requested test items passed. Zero console errors/warnings, all 7 partner logos load successfully (self-hosted SVGs + Europcar PNG), no EGMG abbreviation in body text, no em/en-dashes in headings/body across main pages, calculator slider dynamically updates savings (10 vehicles => AED 660,960, 100 vehicles => AED 6,609,600), Contact time dropdown uses 'to' phrasing (Morning (9am to 12pm), etc.), mobile sticky bar with WhatsApp + Call renders at 375px, hidden at desktop, brand dropdown navigates to /europcar, Footer alt='Eurogulf Mobility Group'. External egmg.ae images blocked by ORB in preview only (expected, not a bug).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "SEO meta description (all pages)", "issues": ["Meta description contains em-dash: 'Eurogulf Mobility — UAE\\'s trusted mobility group since 1976.' The 'no em/en-dashes' rule was only for headings/body text so this is likely acceptable; flagging as informational only since previous iterations were removing dashes globally."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Optional: replace em-dash in <meta name='description'> in public/index.html (or SEO.js default) with a hyphen for consistency with the site-wide no-dash convention.",
+    "External egmg.ae images (leadership photos, fleet, social gallery) are ORB-blocked in preview environment. Confirmed to work in production but consider migrating to self-hosted assets like the partner logos were migrated in iteration 16 — this eliminates preview-env noise and improves reliability."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "test_credentials": "Admin CMS: admin@egmg.ae / EgmgAdmin2026! (not exercised this iteration; login page load only verified)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Site is deployment-ready from a UI perspective. Zero console errors on preview URL. All requested checks pass. Only cosmetic finding is an em-dash inside <meta name='description'> — this is a meta tag, not heading/body text, so strictly not a regression. Slider on /leasing responds to native input events via HTMLInputElement setter (React controlled input). Contact page uses shadcn Select for time (not <select>), options are ['Morning (9am to 12pm)', 'Afternoon (12pm to 4pm)', 'Evening (4pm to 7pm)', 'Any time'].",
+  "rca of the issue": "N/A - no bugs found in this iteration"
+}

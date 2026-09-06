@@ -59,7 +59,7 @@ export default function MediaCenterPage() {
     };
     const debounce = setTimeout(fetchArticles, 300);
     return () => clearTimeout(debounce);
-  }, [filter, searchQuery, API]);
+  }, [filter, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const featuredArticles = articles.filter((a) => a.featured);
   const regularArticles = articles.filter((a) => !a.featured);

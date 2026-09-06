@@ -29,11 +29,11 @@ const servicesStrip = [
 ];
 
 const PARTNER_LOGOS = [
-  { name: "Al Khoory Automobiles", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-32.png.webp" },
-  { name: "IMT Dubai", url: "https://egmg.ae/wp-content/webp-express/webp-images/uploads/2025/06/file-33.png.webp" },
+  { name: "Al Khoory Automobiles", url: "/partners/al-khoory-logo.svg" },
+  { name: "IMT Dubai", url: "/partners/imt-dubai-logo.svg" },
   { name: "Europcar", url: "/europcar-logo.png" },
   { name: "ADNOC", url: "/partners/adnoc-logo.svg" },
-  { name: "Emirates", url: "https://egmg.ae/wp-content/uploads/2025/06/Emirates-Logo.png-768x403-1.webp" },
+  { name: "Emirates", url: "/partners/emirates-logo.svg" },
   { name: "DP World", url: "/partners/dpworld-logo.svg" },
   { name: "Dubai Holding", url: "/partners/dubai-holding-logo.svg" },
 ];
@@ -246,7 +246,7 @@ export default function HomePage() {
                   <img
                     src={logo.url}
                     alt={logo.name}
-                    className="max-h-12 sm:max-h-14 w-auto object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity"
+                    className="max-h-12 sm:max-h-14 w-auto object-contain opacity-50 group-hover:opacity-90 transition-opacity"
                     loading="lazy"
                   />
                 </div>
