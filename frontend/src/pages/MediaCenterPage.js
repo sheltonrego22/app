@@ -171,9 +171,9 @@ export default function MediaCenterPage() {
   );
 }
 
-function ArticleCard({ article, expanded, onToggle }) {
+export function ArticleCard({ article, expanded, onToggle, ar = false }) {
   const a = article;
-  const dateStr = new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const dateStr = new Date(a.created_at).toLocaleDateString(ar ? 'ar-AE' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
     <div
@@ -194,7 +194,7 @@ function ArticleCard({ article, expanded, onToggle }) {
           {a.featured && <Star className="w-3 h-3 text-[#EE5A01] fill-[#EE5A01]" />}
           {a.video_url && <Video className="w-3 h-3 text-[#666]" />}
         </div>
-        <h3 className="font-heading font-bold text-base text-[#EEEDE7] mb-2 leading-snug group-hover:text-[#EE5A01] transition-colors">
+        <h3 dir="ltr" className={`font-heading font-bold text-base text-[#EEEDE7] mb-2 leading-snug group-hover:text-[#EE5A01] transition-colors ${ar ? 'text-left' : ''}`}>
           {a.title}
         </h3>
         <div className="flex items-center gap-2 text-[#666]">
@@ -206,7 +206,7 @@ function ArticleCard({ article, expanded, onToggle }) {
           <div className="mt-4 pt-4 border-t border-[#222]">
             {a.body && (() => {
               const sanitizedHtml = { __html: DOMPurify.sanitize(a.body) };
-              return <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={sanitizedHtml} />;
+              return <div dir="ltr" className={`font-body text-sm text-[#999] leading-relaxed article-body ${ar ? 'text-left' : ''}`} dangerouslySetInnerHTML={sanitizedHtml} />;
             })()}
             {safeEmbed(a.video_url) && (
               <div className="mt-4 aspect-video">
@@ -215,7 +215,7 @@ function ArticleCard({ article, expanded, onToggle }) {
             )}
             {safeUrl(a.pdf_url) && (
               <a href={safeUrl(a.pdf_url)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-[#EE5A01] font-heading text-xs uppercase tracking-wider hover:underline">
-                <FileDown className="w-4 h-4" /> Download PDF
+                <FileDown className="w-4 h-4" /> {ar ? 'تحميل الملف (PDF)' : 'Download PDF'}
               </a>
             )}
           </div>

@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Enquiries Inbox + Arabic Media/Leadership/FAQ — Sept 2026)
+- [x] **Admin Enquiries Inbox**: dashboard tabs Articles | Enquiries | Bookings; contact enquiries and chauffeur bookings listed newest-first with status dropdowns (contacts: new/contacted/closed; bookings: pending/confirmed/completed/cancelled), badge counts of open items, quick call / WhatsApp / email actions
+- [x] Backend: `ContactSubmission.status` (default `new`), `GET /api/contacts|bookings?status=`, `PATCH /api/contacts/{id}/status`, `PATCH /api/bookings/{id}/status` (admin auth)
+- [x] **Arabic pages** `/ar/media` (Arabic chrome, CMS articles rendered LTR), `/ar/leadership`, `/ar/faq`; language toggle + Arabic nav/footer map them (17 Arabic routes total)
+- Regression tests: `/app/backend/tests/test_inbox_iter23.py`
+
 ## Completed (Security Audit Remediation — Sept 2026)
 - [x] **SEC-001 (High)**: `GET /api/contacts` and `GET /api/bookings` now require admin auth (were public PII leaks)
 - [x] **SEC-002**: hardcoded admin password default removed (seed skips if `ADMIN_PASSWORD` missing/<12 chars); `JWT_SECRET` rotated. Env sync kept so password rotates via deployment env var
@@ -44,7 +50,8 @@
 
 ## Upcoming
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
-- [ ] Remaining Arabic pages: /ar/media, /ar/leadership, /ar/faq, /ar/downloads, /ar/businesses, SEO landing pages
+- [ ] Remaining Arabic pages: /ar/downloads, /ar/businesses, portals, SEO landing pages
+- [ ] Arabic CMS fields (title_ar/body_ar) so Media Center articles can be authored in Arabic
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

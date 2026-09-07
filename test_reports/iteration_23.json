@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 23: Tested new Enquiries Inbox backend (contacts + bookings) and 3 new Arabic RTL pages (/ar/media, /ar/leadership, /ar/faq) plus admin dashboard tabs, status persistence, language toggle mapping, and light-mode hero color. 16/16 backend tests passed. Frontend UI checks all passed with no runtime errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_inbox_iter23.py",
+    "/app/test_reports/pytest/iter23_inbox.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py is now 515 lines; approaching 700-line guideline threshold. Consider splitting auth, uploads, articles, inbox into separate routers if it grows further.",
+    "get_contacts/get_bookings ignore unknown `status` query values silently (falls back to no filter). Consider returning 422 for invalid enum to match PATCH behavior."
+  ],
+  "updated_files": ["/app/backend/tests/test_inbox_iter23.py"],
+  "success_rate": {"backend": "100% (16/16)", "frontend": "100%"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "Created 1 TEST_ contact and 1 TEST_ booking during pytest; both cleaned up via module-scoped teardown that deletes contacts where full_name ~ ^TEST_ and bookings where name ~ ^TEST_. Frontend test flipped an existing real contact to 'contacted' then reverted it to 'new'; toggled the existing booking to 'confirmed' then reverted to 'pending'.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Login uses HttpOnly cookies (no access_token in JSON body). Use requests.Session() and the cookie will be sent automatically, OR extract session.cookies.get('access_token') for a Bearer header. Both work. Test file at /app/backend/tests/test_inbox_iter23.py is reusable for regression. All new data-testids (admin-tabs, admin-tab-articles/contacts/bookings, admin-contact-{id}, admin-booking-{id}, contact-status-{id}, booking-status-{id}, media-center-page-ar, leadership-page-ar, faq-page-ar, ar-leader-card-0..8, ar-leadership-careers-cta, ar-faq-item-*, ar-faq-search, ar-media-search, ar-filter-*, lang-toggle, ar-media-hero, ar-leadership-hero, ar-faq-hero) verified present and functional.",
+  "detailed_results": {
+    "backend_inbox_tests": {
+      "contacts": "POST /api/contact (public) 200; GET /api/contacts unauth 401; GET returns newest-first with status 'new'; PATCH unauth 401; PATCH to 'contacted' 200; ?status=contacted filter works; PATCH invalid 'bogus' 422; PATCH unknown id 404. ALL PASS.",
+      "bookings": "POST /api/bookings (public) 200 with reference; GET unauth 401; GET returns newest-first with status 'pending'; PATCH unauth 401; PATCH to 'confirmed' 200; ?status=confirmed filter works; PATCH invalid 422; PATCH unknown id 404. ALL PASS."
+    },
+    "frontend_admin_inbox": {
+      "tabs": "admin-tabs present with admin-tab-articles/contacts/bookings",
+      "headers": "'Media Center CMS' on Articles, 'Enquiries Inbox' on Enquiries, 'Chauffeur Bookings' on Bookings",
+      "new_article_visibility": "Present on Articles, hidden on Enquiries/Bookings",
+      "contacts_cards": "9 cards, each with tel:, wa.me, mailto: quick-action links; status selects present",
+      "bookings_cards": "1 card, quick action links present, status select present",
+      "status_persistence": "Contact status change new->contacted persisted after reload; badge count decreased 9->8. Booking status pending->confirmed persisted after reload. Both reverted."
+    },
+    "frontend_arabic_pages": {
+      "ar_media": "dir=rtl, h1='المركز الإعلامي', filter buttons ar-filter-all/awards present, ar-media-search filters (24 cards -> 7 with 'Europcar', 8 with Awards filter). Arabic nav+footer.",
+      "ar_leadership": "dir=rtl, h1='القيادة', 9 ar-leader-card-* found, all images naturalWidth>0, ar-leadership-careers-cta href=/ar/careers",
+      "ar_faq": "dir=rtl, h1='الأسئلة الشائعة ومركز المساعدة', 6 category headings, ar-faq-item-0-0 expands, search 'جولدكار' filters to 1 item, nonsense shows 'لم نجد أسئلة مطابقة'"
+    },
+    "language_toggle_mapping": "/media<->/ar/media, /leadership<->/ar/leadership, /faq<->/ar/faq all confirmed both directions. Arabic footer 'المركز الإعلامي' -> /ar/media confirmed. Arabic nav 'الوظائف' -> /ar/careers confirmed.",
+    "light_mode_hero": "ar-media-hero, ar-leadership-hero, ar-faq-hero all render h1 color rgb(238, 237, 231) after localStorage egmg-theme=light",
+    "regression": "No pageerrors or console errors observed on /admin, /media, /leadership, /faq, /ar/media, /ar/leadership, /ar/faq"
+  }
+}

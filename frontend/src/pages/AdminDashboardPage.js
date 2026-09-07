@@ -2,13 +2,19 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, LogOut, FileText } from 'lucide-react';
 import { ArticleEditor, ArticlesTable, AdminFilters, CATEGORIES } from '@/components/admin/AdminComponents';
+import { AdminTabs, ContactsTable, BookingsTable } from '@/components/admin/InboxComponents';
 import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const EMPTY_FORM = { title: '', body: '', category: '', image_url: '', video_url: '', pdf_url: '', featured: false, published: true };
+const TAB_TITLES = { articles: 'Media Center CMS', contacts: 'Enquiries Inbox', bookings: 'Chauffeur Bookings' };
 
 export default function AdminDashboardPage() {
   const [user, setUser] = useState(null);
+  const [tab, setTab] = useState('articles');
+  const [contacts, setContacts] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [inboxLoading, setInboxLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -48,6 +54,42 @@ export default function AdminDashboardPage() {
 
   useEffect(() => { checkAuth(); }, [checkAuth]);
   useEffect(() => { if (user) fetchArticles(); }, [user, fetchArticles]);
+
+  const fetchInbox = useCallback(async () => {
+    setInboxLoading(true);
+    try {
+      const [c, b] = await Promise.all([
+        axios.get(`${API}/api/contacts`, { params: { limit: 500 }, withCredentials: true }),
+        axios.get(`${API}/api/bookings`, { params: { limit: 500 }, withCredentials: true }),
+      ]);
+      setContacts(c.data);
+      setBookings(b.data);
+    } catch (err) {
+      if (process.env.NODE_ENV === 'development') console.error('Inbox:', err);
+      setError('Failed to load enquiries and bookings.');
+    } finally {
+      setInboxLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { if (user) fetchInbox(); }, [user, fetchInbox]);
+
+  const handleStatus = async (kind, id, status) => {
+    const setList = kind === 'contacts' ? setContacts : setBookings;
+    try {
+      await axios.patch(`${API}/api/${kind}/${id}/status`, { status }, { withCredentials: true });
+      setList((prev) => prev.map((item) => (item.id === id ? { ...item, status } : item)));
+    } catch (err) {
+      if (process.env.NODE_ENV === 'development') console.error('Status:', err);
+      setError('Failed to update status.');
+    }
+  };
+
+  const counts = {
+    articles: total,
+    contacts: contacts.filter((c) => (c.status || 'new') === 'new').length,
+    bookings: bookings.filter((b) => (b.status || 'pending') === 'pending').length,
+  };
 
   const resetForm = () => { setForm(EMPTY_FORM); setEditing(null); setShowForm(false); };
 
@@ -124,14 +166,16 @@ export default function AdminDashboardPage() {
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-[#EE5A01] flex items-center justify-center"><FileText className="w-4 h-4 text-black" /></div>
             <div>
-              <h1 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider">Media Center CMS</h1>
-              <p className="font-body text-[10px] text-[#666]">{user.email} &middot; {total} articles</p>
+              <h1 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider">{TAB_TITLES[tab]}</h1>
+              <p className="font-body text-[10px] text-[#666]">{user.email} &middot; {total} articles &middot; {contacts.length} enquiries &middot; {bookings.length} bookings</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button data-testid="btn-new-article" onClick={() => { resetForm(); setShowForm(true); }} className="btn-primary flex items-center gap-2 text-xs py-2 px-4">
-              <Plus className="w-4 h-4" /> New Article
-            </button>
+            {tab === 'articles' && (
+              <button data-testid="btn-new-article" onClick={() => { resetForm(); setShowForm(true); }} className="btn-primary flex items-center gap-2 text-xs py-2 px-4">
+                <Plus className="w-4 h-4" /> New Article
+              </button>
+            )}
             <button onClick={handleLogout} data-testid="btn-logout" className="text-[#666] hover:text-[#EE5A01] transition-colors p-2"><LogOut className="w-5 h-5" /></button>
           </div>
         </div>
@@ -144,9 +188,16 @@ export default function AdminDashboardPage() {
             <button onClick={() => setError('')} className="text-red-400 text-xs hover:underline">Dismiss</button>
           </div>
         )}
-        {showForm && <ArticleEditor form={form} setForm={setForm} editing={editing} uploading={uploading} onSave={handleSave} onCancel={resetForm} onUpload={handleUpload} />}
-        <AdminFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} filterCat={filterCat} setFilterCat={setFilterCat} />
-        <ArticlesTable articles={articles} loading={loading} onEdit={handleEdit} onDelete={handleDelete} />
+        <AdminTabs tab={tab} setTab={setTab} counts={counts} />
+        {tab === 'articles' && (
+          <>
+            {showForm && <ArticleEditor form={form} setForm={setForm} editing={editing} uploading={uploading} onSave={handleSave} onCancel={resetForm} onUpload={handleUpload} />}
+            <AdminFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} filterCat={filterCat} setFilterCat={setFilterCat} />
+            <ArticlesTable articles={articles} loading={loading} onEdit={handleEdit} onDelete={handleDelete} />
+          </>
+        )}
+        {tab === 'contacts' && <ContactsTable contacts={contacts} loading={inboxLoading} onStatus={(id, s) => handleStatus('contacts', id, s)} />}
+        {tab === 'bookings' && <BookingsTable bookings={bookings} loading={inboxLoading} onStatus={(id, s) => handleStatus('bookings', id, s)} />}
       </div>
     </div>
   );

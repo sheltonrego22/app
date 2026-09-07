@@ -110,6 +110,7 @@ class ContactSubmission(BaseModel):
     phone: str
     enquiry_type: str
     message: str
+    status: str = "new"
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class ContactCreate(BaseModel):
@@ -160,6 +161,12 @@ class BookingCreate(BaseModel):
 class LoginInput(BaseModel):
     email: str
     password: str
+
+CONTACT_STATUSES = ("new", "contacted", "closed")
+BOOKING_STATUSES = ("pending", "confirmed", "completed", "cancelled")
+
+class StatusUpdate(BaseModel):
+    status: str = Field(min_length=1, max_length=20)
 
 class ArticleCreate(BaseModel):
     title: str = Field(min_length=1, max_length=500)
@@ -305,10 +312,23 @@ async def create_contact(input: ContactCreate):
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
-async def get_contacts(request: Request, skip: int = 0, limit: int = 100):
+async def get_contacts(request: Request, skip: int = 0, limit: int = 100, status: Optional[str] = None):
     await get_current_user(request)
-    contacts = await db.contact_submissions.find({}, {"_id": 0}).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
+    query = {"status": status} if status in CONTACT_STATUSES else {}
+    if status == "new":
+        query = {"$or": [{"status": "new"}, {"status": {"$exists": False}}]}
+    contacts = await db.contact_submissions.find(query, {"_id": 0}).sort("created_at", -1).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
     return contacts
+
+@api_router.patch("/contacts/{contact_id}/status")
+async def update_contact_status(contact_id: str, input: StatusUpdate, request: Request):
+    await get_current_user(request)
+    if input.status not in CONTACT_STATUSES:
+        raise HTTPException(status_code=422, detail=f"Status must be one of {', '.join(CONTACT_STATUSES)}")
+    result = await db.contact_submissions.update_one({"id": contact_id}, {"$set": {"status": input.status, "updated_at": datetime.now(timezone.utc).isoformat()}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Enquiry not found")
+    return {"id": contact_id, "status": input.status}
 
 @api_router.post("/bookings", response_model=BookingSubmission)
 async def create_booking(input: BookingCreate):
@@ -318,10 +338,21 @@ async def create_booking(input: BookingCreate):
     return submission
 
 @api_router.get("/bookings", response_model=List[BookingSubmission])
-async def get_bookings(request: Request, skip: int = 0, limit: int = 100):
+async def get_bookings(request: Request, skip: int = 0, limit: int = 100, status: Optional[str] = None):
     await get_current_user(request)
-    bookings = await db.bookings.find({}, {"_id": 0}).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
+    query = {"status": status} if status in BOOKING_STATUSES else {}
+    bookings = await db.bookings.find(query, {"_id": 0}).sort("created_at", -1).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
     return bookings
+
+@api_router.patch("/bookings/{booking_id}/status")
+async def update_booking_status(booking_id: str, input: StatusUpdate, request: Request):
+    await get_current_user(request)
+    if input.status not in BOOKING_STATUSES:
+        raise HTTPException(status_code=422, detail=f"Status must be one of {', '.join(BOOKING_STATUSES)}")
+    result = await db.bookings.update_one({"id": booking_id}, {"$set": {"status": input.status, "updated_at": datetime.now(timezone.utc).isoformat()}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    return {"id": booking_id, "status": input.status}
 
 # ══════════════════ FILE UPLOAD ══════════════════
 
@@ -424,7 +455,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_credentials='*' not in cors_origins,
     allow_origins=cors_origins,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
 

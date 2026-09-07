@@ -53,6 +53,9 @@ import TrucklinePageAr from "@/pages/ar/TrucklinePageAr";
 import AutocarePageAr from "@/pages/ar/AutocarePageAr";
 import UsedCarsPageAr from "@/pages/ar/UsedCarsPageAr";
 import SustainabilityPageAr from "@/pages/ar/SustainabilityPageAr";
+import MediaCenterPageAr from "@/pages/ar/MediaCenterPageAr";
+import LeadershipPageAr from "@/pages/ar/LeadershipPageAr";
+import FAQPageAr from "@/pages/ar/FAQPageAr";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -133,6 +136,9 @@ function App() {
           <Route path="/ar/autocare" element={<AutocarePageAr />} />
           <Route path="/ar/used-cars" element={<UsedCarsPageAr />} />
           <Route path="/ar/sustainability" element={<SustainabilityPageAr />} />
+          <Route path="/ar/media" element={<MediaCenterPageAr />} />
+          <Route path="/ar/leadership" element={<LeadershipPageAr />} />
+          <Route path="/ar/faq" element={<FAQPageAr />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

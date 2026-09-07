@@ -1,4 +1,4 @@
-const AR_ROUTES = ['/about', '/services', '/contact', '/europcar', '/chauffeur-service', '/leasing', '/careers', '/partner', '/goldcar', '/truckline', '/autocare', '/used-cars', '/sustainability'];
+const AR_ROUTES = ['/about', '/services', '/contact', '/europcar', '/chauffeur-service', '/leasing', '/careers', '/partner', '/goldcar', '/truckline', '/autocare', '/used-cars', '/sustainability', '/media', '/leadership', '/faq'];
 
 export const toArPath = (p) => (p === '/' ? '/ar' : AR_ROUTES.includes(p) ? `/ar${p}` : '/ar');
 export const toEnPath = (p) => p.replace(/^\/ar/, '') || '/';
