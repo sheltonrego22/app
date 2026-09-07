@@ -23,12 +23,12 @@ export default function BookChauffeurPage() {
   return (
     <div data-testid="book-chauffeur-page">
       <BookingHero />
-      <section data-testid="booking-wizard" className="bg-[#0a0a0a] py-12 sm:py-20">
+      <section data-testid="booking-wizard" className="bg-[#FAFAFA] py-12 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <StepIndicator current={w.step} steps={STEPS} />
           <Step form={w.form} errors={w.errors} set={w.set} getPrice={w.getPrice} />
           {w.errors.submit && (
-            <p data-testid="booking-submit-error" role="alert" className="mt-8 max-w-2xl mx-auto bg-red-500/10 border border-red-500/30 text-red-400 font-body text-sm p-3">{w.errors.submit}</p>
+            <p data-testid="booking-submit-error" role="alert" className="mt-8 max-w-2xl mx-auto bg-red-50 border border-red-200 text-red-600 font-body text-sm p-3 rounded-lg">{w.errors.submit}</p>
           )}
           <WizardNav step={w.step} submitting={w.submitting} onBack={w.back} onNext={w.next} onSubmit={w.submit} />
         </div>

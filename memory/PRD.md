@@ -16,8 +16,14 @@ Design blueprint: /app/design_guidelines.json (tokens, type scale, buttons, chip
 - [x] Brand photography extracted from the official brochure + uploads into `/public/brand/*.jpg` (hero-dubai-sedan, cover-limousine-dubai, chauffeur-door, fleet-bmw-wide, coach-dubai, rental-garage, europcar-key, woman-phone-car, goldcar-keys, selfie-car, autocare-workshop, truckline-truck, handover-couple, egmg-coach-highway, coach-boarding-dubai, bus-fleet-uae, control-room-dubai, fleet-tech-map)
 - Removed: `hooks/useTheme.js`, theme toggle; old `components/home/TrustSections.js` + `SocialSections.js` remain for HomePageAr until Phase 3
 
+## BRAND REDESIGN — PHASE 2 COMPLETE (iteration 31: 100% frontend pass)
+- [x] Shared brand-page kit `components/brand/BrandKit.js`: BrandHero, StatStrip, Prose, FeatureGrid, SplitSection, CheckList, CompareTable, LogoStrip, CtaBand, Cta + form styling constants (INPUT_CLS, SELECT_*_CLS, LABEL_CLS, ERROR_CLS)
+- [x] Brand pages rebuilt on the light system (all testids preserved): `EuropcarPage.js` (green sub-brand CTAs kept, lease table + embedded LeasingLeadForm, 14 locations), `GoldcarPage.js`, `ChauffeurServicePage.js` (+ `components/chauffeur/TransportEnquiryDialog.js`, Emirates Taxi/Royal Limousine folded in), `TrucklinePage.js`, `AutocarePage.js` (+ `autocare/AutocareSections.js`), `UsedCarsPage.js` (+ `usedcars/UsedCarsSections.js`, AuctionTimer light)
+- [x] Journeys: `/book-chauffeur` wizard restyled (BookingChrome hero with brand photo, light steps/inputs/cards, confirmation); `/leasing` rebuilt with sticky LeasingLeadForm (enquiry_type "Long-Term Leasing"), tiers, FleetCalculator (`components/leasing/FleetCalculator.js`), corporate section; `/contact` rebuilt with channel cards, `components/contact/ContactForm.js`, specialist teams + hours sidebar
+- [x] `LeasingLeadForm` now accepts accent/enquiryType/source/title/intro props
+
 ### Redesign backlog
-- [ ] PHASE 2: brand pages (Europcar, Goldcar, Chauffeur, Truckline, Autocare, Used Cars, Businesses) + key journeys (Book Chauffeur wizard, Leasing form, Contact, Services) rebuilt on the new system; replace legacy dark classes so the CSS bridge can shrink
+- [ ] PHASE 2 leftovers: `/services` (ServicesPage) and `/businesses` (BusinessesPage) still on legacy bridge; Monthly rental + Dubai Municipality pages
 - [ ] PHASE 3: remaining pages (About, Leadership, Sustainability, Media Center + article, Careers, Partner, FAQ, Downloads, Portals, Dubai Municipality, Monthly rental, 404) + Arabic parity (HomePageAr on new sections, AR Bus & Coach page, add `/royal-limousine` to AR_ROUTES); then delete the legacy bridge from index.css
 - [ ] Content pass per tone-of-voice (Leader + Caregiver): CTAs like "Let us move you forward"; ensure no standalone "EGMG" in public copy
 

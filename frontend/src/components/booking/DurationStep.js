@@ -8,8 +8,8 @@ const DURATION_OPTIONS = [
 export function DurationStep({ form, errors, set }) {
   return (
     <div data-testid="step-duration" className="animate-fade-in">
-      <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight mb-2 text-center">Select Your Duration</h2>
-      <p className="font-body text-sm text-[#666] text-center mb-8 sm:mb-10">Choose between a half-day or full-day chauffeur experience</p>
+      <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#121212] tracking-tight mb-2 text-center">Select Your Duration</h2>
+      <p className="font-body text-sm text-[#666666] text-center mb-8 sm:mb-10">Choose between a half-day or full-day chauffeur experience</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
         {DURATION_OPTIONS.map((opt) => (
           <button
@@ -17,21 +17,21 @@ export function DurationStep({ form, errors, set }) {
             type="button"
             data-testid={`duration-${opt.value}`}
             onClick={() => set('duration', opt.value)}
-            className={`text-left p-6 sm:p-8 border transition-all duration-300 group ${
-              form.duration === opt.value ? 'border-[#EE5A01] bg-[#EE5A01]/5' : 'border-[#222] bg-[#111111] hover:border-[#EE5A01]/40'
+            className={`text-left p-6 sm:p-8 rounded-2xl border transition-all duration-300 group ${
+              form.duration === opt.value ? 'border-[#EE5A01] bg-[#FFF4ED]' : 'border-black/10 bg-white hover:border-[#EE5A01]/40'
             }`}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className={`w-10 h-10 flex items-center justify-center transition-colors ${form.duration === opt.value ? 'bg-[#EE5A01] text-black' : 'bg-white/5 text-[#666] group-hover:text-[#EE5A01]'}`}>
+              <div className={`w-10 h-10 flex items-center justify-center transition-colors ${form.duration === opt.value ? 'bg-[#EE5A01] text-white' : 'bg-[#F5F5F3] text-[#666666] group-hover:text-[#EE5A01]'}`}>
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-heading font-bold text-lg text-[#EEEDE7]">{opt.title}</h3>
+                <h3 className="font-heading font-bold text-lg text-[#121212]">{opt.title}</h3>
                 <p className="font-mono text-xs text-[#EE5A01]">{opt.subtitle}</p>
               </div>
             </div>
-            <p className="font-body text-sm text-[#999] mb-4">{opt.desc}</p>
-            <p className="font-heading text-sm text-[#666]">From <span className="font-black text-[#EE5A01] text-lg">AED {opt.from.toLocaleString()}</span></p>
+            <p className="font-body text-sm text-[#555555] mb-4">{opt.desc}</p>
+            <p className="font-heading text-sm text-[#666666]">From <span className="font-black text-[#EE5A01] text-lg">AED {opt.from.toLocaleString()}</span></p>
           </button>
         ))}
       </div>

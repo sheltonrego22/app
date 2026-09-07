@@ -37,11 +37,11 @@ export function AuctionTimer({ labels = ['D', 'H', 'M', 'S'] }) {
   const time = useAuctionCountdown();
   const parts = [time.d, time.h, time.m, time.s];
   return (
-    <div data-testid="auction-timer" className="flex items-center gap-1 font-mono text-2xl sm:text-3xl text-[#EE5A01] font-bold">
+    <div data-testid="auction-timer" className="flex items-center gap-1 font-heading text-xl sm:text-2xl text-[#EE5A01] font-black tabular-nums">
       {parts.map((value, i) => (
         <span key={labels[i]} className="flex items-center gap-1">
-          {i > 0 && <span className="text-[#666]">:</span>}
-          <span>{pad(value)}</span><span className="text-[#666] text-lg">{labels[i]}</span>
+          {i > 0 && <span className="text-[#999]">:</span>}
+          <span>{pad(value)}</span><span className="text-[#999] text-sm font-bold">{labels[i]}</span>
         </span>
       ))}
     </div>

@@ -8,15 +8,15 @@ export const STEPS = [
 ];
 
 function getStepStyle(done, active) {
-  if (done) return 'bg-[#EE5A01] text-black';
+  if (done) return 'bg-[#EE5A01] text-white';
   if (active) return 'bg-[#EE5A01]/20 border-2 border-[#EE5A01] text-[#EE5A01]';
-  return 'bg-[#111111] border border-[#333] text-[#666]';
+  return 'bg-white border border-black/15 text-[#666666]';
 }
 
 function getStepLabelStyle(done, active) {
   if (active) return 'text-[#EE5A01]';
-  if (done) return 'text-[#EEEDE7]';
-  return 'text-[#666]';
+  if (done) return 'text-[#121212]';
+  return 'text-[#666666]';
 }
 
 export function StepIndicator({ current, steps }) {
