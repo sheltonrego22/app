@@ -4,8 +4,8 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, BackgroundTasks
-from emailer import send_alert, send_email, contact_alert, booking_alert, contact_confirmation, booking_confirmation, smtp_configured
+from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks
+from emailer import send_alert, send_email, contact_alert, booking_alert, contact_confirmation, booking_confirmation, application_alert, application_confirmation, smtp_configured
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -111,6 +111,9 @@ class ContactSubmission(BaseModel):
     enquiry_type: str
     message: str
     status: str = "new"
+    role: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    attachment_url: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class ContactCreate(BaseModel):
@@ -365,6 +368,81 @@ async def update_booking_status(booking_id: str, input: StatusUpdate, request: R
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Booking not found")
     return {"id": booking_id, "status": input.status}
+
+# ══════════════════ CAREERS ══════════════════
+
+CV_TYPES = {".pdf": (b"%PDF",), ".doc": (b"\xd0\xcf\x11\xe0",), ".docx": (b"PK\x03\x04",)}
+CV_MIME = {".pdf": "application/pdf", ".doc": "application/msword", ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+MAX_CV_BYTES = 5 * 1024 * 1024
+APPLY_LIMIT_PER_HOUR = 5
+EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+
+async def enforce_apply_rate_limit(ip: str):
+    key = f"apply:{ip}"
+    now = datetime.now(timezone.utc)
+    entry = await db.rate_limits.find_one({"key": key})
+    window_start = entry.get("window_start") if entry else None
+    if window_start and window_start.tzinfo is None:
+        window_start = window_start.replace(tzinfo=timezone.utc)
+    if entry and window_start and (now - window_start).total_seconds() < 3600:
+        if entry.get("count", 0) >= APPLY_LIMIT_PER_HOUR:
+            raise HTTPException(status_code=429, detail="Too many applications from this connection. Please try again later.")
+        await db.rate_limits.update_one({"key": key}, {"$inc": {"count": 1}})
+    else:
+        await db.rate_limits.update_one({"key": key}, {"$set": {"count": 1, "window_start": now}}, upsert=True)
+
+@api_router.post("/careers/apply")
+async def apply_for_job(
+    request: Request, background_tasks: BackgroundTasks,
+    full_name: str = Form(min_length=2, max_length=200), email: str = Form(max_length=200), phone: str = Form(min_length=5, max_length=50),
+    role: str = Form(min_length=2, max_length=200), message: str = Form(default="", max_length=3000),
+    linkedin_url: str = Form(default="", max_length=300), lang: str = Form(default="en"), cv: UploadFile = File(...),
+):
+    email = email.strip().lower()
+    if not EMAIL_PATTERN.match(email):
+        raise HTTPException(status_code=422, detail="Please enter a valid email address")
+    linkedin_url = linkedin_url.strip()
+    if linkedin_url and not re.match(r"^https://([a-z]{2,3}\.)?linkedin\.com/", linkedin_url, re.I):
+        raise HTTPException(status_code=422, detail="LinkedIn URL must start with https://www.linkedin.com/")
+    ext = Path(cv.filename or "").suffix.lower()
+    if ext not in CV_TYPES:
+        raise HTTPException(status_code=400, detail="CV must be a PDF, DOC or DOCX file")
+    content = await cv.read(MAX_CV_BYTES + 1)
+    if len(content) > MAX_CV_BYTES:
+        raise HTTPException(status_code=413, detail="CV exceeds the 5 MB limit")
+    if not content.startswith(CV_TYPES[ext]):
+        raise HTTPException(status_code=400, detail="CV file content does not match its extension")
+    await enforce_apply_rate_limit(client_ip(request))
+
+    cv_id = str(uuid.uuid4())
+    await db.cv_files.insert_one({
+        "id": cv_id, "filename": f"{cv_id}{ext}", "original_name": Path(cv.filename).name[:200], "mime": CV_MIME[ext],
+        "size": len(content), "data": base64.b64encode(content).decode("utf-8"), "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    note = message.strip() or ("لم يُضف المتقدم رسالة." if lang == "ar" else "No cover note provided.")
+    if linkedin_url:
+        note += f"\n\nLinkedIn: {linkedin_url}"
+    submission = ContactSubmission(
+        full_name=full_name.strip(), email=email, phone=phone.strip(), company="", enquiry_type=f"Careers: {role.strip()}",
+        message=note, role=role.strip(), linkedin_url=linkedin_url or None, attachment_url=f"/api/admin/cv/{cv_id}",
+    )
+    doc = submission.model_dump()
+    await db.contact_submissions.insert_one(doc)
+    subject, text = application_alert(doc)
+    background_tasks.add_task(send_alert, subject, text, doc["email"])
+    c_subject, c_text, c_html = application_confirmation(doc)
+    background_tasks.add_task(send_email, doc["email"], c_subject, c_text, c_html, os.environ.get("ALERT_EMAIL", ""))
+    return {"id": doc["id"], "status": "received"}
+
+@api_router.get("/admin/cv/{cv_id}")
+async def download_cv(cv_id: str, request: Request):
+    await get_current_user(request)
+    doc = await db.cv_files.find_one({"id": cv_id})
+    if not doc:
+        raise HTTPException(status_code=404, detail="CV not found")
+    safe_name = re.sub(r"[^A-Za-z0-9._-]", "_", doc.get("original_name") or doc["filename"])
+    return Response(content=base64.b64decode(doc["data"]), media_type=doc["mime"],
+                    headers={"Content-Disposition": f'attachment; filename="{safe_name}"', "X-Content-Type-Options": "nosniff"})
 
 # ══════════════════ FILE UPLOAD ══════════════════
 

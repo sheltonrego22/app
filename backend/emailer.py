@@ -105,6 +105,35 @@ def booking_alert(b: dict) -> tuple[str, str]:
 
 # ══════════════════ CUSTOMER CONFIRMATIONS (bilingual) ══════════════════
 
+def application_alert(c: dict) -> tuple[str, str]:
+    subject = f"New job application: {c.get('role', '')} from {c.get('full_name', '')}"
+    text = (
+        "A new job application was submitted on the Eurogulf Mobility Group careers page.\n\n"
+        f"Role: {c.get('role', '')}\nName: {c.get('full_name', '')}\nEmail: {c.get('email', '')}\nPhone: {c.get('phone', '')}\n"
+        f"LinkedIn: {c.get('linkedin_url') or '-'}\nSubmitted: {c.get('created_at', '')}\n\n"
+        f"Cover note:\n{c.get('message', '')}\n\n"
+        f"CV: log in to the admin dashboard (Enquiries tab) and open the CV link {c.get('attachment_url', '')}."
+    )
+    return subject, text
+
+
+def application_confirmation(c: dict) -> tuple[str, str, str]:
+    name, role = c.get("full_name", ""), c.get("role", "")
+    en_rows = [("Role", role), ("Email", c.get("email", "")), ("Phone", c.get("phone", ""))]
+    ar_rows = [("الوظيفة", role), ("البريد الإلكتروني", c.get("email", "")), ("الهاتف", c.get("phone", ""))]
+    subject = f"Application received: {role} | تم استلام طلبك - Eurogulf Mobility Group"
+    en_intro = f"Dear {name}, thank you for applying to Eurogulf Mobility Group. We have received your application and CV for the {role} position. Our recruitment team reviews every application and will contact shortlisted candidates directly."
+    ar_intro = f"عزيزنا {name}، شكراً لتقدمك إلى مجموعة يوروجلف للتنقل. استلمنا طلبك وسيرتك الذاتية لوظيفة {role}. يراجع فريق التوظيف لدينا كل طلب وسيتواصل مباشرة مع المرشحين المختارين."
+    en_note = "Questions about your application? Write to careers@eurogulf.ae."
+    ar_note = "لديك استفسار حول طلبك؟ راسلنا على careers@eurogulf.ae."
+    text = (
+        f"{en_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in en_rows) + f"\n\n{en_note}\n\n"
+        f"{ar_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in ar_rows) + f"\n\n{ar_note}\n\nEurogulf Mobility Group · WE MOVE YOU!"
+    )
+    html_body = _layout({"en_heading": "Thank you for your application", "en_intro": en_intro, "en_rows": en_rows, "en_note": en_note,
+                         "ar_heading": "شكراً لتقديم طلبك", "ar_intro": ar_intro, "ar_rows": ar_rows, "ar_note": ar_note})
+    return subject, text, html_body
+
 def _rows(pairs) -> str:
     return "".join(
         f'<tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#666;font-size:13px;width:42%">{_h(k)}</td>'

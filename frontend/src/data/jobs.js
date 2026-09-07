@@ -13,6 +13,14 @@ export const departments = {
 
 const j = (id, dept, en, ar, extra = {}) => ({ id, dept, en, ar, source: "egmg.ae", ...extra });
 
+// Static placeholders for the "Latest Openings" strip (job id -> posted date), maintained manually.
+export const latestJobs = [
+  { id: "process-analyst", posted: "2026-09-01" },
+  { id: "bde-client-solution", posted: "2026-08-26" },
+  { id: "national-sales-manager", posted: "2026-08-19" },
+  { id: "airport-shift-incharge", posted: "2026-08-12" },
+];
+
 export const jobs = [
   j("process-analyst", "corporate",
     { title: "Process Analyst", desc: "Drive process improvement and ISO 9001 compliance across the group, mapping workflows, identifying inefficiencies and embedding operational excellence with business unit leaders." },
