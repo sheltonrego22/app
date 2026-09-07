@@ -56,6 +56,8 @@ import SustainabilityPageAr from "@/pages/ar/SustainabilityPageAr";
 import MediaCenterPageAr from "@/pages/ar/MediaCenterPageAr";
 import LeadershipPageAr from "@/pages/ar/LeadershipPageAr";
 import FAQPageAr from "@/pages/ar/FAQPageAr";
+import DownloadsPageAr from "@/pages/ar/DownloadsPageAr";
+import BusinessesPageAr from "@/pages/ar/BusinessesPageAr";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -139,6 +141,8 @@ function App() {
           <Route path="/ar/media" element={<MediaCenterPageAr />} />
           <Route path="/ar/leadership" element={<LeadershipPageAr />} />
           <Route path="/ar/faq" element={<FAQPageAr />} />
+          <Route path="/ar/downloads" element={<DownloadsPageAr />} />
+          <Route path="/ar/businesses" element={<BusinessesPageAr />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

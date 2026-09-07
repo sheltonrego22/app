@@ -1,0 +1,40 @@
+{
+  "summary": "Iteration 25: verified customer confirmation emails (contact + booking), new /api/admin/email-preview endpoint, Arabic /ar/downloads + /ar/businesses pages, theme-aware EGMG logo (English + Arabic), Arabic nav/footer wiring, language toggle, and admin preview links. 7/7 backend tests pass (test_iter25_email_confirmations.py). All frontend acceptance criteria met with no runtime errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iter25_email_confirmations.py",
+    "/app/test_reports/pytest/iter25.xml"
+  ],
+  "verified_behaviours": [
+    "POST /api/contact -> 200 in <2s, background tasks log 'SMTP not configured; email skipped [to=et_reservations@eurogulf.ae]: New website enquiry...' AND '[to=confirm-qa@test.ae]: We received your enquiry | استلمنا استفسارك'",
+    "POST /api/bookings -> 200 in <2s, background tasks log team alert 'New chauffeur booking RL-...' AND customer 'Chauffeur booking RL-... received | تم استلام حجزك'",
+    "GET /api/admin/email-preview unauthenticated -> 401",
+    "GET /api/admin/email-preview?type=booking -> 200 text/html; contains RL-SAMPLE01, EUROGULF MOBILITY GROUP, WE MOVE YOU!, 'تم استلام الحجز', '800 364', dir=\"rtl\" section",
+    "GET /api/admin/email-preview?type=contact -> contains 'Sara Al Mansoori', 'we received your enquiry' (case-insensitive), 'استلمنا استفسارك'",
+    "contact_confirmation HTML escaping: <script>x</script> -> &lt;script&gt;x&lt;/script&gt;, <b>hi</b> also escaped",
+    "MongoDB cleanup: 1 TEST_ contact + 1 TEST_ booking deleted",
+    "/ar/downloads: dir=rtl, h1 'مركز التحميل', 6 cards ar-download-0..5, card 1 links to https://egmg.ae/wp-content/uploads/2026/01/5-Pages-Fleet.pdf with text 'تحميل', others show 'قريباً', CTA -> /ar/contact",
+    "/ar/businesses: dir=rtl, 6 cards linking to /ar/europcar,/ar/goldcar,/ar/truckline,/ar/chauffeur-service,/ar/autocare,/ar/used-cars; all 6 logos load (naturalWidth > 0). Dark mode -> cards 2-5 use /egmg-logo-transparent.png; light mode -> cards 2-5 use /egmg-logo-dark-text.png",
+    "English /businesses in light mode uses /egmg-logo-dark-text.png",
+    "/ar hero light-mode h1 color rgb(238, 237, 231) confirmed on both ar-downloads-hero and ar-businesses-hero",
+    "Nav on /ar: nav-link-our-brands href=/ar/businesses; Arabic Support & Resources dropdown item 'مركز التحميل' -> /ar/downloads",
+    "Arabic footer quick link 'علاماتنا التجارية' -> /ar/businesses",
+    "Language toggle: /downloads<->/ar/downloads, /businesses->/ar/businesses",
+    "Admin dashboard Enquiries tab: [data-testid='alerts-status'] renders with [data-testid='preview-contact-email'] (href .../api/admin/email-preview?type=contact) and [data-testid='preview-booking-email'] (href ...?type=booking); target=_blank; clicking booking opens new tab that renders 'Booking RL-SAMPLE01 received'",
+    "No runtime pageerrors on /ar/downloads, /ar/businesses, /admin"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py line 320/350: BackgroundTasks correctly used to send team alert + customer confirmation without blocking response (measured <3s).",
+    "emailer.py uses html.escape (_h) consistently across _rows and _layout; user-supplied name/message is safely escaped.",
+    "Preview endpoint applies safe response headers (X-Content-Type-Options: nosniff, restrictive CSP)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026!",
+  "seed_data_creation": "Created and cleaned up one TEST_ contact_submission and one TEST_ booking with email confirm-qa@test.ae.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 25 fully verified email confirmations + preview endpoint + Arabic downloads/businesses pages. Backend test file /app/backend/tests/test_iter25_email_confirmations.py is reusable as regression. SMTP remains disabled by user choice (SMTP_ENABLED=false); tests assert the 'SMTP not configured; email skipped' log lines rather than real deliveries."
+}

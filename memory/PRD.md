@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Arabic Downloads/Brands + Customer Confirmation Emails — Sept 2026)
+- [x] `/ar/downloads` and `/ar/businesses` Arabic RTL pages; Arabic nav top-level "علاماتنا التجارية" → `/ar/businesses`; 19 Arabic routes total (every Arabic menu link now stays in Arabic except portals)
+- [x] **Bilingual customer confirmation emails** (branded HTML, EN + AR) sent to the customer after enquiry / booking via SMTP background task; Reply-To = team alert address. `GET /api/admin/email-preview?type=contact|booking` (auth) + preview links in the admin alerts banner. **SMTP still PLACEHOLDER** (skip + log)
+- [x] Theme-aware EGMG logo on brand overview cards (light mode uses dark-text logo)
+- Regression tests: `/app/backend/tests/test_iter25_email_confirmations.py`
+
 ## Completed (Arabic Articles + Email Alerts — Sept 2026)
 - [x] **Arabic article fields**: `title_ar` / `body_ar` on articles; admin editor "Arabic Version" block (RTL Quill); AR badge in list; `/ar/media` renders Arabic content RTL with English fallback; search matches `title` or `title_ar`
 - [x] **Email alerts** to `et_reservations@eurogulf.ae` on new enquiry / booking via company SMTP (`/app/backend/emailer.py`, FastAPI BackgroundTasks, never fails the request). **SMTP credentials are PLACEHOLDERS** (`SMTP_ENABLED=false`); admin dashboard shows a banner until configured. `GET /api/admin/alerts-status`
@@ -56,8 +62,8 @@
 
 ## Upcoming
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
-- [ ] Supply real SMTP credentials and set SMTP_ENABLED=true to activate email alerts
-- [ ] Remaining Arabic pages: /ar/downloads, /ar/businesses, portals, SEO landing pages
+- [ ] Supply real SMTP credentials and set SMTP_ENABLED=true to activate team alerts + customer confirmations
+- [ ] Remaining Arabic pages: portals (/portal/corporate, /portal/driver), SEO landing pages, Dubai Municipality, Mobility Tech
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

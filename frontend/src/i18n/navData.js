@@ -1,4 +1,4 @@
-const AR_ROUTES = ['/about', '/services', '/contact', '/europcar', '/chauffeur-service', '/leasing', '/careers', '/partner', '/goldcar', '/truckline', '/autocare', '/used-cars', '/sustainability', '/media', '/leadership', '/faq'];
+const AR_ROUTES = ['/about', '/services', '/contact', '/europcar', '/chauffeur-service', '/leasing', '/careers', '/partner', '/goldcar', '/truckline', '/autocare', '/used-cars', '/sustainability', '/media', '/leadership', '/faq', '/downloads', '/businesses'];
 
 export const toArPath = (p) => (p === '/' ? '/ar' : AR_ROUTES.includes(p) ? `/ar${p}` : '/ar');
 export const toEnPath = (p) => p.replace(/^\/ar/, '') || '/';
@@ -94,7 +94,7 @@ const ar = {
   navLinks: [
     { id: 'home', label: 'الرئيسية', href: '/ar' },
     { id: 'about', label: 'عن المجموعة', href: '/ar/about', dropdownId: 'about' },
-    { id: 'our-brands', label: 'علاماتنا التجارية', href: '/businesses', dropdownId: 'brands' },
+    { id: 'our-brands', label: 'علاماتنا التجارية', href: '/ar/businesses', dropdownId: 'brands' },
     { id: 'mobility-solutions', label: 'حلول التنقل', href: '/ar/services', dropdownId: 'corporate' },
     { id: 'support-&-resources', label: 'الدعم والموارد', href: '/ar/contact', dropdownId: 'support' },
     { id: 'careers', label: 'الوظائف', href: '/ar/careers' },

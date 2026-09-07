@@ -5,7 +5,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks
-from emailer import send_alert, contact_alert, booking_alert, smtp_configured
+from emailer import send_alert, send_email, contact_alert, booking_alert, contact_confirmation, booking_confirmation, smtp_configured
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -17,7 +17,7 @@ import jwt
 import uuid
 import secrets
 import base64
-from fastapi.responses import Response
+from fastapi.responses import Response, HTMLResponse
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta
@@ -316,6 +316,8 @@ async def create_contact(input: ContactCreate, background_tasks: BackgroundTasks
     await db.contact_submissions.insert_one(doc)
     subject, text = contact_alert(doc)
     background_tasks.add_task(send_alert, subject, text, doc["email"])
+    c_subject, c_text, c_html = contact_confirmation(doc)
+    background_tasks.add_task(send_email, doc["email"], c_subject, c_text, c_html, os.environ.get("ALERT_EMAIL", ""))
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
@@ -344,6 +346,8 @@ async def create_booking(input: BookingCreate, background_tasks: BackgroundTasks
     await db.bookings.insert_one(doc)
     subject, text = booking_alert(doc)
     background_tasks.add_task(send_alert, subject, text, doc["email"])
+    c_subject, c_text, c_html = booking_confirmation(doc)
+    background_tasks.add_task(send_email, doc["email"], c_subject, c_text, c_html, os.environ.get("ALERT_EMAIL", ""))
     return submission
 
 @api_router.get("/bookings", response_model=List[BookingSubmission])
@@ -369,6 +373,18 @@ async def update_booking_status(booking_id: str, input: StatusUpdate, request: R
 async def alerts_status(request: Request):
     await get_current_user(request)
     return {"smtp_configured": smtp_configured(), "alert_email": os.environ.get("ALERT_EMAIL", "")}
+
+SAMPLE_CONTACT = {"full_name": "Sara Al Mansoori", "company": "Al Noor Trading LLC", "email": "sara@example.com", "phone": "+971 50 123 4567",
+                  "enquiry_type": "Corporate Leasing", "message": "We need 12 sedans on a 24-month lease starting next quarter."}
+SAMPLE_BOOKING = {"reference": "RL-SAMPLE01", "name": "Omar Haddad", "email": "omar@example.com", "phone": "+971 55 987 6543", "date": "2026-10-12",
+                  "time": "09:30", "duration": "4h", "vehicle": "Mercedes-Benz S-Class", "passengers": "2", "pickup_location": "Dubai International Airport, Terminal 3",
+                  "dropoff_location": "DIFC, Gate Village", "price": 850}
+
+@api_router.get("/admin/email-preview", response_class=HTMLResponse)
+async def email_preview(request: Request, type: str = "contact"):
+    await get_current_user(request)
+    _, _, html_body = booking_confirmation(SAMPLE_BOOKING) if type == "booking" else contact_confirmation(SAMPLE_CONTACT)
+    return HTMLResponse(html_body, headers={"X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'"})
 
 MAGIC_BYTES = {
     ".jpg": (b"\xff\xd8\xff",), ".jpeg": (b"\xff\xd8\xff",), ".png": (b"\x89PNG\r\n\x1a\n",),

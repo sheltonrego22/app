@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useTheme } from '@/hooks/useTheme';
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
+const EGMG_LOGO_LIGHT = "/egmg-logo-dark-text.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
 const GOLDCAR_LOGO = "/goldcar-logo.png";
 
@@ -54,6 +56,8 @@ const divisions = [
 
 export default function BusinessesPage() {
   const [gridRef, gridVisible] = useScrollAnimation();
+  const { theme } = useTheme();
+  const logoFor = (d) => (d.logo === EGMG_LOGO && theme === 'light' ? EGMG_LOGO_LIGHT : d.logo);
 
   useEffect(() => { document.title = "Our Brands | Eurogulf Mobility Group"; }, []);
 
@@ -96,7 +100,7 @@ export default function BusinessesPage() {
               >
                 <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-8">
                   <div className="w-full md:w-48 flex-shrink-0 flex items-center justify-center bg-white/5 p-4 min-h-[80px]">
-                    <img src={d.logo} alt={d.name} className="h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" />
+                    <img src={logoFor(d)} alt={d.name} className="h-12 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" />
                   </div>
                   <div className="flex-1 text-center md:text-left">
                     <h2 className="font-heading font-black text-xl text-[#EEEDE7] uppercase tracking-tight mb-1">{d.name}</h2>
