@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks
+from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks, Depends
 from emailer import send_alert, send_email, contact_alert, booking_alert, contact_confirmation, booking_confirmation, application_alert, application_confirmation, smtp_configured
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
@@ -422,26 +422,34 @@ CV_MIME = {".pdf": "application/pdf", ".doc": "application/msword", ".docx": "ap
 MAX_CV_BYTES = 5 * 1024 * 1024
 APPLY_LIMIT_PER_HOUR = 5
 EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+LINKEDIN_PATTERN = re.compile(r"^https://([a-z]{2,3}\.)?linkedin\.com/", re.IGNORECASE)
 
-async def enforce_apply_rate_limit(ip: str):
-    await enforce_rate_limit("apply", ip, APPLY_LIMIT_PER_HOUR, APPLY_GLOBAL_LIMIT_PER_HOUR)
+class ApplicationForm(BaseModel):
+    full_name: str
+    email: str
+    phone: str
+    role: str
+    message: str = ""
+    linkedin_url: str = ""
+    lang: str = "en"
 
-@api_router.post("/careers/apply")
-async def apply_for_job(
-    request: Request, background_tasks: BackgroundTasks,
+def application_form(
     full_name: str = Form(min_length=2, max_length=200), email: str = Form(max_length=200), phone: str = Form(min_length=5, max_length=50),
     role: str = Form(min_length=2, max_length=200), message: str = Form(default="", max_length=3000),
-    linkedin_url: str = Form(default="", max_length=300), lang: str = Form(default="en"), cv: UploadFile = File(...),
-):
-    email = email.strip().lower()
-    if not EMAIL_PATTERN.match(email):
+    linkedin_url: str = Form(default="", max_length=300), lang: str = Form(default="en"),
+) -> ApplicationForm:
+    return ApplicationForm(full_name=full_name.strip(), email=email.strip().lower(), phone=phone.strip(), role=role.strip(),
+                           message=message.strip(), linkedin_url=linkedin_url.strip(), lang=lang)
+
+def validate_application(form: ApplicationForm) -> None:
+    if not EMAIL_PATTERN.match(form.email):
         raise HTTPException(status_code=422, detail="Please enter a valid email address")
-    full_name, phone, role = full_name.strip(), phone.strip(), role.strip()
-    if len(full_name) < 2 or len(phone) < 5 or len(role) < 2:
+    if len(form.full_name) < 2 or len(form.phone) < 5 or len(form.role) < 2:
         raise HTTPException(status_code=422, detail="Please fill in your name, phone number and the role you are applying for")
-    linkedin_url = linkedin_url.strip()
-    if linkedin_url and not re.match(r"^https://([a-z]{2,3}\.)?linkedin\.com/", linkedin_url, re.I):
+    if form.linkedin_url and not LINKEDIN_PATTERN.match(form.linkedin_url):
         raise HTTPException(status_code=422, detail="LinkedIn URL must start with https://www.linkedin.com/")
+
+async def read_cv(cv: UploadFile) -> tuple[str, bytes]:
     ext = Path(cv.filename or "").suffix.lower()
     if ext not in CV_TYPES:
         raise HTTPException(status_code=400, detail="CV must be a PDF, DOC or DOCX file")
@@ -450,26 +458,40 @@ async def apply_for_job(
         raise HTTPException(status_code=413, detail="CV exceeds the 5 MB limit")
     if not content.startswith(CV_TYPES[ext]):
         raise HTTPException(status_code=400, detail="CV file content does not match its extension")
-    await enforce_apply_rate_limit(client_ip(request))
+    return ext, content
 
+async def store_cv(cv: UploadFile, ext: str, content: bytes) -> str:
     cv_id = str(uuid.uuid4())
     await db.cv_files.insert_one({
         "id": cv_id, "filename": f"{cv_id}{ext}", "original_name": Path(cv.filename).name[:200], "mime": CV_MIME[ext],
         "size": len(content), "data": base64.b64encode(content).decode("utf-8"), "created_at": datetime.now(timezone.utc).isoformat(),
     })
-    note = message.strip() or ("لم يُضف المتقدم رسالة." if lang == "ar" else "No cover note provided.")
-    if linkedin_url:
-        note += f"\n\nLinkedIn: {linkedin_url}"
-    submission = ContactSubmission(
-        full_name=full_name, email=email, phone=phone, company="", enquiry_type=f"Careers: {role}",
-        message=note, role=role, linkedin_url=linkedin_url or None, attachment_url=f"/api/admin/cv/{cv_id}",
+    return cv_id
+
+def build_application_submission(form: ApplicationForm, cv_id: str) -> ContactSubmission:
+    note = form.message or ("لم يُضف المتقدم رسالة." if form.lang == "ar" else "No cover note provided.")
+    if form.linkedin_url:
+        note += f"\n\nLinkedIn: {form.linkedin_url}"
+    return ContactSubmission(
+        full_name=form.full_name, email=form.email, phone=form.phone, company="", enquiry_type=f"Careers: {form.role}",
+        message=note, role=form.role, linkedin_url=form.linkedin_url or None, attachment_url=f"/api/admin/cv/{cv_id}",
     )
-    doc = submission.model_dump()
-    await db.contact_submissions.insert_one(doc)
+
+def queue_application_emails(background_tasks: BackgroundTasks, doc: dict) -> None:
     subject, text = application_alert(doc)
     background_tasks.add_task(send_alert, subject, text, doc["email"])
     c_subject, c_text, c_html = application_confirmation(doc)
     background_tasks.add_task(send_email, doc["email"], c_subject, c_text, c_html, os.environ.get("ALERT_EMAIL", ""))
+
+@api_router.post("/careers/apply")
+async def apply_for_job(request: Request, background_tasks: BackgroundTasks, form: ApplicationForm = Depends(application_form), cv: UploadFile = File(...)):
+    validate_application(form)
+    ext, content = await read_cv(cv)
+    await enforce_rate_limit("apply", client_ip(request), APPLY_LIMIT_PER_HOUR, APPLY_GLOBAL_LIMIT_PER_HOUR)
+    cv_id = await store_cv(cv, ext, content)
+    doc = build_application_submission(form, cv_id).model_dump()
+    await db.contact_submissions.insert_one(doc)
+    queue_application_emails(background_tasks, doc)
     return {"id": doc["id"], "status": "received"}
 
 @api_router.get("/admin/cv/{cv_id}")
@@ -607,61 +629,67 @@ app.add_middleware(
 
 # ══════════════════ STARTUP ══════════════════
 
-@app.on_event("startup")
-async def startup():
+SAMPLE_ARTICLES = [
+        {"title": "Eurogulf Mobility Group Receives World Travel Award for Best Car Rental MENA 2024", "body": "<p>Eurogulf Mobility Group has been recognised with the World Travel Award for Best Car Rental Company in the Middle East and North Africa for 2024, extending its winning streak that began in 2005.</p><p>This prestigious accolade reflects our unwavering commitment to delivering exceptional mobility solutions across the UAE and beyond.</p>", "category": "Awards", "featured": True, "published": True},
+        {"title": "Driving the Future: Eurogulf Mobility Group's Commitment to Green Mobility in the UAE", "body": "<p>As part of our sustainability roadmap, Eurogulf Mobility Group is expanding its electric and hybrid vehicle fleet across all divisions. Our commitment to the UAE's Net Zero 2050 strategy drives every decision we make.</p>", "category": "Sustainability", "featured": True, "published": True},
+        {"title": "Royal Limousine Expands Executive Fleet with New BMW 7 Series and Audi A8", "body": "<p>Royal Limousine has added the latest BMW 7 Series and Audi A8 models to its executive chauffeur fleet, reinforcing our position as the UAE's premier luxury transportation provider.</p>", "category": "Fleet", "featured": False, "published": True},
+        {"title": "Eurogulf Mobility Group Celebrates 50 Years of Moving the UAE Forward", "body": "<p>Since 1976, Eurogulf Mobility Group has been at the forefront of the UAE's mobility landscape. From our first Europcar franchise to managing over 12,000 vehicles across 14 locations, our journey reflects the growth and ambition of the nation we serve.</p>", "category": "Company Updates", "featured": True, "published": True},
+        {"title": "Truckline Launches Chiller Unit Fleet for Food Logistics", "body": "<p>Truckline Transport has introduced a specialised fleet of temperature-controlled vehicles to support the UAE's growing food delivery and cold-chain logistics sector.</p>", "category": "Fleet", "featured": False, "published": True},
+        {"title": "Europcar Dubai Opens New Location at Dubai Hills Mall", "body": "<p>Europcar Dubai has expanded its network with a new outlet at Dubai Hills Mall, bringing our total UAE locations to 14 and providing even greater convenience for residents and visitors.</p>", "category": "Press Releases", "featured": False, "published": True},
+        {"title": "Eurogulf Mobility Group Achieves ISO 45001:2018 Occupational Health & Safety Certification", "body": "<p>Eurogulf Mobility Group has earned the ISO 45001:2018 certification, demonstrating our commitment to creating a safe working environment for our 1,200+ employees across the UAE.</p>", "category": "Company Updates", "featured": False, "published": True},
+        {"title": "The Future of Corporate Transportation in the UAE", "body": "<p>As the UAE positions itself as a global business hub, the demand for reliable, premium corporate transportation continues to rise. Eurogulf Mobility Group is leading this transformation with innovative fleet management and chauffeur solutions.</p>", "category": "Industry News", "featured": False, "published": True},
+        {"title": "Goldcar UAE: Smart Travel for the Budget-Conscious Explorer", "body": "<p>Goldcar continues to redefine value car rental in the UAE, offering competitive rates without compromising on vehicle quality or customer service. Available at all Europcar outlets and exclusively at Sharjah International Airport.</p>", "category": "Press Releases", "featured": False, "published": True},
+        {"title": "Emirates Taxi Earns Top RTA Safety Rating", "body": "<p>Emirates Taxi has received the highest safety rating from Dubai's Roads and Transport Authority, recognising our fleet's compliance with the strictest safety standards and our drivers' exceptional performance scores.</p>", "category": "Awards", "featured": False, "published": True},
+]
+
+async def ensure_indexes():
     await db.users.create_index("email", unique=True)
     await db.articles.create_index("category")
     await db.articles.create_index("created_at")
     await db.login_attempts.create_index("identifier")
 
-    # Seed admin (password comes only from environment; sync lets ops rotate it via env)
+async def seed_admin():
+    # Password comes only from environment; syncing lets ops rotate it via env
     admin_email = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae").lower()
     admin_password = os.environ.get("ADMIN_PASSWORD")
     if not admin_password or len(admin_password) < 12:
         logger.warning("ADMIN_PASSWORD missing or shorter than 12 chars; admin seed skipped")
-    else:
-        existing = await db.users.find_one({"email": admin_email})
-        if existing is None:
-            hashed = hash_password(admin_password)
-            await db.users.insert_one({"email": admin_email, "password_hash": hashed, "name": "EGMG Admin", "role": "admin", "created_at": datetime.now(timezone.utc)})
-            logger.info(f"Admin user seeded: {admin_email}")
-        elif not verify_password(admin_password, existing["password_hash"]):
-            await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
-            logger.info("Admin password rotated from environment")
+        return
+    existing = await db.users.find_one({"email": admin_email})
+    if existing is None:
+        await db.users.insert_one({"email": admin_email, "password_hash": hash_password(admin_password), "name": "EGMG Admin", "role": "admin", "created_at": datetime.now(timezone.utc)})
+        logger.info(f"Admin user seeded: {admin_email}")
+    elif not verify_password(admin_password, existing["password_hash"]):
+        await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
+        logger.info("Admin password rotated from environment")
 
-    # Seed sample articles if empty
-    count = await db.articles.count_documents({})
-    if count == 0:
-        sample_articles = [
-            {"title": "Eurogulf Mobility Group Receives World Travel Award for Best Car Rental MENA 2024", "body": "<p>Eurogulf Mobility Group has been recognised with the World Travel Award for Best Car Rental Company in the Middle East and North Africa for 2024, extending its winning streak that began in 2005.</p><p>This prestigious accolade reflects our unwavering commitment to delivering exceptional mobility solutions across the UAE and beyond.</p>", "category": "Awards", "featured": True, "published": True},
-            {"title": "Driving the Future: Eurogulf Mobility Group's Commitment to Green Mobility in the UAE", "body": "<p>As part of our sustainability roadmap, Eurogulf Mobility Group is expanding its electric and hybrid vehicle fleet across all divisions. Our commitment to the UAE's Net Zero 2050 strategy drives every decision we make.</p>", "category": "Sustainability", "featured": True, "published": True},
-            {"title": "Royal Limousine Expands Executive Fleet with New BMW 7 Series and Audi A8", "body": "<p>Royal Limousine has added the latest BMW 7 Series and Audi A8 models to its executive chauffeur fleet, reinforcing our position as the UAE's premier luxury transportation provider.</p>", "category": "Fleet", "featured": False, "published": True},
-            {"title": "Eurogulf Mobility Group Celebrates 50 Years of Moving the UAE Forward", "body": "<p>Since 1976, Eurogulf Mobility Group has been at the forefront of the UAE's mobility landscape. From our first Europcar franchise to managing over 12,000 vehicles across 14 locations, our journey reflects the growth and ambition of the nation we serve.</p>", "category": "Company Updates", "featured": True, "published": True},
-            {"title": "Truckline Launches Chiller Unit Fleet for Food Logistics", "body": "<p>Truckline Transport has introduced a specialised fleet of temperature-controlled vehicles to support the UAE's growing food delivery and cold-chain logistics sector.</p>", "category": "Fleet", "featured": False, "published": True},
-            {"title": "Europcar Dubai Opens New Location at Dubai Hills Mall", "body": "<p>Europcar Dubai has expanded its network with a new outlet at Dubai Hills Mall, bringing our total UAE locations to 14 and providing even greater convenience for residents and visitors.</p>", "category": "Press Releases", "featured": False, "published": True},
-            {"title": "Eurogulf Mobility Group Achieves ISO 45001:2018 Occupational Health & Safety Certification", "body": "<p>Eurogulf Mobility Group has earned the ISO 45001:2018 certification, demonstrating our commitment to creating a safe working environment for our 1,200+ employees across the UAE.</p>", "category": "Company Updates", "featured": False, "published": True},
-            {"title": "The Future of Corporate Transportation in the UAE", "body": "<p>As the UAE positions itself as a global business hub, the demand for reliable, premium corporate transportation continues to rise. Eurogulf Mobility Group is leading this transformation with innovative fleet management and chauffeur solutions.</p>", "category": "Industry News", "featured": False, "published": True},
-            {"title": "Goldcar UAE: Smart Travel for the Budget-Conscious Explorer", "body": "<p>Goldcar continues to redefine value car rental in the UAE, offering competitive rates without compromising on vehicle quality or customer service. Available at all Europcar outlets and exclusively at Sharjah International Airport.</p>", "category": "Press Releases", "featured": False, "published": True},
-            {"title": "Emirates Taxi Earns Top RTA Safety Rating", "body": "<p>Emirates Taxi has received the highest safety rating from Dubai's Roads and Transport Authority, recognising our fleet's compliance with the strictest safety standards and our drivers' exceptional performance scores.</p>", "category": "Awards", "featured": False, "published": True},
-        ]
-        now = datetime.now(timezone.utc)
-        for i, a in enumerate(sample_articles):
-            a["id"] = str(uuid.uuid4())
-            a["image_url"] = ""
-            a["video_url"] = ""
-            a["pdf_url"] = ""
-            a["created_at"] = (now - timedelta(days=i * 3)).isoformat()
-            a["updated_at"] = a["created_at"]
-        await db.articles.insert_many(sample_articles)
-        logger.info(f"Seeded {len(sample_articles)} sample articles")
+async def seed_articles():
+    if await db.articles.count_documents({}) > 0:
+        return
+    now = datetime.now(timezone.utc)
+    docs = []
+    for i, a in enumerate(SAMPLE_ARTICLES):
+        created = (now - timedelta(days=i * 3)).isoformat()
+        docs.append({**a, "id": str(uuid.uuid4()), "image_url": "", "video_url": "", "pdf_url": "", "created_at": created, "updated_at": created})
+    await db.articles.insert_many(docs)
+    logger.info(f"Seeded {len(docs)} sample articles")
 
-    # Brand rule: public copy never uses standalone "EGMG" (fixes previously seeded samples)
+async def apply_brand_rule():
+    # Public copy never uses standalone "EGMG" (fixes previously seeded samples)
     brand_re = re.compile(r"\bEGMG\b")
-    async for a in db.articles.find({"$or": [{"title": {"$regex": r"\bEGMG\b"}}, {"body": {"$regex": r"\bEGMG\b"}}]}, {"_id": 1, "title": 1, "body": 1}):
+    query = {"$or": [{"title": {"$regex": r"\bEGMG\b"}}, {"body": {"$regex": r"\bEGMG\b"}}]}
+    async for a in db.articles.find(query, {"_id": 1, "title": 1, "body": 1}):
         await db.articles.update_one({"_id": a["_id"]}, {"$set": {
             "title": brand_re.sub("Eurogulf Mobility Group", a.get("title") or ""),
             "body": brand_re.sub("Eurogulf Mobility Group", a.get("body") or ""),
         }})
+
+@app.on_event("startup")
+async def startup():
+    await ensure_indexes()
+    await seed_admin()
+    await seed_articles()
+    await apply_brand_rule()
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

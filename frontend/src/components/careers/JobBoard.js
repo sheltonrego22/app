@@ -77,6 +77,34 @@ function JobCard({ job, lang, expanded, onToggle, onApply }) {
   );
 }
 
+const matchesSearch = (job, lang, term) => !term || [job[lang].title, job.en.title].some((t) => t.toLowerCase().includes(term.toLowerCase()));
+
+function JobSearch({ lang, value, onChange }) {
+  const isAr = lang === 'ar';
+  return (
+    <div className="relative max-w-md mx-auto mb-6">
+      <Search className={`absolute ${isAr ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]`} />
+      <input data-testid={`${isAr ? 'ar-' : ''}job-search`} value={value} onChange={(e) => onChange(e.target.value)} placeholder={COPY[lang].search}
+        className={`w-full bg-[#111] border border-[#333] text-[#EEEDE7] placeholder:text-[#444] py-2.5 text-sm focus:border-[#EE5A01] focus:outline-none transition-colors ${isAr ? 'pr-10 pl-4' : 'pl-10 pr-4'}`} />
+    </div>
+  );
+}
+
+function DeptFilters({ lang, active, onSelect }) {
+  const isAr = lang === 'ar';
+  const entries = [['all', COPY[lang].all, jobs.length], ...Object.entries(departments).map(([k, v]) => [k, v[lang], jobs.filter((j) => j.dept === k).length])];
+  return (
+    <div className="flex flex-wrap gap-2 justify-center mb-10">
+      {entries.map(([key, label, count]) => (
+        <button key={key} data-testid={`dept-filter-${key}`} onClick={() => onSelect(key)}
+          className={`font-heading font-bold text-xs px-4 py-2 transition-all ${isAr ? '' : 'tracking-[0.1em] uppercase'} ${active === key ? 'bg-[#EE5A01] text-black' : 'bg-[#111111] text-[#666666] border border-white/10 hover:border-[#EE5A01]/40 hover:text-[#EEEDE7]'}`}>
+          {label} <span className="font-mono opacity-70">({count})</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function JobBoard({ lang = 'en' }) {
   const c = COPY[lang];
   const isAr = lang === 'ar';
@@ -85,32 +113,14 @@ export function JobBoard({ lang = 'en' }) {
   const [expanded, setExpanded] = useState(null);
   const [applyJob, setApplyJob] = useState(null);
 
-  const filtered = jobs.filter((j) =>
-    (activeDept === 'all' || j.dept === activeDept) &&
-    (!search || j[lang].title.toLowerCase().includes(search.toLowerCase()) || j.en.title.toLowerCase().includes(search.toLowerCase()))
-  );
-  const deptEntries = [['all', c.all], ...Object.entries(departments).map(([k, v]) => [k, v[lang]])];
+  const filtered = jobs.filter((j) => (activeDept === 'all' || j.dept === activeDept) && matchesSearch(j, lang, search));
 
   return (
     <div data-testid={`${isAr ? 'ar-' : ''}job-board`}>
       <p className="text-center font-body text-[#666666] mb-8">{c.roles(jobs.length)} · {c.email}</p>
       <LatestJobs lang={lang} onApply={setApplyJob} />
-      <div className="relative max-w-md mx-auto mb-6">
-        <Search className={`absolute ${isAr ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]`} />
-        <input data-testid={`${isAr ? 'ar-' : ''}job-search`} value={search} onChange={(e) => setSearch(e.target.value)} placeholder={c.search}
-          className={`w-full bg-[#111] border border-[#333] text-[#EEEDE7] placeholder:text-[#444] py-2.5 text-sm focus:border-[#EE5A01] focus:outline-none transition-colors ${isAr ? 'pr-10 pl-4' : 'pl-10 pr-4'}`} />
-      </div>
-      <div className="flex flex-wrap gap-2 justify-center mb-10">
-        {deptEntries.map(([key, label]) => {
-          const count = key === 'all' ? jobs.length : jobs.filter((j) => j.dept === key).length;
-          return (
-            <button key={key} data-testid={`dept-filter-${key}`} onClick={() => setActiveDept(key)}
-              className={`font-heading font-bold text-xs px-4 py-2 transition-all ${isAr ? '' : 'tracking-[0.1em] uppercase'} ${activeDept === key ? 'bg-[#EE5A01] text-black' : 'bg-[#111111] text-[#666666] border border-white/10 hover:border-[#EE5A01]/40 hover:text-[#EEEDE7]'}`}>
-              {label} <span className="font-mono opacity-70">({count})</span>
-            </button>
-          );
-        })}
-      </div>
+      <JobSearch lang={lang} value={search} onChange={setSearch} />
+      <DeptFilters lang={lang} active={activeDept} onSelect={setActiveDept} />
       <div className="space-y-3">
         {filtered.map((job) => <JobCard key={job.id} job={job} lang={lang} expanded={expanded === job.id} onToggle={() => setExpanded(expanded === job.id ? null : job.id)} onApply={setApplyJob} />)}
       </div>

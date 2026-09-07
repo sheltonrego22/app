@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Code Quality Review #3 Remediation — Sept 2026, iteration 29: 127/127 backend, all frontend flows pass)
+- [x] Backend: `apply_for_job` 10 params → `Depends(application_form)` → `ApplicationForm` + helpers `validate_application`, `read_cv`, `store_cv`, `build_application_submission`, `queue_application_emails`; `startup()` → `ensure_indexes`, `seed_admin`, `seed_articles` (`SAMPLE_ARTICLES` constant), `apply_brand_rule`
+- [x] Frontend splits (behaviour-preserving, all testids kept): `useAdminArticles` → `useArticleList` + `useArticleEditor`; `ArticleEditor` → `components/admin/ArticleEditorFields.js`; `ApplyModal` → `hooks/useApplyForm.js` + `ApplySuccess`/`CvPicker`/`ApplyForm`; `JobBoard` → `JobSearch`/`DeptFilters`; `Navigation` → `components/nav/NavParts.js`; `BookChauffeurPage` → `hooks/useBookingWizard.js` + `components/booking/BookingChrome.js`; `AboutPage` → `components/about/AboutSections.js` + `data/about.js`; `AutocarePage` → `components/autocare/AutocareSections.js`; `UsedCarsPage` → `components/usedcars/UsedCarsSections.js` + `AuctionTimer.js` (AR page imports it directly)
+- [x] Tests: iter28 careers test split into fixture-based tests; `test_cms_api` shape check extracted; ruff `F` clean across `tests/`; `yarn build` 0 warnings; react-hooks lint 0 problems
+- Rejected as false positives (verified): XSS at MediaCenterPage (DOMPurify applied), hook dependency warnings (official linter: 0), `is None`/`is not None` comparisons, dev-only `console.error` in `logger.js`
+
 ## Completed (Security Audit #2 + Code Review #2 Remediation — Sept 2026, iteration 28: 100% pass)
 - [x] **Trusted client IP**: `client_ip()` takes the X-Forwarded-For entry just before the trusted proxy hops (`TRUSTED_PROXY_HOPS=2` in backend env: Cloudflare + LB). Spoofed headers no longer bypass rate limits or login lockout. Direct/localhost access falls back to the first header value (tests rely on this)
 - [x] **Rate limiting on public forms** (`enforce_rate_limit`, `db.rate_limits`, 1h windows): `/api/contact` + `/api/bookings` 20/h per IP + 300/h global; `/api/careers/apply` 5/h per IP + 100/h global → 429 "Too many submissions from this connection. Please try again later or call 800 364."

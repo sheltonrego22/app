@@ -6,7 +6,7 @@ SMTP is intentionally disabled (SMTP_ENABLED=false). We assert:
 - GET /api/admin/email-preview requires auth and returns bilingual HTML
 - HTML escaping in contact_confirmation
 """
-import os, time, re, subprocess, sys
+import os, time, subprocess, sys
 import pytest, requests
 from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
@@ -51,7 +51,7 @@ def test_contact_confirmation_and_alert_skip_logs():
     time.sleep(1.5)  # let BackgroundTasks flush
     log = _tail(600)
     assert "SMTP not configured" in log
-    assert f"[to=et_reservations@eurogulf.ae]" in log and "New website enquiry" in log
+    assert "[to=et_reservations@eurogulf.ae]" in log and "New website enquiry" in log
     assert f"[to={marker_email}]" in log and "We received your enquiry" in log
 
 
@@ -72,7 +72,7 @@ def test_booking_confirmation_and_alert_skip_logs():
     assert ref.startswith("RL-")
     time.sleep(1.5)
     log = _tail(800)
-    assert f"[to=et_reservations@eurogulf.ae]" in log
+    assert "[to=et_reservations@eurogulf.ae]" in log
     assert f"New chauffeur booking {ref}" in log
     assert f"[to={marker_email}]" in log
     assert f"Chauffeur booking {ref} received" in log

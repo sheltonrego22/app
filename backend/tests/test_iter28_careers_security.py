@@ -49,29 +49,41 @@ def _apply(api, ip, **overrides):
 
 
 # ─────────── Apply: happy path lands in inbox with CV ───────────
-def test_apply_creates_submission_with_cv(mongo, admin_session):
-    tag = f"qa-{uuid.uuid4().hex[:6]}"
-    r = _apply(LOCAL_API, "203.0.113.10", full_name=f"QA {tag}", linkedin_url="https://www.linkedin.com/in/qa-candidate")
+def _cleanup_submission(mongo, doc):
+    mongo.contact_submissions.delete_one({"id": doc["id"]})
+    mongo.cv_files.delete_one({"id": doc["attachment_url"].rsplit("/", 1)[1]})
+
+
+@pytest.fixture
+def application(mongo):
+    r = _apply(LOCAL_API, "203.0.113.10", full_name=f"QA {uuid.uuid4().hex[:6]}", linkedin_url="https://www.linkedin.com/in/qa-candidate")
     assert r.status_code == 200, r.text
-    sub_id = r.json()["id"]
-    doc = mongo.contact_submissions.find_one({"id": sub_id})
-    assert doc["enquiry_type"] == "Careers: Process Analyst"
-    assert doc["role"] == "Process Analyst"
-    assert doc["linkedin_url"] == "https://www.linkedin.com/in/qa-candidate"
-    assert doc["attachment_url"].startswith("/api/admin/cv/")
-    # CV download requires auth and returns the original bytes
-    assert requests.get(f"{PUBLIC_URL}{doc['attachment_url']}").status_code == 401
-    dl = admin_session.get(f"{PUBLIC_URL}{doc['attachment_url']}")
+    doc = mongo.contact_submissions.find_one({"id": r.json()["id"]})
+    yield doc
+    _cleanup_submission(mongo, doc)
+
+
+def test_apply_stores_submission_fields(application):
+    assert application["enquiry_type"] == "Careers: Process Analyst"
+    assert application["role"] == "Process Analyst"
+    assert application["linkedin_url"] == "https://www.linkedin.com/in/qa-candidate"
+    assert application["attachment_url"].startswith("/api/admin/cv/")
+
+
+def test_cv_download_requires_admin(application, admin_session):
+    url = f"{PUBLIC_URL}{application['attachment_url']}"
+    assert requests.get(url).status_code == 401
+    dl = admin_session.get(url)
     assert dl.status_code == 200
     assert dl.content == PDF
     assert dl.headers["Content-Type"].startswith("application/pdf")
     assert "attachment" in dl.headers["Content-Disposition"]
-    # Visible in admin inbox with the new fields
+
+
+def test_application_visible_in_admin_inbox(application, admin_session):
     inbox = admin_session.get(f"{PUBLIC_API}/contacts?limit=50").json()
-    match = next(c for c in inbox if c["id"] == sub_id)
-    assert match["attachment_url"] == doc["attachment_url"]
-    mongo.contact_submissions.delete_one({"id": sub_id})
-    mongo.cv_files.delete_one({"id": doc["attachment_url"].rsplit("/", 1)[1]})
+    match = next(c for c in inbox if c["id"] == application["id"])
+    assert match["attachment_url"] == application["attachment_url"]
 
 
 # ─────────── Apply: validation ───────────
@@ -110,8 +122,7 @@ def test_apply_rate_limit_per_ip(mongo):
     assert r6.status_code == 429
     assert "800 364" in r6.json()["detail"]
     for sub in mongo.contact_submissions.find({"id": {"$in": ids}}):
-        mongo.cv_files.delete_one({"id": sub["attachment_url"].rsplit("/", 1)[1]})
-    mongo.contact_submissions.delete_many({"id": {"$in": ids}})
+        _cleanup_submission(mongo, sub)
 
 
 # ─────────── Trusted-IP: spoofed X-Forwarded-For does not bypass limits ───────────

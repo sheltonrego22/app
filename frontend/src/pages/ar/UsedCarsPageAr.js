@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Check, Eye, FileText, ArrowLeft } from 'lucide-react';
-import { AuctionTimer } from '@/pages/UsedCarsPage';
+import { AuctionTimer } from '@/components/usedcars/AuctionTimer';
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const HERO_IMG = "https://images.unsplash.com/photo-1669485971006-d1f811a22700?w=1400&h=700&fit=crop";

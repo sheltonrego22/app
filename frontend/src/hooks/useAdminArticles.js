@@ -12,20 +12,21 @@ function describeApiError(err) {
   if (Array.isArray(detail)) {
     return detail.map((e) => `${e.loc?.slice(-1)[0] || 'field'}: ${String(e.msg).replace(/^Value error, /, '')}`).join(' ');
   }
-  if (typeof detail === 'string') return detail;
-  return '';
+  return typeof detail === 'string' ? detail : '';
 }
 
-export function useAdminArticles(user, setError) {
+const articleToForm = (a) => ({
+  title: a.title, title_ar: a.title_ar || '', body: a.body || '', body_ar: a.body_ar || '', category: a.category,
+  image_url: a.image_url || '', video_url: a.video_url || '', pdf_url: a.pdf_url || '',
+  featured: a.featured || false, published: a.published !== false,
+});
+
+export function useArticleList(user, setError) {
   const [articles, setArticles] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCat, setFilterCat] = useState('All');
-  const [showForm, setShowForm] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [form, setForm] = useState(EMPTY_FORM);
 
   const fetchArticles = useCallback(async () => {
     try {
@@ -45,8 +46,18 @@ export function useAdminArticles(user, setError) {
 
   useEffect(() => { if (user) fetchArticles(); }, [user, fetchArticles]);
 
+  return { articles, total, loading, searchQuery, setSearchQuery, filterCat, setFilterCat, fetchArticles };
+}
+
+export function useArticleEditor(setError, refresh) {
+  const [editing, setEditing] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [form, setForm] = useState(EMPTY_FORM);
+
   const resetForm = () => { setForm(EMPTY_FORM); setEditing(null); setShowForm(false); };
   const openNew = () => { resetForm(); setShowForm(true); };
+  const edit = (article) => { setForm(articleToForm(article)); setEditing(article.id); setShowForm(true); window.scrollTo(0, 0); };
 
   const save = async () => {
     if (!form.title.trim() || !form.category) return;
@@ -54,7 +65,7 @@ export function useAdminArticles(user, setError) {
       if (editing) await axios.put(`${API}/api/articles/${editing}`, form, AUTH);
       else await axios.post(`${API}/api/articles`, form, AUTH);
       resetForm();
-      fetchArticles();
+      refresh();
     } catch (err) {
       logError('Save', err);
       const reason = describeApiError(err);
@@ -66,22 +77,11 @@ export function useAdminArticles(user, setError) {
     if (!window.confirm('Delete this article?')) return;
     try {
       await axios.delete(`${API}/api/articles/${id}`, AUTH);
-      fetchArticles();
+      refresh();
     } catch (err) {
       logError('Delete', err);
       setError('Failed to delete article.');
     }
-  };
-
-  const edit = (article) => {
-    setForm({
-      title: article.title, title_ar: article.title_ar || '', body: article.body || '', body_ar: article.body_ar || '', category: article.category,
-      image_url: article.image_url || '', video_url: article.video_url || '', pdf_url: article.pdf_url || '',
-      featured: article.featured || false, published: article.published !== false,
-    });
-    setEditing(article.id);
-    setShowForm(true);
-    window.scrollTo(0, 0);
   };
 
   const upload = async (e, field) => {
@@ -101,8 +101,11 @@ export function useAdminArticles(user, setError) {
     }
   };
 
-  return {
-    articles, total, loading, editing, searchQuery, setSearchQuery, filterCat, setFilterCat,
-    showForm, uploading, form, setForm, openNew, resetForm, save, remove, edit, upload,
-  };
+  return { editing, showForm, uploading, form, setForm, openNew, resetForm, save, remove, edit, upload };
+}
+
+export function useAdminArticles(user, setError) {
+  const list = useArticleList(user, setError);
+  const editor = useArticleEditor(setError, list.fetchArticles);
+  return { ...list, ...editor };
 }

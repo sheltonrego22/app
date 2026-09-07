@@ -1,0 +1,38 @@
+{
+  "summary": "Iteration 29 refactor verification (behaviour-preserving). Backend: full pytest suite 116/116 PASS + new /app/backend/tests/test_iter29_refactor.py 11/11 PASS covering POST /api/careers/apply happy path, .exe rejected (400), PDF wrong magic bytes rejected (400), invalid email 422, non-linkedin.com 422, whitespace name 422, 6th application from same IP 429, GET /api/admin/cv/<id> 401 unauth + 200 auth with PDF magic bytes, GET /api/ message, GET /api/articles seed >=10 with no standalone 'EGMG', admin login still works. Frontend Playwright: /careers latest-jobs + 6 dept filters + jobs-empty + expand + apply-modal .txt rejected then valid PDF accepted + submit -> apply-success + close/reopen resets form; /ar/careers Arabic modal title 'محلل عمليات', English enquiry_type 'Careers: Process Analyst' stored in DB; Admin CMS lifecycle: login -> Articles -> New Article (title/category/quill body/title_ar/save) -> admin-article-<id> appears with AR badge -> admin-search filters -> pencil edit prefilled -> Update Article -> trash delete -> empty title save no crash; Navigation nav-link-about dropdown shows Leadership, theme-toggle changes class, lang-toggle /about<->/ar/about, nav-book-now-btn present, nav-logo returns home, 390px mobile-menu-toggle opens links (mobile menu container has no data-testid); Book chauffeur wizard step 0 validation blocks empty next, 4h duration -> step1 date+time+pickup+dropoff -> step2 passengers+vehicle -> step3 name/email/phone with btn-prev-step returning to vehicle -> intercepted POST /api/bookings 429 -> booking-submit-error shows exact 429 detail message -> real submit -> BookingConfirmation with RL-656636 reference; used-cars auction-timer ticks every second in EN and AR (labels ي/س/د/ث). Cleaned all TEST_ submissions, cv_files, articles, and rate_limits.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "MobileMenu (390px)", "issues": ["Opened panel with Home/Careers/Partner With Us/Contact links renders correctly, but the panel container has no data-testid=\"mobile-menu\" attribute; toggle works. Optional: add data-testid for stronger e2e coverage."]},
+      {"screen": "UsedCarsSections / AboutSections / AutocareSections", "issues": ["Sections render, but 'why-buy' and 'how-it-works' are DOM ids (anchors), not data-testids. about-division-N, autocare-service-N and autocare-feature-N are 0-indexed (division-0..5, service-0..5, feature-0..3) whereas the review request describes 1-indexed. Purely a spec/naming mismatch – behaviour is correct."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iter29_refactor.py",
+    "/app/test_reports/pytest/iter29_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Add data-testid=\"mobile-menu\" to the mobile nav panel container in components/nav/NavParts.js for stable Playwright selectors.",
+    "(Optional) Align section testids with the spec – either update spec to 0-index or renumber cards to 1-index in AboutSections/AutocareSections."
+  ],
+  "critical_code_review_comments": [
+    "application_form Depends() correctly strips + lowercases fields before validation; validate_application/read_cv/store_cv/build_application_submission/queue_application_emails split is clean and testable – all edge cases (exe, magic bytes, email, linkedin, whitespace, 429) behave identically to pre-refactor.",
+    "startup split (ensure_indexes/seed_admin/seed_articles/apply_brand_rule) is idempotent – /api/articles returns 18 seeded rows with no standalone 'EGMG' token and admin re-login still succeeds after redeploy.",
+    "useArticleList/useArticleEditor split preserves the useAdminArticles return shape – full CMS lifecycle (create/list/search/edit/update/delete) still works with the same data-testids.",
+    "useApplyForm resets state on close: reopening the modal after a successful submission shows empty apply-name (verified).",
+    "useBookingWizard preserves multi-step validation, back/forward navigation, and surfaces submit errors via booking-submit-error – 429 intercept shows the exact backend detail string.",
+    "AuctionTimer component ticks every second in both EN and AR (labels D/H/M/S vs ي/س/د/ث) – no console errors on either locale."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iter29_refactor.py (new)"
+  ],
+  "success_rate": {"backend": "100% (127/127 across suites)", "frontend": "100% of requested flows verified"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md, confirmed working)",
+  "seed_data_creation": "Created and cleaned test submissions (qa.iter29@test.ae, qa.ar.iter29@test.ae, qa.book.iter29@test.ae, jane.iter29@example.com, cvdl.iter29@example.com, rl.iter29.*), one TEST Iter29 article (created then deleted via UI), and cleared db.rate_limits before/after 429 test.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Pure refactor iter29 is behaviourally identical to iter28. test_iter29_refactor.py auto-cleans its own rate_limits (via conftest autouse fixture) but always re-clear db.rate_limits before running heavy public-form tests since all tests share the same egress IP. Category options in the article editor open as [role='option'] items; the AR badge on admin-article-<id> is rendered when title_ar is non-empty. Book chauffeur wizard needs duration -> trip details (date via day-picker button, time via first [role='option'], location inputs) -> passengers+vehicle -> name/email/phone before btn-submit-booking is enabled.",
+  "rca of the issue": "N/A – no functional regression detected in the refactor."
+}

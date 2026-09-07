@@ -72,7 +72,7 @@ def test_login_sets_cookies():
     r = requests.post(f"{API}/auth/login", json={"email": ADMIN_EMAIL, "password": ADMIN_PASS})
     assert r.status_code == 200
     set_cookie = r.headers.get("set-cookie", "") + " " + " ".join(r.raw.headers.getlist("set-cookie") if hasattr(r.raw.headers, "getlist") else [])
-    combined = " ".join([v for k, v in r.raw.headers.items() if k.lower() == "set-cookie"]) if hasattr(r.raw.headers, "items") else set_cookie
+    " ".join([v for k, v in r.raw.headers.items() if k.lower() == "set-cookie"]) if hasattr(r.raw.headers, "items") else set_cookie
     # Query local backend directly to observe raw Secure flag (proxy may rewrite)
     r2 = requests.post(f"{LOCAL_URL}/api/auth/login", json={"email": ADMIN_EMAIL, "password": ADMIN_PASS})
     assert r2.status_code == 200

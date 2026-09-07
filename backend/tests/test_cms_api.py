@@ -6,7 +6,6 @@ import pytest
 import requests
 import os
 import uuid
-import time
 
 BASE_URL = os.environ['REACT_APP_BACKEND_URL'].rstrip('/')
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
@@ -55,21 +54,22 @@ class TestAuth:
 
 
 # ─── ARTICLES PUBLIC ──────────────────────────────────
+def _is_public_article(a):
+    return "_id" not in a and "id" in a and "title" in a
+
+
 class TestArticlesPublic:
     def test_get_articles_returns_list_with_total(self):
         r = requests.get(f"{BASE_URL}/api/articles")
         assert r.status_code == 200
         data = r.json()
-        assert "articles" in data
-        assert "total" in data
-        assert isinstance(data["articles"], list)
-        assert isinstance(data["total"], int)
+        assert isinstance(data.get("articles"), list)
+        assert isinstance(data.get("total"), int)
         assert data["total"] >= 1
-        # No mongo _id leaking
-        for a in data["articles"]:
-            assert "_id" not in a
-            assert "id" in a
-            assert "title" in a
+
+    def test_articles_have_public_shape(self):
+        articles = requests.get(f"{BASE_URL}/api/articles").json()["articles"]
+        assert all(_is_public_article(a) for a in articles)
 
     def test_filter_by_category_awards(self):
         r = requests.get(f"{BASE_URL}/api/articles", params={"category": "Awards"})
