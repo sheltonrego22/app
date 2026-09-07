@@ -1,0 +1,86 @@
+import { useState } from 'react';
+import { Briefcase, MapPin, ChevronDown, ChevronUp, Send, Linkedin, Search } from 'lucide-react';
+import { jobs, departments, applyMailto, HQ, LINKEDIN_COMPANY_URL } from '@/data/jobs';
+
+const COPY = {
+  en: { all: "All", roles: (n) => `${n} open roles across the group`, search: "Search roles...", apply: "Apply via Email", linkedin: "Follow on LinkedIn", none: "No openings match your search right now.", source: "Also listed on LinkedIn", email: "Applications: careers@eurogulf.ae", location: "Location" },
+  ar: { all: "جميع الأقسام", roles: (n) => `${n} وظيفة شاغرة عبر المجموعة`, search: "ابحث عن وظيفة...", apply: "تقدّم عبر البريد الإلكتروني", linkedin: "تابعونا على لينكدإن", none: "لا توجد وظائف مطابقة لبحثك حالياً.", source: "معلن عنها أيضاً على لينكدإن", email: "طلبات التوظيف: careers@eurogulf.ae", location: "الموقع" },
+};
+
+function JobCard({ job, lang, expanded, onToggle }) {
+  const c = COPY[lang];
+  const isAr = lang === 'ar';
+  const j = job[lang];
+  const location = job.location ? job.location[lang] : HQ[lang];
+  return (
+    <div data-testid={`job-${job.id}`} className="bg-[#111111] border border-white/5 hover:border-[#EE5A01]/20 transition-all">
+      <button data-testid={`job-toggle-${job.id}`} className={`w-full flex items-center justify-between p-5 ${isAr ? 'text-right' : 'text-left'}`} onClick={onToggle} aria-expanded={expanded}>
+        <div className="flex items-center gap-4">
+          <Briefcase className="w-5 h-5 text-[#EE5A01] flex-shrink-0" />
+          <div>
+            <h3 className="font-heading font-bold text-sm text-[#EEEDE7]">{j.title}</h3>
+            <div className="flex flex-wrap items-center gap-3 mt-1">
+              <span className={`font-mono text-[10px] text-[#EE5A01] ${isAr ? '' : 'tracking-wider uppercase'}`}>{departments[job.dept][lang]}</span>
+              <span className="flex items-center gap-1 text-[#666666]"><MapPin className="w-3 h-3" /><span className="font-body text-[10px]">{location}</span></span>
+              {job.source === 'LinkedIn' && <span className="flex items-center gap-1 text-[#0A66C2]"><Linkedin className="w-3 h-3" /><span className="font-body text-[10px]">{c.source}</span></span>}
+            </div>
+          </div>
+        </div>
+        {expanded ? <ChevronUp className="w-4 h-4 text-[#EE5A01] flex-shrink-0" /> : <ChevronDown className="w-4 h-4 text-[#666666] flex-shrink-0" />}
+      </button>
+      {expanded && (
+        <div className="px-5 pb-5 border-t border-white/5 pt-4">
+          <p className="font-body text-sm text-[#999] leading-relaxed mb-4">{j.desc}</p>
+          <div className="flex flex-wrap gap-3">
+            <a href={applyMailto(job.en.title, lang)} data-testid={`apply-${job.id}`} className={`inline-flex items-center gap-2 bg-[#EE5A01] text-black font-heading font-bold text-xs px-5 py-2.5 hover:bg-[#F17B34] transition-colors ${isAr ? '' : 'tracking-[0.05em]'}`}>
+              <Send className="w-3 h-3" /> {c.apply}
+            </a>
+            <a href={LINKEDIN_COMPANY_URL} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2 border border-white/10 text-[#EEEDE7] font-heading font-bold text-xs px-5 py-2.5 hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors ${isAr ? '' : 'tracking-[0.05em]'}`}>
+              <Linkedin className="w-3 h-3" /> {c.linkedin}
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function JobBoard({ lang = 'en' }) {
+  const c = COPY[lang];
+  const isAr = lang === 'ar';
+  const [activeDept, setActiveDept] = useState('all');
+  const [search, setSearch] = useState('');
+  const [expanded, setExpanded] = useState(null);
+
+  const filtered = jobs.filter((j) =>
+    (activeDept === 'all' || j.dept === activeDept) &&
+    (!search || j[lang].title.toLowerCase().includes(search.toLowerCase()) || j.en.title.toLowerCase().includes(search.toLowerCase()))
+  );
+  const deptEntries = [['all', c.all], ...Object.entries(departments).map(([k, v]) => [k, v[lang]])];
+
+  return (
+    <div data-testid={`${isAr ? 'ar-' : ''}job-board`}>
+      <p className="text-center font-body text-[#666666] mb-8">{c.roles(jobs.length)} · {c.email}</p>
+      <div className="relative max-w-md mx-auto mb-6">
+        <Search className={`absolute ${isAr ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]`} />
+        <input data-testid={`${isAr ? 'ar-' : ''}job-search`} value={search} onChange={(e) => setSearch(e.target.value)} placeholder={c.search}
+          className={`w-full bg-[#111] border border-[#333] text-[#EEEDE7] placeholder:text-[#444] py-2.5 text-sm focus:border-[#EE5A01] focus:outline-none transition-colors ${isAr ? 'pr-10 pl-4' : 'pl-10 pr-4'}`} />
+      </div>
+      <div className="flex flex-wrap gap-2 justify-center mb-10">
+        {deptEntries.map(([key, label]) => {
+          const count = key === 'all' ? jobs.length : jobs.filter((j) => j.dept === key).length;
+          return (
+            <button key={key} data-testid={`dept-filter-${key}`} onClick={() => setActiveDept(key)}
+              className={`font-heading font-bold text-xs px-4 py-2 transition-all ${isAr ? '' : 'tracking-[0.1em] uppercase'} ${activeDept === key ? 'bg-[#EE5A01] text-black' : 'bg-[#111111] text-[#666666] border border-white/10 hover:border-[#EE5A01]/40 hover:text-[#EEEDE7]'}`}>
+              {label} <span className="font-mono opacity-70">({count})</span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="space-y-3">
+        {filtered.map((job) => <JobCard key={job.id} job={job} lang={lang} expanded={expanded === job.id} onToggle={() => setExpanded(expanded === job.id ? null : job.id)} />)}
+      </div>
+      {filtered.length === 0 && <p data-testid="jobs-empty" className="text-center font-body text-[#666666] py-12">{c.none}</p>}
+    </div>
+  );
+}

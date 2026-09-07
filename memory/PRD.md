@@ -6,6 +6,13 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Careers Job Board, LinkedIn Enrichment, Leadership in About, Arabic Portals — Sept 2026)
+- [x] **Careers job board** (EN `/careers`, AR `/ar/careers`): 30 live roles from egmg.ae careers form + LinkedIn (Process Analyst), 5 departments with counts, search, expandable cards, Apply via `mailto:careers@eurogulf.ae` (prefilled subject/body), LinkedIn follow, Life-at-Eurogulf feed, Send CV. Data: `src/data/jobs.js`, component `components/careers/JobBoard.js`
+- [x] **LinkedIn content** (`src/data/linkedinPosts.js`, 8 real posts EN+AR): homepage Featured Socials → real posts; `LinkedInFeed` on `/media`, `/ar/media`, careers pages
+- [x] **About Us**: Vision, Mission, F.A.I.R. values + Leadership section (EN + AR) using shared `src/data/leadership.js` (egmg.ae photos; Mari Parian 2026/07 photo). Leadership pages refactored to shared data + `LeaderCard`
+- [x] **Arabic portals** `/ar/portal/corporate`, `/ar/portal/driver` (21 Arabic routes; Arabic menu now fully Arabic)
+- Note: LinkedIn company page is login-walled for scraping; posts were pulled from the public company page snapshot. EGMG has no jobs posted on LinkedIn Jobs; roles come from egmg.ae + LinkedIn hiring posts
+
 ## Completed (Code Quality Review Remediation — Sept 2026)
 - [x] Refactors (behaviour-preserving, verified iteration 26): HomePage 477→235 lines (`components/home/TrustSections.js`, `SocialSections.js`); AdminDashboardPage 223→82 lines (`hooks/useAdminArticles.js`, `hooks/useAdminInbox.js`, `components/admin/AdminBanners.js`); Navigation 200→98 lines (`components/nav/NavDropdown.js`, `MobileMenu.js`); Footer sub-components; booking validation → `utils/bookingValidation.js`; `emailer._layout(spec)`
 - [x] Real bugs fixed: `/book-chauffeur`, `/ar/partner`, `/ar/chauffeur-service` no longer show a fake success when the API fails (error banner + form preserved); Arabic forms now require the message field (backend requires it)
@@ -69,7 +76,8 @@
 ## Upcoming
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
 - [ ] Supply real SMTP credentials and set SMTP_ENABLED=true to activate team alerts + customer confirmations
-- [ ] Remaining Arabic pages: portals (/portal/corporate, /portal/driver), SEO landing pages, Dubai Municipality, Mobility Tech
+- [ ] Remaining Arabic pages: SEO landing pages, Dubai Municipality, Mobility Tech, Partners & Clients
+- [ ] Careers: admin-managed job listings (CMS) instead of static data; in-site application form feeding the Enquiries inbox
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

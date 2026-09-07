@@ -5,6 +5,8 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { LinkedInFeed } from '@/components/LinkedInFeed';
+import { linkedinPosts } from '@/data/linkedinPosts';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const EMBED_HOSTS = ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"];
@@ -167,6 +169,8 @@ export default function MediaCenterPage() {
           )}
         </div>
       </section>
+
+      <LinkedInFeed posts={linkedinPosts} lang="en" className="bg-black" />
     </div>
   );
 }

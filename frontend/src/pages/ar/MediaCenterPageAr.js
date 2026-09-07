@@ -3,6 +3,8 @@ import { Search, Star } from 'lucide-react';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
 import { ArticleCard } from '@/pages/MediaCenterPage';
+import { LinkedInFeed } from '@/components/LinkedInFeed';
+import { linkedinPosts } from '@/data/linkedinPosts';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -132,6 +134,8 @@ export default function MediaCenterPageAr() {
           )}
         </div>
       </section>
+
+      <LinkedInFeed posts={linkedinPosts} lang="ar" className="bg-black" testId="ar-linkedin-feed" />
     </div>
   );
 }

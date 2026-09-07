@@ -1,15 +1,17 @@
 import InstagramPosts from '@/components/InstagramPosts';
+import { homepageLinkedinPosts } from '@/data/linkedinPosts';
+import { LINKEDIN_POSTS_URL } from '@/data/jobs';
 
 const INSTAGRAM = "https://www.instagram.com/eurogulfmobility/";
 const LINKEDIN = "https://www.linkedin.com/company/105403528/";
 const YOUTUBE = "https://www.youtube.com/@EurogulfMobilityGroup-x1n";
 const FACEBOOK = "https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/";
 
-const featuredStories = [
-  { badge: "IMT", badgeCls: "from-[#EE5A01]/20 to-black text-[#EE5A01] opacity-30", tag: "Events", title: "Main Mobility Partner for IMT Dubai Vaudeville 2026", text: "Driving the spotlight at the UAE's premier events. Eurogulf Mobility Group is proud to be the official mobility partner for IMT Dubai's Vaudeville 2026." },
-  { badge: "WTA", badgeCls: "from-yellow-500/10 to-black text-yellow-500/30", tag: "Awards", title: "World Travel Awards 2026 Nominations", text: "Europcar Dubai and Royal Limousine have both been nominated at the World Travel Awards 2026, recognising their contribution to premium mobility across the UAE." },
-  { badge: "LDP", badgeCls: "from-[#EE5A01]/10 to-black text-[#EE5A01]/30", tag: "People", title: "Leadership Development Programme 2026", text: "Investing in the next generation of leaders. The Eurogulf Mobility Group Leadership Development Programme empowers rising talent across all divisions." },
-];
+const badgeStyles = {
+  "wta-2026": { badge: "WTA", cls: "from-yellow-500/10 to-black text-yellow-500/30" },
+  "ldp-2026": { badge: "LDP", cls: "from-[#EE5A01]/10 to-black text-[#EE5A01]/30" },
+  "fleet-evolution": { badge: "FLEET", cls: "from-[#EE5A01]/20 to-black text-[#EE5A01] opacity-30" },
+};
 
 const socialImages = [
   { img: "https://images.unsplash.com/photo-1607414851776-f2fcc379fb48?w=600&h=600&fit=crop", caption: "Dubai skyline at golden hour" },
@@ -43,18 +45,21 @@ export function FeaturedSocials() {
           <p className="font-body text-[#666]">Stories from across our brands and community</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-          {featuredStories.map((s) => (
-            <div key={s.badge} className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
-              <div className={`h-48 bg-gradient-to-br flex items-center justify-center ${s.badgeCls}`}>
-                <span className="font-heading font-black text-5xl">{s.badge}</span>
-              </div>
-              <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">{s.tag}</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">{s.title}</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">{s.text}</p>
-              </div>
-            </div>
-          ))}
+          {homepageLinkedinPosts.map((p) => {
+            const b = badgeStyles[p.id];
+            return (
+              <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer" data-testid={`featured-story-${p.id}`} className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all block">
+                <div className={`h-48 bg-gradient-to-br flex items-center justify-center ${b.cls}`}>
+                  <span className="font-heading font-black text-5xl">{b.badge}</span>
+                </div>
+                <div className="p-6">
+                  <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">{p.tag.en}</span>
+                  <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">{p.en.title}</h3>
+                  <p className="font-body text-sm text-[#666] leading-relaxed">{p.en.text}</p>
+                </div>
+              </a>
+            );
+          })}
         </div>
 
         <InstagramPosts />
@@ -72,7 +77,7 @@ export function FeaturedSocials() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-4">
           <SocialButton href={INSTAGRAM}>FOLLOW ON INSTAGRAM</SocialButton>
-          <SocialButton href={LINKEDIN}>FOLLOW ON LINKEDIN</SocialButton>
+          <SocialButton href={LINKEDIN_POSTS_URL}>FOLLOW ON LINKEDIN</SocialButton>
         </div>
       </div>
     </section>

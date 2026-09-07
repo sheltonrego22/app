@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only verification of Iteration 27 features: /careers + /ar/careers job board, /about + /ar/about vision/mission/values/leadership sections, /leadership + /ar/leadership refactored pages, homepage featured socials, /media + /ar/media LinkedIn feed, Arabic portal pages. All spec assertions pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verification_details": {
+    "careers_en": "hero H1 rgb(238,237,231); view-openings->#openings; job-board shows '30 open roles' and 'careers@eurogulf.ae'; dept filters counts match exactly (all=30, operations=8, rental=5, workshop=7, sales=2, corporate=8); search 'driver'=8 cards; search 'zzz' shows jobs-empty; process-analyst expand shows 'Also listed on LinkedIn' and apply mailto starts with 'mailto:careers@eurogulf.ae?subject=Application%3A%20Process%20Analyst'; RAK card location=Ras Al Khaimah, others Al Quoz; culture feed has ldp-2026, team-recognition, onam; send-cv is mailto:careers@eurogulf.ae",
+    "careers_ar": "Arabic titles present ('محلل عمليات'); search 'سائق' returns 8; apply href contains encoded 'طلب توظيف' (%D8%B7%D9%84%D8%A8); 3 culture posts; send-cv mailto ok; H1 rgb(238,237,231)",
+    "about_en": "about-vision, about-value-F/A/I/R, about-leadership all render; 6 leader cards; CTA -> /leadership; all 6 leader images loaded (naturalWidth 1500-1600); FOUNDER badges visible for card-0/1 (screenshot verified; text check failed due to CSS uppercase-transform vs textContent case)",
+    "about_ar": "ar-about-vision, ar-about-leadership, 6 ar-about-leader-card-*, CTA -> /ar/leadership",
+    "leadership": "Mari Parian image is https://egmg.ae/wp-content/uploads/2026/07/Ms.-Mari.jpg (naturalWidth=1500); all 9 leader-card-* present EN and AR",
+    "homepage": "featured-story-wta-2026, ldp-2026, fleet-evolution all present with target=_blank and linkedin.com hrefs (wta-2026 and fleet-evolution point to generic /company/eurogulf-mobility-group/posts feed; ldp-2026 to specific post)",
+    "media": "linkedin-feed has 8 posts on /media; ar-linkedin-feed has 8 posts on /ar/media",
+    "portal_ar": "/ar/portal/corporate and /ar/portal/driver both render [data-testid=portal-page-ar] with dir=rtl; 2 cards + 2 contact links -> /ar/contact; H1 color rgb(238,237,231)",
+    "console": "No app runtime errors observed; only expected GTM ORB / LeadConnector third-party noise"
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Homepage featured-story-wta-2026 and featured-story-fleet-evolution both link to the generic /company/eurogulf-mobility-group/posts/?feedView=all feed URL rather than deep-links to specific WTA 2026 and Fleet Evolution posts. Not a bug (spec accepts 'href on linkedin.com') but ldp-2026 has a specific post URL — consider adding specific URLs for consistency if the posts exist."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 27 features fully verified. All data-testids match spec. AR pages don't set html[dir=rtl] on root html element but use dir attribute on inner containers (portal-page-ar dir=rtl confirmed) — works correctly visually. Third-party console noise (GTM ORB, LeadConnector) is expected."
+}

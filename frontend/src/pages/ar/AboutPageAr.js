@@ -1,20 +1,28 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, MapPin, Globe } from 'lucide-react';
+import { ArrowLeft, MapPin, Globe, Eye, Target, Flag } from 'lucide-react';
 import ar from '@/i18n/ar';
+import { LeadershipSection } from '@/components/LeadershipSection';
 
 const t = ar;
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
 const GOLDCAR_LOGO = "/goldcar-logo.png";
 
+const values = [
+  { letter: "F", title: "الجرأة (Fearless)", desc: "نواجه التحديات بشجاعة ونقود التغيير في قطاع التنقل." },
+  { letter: "A", title: "المسؤولية (Accountable)", desc: "نتحمل مسؤولية التزاماتنا تجاه عملائنا وشركائنا وبعضنا البعض." },
+  { letter: "I", title: "الابتكار (Innovative)", desc: "نطوّر باستمرار طريقة تنقل الأفراد والشركات، من التتبع الذكي إلى تصميم الخدمة." },
+  { letter: "R", title: "الاحترام (Respectful)", desc: "نقدّر كل شخص وكل ثقافة وكل مساهمة في فريقنا الذي يضم ١,٢٠٠ فرد." },
+];
+
 const divisions = [
-  { name: t.brands.europcar, desc: t.brands.europcarDesc, href: "/europcar", logo: EUROPCAR_LOGO },
-  { name: t.brands.goldcar, desc: t.brands.goldcarDesc, href: "/goldcar", logo: GOLDCAR_LOGO },
-  { name: t.brands.truckline, desc: t.brands.trucklineDesc, href: "/truckline", logo: EGMG_LOGO },
-  { name: t.brands.chauffeur, desc: t.brands.chauffeurDesc, href: "/chauffeur-service", logo: EGMG_LOGO },
-  { name: t.brands.autoGarage, desc: t.brands.autoGarageDesc, href: "/autocare", logo: EGMG_LOGO },
-  { name: t.brands.usedCars, desc: t.brands.usedCarsDesc, href: "/used-cars", logo: EGMG_LOGO },
+  { name: t.brands.europcar, desc: t.brands.europcarDesc, href: "/ar/europcar", logo: EUROPCAR_LOGO },
+  { name: t.brands.goldcar, desc: t.brands.goldcarDesc, href: "/ar/goldcar", logo: GOLDCAR_LOGO },
+  { name: t.brands.truckline, desc: t.brands.trucklineDesc, href: "/ar/truckline", logo: EGMG_LOGO },
+  { name: t.brands.chauffeur, desc: t.brands.chauffeurDesc, href: "/ar/chauffeur-service", logo: EGMG_LOGO },
+  { name: t.brands.autoGarage, desc: t.brands.autoGarageDesc, href: "/ar/autocare", logo: EGMG_LOGO },
+  { name: t.brands.usedCars, desc: t.brands.usedCarsDesc, href: "/ar/used-cars", logo: EGMG_LOGO },
 ];
 
 export default function AboutPageAr() {
@@ -58,7 +66,39 @@ export default function AboutPageAr() {
         </div>
       </section>
 
-      <section className="bg-[#0a0a0a] py-20 sm:py-28">
+      <section data-testid="ar-about-vision" className="bg-[#0a0a0a] py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+            <div className="bg-[#111111] border border-white/5 p-8">
+              <Eye className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+              <h2 className="font-heading font-black text-2xl text-[#EEEDE7] mb-3">رؤيتنا</h2>
+              <p className="text-[#999] leading-loose">أن نكون شريك التنقل المتكامل الأكثر ثقة في الإمارات، بربط التأجير والتأجير طويل الأجل والسائق الخاص والمركبات التجارية وخدمات ما بعد البيع في تجربة واحدة سلسة.</p>
+            </div>
+            <div className="bg-[#111111] border border-white/5 p-8">
+              <Target className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+              <h2 className="font-heading font-black text-2xl text-[#EEEDE7] mb-3">رسالتنا</h2>
+              <p className="text-[#999] leading-loose">نقل الأفراد والشركات بأمان وموثوقية واستدامة، ودعم شبكة النقل العام في الإمارات عبر حلول الميل الأول والميل الأخير، وبناء شراكات تجعل المدن تعمل بشكل أفضل.</p>
+            </div>
+          </div>
+          <div className="text-center mb-10">
+            <Flag className="w-6 h-6 text-[#EE5A01] mx-auto mb-3" />
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7]">قيمنا F.A.I.R.</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {values.map((v) => (
+              <div key={v.letter} data-testid={`ar-about-value-${v.letter}`} className="bg-black border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all">
+                <span dir="ltr" className="font-heading font-black text-4xl text-[#EE5A01] block text-right">{v.letter}</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">{v.title}</h3>
+                <p className="text-sm text-[#666666] leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <LeadershipSection lang="ar" />
+
+      <section className="bg-black py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-14">
             <div className="orange-accent-line mx-auto mb-6" />

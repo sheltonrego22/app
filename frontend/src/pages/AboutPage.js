@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Users, Award, ArrowRight, ChevronDown, Lightbulb, Heart, MapPin, Globe } from 'lucide-react';
-import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
+import { ArrowRight, ChevronDown, MapPin, Globe, Eye, Target, Flag } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { LeadershipSection } from '@/components/LeadershipSection';
 
 const ABOUT_HERO = "https://egmg.ae/wp-content/uploads/2025/06/file-24-e1736166597319-822x1024.jpg";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EUROPCAR_LOGO = "/europcar-logo.png";
+
+const values = [
+  { letter: "F", title: "Fearless", desc: "We embrace challenges, act with courage and lead change across the mobility sector." },
+  { letter: "A", title: "Accountable", desc: "We take ownership of our commitments to customers, partners and each other." },
+  { letter: "I", title: "Innovative", desc: "We continuously improve how people and businesses move, from telematics to service design." },
+  { letter: "R", title: "Respectful", desc: "We value every person, every culture and every contribution across our 1,200-strong team." },
+];
 
 const milestones = [
   { year: "1976", title: "Dubai Rent A Car LLC Founded", desc: "The foundation of Eurogulf Mobility Group, established with the acquisition of the exclusive Europcar franchise for Dubai and the Northern Emirates, bringing European rental standards to a rapidly developing UAE." },
@@ -152,6 +160,40 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* VISION, MISSION & VALUES */}
+      <section data-testid="about-vision" className="bg-black py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+            <div className="bg-[#111111] border border-white/5 p-8">
+              <Eye className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+              <h2 className="font-heading font-black text-2xl text-[#EEEDE7] uppercase tracking-tight mb-3">Our Vision</h2>
+              <p className="font-body text-[#999] leading-relaxed">To be the UAE's most trusted integrated mobility partner, connecting rental, leasing, chauffeur, commercial and aftercare services into one seamless experience.</p>
+            </div>
+            <div className="bg-[#111111] border border-white/5 p-8">
+              <Target className="w-8 h-8 text-[#EE5A01] mb-4" strokeWidth={1.5} />
+              <h2 className="font-heading font-black text-2xl text-[#EEEDE7] uppercase tracking-tight mb-3">Our Mission</h2>
+              <p className="font-body text-[#999] leading-relaxed">To move people and businesses safely, reliably and sustainably, supporting the UAE's public transport network with first-mile and last-mile mobility and building partnerships that make cities work better.</p>
+            </div>
+          </div>
+          <div className="text-center mb-10">
+            <Flag className="w-6 h-6 text-[#EE5A01] mx-auto mb-3" />
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#EEEDE7] uppercase tracking-tight">Our F.A.I.R. Values</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {values.map((v) => (
+              <div key={v.letter} data-testid={`about-value-${v.letter}`} className="bg-[#0a0a0a] border border-white/5 p-6 hover:border-[#EE5A01]/30 transition-all">
+                <span className="font-heading font-black text-4xl text-[#EE5A01]">{v.letter}</span>
+                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">{v.title}</h3>
+                <p className="font-body text-sm text-[#666666] leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* LEADERSHIP */}
+      <LeadershipSection lang="en" />
 
       {/* OUR BRANDS */}
       <section data-testid="about-divisions" className="bg-[#0a0a0a] py-20 sm:py-28">
