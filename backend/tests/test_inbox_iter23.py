@@ -6,8 +6,8 @@ from pymongo import MongoClient
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://egmg-premium.preview.emergentagent.com").rstrip("/")
 API = f"{BASE_URL}/api"
-ADMIN_EMAIL = "admin@egmg.ae"
-ADMIN_PASSWORD = "EgmgAdmin2026!"
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
+ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 
 # Mongo cleanup
 MONGO_URL = "mongodb://localhost:27017"

@@ -22,12 +22,26 @@ export default function LeasingPageAr() {
 
   const vehicle = vehicleClasses.find(v => v.value === vehicleClass);
   const termMonths = parseInt(term);
-  const getTermDiscount = m => m >= 48 ? 0.15 : m >= 36 ? 0.10 : m >= 24 ? 0.05 : 0;
-  const getVolDiscount = s => s >= 10 ? 0.15 : s >= 5 ? 0.08 : 0;
+  const getTermDiscount = (m) => {
+    if (m >= 48) return 0.15;
+    if (m >= 36) return 0.10;
+    if (m >= 24) return 0.05;
+    return 0;
+  };
+  const getVolDiscount = (s) => {
+    if (s >= 10) return 0.15;
+    if (s >= 5) return 0.08;
+    return 0;
+  };
+  const getBuyMultiplier = (m) => {
+    if (m >= 36) return 1.35;
+    if (m >= 24) return 1.28;
+    return 1.2;
+  };
   const totalDiscount = Math.min(getTermDiscount(termMonths) + getVolDiscount(fleetSize), 0.25);
   const leaseMonthly = vehicle ? Math.round(vehicle.monthly * (1 - totalDiscount)) : 0;
   const leasingTotal = leaseMonthly * termMonths * fleetSize;
-  const buyMultiplier = termMonths >= 36 ? 1.35 : termMonths >= 24 ? 1.28 : 1.2;
+  const buyMultiplier = getBuyMultiplier(termMonths);
   const buyTotal = Math.round(vehicle ? vehicle.monthly * buyMultiplier * termMonths * fleetSize : 0);
   const saving = buyTotal - leasingTotal;
   const savingPct = buyTotal > 0 ? Math.round((saving / buyTotal) * 100) : 0;

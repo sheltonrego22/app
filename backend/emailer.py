@@ -113,7 +113,10 @@ def _rows(pairs) -> str:
     )
 
 
-def _layout(en_heading: str, en_intro: str, en_rows, ar_heading: str, ar_intro: str, ar_rows, en_note: str, ar_note: str) -> str:
+def _layout(spec: dict) -> str:
+    """spec keys: en_heading, en_intro, en_rows, en_note, ar_heading, ar_intro, ar_rows, ar_note."""
+    en_heading, en_intro, en_rows, en_note = spec["en_heading"], spec["en_intro"], spec["en_rows"], spec["en_note"]
+    ar_heading, ar_intro, ar_rows, ar_note = spec["ar_heading"], spec["ar_intro"], spec["ar_rows"], spec["ar_note"]
     return f"""<!doctype html><html><body style="margin:0;padding:0;background:#f5f2ec;font-family:Roboto,Arial,Helvetica,sans-serif">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f5f2ec;padding:24px 0"><tr><td align="center">
 <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px;width:100%;background:#ffffff">
@@ -160,7 +163,8 @@ def contact_confirmation(c: dict) -> tuple[str, str, str]:
         f"{en_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in en_rows) + f"\n\n{en_note}\n\n"
         f"{ar_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in ar_rows) + f"\n\n{ar_note}\n\nEurogulf Mobility Group · WE MOVE YOU!"
     )
-    html_body = _layout("Thank you, we received your enquiry", en_intro, en_rows, "شكراً لك، استلمنا استفسارك", ar_intro, ar_rows, en_note, ar_note)
+    html_body = _layout({"en_heading": "Thank you, we received your enquiry", "en_intro": en_intro, "en_rows": en_rows, "en_note": en_note,
+                         "ar_heading": "شكراً لك، استلمنا استفسارك", "ar_intro": ar_intro, "ar_rows": ar_rows, "ar_note": ar_note})
     return subject, text, html_body
 
 
@@ -182,5 +186,6 @@ def booking_confirmation(b: dict) -> tuple[str, str, str]:
         f"{en_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in en_rows) + f"\n\n{en_note}\n\n"
         f"{ar_intro}\n\n" + "\n".join(f"{k}: {v}" for k, v in ar_rows) + f"\n\n{ar_note}\n\nEurogulf Mobility Group · WE MOVE YOU!"
     )
-    html_body = _layout(f"Booking {ref} received", en_intro, en_rows, f"تم استلام الحجز {ref}", ar_intro, ar_rows, en_note, ar_note)
+    html_body = _layout({"en_heading": f"Booking {ref} received", "en_intro": en_intro, "en_rows": en_rows, "en_note": en_note,
+                         "ar_heading": f"تم استلام الحجز {ref}", "ar_intro": ar_intro, "ar_rows": ar_rows, "ar_note": ar_note})
     return subject, text, html_body

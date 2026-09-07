@@ -13,8 +13,8 @@ LOCAL_URL = "http://localhost:8001"
 PUBLIC_API = f"{PUBLIC_URL}/api"
 LOCAL_API = f"{LOCAL_URL}/api"
 
-ADMIN_EMAIL = "admin@egmg.ae"
-ADMIN_PASS = "EgmgAdmin2026!"
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
+ADMIN_PASS = os.environ["ADMIN_PASSWORD"]
 
 MONGO_URL = os.environ['MONGO_URL']
 DB_NAME = os.environ['DB_NAME']

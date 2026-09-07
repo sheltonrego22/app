@@ -12,8 +12,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
 
 BASE = os.environ["REACT_APP_BACKEND_URL"].rstrip("/")
-ADMIN_EMAIL = "admin@egmg.ae"
-ADMIN_PASSWORD = "EgmgAdmin2026!"
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
+ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 LOG_PATH = "/var/log/supervisor/backend.err.log"
 
 sys.path.insert(0, "/app/backend")

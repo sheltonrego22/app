@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks
+from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, BackgroundTasks
 from emailer import send_alert, send_email, contact_alert, booking_alert, contact_confirmation, booking_confirmation, smtp_configured
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
@@ -15,7 +15,6 @@ import logging
 import bcrypt
 import jwt
 import uuid
-import secrets
 import base64
 from fastapi.responses import Response, HTMLResponse
 from pydantic import BaseModel, Field, ConfigDict, field_validator

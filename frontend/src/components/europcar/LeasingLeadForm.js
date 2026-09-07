@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Check } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 
 const EUROPCAR_GREEN = "#2d8c3c";
 
@@ -19,7 +20,7 @@ export function LeasingLeadForm({ API }) {
         company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
       });
     } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Leasing:', err);
+      logError('Leasing', err);
     }
     setSubmitted(true);
     setSubmitting(false);

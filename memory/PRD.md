@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Code Quality Review Remediation — Sept 2026)
+- [x] Refactors (behaviour-preserving, verified iteration 26): HomePage 477→235 lines (`components/home/TrustSections.js`, `SocialSections.js`); AdminDashboardPage 223→82 lines (`hooks/useAdminArticles.js`, `hooks/useAdminInbox.js`, `components/admin/AdminBanners.js`); Navigation 200→98 lines (`components/nav/NavDropdown.js`, `MobileMenu.js`); Footer sub-components; booking validation → `utils/bookingValidation.js`; `emailer._layout(spec)`
+- [x] Real bugs fixed: `/book-chauffeur`, `/ar/partner`, `/ar/chauffeur-service` no longer show a fake success when the API fails (error banner + form preserved); Arabic forms now require the message field (backend requires it)
+- [x] Hygiene: all `console.*` replaced with `logError`; unused eslint-disable directives removed (react-hooks lint: 0 problems); index keys → stable keys; nested ternaries → functions; unused backend imports removed; test files read `ADMIN_PASSWORD` from env (`tests/conftest.py`)
+- Rejected as false positives: XSS (DOMPurify already applied), `is` vs `==` (all are `is None` checks), hook deps for module constants/globals (`API`, `axios`, `localStorage`)
+
 ## Completed (Arabic Downloads/Brands + Customer Confirmation Emails — Sept 2026)
 - [x] `/ar/downloads` and `/ar/businesses` Arabic RTL pages; Arabic nav top-level "علاماتنا التجارية" → `/ar/businesses`; 19 Arabic routes total (every Arabic menu link now stays in Arabic except portals)
 - [x] **Bilingual customer confirmation emails** (branded HTML, EN + AR) sent to the customer after enquiry / booking via SMTP background task; Reply-To = team alert address. `GET /api/admin/email-preview?type=contact|booking` (auth) + preview links in the admin alerts banner. **SMTP still PLACEHOLDER** (skip + log)

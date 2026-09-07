@@ -4,6 +4,7 @@ import { Calendar, ArrowRight, Search, Star, Video, FileDown } from 'lucide-reac
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const EMBED_HOSTS = ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"];
@@ -43,8 +44,7 @@ export default function MediaCenterPage() {
 
   useEffect(() => {
     const cat = searchParams.get('category');
-    if (cat && cat !== filter) setFilter(cat);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (cat) setFilter((current) => (cat !== current ? cat : current));
   }, [searchParams]);
 
   useEffect(() => {
@@ -58,14 +58,14 @@ export default function MediaCenterPage() {
         setArticles(data.articles.filter((a) => a.published !== false));
         setTotal(data.total);
       } catch (err) {
-        if (process.env.NODE_ENV === 'development') console.error('Articles:', err);
+        logError('Articles', err);
       } finally {
         setLoading(false);
       }
     };
     const debounce = setTimeout(fetchArticles, 300);
     return () => clearTimeout(debounce);
-  }, [filter, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [filter, searchQuery]);
 
   const featuredArticles = articles.filter((a) => a.featured);
   const regularArticles = articles.filter((a) => !a.featured);

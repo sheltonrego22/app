@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const EGMG_LOGO = "/egmg-logo-transparent.png";
@@ -59,7 +60,7 @@ export default function PartnerWithUsPage() {
         message: form.message,
       });
     } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Partner enquiry:', err);
+      logError('Partner enquiry', err);
     }
     setSubmitted(true);
     setSubmitting(false);

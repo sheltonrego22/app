@@ -8,6 +8,8 @@ import { DurationStep } from '@/components/booking/DurationStep';
 import { TripDetailsStep } from '@/components/booking/TripDetailsStep';
 import { VehicleStep } from '@/components/booking/VehicleStep';
 import { ConfirmStep } from '@/components/booking/ConfirmStep';
+import { validateStep, buildBookingPayload } from '@/utils/bookingValidation';
+import { logError } from '@/utils/logger';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -18,31 +20,6 @@ const INITIAL_FORM = {
   dropoffType: 'location', dropoffAirport: '', dropoffLocation: '', passengers: '', vehicle: '',
   name: '', email: '', phone: '', notes: '',
 };
-
-function validateStep(step, form) {
-  const e = {};
-  if (step === 0) {
-    if (!form.duration) e.duration = "Please select a duration";
-  }
-  if (step === 1) {
-    if (!form.date) e.date = "Please select a date";
-    if (!form.time) e.time = "Please select a time";
-    if (form.pickupType === 'airport' && !form.pickupAirport) e.pickupAirport = "Select airport terminal";
-    if (form.pickupType === 'location' && !form.pickupLocation.trim()) e.pickupLocation = "Enter pickup address";
-    if (form.dropoffType === 'airport' && !form.dropoffAirport) e.dropoffAirport = "Select airport terminal";
-    if (form.dropoffType === 'location' && !form.dropoffLocation.trim()) e.dropoffLocation = "Enter drop-off address";
-  }
-  if (step === 2) {
-    if (!form.passengers) e.passengers = "Select number of passengers";
-    if (!form.vehicle) e.vehicle = "Please select a vehicle";
-  }
-  if (step === 3) {
-    if (!form.name.trim()) e.name = "Full name is required";
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Valid email is required";
-    if (!form.phone.trim()) e.phone = "Phone number is required";
-  }
-  return e;
-}
 
 export default function BookChauffeurPage() {
   const [step, setStep] = useState(0);
@@ -81,20 +58,13 @@ export default function BookChauffeurPage() {
     if (Object.keys(e).length > 0) return;
     setSubmitting(true);
     try {
-      const payload = {
-        duration: form.duration, date: form.date ? form.date.toISOString() : '', time: form.time,
-        pickup_type: form.pickupType, pickup_location: form.pickupType === 'airport' ? form.pickupAirport : form.pickupLocation,
-        dropoff_type: form.dropoffType, dropoff_location: form.dropoffType === 'airport' ? form.dropoffAirport : form.dropoffLocation,
-        passengers: form.passengers, vehicle: form.vehicle, price: getPrice(),
-        name: form.name, email: form.email, phone: form.phone, notes: form.notes,
-      };
-      const res = await axios.post(`${API}/bookings`, payload);
+      const res = await axios.post(`${API}/bookings`, buildBookingPayload(form, getPrice()));
       setBookingRef(res.data.reference);
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Booking:', err);
-      setBookingRef(`RL-${Date.now().toString().slice(-6)}`);
-    } finally {
       setSubmitted(true);
+    } catch (err) {
+      logError('Booking', err);
+      setErrors({ submit: 'We could not submit your booking right now. Please try again or call 800 364.' });
+    } finally {
       setSubmitting(false);
     }
   };
@@ -129,7 +99,9 @@ export default function BookChauffeurPage() {
           {step === 2 && <VehicleStep form={form} errors={errors} set={set} />}
           {step === 3 && <ConfirmStep form={form} errors={errors} set={set} getPrice={getPrice} />}
 
-          {/* Navigation Buttons */}
+          {errors.submit && (
+            <p data-testid="booking-submit-error" role="alert" className="mt-8 max-w-2xl mx-auto bg-red-500/10 border border-red-500/30 text-red-400 font-body text-sm p-3">{errors.submit}</p>
+          )}
           <div className="flex items-center justify-between mt-10 sm:mt-14 max-w-2xl mx-auto">
             {step > 0 ? (
               <button type="button" data-testid="btn-prev-step" onClick={() => setStep((s) => Math.max(s - 1, 0))} className="btn-ghost flex items-center gap-2 text-sm">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Check, Handshake, Plane, Hotel, Building2, Calendar, Users, Truck, Wrench, Car, Send } from 'lucide-react';
 import ar from '@/i18n/ar';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const t = ar.partnerWithUs;
@@ -13,21 +14,27 @@ export default function PartnerPageAr() {
   const [form, setForm] = useState({ name: '', company: '', phone: '', email: '', type: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
   useEffect(() => { document.title = "شراكة معنا | مجموعة يوروجلف للتنقل"; }, []);
 
   const handleSubmit = async () => {
-    if (!form.name || !form.phone || !form.email) return;
+    if (!form.name || !form.phone || !form.email || !form.message.trim()) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
         company: form.company, enquiry_type: `شراكة: ${form.type || 'عام'}`, message: form.message,
       });
-    } catch (err) { /* silent */ }
-    setSubmitted(true);
-    setSubmitting(false);
+      setSubmitted(true);
+    } catch (err) {
+      logError('AR Partner', err);
+      setSubmitError(ar.contact.submitError);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -49,8 +56,8 @@ export default function PartnerPageAr() {
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] tracking-tight">{t.whyTitle}</h2>
           </div>
           <div className="space-y-4">
-            {t.whyPoints.map((item, i) => (
-              <div key={i} className="flex items-start gap-4 bg-[#111] border border-white/5 p-5">
+            {t.whyPoints.map((item) => (
+              <div key={item} className="flex items-start gap-4 bg-[#111] border border-white/5 p-5">
                 <Check className="w-5 h-5 text-[#EE5A01] mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-[#EEEDE7]">{item}</p>
               </div>
@@ -70,7 +77,7 @@ export default function PartnerPageAr() {
             {t.partnerTypes.map((p, i) => {
               const Icon = partnerIcons[i];
               return (
-                <div key={i} className="bg-[#111] border border-white/5 p-6 text-center hover:border-[#EE5A01]/30 transition-all">
+                <div key={p} className="bg-[#111] border border-white/5 p-6 text-center hover:border-[#EE5A01]/30 transition-all">
                   <Icon className="w-7 h-7 text-[#EE5A01] mx-auto mb-3" strokeWidth={1.5} />
                   <p className="text-sm text-[#EEEDE7]">{p}</p>
                 </div>
@@ -103,8 +110,9 @@ export default function PartnerPageAr() {
                 <option value="">{t.partnershipType}</option>
                 {["ضيافة وسياحة", "عقارات", "فعاليات ومؤتمرات", "تنقل الشركات", "توزيع وأساطيل", "خدمات سيارات", "أخرى"].map(o => <option key={o} value={o}>{o}</option>)}
               </select>
-              <textarea value={form.message} onChange={e => set('message', e.target.value)} placeholder={t.tellUs} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm min-h-[100px]" />
-              <button type="submit" disabled={submitting || !form.name || !form.phone || !form.email}
+              <textarea required value={form.message} onChange={e => set('message', e.target.value)} placeholder={t.tellUs} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm min-h-[100px]" />
+              {submitError && <p data-testid="ar-partner-submit-error" role="alert" className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
+              <button type="submit" disabled={submitting || !form.name || !form.phone || !form.email || !form.message.trim()}
                 className="w-full bg-[#EE5A01] text-black font-heading font-bold text-sm py-4 hover:bg-[#d45000] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                 <Send className="w-4 h-4" /> {submitting ? '...' : t.submitBtn}
               </button>

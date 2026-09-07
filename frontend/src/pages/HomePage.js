@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Car, Building2, Crown, Truck, Tag, ArrowRight, Wrench, Award, CheckCircle, Users, Briefcase } from 'lucide-react';
+import { Car, Building2, Crown, Truck, Tag, ArrowRight, Wrench, Users, Briefcase } from 'lucide-react';
 import { useScrollAnimation, useCounter } from '@/hooks/useScrollAnimation';
-import InstagramPosts from '@/components/InstagramPosts';
+import { PartnerShowcase, AwardsSection, MunicipalitySection } from '@/components/home/TrustSections';
+import { FeaturedSocials, VideosGallery } from '@/components/home/SocialSections';
 
 const HERO_BG = "https://images.unsplash.com/photo-1459787915554-b34915863013?w=1600&h=900&fit=crop&q=80";
 const EGMG_LOGO = "/egmg-logo-transparent.png";
@@ -29,32 +30,8 @@ const servicesStrip = [
   "Commercial Fleet Leasing", "Used Car Trading", "Fleet Management", "Event Transportation", "International Car Hire"
 ];
 
-const PARTNER_LOGOS = [
-  { name: "Al Khoory Automobiles", url: "/partners/al-khoory-logo.svg" },
-  { name: "IMT Dubai", url: "/partners/imt-dubai-logo.svg" },
-  { name: "Europcar", url: "/europcar-logo.png" },
-  { name: "ADNOC", url: "/partners/adnoc-logo.svg" },
-  { name: "Emirates", url: "/partners/emirates-logo.svg" },
-  { name: "DP World", url: "/partners/dpworld-logo.svg" },
-  { name: "Dubai Holding", url: "/partners/dubai-holding-logo.svg" },
-];
 
-const awards = [
-  { title: "Car Rental Global Award, Best Performance 2023", sub: "Middle East & Africa Region" },
-  { title: "Best Business Performance 2018", sub: "Middle East & Africa Region" },
-  { title: "Best Car Rental Company in the Middle East", sub: "Business Travel Awards" },
-  { title: "ISO 9001:2015", sub: "Quality Management" },
-  { title: "ISO 10002:2014", sub: "Customer Satisfaction" },
-];
 
-const socialImages = [
-  { img: "https://images.unsplash.com/photo-1607414851776-f2fcc379fb48?w=600&h=600&fit=crop", caption: "Dubai skyline at golden hour" },
-  { img: "https://egmg.ae/wp-content/uploads/2025/06/Resize-image-project-4.png", caption: "Europcar fleet ready for the road" },
-  { img: "https://images.unsplash.com/photo-1546412414-c2658fffe7d9?w=600&h=600&fit=crop", caption: "Sheikh Zayed Road, Dubai" },
-  { img: "https://images.unsplash.com/photo-1652707228067-25672fa0b082?w=600&h=600&fit=crop", caption: "Dubai Marina by night" },
-  { img: "https://images.unsplash.com/photo-1631603995254-a4d858b652c4?w=600&h=600&fit=crop", caption: "Dubai streets and skyline" },
-  { img: "https://images.unsplash.com/photo-1459787915554-b34915863013?w=600&h=600&fit=crop", caption: "Aerial view of Dubai" },
-];
 
 function StatItem({ value, suffix, label, isYear }) {
   const [ref, isVisible] = useScrollAnimation(0.3);
@@ -73,8 +50,6 @@ function StatItem({ value, suffix, label, isYear }) {
 export default function HomePage() {
   const [brandsRef, brandsVisible] = useScrollAnimation();
   const [introRef, introVisible] = useScrollAnimation();
-  const [partnersRef, partnersVisible] = useScrollAnimation();
-  const [municipalityRef, municipalityVisible] = useScrollAnimation();
 
   useEffect(() => { document.title = "Eurogulf Mobility Group | Integrated Mobility Solutions UAE | Since 1976"; }, []);
 
@@ -228,228 +203,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ CORPORATE PARTNER SHOWCASE ═══ */}
-      <section data-testid="partner-logos-section" className="bg-[#0a0a0a] py-16 sm:py-20">
-        <div ref={partnersRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-10 ${partnersVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-            <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">
-              Trusted by the UAE's Most Recognised Names
-            </h2>
-            <p className="font-body text-sm text-[#666] max-w-2xl mx-auto">
-              From global airlines and luxury hospitality groups to government authorities and multinational corporations, the UAE's most demanding organisations have relied on Eurogulf Mobility Group for decades.
-            </p>
-          </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center mb-8">
-            {PARTNER_LOGOS.map((logo) => (
-              <div key={logo.name} data-testid={`partner-logo-${logo.name.toLowerCase().replace(/\s+/g, '-')}`} className="flex flex-col items-center gap-2 group">
-                <div className="h-12 sm:h-14 w-full flex items-center justify-center">
-                  <img
-                    src={logo.url}
-                    alt={logo.name}
-                    className="max-h-12 sm:max-h-14 w-auto object-contain opacity-50 group-hover:opacity-90 transition-opacity"
-                    loading="lazy"
-                  />
-                </div>
-                <span className="font-body text-[9px] text-[#555] group-hover:text-[#999] transition-colors tracking-wider uppercase">{logo.name}</span>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link to="/partners" className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase hover:underline">View All Partners & Clients →</Link>
-          </div>
-        </div>
-      </section>
+      <PartnerShowcase />
+      <AwardsSection />
+      <MunicipalitySection />
+      <FeaturedSocials />
+      <VideosGallery />
 
-      {/* ═══ AWARDS & CERTIFICATIONS ═══ */}
-      <section data-testid="awards-section" className="bg-[#f5f2ec] py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="orange-accent-line mx-auto mb-4" />
-            <h2 className="font-heading font-black text-2xl sm:text-3xl text-black uppercase tracking-tight">Recognised for Excellence</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {awards.map((a) => (
-              <div key={a.title} className="bg-white border border-black/5 p-5 text-center">
-                <div className="w-10 h-10 bg-[#EE5A01]/10 flex items-center justify-center mx-auto mb-3">
-                  {a.title.startsWith("ISO") ? <CheckCircle className="w-5 h-5 text-[#EE5A01]" /> : <Award className="w-5 h-5 text-[#EE5A01]" />}
-                </div>
-                <p className="font-heading font-bold text-xs text-black uppercase tracking-wider leading-relaxed">{a.title}</p>
-                <p className="font-body text-[10px] text-[#666] mt-1">{a.sub}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ DUBAI MUNICIPALITY PARTNERSHIP ═══ */}
-      <section data-testid="municipality-section" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div ref={municipalityRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${municipalityVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
-            <div>
-              <span className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase">Marquee Partnership</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mt-2 mb-4">
-                Proud Partners of Dubai Municipality
-              </h2>
-              <p className="font-body text-[#999] leading-relaxed mb-4">
-                Among the many distinctions that define the group's standing, none speaks more clearly to its operational capability than the partnership with Dubai Municipality, one of the most respected government authorities in the region.
-              </p>
-              <p className="font-body text-[#999] leading-relaxed mb-6">
-                As a proud supplier and strategic partner, Eurogulf Mobility Group provides full fleet management solutions across a fleet exceeding 1,500 vehicles, operated by a dedicated team working directly from Dubai Municipality's Transportation Department.
-              </p>
-              <Link to="/dubai-municipality" className="btn-primary inline-block">Explore This Partnership</Link>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "1,500+", label: "Vehicles Managed" },
-                { value: "98.5%", label: "Fleet Uptime" },
-                { value: "24/7", label: "Support Coverage" },
-                { value: "5", label: "Dedicated Workshops" },
-              ].map((s) => (
-                <div key={s.label} className="bg-[#111] border border-white/5 p-5 text-center">
-                  <p className="font-heading font-black text-2xl text-[#EE5A01]">{s.value}</p>
-                  <p className="font-body text-xs text-[#666] mt-1">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ FEATURED SOCIALS ═══ */}
-      <section data-testid="featured-socials" className="bg-[#0a0a0a] py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="orange-accent-line mx-auto mb-6" />
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-[#EEEDE7] uppercase tracking-tight mb-3">What's Happening at Eurogulf Mobility Group</h2>
-            <p className="font-body text-[#666]">Stories from across our brands and community</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
-              <div className="h-48 bg-gradient-to-br from-[#EE5A01]/20 to-black flex items-center justify-center">
-                <span className="font-heading font-black text-5xl text-[#EE5A01] opacity-30">IMT</span>
-              </div>
-              <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Events</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Main Mobility Partner for IMT Dubai Vaudeville 2026</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Driving the spotlight at the UAE's premier events. Eurogulf Mobility Group is proud to be the official mobility partner for IMT Dubai's Vaudeville 2026.</p>
-              </div>
-            </div>
-            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
-              <div className="h-48 bg-gradient-to-br from-yellow-500/10 to-black flex items-center justify-center">
-                <span className="font-heading font-black text-5xl text-yellow-500/30">WTA</span>
-              </div>
-              <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">Awards</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">World Travel Awards 2026 Nominations</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Europcar Dubai and Royal Limousine have both been nominated at the World Travel Awards 2026, recognising their contribution to premium mobility across the UAE.</p>
-              </div>
-            </div>
-            <div className="bg-[#111] border border-white/5 overflow-hidden group hover:border-[#EE5A01]/30 transition-all">
-              <div className="h-48 bg-gradient-to-br from-[#EE5A01]/10 to-black flex items-center justify-center">
-                <span className="font-heading font-black text-5xl text-[#EE5A01]/30">LDP</span>
-              </div>
-              <div className="p-6">
-                <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider uppercase">People</span>
-                <h3 className="font-heading font-bold text-base text-[#EEEDE7] mt-2 mb-2">Leadership Development Programme 2026</h3>
-                <p className="font-body text-sm text-[#666] leading-relaxed">Investing in the next generation of leaders. The Eurogulf Mobility Group Leadership Development Programme empowers rising talent across all divisions.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Live Instagram Embed */}
-          <InstagramPosts />
-          <div data-testid="instagram-embed" className="max-w-md mx-auto mb-10">
-            <div className="bg-[#111] border border-white/5 p-6 text-center">
-              <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] uppercase mb-4">Latest from Instagram</p>
-              <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="block">
-                <div className="aspect-square bg-gradient-to-br from-[#EE5A01]/5 to-[#111] border border-white/5 flex flex-col items-center justify-center gap-3 hover:border-[#EE5A01]/30 transition-all">
-                  <span className="font-heading font-black text-2xl text-[#EEEDE7]">@eurogulfmobility</span>
-                  <span className="font-body text-xs text-[#666]">Follow us for the latest updates, fleet news, and behind-the-scenes content from across the UAE.</span>
-                  <span className="inline-flex items-center gap-2 mt-2 font-heading font-bold text-xs text-[#EE5A01] border border-[#EE5A01]/40 px-4 py-2 hover:bg-[#EE5A01] hover:text-black transition-all">VIEW ON INSTAGRAM</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              FOLLOW ON INSTAGRAM
-            </a>
-            <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              FOLLOW ON LINKEDIN
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ VIDEOS & GALLERY ═══ */}
-      <section data-testid="social-section" className="bg-black py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="font-mono text-xs tracking-[0.2em] text-[#EE5A01] mb-4 uppercase">See Us in Action</p>
-            <h2 className="font-heading font-bold text-xl sm:text-2xl text-[#EEEDE7]">
-              @eurogulfmobility
-            </h2>
-          </div>
-
-          <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            <div className="relative w-full overflow-hidden border border-white/5 rounded-sm" style={{ paddingBottom: '177%' }}>
-              <iframe
-                data-testid="youtube-embed-1"
-                src="https://www.youtube.com/embed/Q2kHRGYeUcQ?rel=0&modestbranding=1"
-                title="Moving Forward with EuroGulf Mobility Group"
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-            <div className="relative w-full overflow-hidden border border-white/5 rounded-sm" style={{ paddingBottom: '177%' }}>
-              <iframe
-                data-testid="youtube-embed-2"
-                src="https://www.youtube.com/embed/KiCi2eo3PuE?rel=0&modestbranding=1"
-                title="It's not just a fleet. It's the scale and innovation of Eurogulf Mobility Group"
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {socialImages.map((item) => (
-              <a
-                key={item.caption}
-                href="https://www.instagram.com/eurogulfmobility/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-square overflow-hidden group"
-              >
-                <img src={item.img} alt={item.caption} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end justify-start p-3">
-                  <p className="font-body text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">{item.caption}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="https://www.instagram.com/eurogulfmobility/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              INSTAGRAM
-            </a>
-            <a href="https://www.youtube.com/@EurogulfMobilityGroup-x1n" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              YOUTUBE
-            </a>
-            <a href="https://www.linkedin.com/company/105403528/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              LINKEDIN
-            </a>
-            <a href="https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-heading font-bold text-xs tracking-[0.1em] text-[#EE5A01] border border-[#EE5A01]/40 px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-all">
-              FACEBOOK
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* ═══ CTA BANNER ═══ */}
       <section data-testid="cta-banner" className="bg-[#EE5A01] py-16">

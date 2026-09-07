@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 import ar from '@/i18n/ar';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -36,7 +37,7 @@ export default function ContactPageAr() {
         enquiry_type: form.enquiry_type,
         message: `[AR] [${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | الوقت: ${form.preferred_time}` : ''}${form.emirate ? ` | الإمارة: ${form.emirate}` : ''}`,
       });
-    } catch (err) { if (process.env.NODE_ENV === 'development') console.error('AR Contact:', err); }
+    } catch (err) { logError('AR Contact', err); }
     setSubmitted(true);
     setSubmitting(false);
   };

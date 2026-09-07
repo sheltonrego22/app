@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Search, Star } from 'lucide-react';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 import { ArticleCard } from '@/pages/MediaCenterPage';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -39,7 +40,7 @@ export default function MediaCenterPageAr() {
         setArticles(data.articles.filter((a) => a.published !== false));
         setTotal(data.total);
       } catch (err) {
-        if (process.env.NODE_ENV === 'development') console.error('Articles:', err);
+        logError('Articles', err);
       } finally {
         setLoading(false);
       }

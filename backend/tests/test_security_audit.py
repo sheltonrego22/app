@@ -10,8 +10,8 @@ BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://egmg-premium.preview
 LOCAL_URL = "http://localhost:8001"
 API = f"{BASE_URL}/api"
 
-ADMIN_EMAIL = "admin@egmg.ae"
-ADMIN_PASS = "EgmgAdmin2026!"
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae")
+ADMIN_PASS = os.environ["ADMIN_PASSWORD"]
 
 
 def _tiny_png():

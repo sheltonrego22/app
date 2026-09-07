@@ -1,0 +1,22 @@
+{
+  "summary": "Iteration 26 regression pass after refactors (Home split, Admin hooks, Nav/Footer sub-components, booking validation util, logError util, emailer _layout spec) plus the 3 new failure-path behaviours. Backend pytest suite (65 tests across inbox/arabic-alerts/email-confirmations/security-audit) all pass. Static checks pass (0 eslint problems, no console.* outside logger, no hardcoded admin password in tests). Frontend home renders all data-testids; media category preselect works; admin login/tabs/titles OK; booking failure path shows booking-submit-error with '800 364', keeps form data, no confirmation; AR partner and AR chauffeur failure paths show Arabic error with '800 364' and hide success, and success returns after unroute.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "/ar/chauffeur-service happy path", "issue": "After unrouting the 500 mock and resubmitting with only name/phone/email filled, the real POST /api/contact returns 422 (backend requires 'message'). The Arabic form allowed submission without 'message' (client-side does not enforce it). Only affects the resubmission scenario; failure banner + Arabic message + hidden success all verified correctly.", "affected_selectors": ["textarea[placeholder='الرسالة']"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/pytest/iter26_backend.xml", "/app/backend/tests/test_inbox_iter23.py", "/app/backend/tests/test_iter24_arabic_alerts.py", "/app/backend/tests/test_iter25_email_confirmations.py", "/app/backend/tests/test_security_audit.py"],
+  "action_items": ["(Optional) Add required-'message' client validation for /ar/chauffeur-service to match backend Contact schema, or make message optional server-side."],
+  "critical_code_review_comments": ["Refactors are behaviour-preserving as advertised: home sections, admin hooks/banners, nav/footer sub-components, booking validation util. logError util replaces console.error consistently (grep verified). Emailer _layout spec unified for contact/booking previews."],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (65/65 pytest)", "frontend": "100% of critical flows verified"},
+  "test_credentials": "Admin: admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md and backend/.env ADMIN_PASSWORD)",
+  "seed_data_creation": "TEST_ prefixed contacts/bookings cleaned from Mongo (contact_submissions, bookings).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests read REACT_APP_BACKEND_URL from env. tests/conftest.py loads backend/.env but the URL comes from frontend/.env, so run pytest with: export $(grep REACT_APP_BACKEND_URL /app/frontend/.env) before pytest. Booking POST schema requires 'duration' in {'4h','8h'} and 'date' field (different from BookingSubmission model). Wizard testids: duration-4h/8h, date-picker-trigger, time-picker-trigger, pickup-location-input, dropoff-location-input, passengers-3/4/6, vehicle-card-*, input-name/email/phone, btn-submit-booking, booking-submit-error. AR partner form uses input placeholders (Arabic) not data-testids; error banner appears as [data-testid='ar-partner-submit-error'] / 'ar-chauffeur-submit-error' after failed submission.",
+  "rca of the issue": "N/A - no critical regressions. Minor: AR chauffeur form lacks client-side required validation for 'message' textarea so an all-optional-look submission yields 422 from backend Contact schema (message is required server-side)."
+}

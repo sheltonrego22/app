@@ -1,161 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, LogOut, FileText } from 'lucide-react';
-import { ArticleEditor, ArticlesTable, AdminFilters, CATEGORIES } from '@/components/admin/AdminComponents';
-import { AdminTabs, ContactsTable, BookingsTable } from '@/components/admin/InboxComponents';
 import axios from 'axios';
+import { ArticleEditor, ArticlesTable, AdminFilters } from '@/components/admin/AdminComponents';
+import { AdminTabs, ContactsTable, BookingsTable } from '@/components/admin/InboxComponents';
+import { AlertsBanner, ErrorBanner } from '@/components/admin/AdminBanners';
+import { useAdminArticles } from '@/hooks/useAdminArticles';
+import { useAdminInbox } from '@/hooks/useAdminInbox';
+import { logError } from '@/utils/logger';
 
 const API = process.env.REACT_APP_BACKEND_URL;
-const EMPTY_FORM = { title: '', title_ar: '', body: '', body_ar: '', category: '', image_url: '', video_url: '', pdf_url: '', featured: false, published: true };
 const TAB_TITLES = { articles: 'Media Center CMS', contacts: 'Enquiries Inbox', bookings: 'Chauffeur Bookings' };
 
 export default function AdminDashboardPage() {
   const [user, setUser] = useState(null);
   const [tab, setTab] = useState('articles');
-  const [contacts, setContacts] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [inboxLoading, setInboxLoading] = useState(false);
-  const [alerts, setAlerts] = useState(null);
-  const [articles, setArticles] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterCat, setFilterCat] = useState('All');
-  const [showForm, setShowForm] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
-  const [form, setForm] = useState(EMPTY_FORM);
   const navigate = useNavigate();
+  const a = useAdminArticles(user, setError);
+  const inbox = useAdminInbox(user, setError);
 
   const checkAuth = useCallback(async () => {
     try {
       const { data } = await axios.get(`${API}/api/auth/me`, { withCredentials: true });
       setUser(data);
-    } catch (_err) {
+    } catch (err) {
+      logError('Auth', err);
       navigate('/admin/login');
     }
-  }, [navigate]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchArticles = useCallback(async () => {
-    try {
-      const params = {};
-      if (filterCat !== 'All') params.category = filterCat;
-      if (searchQuery) params.search = searchQuery;
-      const { data } = await axios.get(`${API}/api/articles`, { params, withCredentials: true });
-      setArticles(data.articles);
-      setTotal(data.total);
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Articles:', err);
-      setError('Failed to load articles.');
-    } finally {
-      setLoading(false);
-    }
-  }, [filterCat, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   useEffect(() => { checkAuth(); }, [checkAuth]);
-  useEffect(() => { if (user) fetchArticles(); }, [user, fetchArticles]);
-
-  const fetchInbox = useCallback(async () => {
-    setInboxLoading(true);
-    try {
-      const [c, b] = await Promise.all([
-        axios.get(`${API}/api/contacts`, { params: { limit: 500 }, withCredentials: true }),
-        axios.get(`${API}/api/bookings`, { params: { limit: 500 }, withCredentials: true }),
-      ]);
-      setContacts(c.data);
-      setBookings(b.data);
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Inbox:', err);
-      setError('Failed to load enquiries and bookings.');
-    } finally {
-      setInboxLoading(false);
-    }
-  }, []);
-
-  useEffect(() => { if (user) fetchInbox(); }, [user, fetchInbox]);
-  useEffect(() => {
-    if (!user) return;
-    axios.get(`${API}/api/admin/alerts-status`, { withCredentials: true }).then(({ data }) => setAlerts(data)).catch(() => {});
-  }, [user]);
-
-  const handleStatus = async (kind, id, status) => {
-    const setList = kind === 'contacts' ? setContacts : setBookings;
-    try {
-      await axios.patch(`${API}/api/${kind}/${id}/status`, { status }, { withCredentials: true });
-      setList((prev) => prev.map((item) => (item.id === id ? { ...item, status } : item)));
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Status:', err);
-      setError('Failed to update status.');
-    }
-  };
-
-  const counts = {
-    articles: total,
-    contacts: contacts.filter((c) => (c.status || 'new') === 'new').length,
-    bookings: bookings.filter((b) => (b.status || 'pending') === 'pending').length,
-  };
-
-  const resetForm = () => { setForm(EMPTY_FORM); setEditing(null); setShowForm(false); };
-
-  const handleSave = async () => {
-    if (!form.title.trim() || !form.category) return;
-    try {
-      if (editing) {
-        await axios.put(`${API}/api/articles/${editing}`, form, { withCredentials: true });
-      } else {
-        await axios.post(`${API}/api/articles`, form, { withCredentials: true });
-      }
-      resetForm();
-      fetchArticles();
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Save:', err);
-      const detail = err.response?.data?.detail;
-      const reason = Array.isArray(detail)
-        ? detail.map((e) => `${e.loc?.slice(-1)[0] || 'field'}: ${String(e.msg).replace(/^Value error, /, '')}`).join(' ')
-        : typeof detail === 'string' ? detail : '';
-      setError(`${editing ? 'Failed to update article.' : 'Failed to create article.'}${reason ? ` ${reason}` : ''}`);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm('Delete this article?')) return;
-    try {
-      await axios.delete(`${API}/api/articles/${id}`, { withCredentials: true });
-      fetchArticles();
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Delete:', err);
-      setError('Failed to delete article.');
-    }
-  };
-
-  const handleEdit = (article) => {
-    setForm({
-      title: article.title, title_ar: article.title_ar || '', body: article.body || '', body_ar: article.body_ar || '', category: article.category,
-      image_url: article.image_url || '', video_url: article.video_url || '', pdf_url: article.pdf_url || '',
-      featured: article.featured || false, published: article.published !== false,
-    });
-    setEditing(article.id);
-    setShowForm(true);
-    window.scrollTo(0, 0);
-  };
-
-  const handleUpload = async (e, field) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const { data } = await axios.post(`${API}/api/upload`, fd, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } });
-      setForm((p) => ({ ...p, [field]: `${API}${data.url}` }));
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') console.error('Upload:', err);
-      setError('File upload failed. Please try again.');
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleLogout = async () => {
     await axios.post(`${API}/api/auth/logout`, {}, { withCredentials: true });
@@ -163,6 +38,8 @@ export default function AdminDashboardPage() {
   };
 
   if (!user) return null;
+
+  const counts = { articles: a.total, contacts: inbox.openContacts, bookings: inbox.openBookings };
 
   return (
     <div data-testid="admin-dashboard" className="min-h-screen bg-black pt-20">
@@ -172,12 +49,12 @@ export default function AdminDashboardPage() {
             <div className="w-8 h-8 bg-[#EE5A01] flex items-center justify-center"><FileText className="w-4 h-4 text-black" /></div>
             <div>
               <h1 className="font-heading font-bold text-sm text-[#EEEDE7] uppercase tracking-wider">{TAB_TITLES[tab]}</h1>
-              <p className="font-body text-[10px] text-[#666]">{user.email} &middot; {total} articles &middot; {contacts.length} enquiries &middot; {bookings.length} bookings</p>
+              <p className="font-body text-[10px] text-[#666]">{user.email} &middot; {a.total} articles &middot; {inbox.contacts.length} enquiries &middot; {inbox.bookings.length} bookings</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {tab === 'articles' && (
-              <button data-testid="btn-new-article" onClick={() => { resetForm(); setShowForm(true); }} className="btn-primary flex items-center gap-2 text-xs py-2 px-4">
+              <button data-testid="btn-new-article" onClick={a.openNew} className="btn-primary flex items-center gap-2 text-xs py-2 px-4">
                 <Plus className="w-4 h-4" /> New Article
               </button>
             )}
@@ -187,35 +64,18 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/30 p-3 mb-6 flex items-center justify-between">
-            <p className="font-body text-sm text-red-400">{error}</p>
-            <button onClick={() => setError('')} className="text-red-400 text-xs hover:underline">Dismiss</button>
-          </div>
-        )}
+        <ErrorBanner error={error} onDismiss={() => setError('')} />
         <AdminTabs tab={tab} setTab={setTab} counts={counts} />
-        {alerts && tab !== 'articles' && (
-          <div data-testid="alerts-status" className={`border p-3 mb-6 font-body text-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${alerts.smtp_configured ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}`}>
-            <span>
-              {alerts.smtp_configured
-                ? `Email alerts active: the team is notified at ${alerts.alert_email} and customers receive a bilingual confirmation.`
-                : `Emails to ${alerts.alert_email} and customer confirmations are not active yet: add the SMTP server credentials (SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD) and set SMTP_ENABLED=true in the backend environment.`}
-            </span>
-            <span className="flex gap-3 flex-shrink-0">
-              <a data-testid="preview-contact-email" href={`${API}/api/admin/email-preview?type=contact`} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#EEEDE7]">Preview enquiry email</a>
-              <a data-testid="preview-booking-email" href={`${API}/api/admin/email-preview?type=booking`} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#EEEDE7]">Preview booking email</a>
-            </span>
-          </div>
-        )}
+        {tab !== 'articles' && <AlertsBanner alerts={inbox.alerts} />}
         {tab === 'articles' && (
           <>
-            {showForm && <ArticleEditor form={form} setForm={setForm} editing={editing} uploading={uploading} onSave={handleSave} onCancel={resetForm} onUpload={handleUpload} />}
-            <AdminFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} filterCat={filterCat} setFilterCat={setFilterCat} />
-            <ArticlesTable articles={articles} loading={loading} onEdit={handleEdit} onDelete={handleDelete} />
+            {a.showForm && <ArticleEditor form={a.form} setForm={a.setForm} editing={a.editing} uploading={a.uploading} onSave={a.save} onCancel={a.resetForm} onUpload={a.upload} />}
+            <AdminFilters searchQuery={a.searchQuery} setSearchQuery={a.setSearchQuery} filterCat={a.filterCat} setFilterCat={a.setFilterCat} />
+            <ArticlesTable articles={a.articles} loading={a.loading} onEdit={a.edit} onDelete={a.remove} />
           </>
         )}
-        {tab === 'contacts' && <ContactsTable contacts={contacts} loading={inboxLoading} onStatus={(id, s) => handleStatus('contacts', id, s)} />}
-        {tab === 'bookings' && <BookingsTable bookings={bookings} loading={inboxLoading} onStatus={(id, s) => handleStatus('bookings', id, s)} />}
+        {tab === 'contacts' && <ContactsTable contacts={inbox.contacts} loading={inbox.loading} onStatus={(id, s) => inbox.updateStatus('contacts', id, s)} />}
+        {tab === 'bookings' && <BookingsTable bookings={inbox.bookings} loading={inbox.loading} onStatus={(id, s) => inbox.updateStatus('bookings', id, s)} />}
       </div>
     </div>
   );

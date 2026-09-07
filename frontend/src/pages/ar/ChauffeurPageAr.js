@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plane, Building2, Users, Car, MapPin } from 'lucide-react';
 import ar from '@/i18n/ar';
 import axios from 'axios';
+import { logError } from '@/utils/logger';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const t = ar.chauffeur;
@@ -18,19 +19,28 @@ const services = [
 export default function ChauffeurPageAr() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', company: '', type: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
   useEffect(() => { document.title = "خدمة السائق الخاص | مجموعة يوروجلف للتنقل"; }, []);
 
   const handleSubmit = async () => {
-    if (!form.name || !form.phone || !form.email) return;
+    if (!form.name || !form.phone || !form.email || !form.message.trim()) return;
+    setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
         company: form.company, enquiry_type: `سائق / نقل مُدار: ${form.type || 'عام'}`, message: form.message,
       });
-    } catch (err) { /* silent */ }
-    setSubmitted(true);
+      setSubmitted(true);
+    } catch (err) {
+      logError('AR Chauffeur', err);
+      setSubmitError(ar.contact.submitError);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -70,8 +80,9 @@ export default function ChauffeurPageAr() {
               <input value={form.name} onChange={e => set('name', e.target.value)} placeholder={ar.contact.fullName} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm" />
               <input value={form.phone} onChange={e => set('phone', e.target.value)} placeholder={ar.contact.mobile} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm" />
               <input type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder={ar.contact.email} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm" />
-              <textarea value={form.message} onChange={e => set('message', e.target.value)} placeholder={ar.contact.message} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm min-h-[80px]" />
-              <button type="submit" className="w-full btn-primary">{ar.contact.submit}</button>
+              <textarea required value={form.message} onChange={e => set('message', e.target.value)} placeholder={ar.contact.message} className="w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#444] p-3 text-sm min-h-[80px]" />
+              {submitError && <p data-testid="ar-chauffeur-submit-error" role="alert" className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
+              <button type="submit" disabled={submitting} className="w-full btn-primary disabled:opacity-50">{ar.contact.submit}</button>
             </form>
           ) : (
             <div className="bg-[#111] border border-[#EE5A01]/30 p-10 text-center">
