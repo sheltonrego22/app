@@ -174,6 +174,10 @@ export default function MediaCenterPage() {
 export function ArticleCard({ article, expanded, onToggle, ar = false }) {
   const a = article;
   const dateStr = new Date(a.created_at).toLocaleDateString(ar ? 'ar-AE' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const title = ar && a.title_ar ? a.title_ar : a.title;
+  const body = ar && a.body_ar ? a.body_ar : a.body;
+  const textDir = ar && a.title_ar ? 'rtl' : 'ltr';
+  const bodyDir = ar && a.body_ar ? 'rtl' : 'ltr';
 
   return (
     <div
@@ -194,8 +198,8 @@ export function ArticleCard({ article, expanded, onToggle, ar = false }) {
           {a.featured && <Star className="w-3 h-3 text-[#EE5A01] fill-[#EE5A01]" />}
           {a.video_url && <Video className="w-3 h-3 text-[#666]" />}
         </div>
-        <h3 dir="ltr" className={`font-heading font-bold text-base text-[#EEEDE7] mb-2 leading-snug group-hover:text-[#EE5A01] transition-colors ${ar ? 'text-left' : ''}`}>
-          {a.title}
+        <h3 dir={textDir} className={`font-heading font-bold text-base text-[#EEEDE7] mb-2 leading-snug group-hover:text-[#EE5A01] transition-colors ${textDir === 'ltr' && ar ? 'text-left' : ''}`}>
+          {title}
         </h3>
         <div className="flex items-center gap-2 text-[#666]">
           <Calendar className="w-3 h-3" />
@@ -204,9 +208,9 @@ export function ArticleCard({ article, expanded, onToggle, ar = false }) {
 
         {expanded && (
           <div className="mt-4 pt-4 border-t border-[#222]">
-            {a.body && (() => {
-              const sanitizedHtml = { __html: DOMPurify.sanitize(a.body) };
-              return <div dir="ltr" className={`font-body text-sm text-[#999] leading-relaxed article-body ${ar ? 'text-left' : ''}`} dangerouslySetInnerHTML={sanitizedHtml} />;
+            {body && (() => {
+              const sanitizedHtml = { __html: DOMPurify.sanitize(body) };
+              return <div dir={bodyDir} className={`font-body text-sm text-[#999] leading-relaxed article-body ${bodyDir === 'ltr' && ar ? 'text-left' : ''}`} dangerouslySetInnerHTML={sanitizedHtml} />;
             })()}
             {safeEmbed(a.video_url) && (
               <div className="mt-4 aspect-video">

@@ -58,6 +58,20 @@ export function ArticleEditor({ form, setForm, editing, uploading, onSave, onCan
             <ReactQuill theme="snow" value={form.body} onChange={(v) => setForm((p) => ({ ...p, body: v }))} modules={quillModules} placeholder="Write your article content..." />
           </div>
         </div>
+        <div className="border border-[#EE5A01]/20 bg-[#EE5A01]/5 p-4 space-y-4">
+          <p className="font-heading text-xs tracking-wider text-[#EE5A01] uppercase">Arabic Version (shown on /ar/media)</p>
+          <div>
+            <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Arabic Title</Label>
+            <Input data-testid="article-title-ar" dir="rtl" value={form.title_ar || ''} onChange={(e) => setForm((p) => ({ ...p, title_ar: e.target.value }))}
+              placeholder="عنوان المقالة بالعربية" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] focus:border-[#EE5A01] rounded-none h-12 text-right" />
+          </div>
+          <div>
+            <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Arabic Body (Rich Text)</Label>
+            <div className="quill-dark quill-rtl" data-testid="article-body-ar" dir="rtl">
+              <ReactQuill theme="snow" value={form.body_ar || ''} onChange={(v) => setForm((p) => ({ ...p, body_ar: v }))} modules={quillModules} placeholder="اكتب محتوى المقالة بالعربية..." />
+            </div>
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block"><Image className="w-3 h-3 inline mr-1" /> Image</Label>
@@ -108,6 +122,7 @@ export function ArticlesTable({ articles, loading, onEdit, onDelete }) {
             <div className="flex items-center gap-2 mb-1">
               {a.featured && <Star className="w-3 h-3 text-[#EE5A01] fill-[#EE5A01]" />}
               <h3 className="font-heading font-bold text-sm text-[#EEEDE7] truncate">{a.title}</h3>
+              {a.title_ar && <span className="font-mono text-[10px] text-green-400 border border-green-500/30 px-1.5 py-0.5 flex-shrink-0">AR</span>}
             </div>
             <div className="flex items-center gap-3">
               <span className="font-mono text-[10px] text-[#EE5A01] tracking-wider">{a.category}</span>

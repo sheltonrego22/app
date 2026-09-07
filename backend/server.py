@@ -4,7 +4,8 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form
+from fastapi import FastAPI, APIRouter, HTTPException, Request, UploadFile, File, Form, BackgroundTasks
+from emailer import send_alert, contact_alert, booking_alert, smtp_configured
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -170,7 +171,9 @@ class StatusUpdate(BaseModel):
 
 class ArticleCreate(BaseModel):
     title: str = Field(min_length=1, max_length=500)
+    title_ar: Optional[str] = Field(default="", max_length=500)
     body: str = Field(default="", max_length=200000)
+    body_ar: Optional[str] = Field(default="", max_length=200000)
     category: str = Field(min_length=1, max_length=100)
     image_url: Optional[str] = ""
     video_url: Optional[str] = ""
@@ -190,7 +193,9 @@ class ArticleCreate(BaseModel):
 
 class ArticleUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=500)
+    title_ar: Optional[str] = Field(default=None, max_length=500)
     body: Optional[str] = Field(default=None, max_length=200000)
+    body_ar: Optional[str] = Field(default=None, max_length=200000)
     category: Optional[str] = Field(default=None, min_length=1, max_length=100)
     image_url: Optional[str] = None
     video_url: Optional[str] = None
@@ -305,10 +310,12 @@ async def root():
     return {"message": "EGMG API Running"}
 
 @api_router.post("/contact", response_model=ContactSubmission)
-async def create_contact(input: ContactCreate):
+async def create_contact(input: ContactCreate, background_tasks: BackgroundTasks):
     submission = ContactSubmission(**input.model_dump())
     doc = submission.model_dump()
     await db.contact_submissions.insert_one(doc)
+    subject, text = contact_alert(doc)
+    background_tasks.add_task(send_alert, subject, text, doc["email"])
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
@@ -331,10 +338,12 @@ async def update_contact_status(contact_id: str, input: StatusUpdate, request: R
     return {"id": contact_id, "status": input.status}
 
 @api_router.post("/bookings", response_model=BookingSubmission)
-async def create_booking(input: BookingCreate):
+async def create_booking(input: BookingCreate, background_tasks: BackgroundTasks):
     submission = BookingSubmission(**input.model_dump())
     doc = submission.model_dump()
     await db.bookings.insert_one(doc)
+    subject, text = booking_alert(doc)
+    background_tasks.add_task(send_alert, subject, text, doc["email"])
     return submission
 
 @api_router.get("/bookings", response_model=List[BookingSubmission])
@@ -355,6 +364,11 @@ async def update_booking_status(booking_id: str, input: StatusUpdate, request: R
     return {"id": booking_id, "status": input.status}
 
 # ══════════════════ FILE UPLOAD ══════════════════
+
+@api_router.get("/admin/alerts-status")
+async def alerts_status(request: Request):
+    await get_current_user(request)
+    return {"smtp_configured": smtp_configured(), "alert_email": os.environ.get("ALERT_EMAIL", "")}
 
 MAGIC_BYTES = {
     ".jpg": (b"\xff\xd8\xff",), ".jpeg": (b"\xff\xd8\xff",), ".png": (b"\x89PNG\r\n\x1a\n",),
@@ -397,7 +411,8 @@ async def get_articles(category: Optional[str] = None, search: Optional[str] = N
     if category and category != "All":
         query["category"] = category
     if search:
-        query["title"] = {"$regex": re.escape(search.strip()[:100]), "$options": "i"}
+        term = {"$regex": re.escape(search.strip()[:100]), "$options": "i"}
+        query["$or"] = [{"title": term}, {"title_ar": term}]
     if featured is not None:
         query["featured"] = featured
     articles = await db.articles.find(query, {"_id": 0}).sort("created_at", -1).skip(max(skip, 0)).limit(min(max(limit, 1), 200)).to_list(None)

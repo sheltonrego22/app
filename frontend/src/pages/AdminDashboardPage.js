@@ -6,7 +6,7 @@ import { AdminTabs, ContactsTable, BookingsTable } from '@/components/admin/Inbo
 import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
-const EMPTY_FORM = { title: '', body: '', category: '', image_url: '', video_url: '', pdf_url: '', featured: false, published: true };
+const EMPTY_FORM = { title: '', title_ar: '', body: '', body_ar: '', category: '', image_url: '', video_url: '', pdf_url: '', featured: false, published: true };
 const TAB_TITLES = { articles: 'Media Center CMS', contacts: 'Enquiries Inbox', bookings: 'Chauffeur Bookings' };
 
 export default function AdminDashboardPage() {
@@ -15,6 +15,7 @@ export default function AdminDashboardPage() {
   const [contacts, setContacts] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [inboxLoading, setInboxLoading] = useState(false);
+  const [alerts, setAlerts] = useState(null);
   const [articles, setArticles] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -73,6 +74,10 @@ export default function AdminDashboardPage() {
   }, []);
 
   useEffect(() => { if (user) fetchInbox(); }, [user, fetchInbox]);
+  useEffect(() => {
+    if (!user) return;
+    axios.get(`${API}/api/admin/alerts-status`, { withCredentials: true }).then(({ data }) => setAlerts(data)).catch(() => {});
+  }, [user]);
 
   const handleStatus = async (kind, id, status) => {
     const setList = kind === 'contacts' ? setContacts : setBookings;
@@ -126,7 +131,7 @@ export default function AdminDashboardPage() {
 
   const handleEdit = (article) => {
     setForm({
-      title: article.title, body: article.body || '', category: article.category,
+      title: article.title, title_ar: article.title_ar || '', body: article.body || '', body_ar: article.body_ar || '', category: article.category,
       image_url: article.image_url || '', video_url: article.video_url || '', pdf_url: article.pdf_url || '',
       featured: article.featured || false, published: article.published !== false,
     });
@@ -189,6 +194,13 @@ export default function AdminDashboardPage() {
           </div>
         )}
         <AdminTabs tab={tab} setTab={setTab} counts={counts} />
+        {alerts && tab !== 'articles' && (
+          <div data-testid="alerts-status" className={`border p-3 mb-6 font-body text-xs ${alerts.smtp_configured ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}`}>
+            {alerts.smtp_configured
+              ? `Email alerts active: new enquiries and bookings are sent to ${alerts.alert_email}.`
+              : `Email alerts to ${alerts.alert_email} are not active yet: add the SMTP server credentials (SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD) and set SMTP_ENABLED=true in the backend environment.`}
+          </div>
+        )}
         {tab === 'articles' && (
           <>
             {showForm && <ArticleEditor form={form} setForm={setForm} editing={editing} uploading={uploading} onSave={handleSave} onCancel={resetForm} onUpload={handleUpload} />}

@@ -6,6 +6,12 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Arabic Articles + Email Alerts — Sept 2026)
+- [x] **Arabic article fields**: `title_ar` / `body_ar` on articles; admin editor "Arabic Version" block (RTL Quill); AR badge in list; `/ar/media` renders Arabic content RTL with English fallback; search matches `title` or `title_ar`
+- [x] **Email alerts** to `et_reservations@eurogulf.ae` on new enquiry / booking via company SMTP (`/app/backend/emailer.py`, FastAPI BackgroundTasks, never fails the request). **SMTP credentials are PLACEHOLDERS** (`SMTP_ENABLED=false`); admin dashboard shows a banner until configured. `GET /api/admin/alerts-status`
+- To activate: set `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY` (starttls|ssl), `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM`, `SMTP_ENABLED=true` in backend env
+- Regression tests: `/app/backend/tests/test_iter24_arabic_alerts.py`
+
 ## Completed (Enquiries Inbox + Arabic Media/Leadership/FAQ — Sept 2026)
 - [x] **Admin Enquiries Inbox**: dashboard tabs Articles | Enquiries | Bookings; contact enquiries and chauffeur bookings listed newest-first with status dropdowns (contacts: new/contacted/closed; bookings: pending/confirmed/completed/cancelled), badge counts of open items, quick call / WhatsApp / email actions
 - [x] Backend: `ContactSubmission.status` (default `new`), `GET /api/contacts|bookings?status=`, `PATCH /api/contacts/{id}/status`, `PATCH /api/bookings/{id}/status` (admin auth)
@@ -50,8 +56,8 @@
 
 ## Upcoming
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
+- [ ] Supply real SMTP credentials and set SMTP_ENABLED=true to activate email alerts
 - [ ] Remaining Arabic pages: /ar/downloads, /ar/businesses, portals, SEO landing pages
-- [ ] Arabic CMS fields (title_ar/body_ar) so Media Center articles can be authored in Arabic
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

@@ -197,6 +197,8 @@
 
 /* ═══ Quill Dark Theme ═══ */
 .quill-dark .ql-toolbar { background: #111 !important; border-color: #333 !important; }
+.quill-rtl .ql-editor { direction: rtl; text-align: right; font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif; }
+.quill-rtl .ql-editor.ql-blank::before { right: 15px; left: auto; font-style: normal; }
 .quill-dark .ql-toolbar .ql-stroke { stroke: #999 !important; }
 .quill-dark .ql-toolbar .ql-fill { fill: #999 !important; }
 .quill-dark .ql-toolbar .ql-picker-label { color: #999 !important; }

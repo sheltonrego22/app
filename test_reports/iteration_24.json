@@ -1,0 +1,24 @@
+{
+  "summary": "Iteration 24: Verified Arabic article fields (title_ar/body_ar) end-to-end and SMTP-disabled email alerts. 13/13 backend pytest cases pass, admin UI creates/edits AR articles with green AR badge, /ar/media renders RTL Arabic content while falling back to English for others, /media shows English titles. Alerts banner appears on Enquiries+Bookings tabs (yellow, mentions et_reservations@eurogulf.ae + 'not active yet') and is hidden on Articles tab. GET /api/admin/alerts-status returns {smtp_configured:false, alert_email:'et_reservations@eurogulf.ae'} (401 without auth). Contact + booking POSTs stay <2s and only log 'SMTP not configured; alert skipped: ...' as expected. Failure isolation: emailer.send_alert() returns False without raising when SMTP host is unreachable.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iter24_arabic_alerts.py",
+    "/app/test_reports/pytest/iter24.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "emailer.py logs alert subject in error path via _clean(subject) which strips CR/LF (good), no log injection surface detected.",
+    "server.py update_article uses model_dump() without exclude_unset, so any field left at its default None is filtered by the truthiness check `if v is not None` (correct) — booleans False/True are preserved, so no silent field drop.",
+    "get_articles $or search on title/title_ar uses re.escape and length-limited (100 chars), safe. Falls back to LTR when title_ar absent as required.",
+    "SMTP creds are placeholders and SMTP_ENABLED=false by user choice; behaviour is correct (skip + log). Not a bug."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None; all TEST_ prefixed contact/booking/article data cleaned up after tests",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 24 fully verified Arabic article fields + SMTP-disabled alert banners. All 13 pytest cases in /app/backend/tests/test_iter24_arabic_alerts.py pass. UI flow confirmed: New Article requires selecting a category via [data-testid='article-category'] shadcn Select (option Awards) before Publish; Publish button is [data-testid='btn-save-article']. Deletion via admin trash icon works. No open issues.",
+  "rca of the issue": "N/A — no bugs found."
+}
