@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Upload, CheckCircle, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const MAX_MB = 5;
@@ -15,7 +16,7 @@ const COPY = {
 const EMPTY = { full_name: '', email: '', phone: '', linkedin_url: '', message: '' };
 const inputCls = "w-full bg-black border border-[#333] text-[#EEEDE7] placeholder:text-[#555] px-4 py-3 text-sm focus:border-[#EE5A01] focus:outline-none transition-colors";
 
-export function ApplyModal({ open, onClose, role, lang = 'en' }) {
+export function ApplyModal({ open, onClose, role, roleLabel, lang = 'en' }) {
   const c = COPY[lang];
   const isAr = lang === 'ar';
   const [form, setForm] = useState(EMPTY);
@@ -27,8 +28,10 @@ export function ApplyModal({ open, onClose, role, lang = 'en' }) {
 
   const pickFile = (e) => {
     const f = e.target.files[0];
+    e.target.value = '';
     setError('');
-    if (!f) return setCv(null);
+    setCv(null);
+    if (!f) return;
     if (!/\.(pdf|docx?)$/i.test(f.name)) return setError(c.badType);
     if (f.size > MAX_MB * 1024 * 1024) return setError(c.tooBig);
     setCv(f);
@@ -49,8 +52,7 @@ export function ApplyModal({ open, onClose, role, lang = 'en' }) {
       setDone(true);
     } catch (err) {
       logError('Apply', err);
-      const detail = err.response?.data?.detail;
-      setError(typeof detail === 'string' ? detail : c.failed);
+      setError(submitErrorMessage(err, c.failed, lang));
     } finally {
       setSubmitting(false);
     }
@@ -62,7 +64,7 @@ export function ApplyModal({ open, onClose, role, lang = 'en' }) {
     <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
       <DialogContent dir={isAr ? 'rtl' : 'ltr'} data-testid="apply-modal" className="bg-[#111] border-[#333] text-[#EEEDE7] rounded-none max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader className={isAr ? 'text-right sm:text-right' : ''}>
-          <DialogTitle className="font-heading font-black text-xl text-[#EEEDE7]">{c.title}: <span className="text-[#EE5A01]">{role}</span></DialogTitle>
+          <DialogTitle className="font-heading font-black text-xl text-[#EEEDE7]">{c.title}: <span className="text-[#EE5A01]">{roleLabel || role}</span></DialogTitle>
           <DialogDescription className="font-body text-sm text-[#999]">{c.sub}</DialogDescription>
         </DialogHeader>
         {done ? (

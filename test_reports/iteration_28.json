@@ -1,0 +1,33 @@
+{
+  "summary": "Iteration 28 verification (security audit + code review fixes). Backend pytest suite (12/12 in test_iter28_careers_security.py) and lockout regression (8/8 in test_lockout_iter22.py) all PASS. Frontend Playwright coverage: /careers apply-online happy path + ApplyModal .txt validation reset + AR /ar/careers apply (Arabic modal title, English role stored) + admin inbox showing Job application badge, Download CV, unauth 401 / auth 200 application/pdf attachment + Contact 429 banner + Leasing 429 banner + Partner 429 banner + AR contact 429 Arabic banner containing 800 364 + /media has no standalone 'EGMG' token. Non-application entries in the admin inbox correctly do NOT render the badge/button. One routing issue: /partner-with-us returns 404 (route mounted as /partner in App.js). /book-chauffeur booking-submit 429 not exercised via Playwright wizard (multi-step form with strict validation); selector booking-submit-error is present in code and the ChauffeurServicePage enquiry modal path was not explicitly re-tested via Playwright – both left as manual/next-round if needed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Router", "issue": "/partner-with-us returns 404 – route mounted only as /partner in App.js. Nav link 'PARTNER WITH US' works because it points at /partner, but the review request URL '/partner-with-us' 404s.", "selector": "route", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iter28_careers_security.py",
+    "/app/backend/tests/test_lockout_iter22.py",
+    "/app/test_reports/pytest/iter28_results.xml"
+  ],
+  "action_items": [
+    "Optional: add a redirect or alias route /partner-with-us -> /partner (or rename the route) so the marketing URL in the spec works.",
+    "Optional: cover /book-chauffeur bookings 429 flow in an automated e2e (requires walking through the multi-step wizard with valid data)."
+  ],
+  "critical_code_review_comments": [
+    "submitError util correctly localises Arabic 429 message while surfacing English backend detail otherwise – good.",
+    "ApplyModal test PDF file needs valid %PDF- magic bytes, matching backend server.py validation – frontend keeps client-side extension check only, backend does content sniff (defence in depth OK).",
+    "Application badge uses uppercase CSS transform ('JOB APPLICATION') – any test that matches text should be case-insensitive."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "~95% (all requested flows verified; /partner-with-us URL 404 and /book-chauffeur booking-submit-error not exercised end-to-end)"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (works). Note: the /api/auth/login endpoint shares the global rate_limits collection with public forms, so heavy contact/apply testing on the same egress IP can pre-lock admin login; clearing db.rate_limits fixes it.",
+  "seed_data_creation": "Created and deleted 3 test contact_submissions (qa.playwright@test.ae, qa.ar.apply@test.ae, qa.contact.pw@test.ae) and their linked cv_files documents. rate_limits collection cleared before and after.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend pytest for iter28 is stable and self-cleans rate_limits between tests. When testing admin login via Playwright, first clear db.rate_limits to avoid 429 spillover from public form tests (they share the same egress IP through the ingress). Verified admin CV download links work with the httpOnly session cookie set by /api/auth/login. Application badge text is CSS-uppercased in the UI so any string matching in Playwright must be case-insensitive or matched on data-testid instead.",
+  "rca of the issue": "N/A – no defect found in the tested scope. The '/partner-with-us' 404 is a naming mismatch between the spec and the mounted route; the actual submit-error flow works when tested on /partner."
+}

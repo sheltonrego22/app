@@ -1,4 +1,6 @@
-import { Inbox, CalendarCheck, FileText, Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Inbox, CalendarCheck, FileText, Phone, Mail, MessageCircle, MapPin, Download, Linkedin, Briefcase } from 'lucide-react';
+
+const API = process.env.REACT_APP_BACKEND_URL;
 
 export const CONTACT_STATUSES = ['new', 'contacted', 'closed'];
 export const BOOKING_STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'];
@@ -60,6 +62,23 @@ function EmptyState({ Icon, text }) {
   );
 }
 
+function ApplicationExtras({ contact }) {
+  if (!contact.attachment_url) return null;
+  return (
+    <div data-testid={`admin-application-${contact.id}`} className="flex flex-wrap items-center gap-2 mt-3">
+      <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-[#EE5A01]/15 text-[#EE5A01]"><Briefcase className="w-3 h-3" /> Job application{contact.role ? ` · ${contact.role}` : ''}</span>
+      <a href={`${API}${contact.attachment_url}`} data-testid={`download-cv-${contact.id}`} className="inline-flex items-center gap-1 font-heading font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 bg-[#EE5A01] text-black hover:bg-[#F17B34] transition-colors">
+        <Download className="w-3 h-3" /> Download CV
+      </a>
+      {contact.linkedin_url && (
+        <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" data-testid={`applicant-linkedin-${contact.id}`} className="inline-flex items-center gap-1 font-heading font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 border border-[#0A66C2]/50 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-colors">
+          <Linkedin className="w-3 h-3" /> LinkedIn profile
+        </a>
+      )}
+    </div>
+  );
+}
+
 export function ContactsTable({ contacts, loading, onStatus }) {
   if (loading) return <div className="text-center py-16"><p className="font-body text-[#666]">Loading enquiries...</p></div>;
   if (contacts.length === 0) return <EmptyState Icon={Inbox} text="No enquiries yet" />;
@@ -76,6 +95,7 @@ export function ContactsTable({ contacts, loading, onStatus }) {
               </div>
               <p className="font-body text-xs text-[#666] mb-2">{c.email} · {c.phone} · {fmtDate(c.created_at)}</p>
               <p className="font-body text-sm text-[#999] leading-relaxed whitespace-pre-line">{c.message}</p>
+              <ApplicationExtras contact={c} />
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               <QuickActions phone={c.phone} email={c.email} subject={`Re: your ${c.enquiry_type} enquiry to Eurogulf Mobility Group`} />

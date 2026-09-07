@@ -4,6 +4,7 @@ import { Check, Handshake, Plane, Hotel, Building2, Calendar, Users, Truck, Wren
 import ar from '@/i18n/ar';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const t = ar.partnerWithUs;
@@ -31,7 +32,7 @@ export default function PartnerPageAr() {
       setSubmitted(true);
     } catch (err) {
       logError('AR Partner', err);
-      setSubmitError(ar.contact.submitError);
+      setSubmitError(submitErrorMessage(err, ar.contact.submitError, 'ar'));
     } finally {
       setSubmitting(false);
     }

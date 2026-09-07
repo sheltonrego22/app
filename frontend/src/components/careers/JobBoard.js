@@ -26,7 +26,7 @@ function LatestJobs({ lang, onApply }) {
               <p className="font-body text-[10px] text-[#666] mt-1">{departments[job.dept][lang]} · {job.location ? job.location[lang] : HQ[lang]} · {c.posted} {formatDate(posted, lang)}</p>
             </div>
             <div className="flex gap-2 flex-shrink-0">
-              <button onClick={() => onApply(job[lang].title)} data-testid={`latest-apply-${id}`} className="inline-flex items-center gap-1 bg-[#EE5A01] text-black font-heading font-bold text-[10px] px-3 py-2 hover:bg-[#F17B34]"><FileText className="w-3 h-3" /> {c.applyOnline}</button>
+              <button onClick={() => onApply(job)} data-testid={`latest-apply-${id}`} className="inline-flex items-center gap-1 bg-[#EE5A01] text-black font-heading font-bold text-[10px] px-3 py-2 hover:bg-[#F17B34]"><FileText className="w-3 h-3" /> {c.applyOnline}</button>
               <a href={LINKEDIN_COMPANY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 border border-[#0A66C2]/50 text-[#0A66C2] font-heading font-bold text-[10px] px-3 py-2 hover:bg-[#0A66C2] hover:text-white transition-colors"><ExternalLink className="w-3 h-3" /> {c.viewLinkedin}</a>
             </div>
           </div>
@@ -61,7 +61,7 @@ function JobCard({ job, lang, expanded, onToggle, onApply }) {
         <div className="px-5 pb-5 border-t border-white/5 pt-4">
           <p className="font-body text-sm text-[#999] leading-relaxed mb-4">{j.desc}</p>
           <div className="flex flex-wrap gap-3">
-            <button onClick={() => onApply(j.title)} data-testid={`apply-online-${job.id}`} className={`inline-flex items-center gap-2 bg-[#EE5A01] text-black font-heading font-bold text-xs px-5 py-2.5 hover:bg-[#F17B34] transition-colors ${isAr ? '' : 'tracking-[0.05em]'}`}>
+            <button onClick={() => onApply(job)} data-testid={`apply-online-${job.id}`} className={`inline-flex items-center gap-2 bg-[#EE5A01] text-black font-heading font-bold text-xs px-5 py-2.5 hover:bg-[#F17B34] transition-colors ${isAr ? '' : 'tracking-[0.05em]'}`}>
               <FileText className="w-3 h-3" /> {c.applyOnline}
             </button>
             <a href={applyMailto(job.en.title, lang)} data-testid={`apply-${job.id}`} className={`inline-flex items-center gap-2 border border-[#EE5A01]/40 text-[#EE5A01] font-heading font-bold text-xs px-5 py-2.5 hover:bg-[#EE5A01] hover:text-black transition-colors ${isAr ? '' : 'tracking-[0.05em]'}`}>
@@ -83,7 +83,7 @@ export function JobBoard({ lang = 'en' }) {
   const [activeDept, setActiveDept] = useState('all');
   const [search, setSearch] = useState('');
   const [expanded, setExpanded] = useState(null);
-  const [applyRole, setApplyRole] = useState(null);
+  const [applyJob, setApplyJob] = useState(null);
 
   const filtered = jobs.filter((j) =>
     (activeDept === 'all' || j.dept === activeDept) &&
@@ -94,7 +94,7 @@ export function JobBoard({ lang = 'en' }) {
   return (
     <div data-testid={`${isAr ? 'ar-' : ''}job-board`}>
       <p className="text-center font-body text-[#666666] mb-8">{c.roles(jobs.length)} · {c.email}</p>
-      <LatestJobs lang={lang} onApply={setApplyRole} />
+      <LatestJobs lang={lang} onApply={setApplyJob} />
       <div className="relative max-w-md mx-auto mb-6">
         <Search className={`absolute ${isAr ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]`} />
         <input data-testid={`${isAr ? 'ar-' : ''}job-search`} value={search} onChange={(e) => setSearch(e.target.value)} placeholder={c.search}
@@ -112,10 +112,10 @@ export function JobBoard({ lang = 'en' }) {
         })}
       </div>
       <div className="space-y-3">
-        {filtered.map((job) => <JobCard key={job.id} job={job} lang={lang} expanded={expanded === job.id} onToggle={() => setExpanded(expanded === job.id ? null : job.id)} onApply={setApplyRole} />)}
+        {filtered.map((job) => <JobCard key={job.id} job={job} lang={lang} expanded={expanded === job.id} onToggle={() => setExpanded(expanded === job.id ? null : job.id)} onApply={setApplyJob} />)}
       </div>
       {filtered.length === 0 && <p data-testid="jobs-empty" className="text-center font-body text-[#666666] py-12">{c.none}</p>}
-      <ApplyModal open={applyRole !== null} onClose={() => setApplyRole(null)} role={applyRole || ''} lang={lang} />
+      <ApplyModal open={applyJob !== null} onClose={() => setApplyJob(null)} role={applyJob?.en.title || ''} roleLabel={applyJob?.[lang].title} lang={lang} />
     </div>
   );
 }

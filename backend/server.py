@@ -101,6 +101,12 @@ async def get_current_user(request: Request) -> dict:
 
 # ══════════════════ PYDANTIC MODELS ══════════════════
 
+def require_text(value: str) -> str:
+    value = value.strip()
+    if not value:
+        raise ValueError("This field cannot be blank")
+    return value
+
 class ContactSubmission(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -123,6 +129,11 @@ class ContactCreate(BaseModel):
     phone: str = Field(min_length=1, max_length=30)
     enquiry_type: str = Field(min_length=1)
     message: str = Field(min_length=1, max_length=5000)
+
+    @field_validator("full_name", "phone", "message")
+    @classmethod
+    def not_blank(cls, v: str) -> str:
+        return require_text(v)
 
 class BookingSubmission(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -160,6 +171,11 @@ class BookingCreate(BaseModel):
     email: str = Field(min_length=1, pattern=r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
     phone: str = Field(min_length=1, max_length=30)
     notes: Optional[str] = ""
+
+    @field_validator("name", "phone", "pickup_location", "dropoff_location")
+    @classmethod
+    def not_blank(cls, v: str) -> str:
+        return require_text(v)
 
 class LoginInput(BaseModel):
     email: str
@@ -221,10 +237,15 @@ LOCKOUT_MINUTES = 15
 IP_ATTEMPT_LIMIT = 5
 ACCOUNT_ATTEMPT_LIMIT = 20
 
+TRUSTED_PROXY_HOPS = int(os.environ.get("TRUSTED_PROXY_HOPS", "2"))
+
 def client_ip(request: Request) -> str:
-    forwarded = request.headers.get("x-forwarded-for", "")
+    # Trusted proxies append their hop to X-Forwarded-For; the real client sits just before them.
+    forwarded = [p.strip() for p in request.headers.get("x-forwarded-for", "").split(",") if p.strip()]
+    if len(forwarded) > TRUSTED_PROXY_HOPS:
+        return forwarded[-(TRUSTED_PROXY_HOPS + 1)]
     if forwarded:
-        return forwarded.split(",")[0].strip()
+        return forwarded[0]
     return request.client.host if request.client else "unknown"
 
 async def is_locked(identifier: str, limit: int) -> bool:
@@ -307,12 +328,36 @@ async def refresh_token(request: Request):
 
 # ══════════════════ CONTACT + BOOKING ══════════════════
 
+FORM_LIMIT_PER_HOUR = 20
+FORM_GLOBAL_LIMIT_PER_HOUR = 300
+APPLY_GLOBAL_LIMIT_PER_HOUR = 100
+RATE_LIMIT_MESSAGE = "Too many submissions from this connection. Please try again later or call 800 364."
+
+async def _bump_window(key: str, limit: int, now: datetime) -> bool:
+    entry = await db.rate_limits.find_one({"key": key})
+    window_start = entry.get("window_start") if entry else None
+    if window_start and window_start.tzinfo is None:
+        window_start = window_start.replace(tzinfo=timezone.utc)
+    if entry and window_start and (now - window_start).total_seconds() < 3600:
+        if entry.get("count", 0) >= limit:
+            return False
+        await db.rate_limits.update_one({"key": key}, {"$inc": {"count": 1}})
+    else:
+        await db.rate_limits.update_one({"key": key}, {"$set": {"count": 1, "window_start": now}}, upsert=True)
+    return True
+
+async def enforce_rate_limit(scope: str, ip: str, per_ip: int, global_limit: int):
+    now = datetime.now(timezone.utc)
+    if not await _bump_window(f"{scope}:{ip}", per_ip, now) or not await _bump_window(f"{scope}:global", global_limit, now):
+        raise HTTPException(status_code=429, detail=RATE_LIMIT_MESSAGE)
+
 @api_router.get("/")
 async def root():
-    return {"message": "EGMG API Running"}
+    return {"message": "Eurogulf Mobility Group API Running"}
 
 @api_router.post("/contact", response_model=ContactSubmission)
-async def create_contact(input: ContactCreate, background_tasks: BackgroundTasks):
+async def create_contact(input: ContactCreate, request: Request, background_tasks: BackgroundTasks):
+    await enforce_rate_limit("contact", client_ip(request), FORM_LIMIT_PER_HOUR, FORM_GLOBAL_LIMIT_PER_HOUR)
     submission = ContactSubmission(**input.model_dump())
     doc = submission.model_dump()
     await db.contact_submissions.insert_one(doc)
@@ -342,7 +387,8 @@ async def update_contact_status(contact_id: str, input: StatusUpdate, request: R
     return {"id": contact_id, "status": input.status}
 
 @api_router.post("/bookings", response_model=BookingSubmission)
-async def create_booking(input: BookingCreate, background_tasks: BackgroundTasks):
+async def create_booking(input: BookingCreate, request: Request, background_tasks: BackgroundTasks):
+    await enforce_rate_limit("booking", client_ip(request), FORM_LIMIT_PER_HOUR, FORM_GLOBAL_LIMIT_PER_HOUR)
     submission = BookingSubmission(**input.model_dump())
     doc = submission.model_dump()
     await db.bookings.insert_one(doc)
@@ -378,18 +424,7 @@ APPLY_LIMIT_PER_HOUR = 5
 EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 
 async def enforce_apply_rate_limit(ip: str):
-    key = f"apply:{ip}"
-    now = datetime.now(timezone.utc)
-    entry = await db.rate_limits.find_one({"key": key})
-    window_start = entry.get("window_start") if entry else None
-    if window_start and window_start.tzinfo is None:
-        window_start = window_start.replace(tzinfo=timezone.utc)
-    if entry and window_start and (now - window_start).total_seconds() < 3600:
-        if entry.get("count", 0) >= APPLY_LIMIT_PER_HOUR:
-            raise HTTPException(status_code=429, detail="Too many applications from this connection. Please try again later.")
-        await db.rate_limits.update_one({"key": key}, {"$inc": {"count": 1}})
-    else:
-        await db.rate_limits.update_one({"key": key}, {"$set": {"count": 1, "window_start": now}}, upsert=True)
+    await enforce_rate_limit("apply", ip, APPLY_LIMIT_PER_HOUR, APPLY_GLOBAL_LIMIT_PER_HOUR)
 
 @api_router.post("/careers/apply")
 async def apply_for_job(
@@ -401,6 +436,9 @@ async def apply_for_job(
     email = email.strip().lower()
     if not EMAIL_PATTERN.match(email):
         raise HTTPException(status_code=422, detail="Please enter a valid email address")
+    full_name, phone, role = full_name.strip(), phone.strip(), role.strip()
+    if len(full_name) < 2 or len(phone) < 5 or len(role) < 2:
+        raise HTTPException(status_code=422, detail="Please fill in your name, phone number and the role you are applying for")
     linkedin_url = linkedin_url.strip()
     if linkedin_url and not re.match(r"^https://([a-z]{2,3}\.)?linkedin\.com/", linkedin_url, re.I):
         raise HTTPException(status_code=422, detail="LinkedIn URL must start with https://www.linkedin.com/")
@@ -423,8 +461,8 @@ async def apply_for_job(
     if linkedin_url:
         note += f"\n\nLinkedIn: {linkedin_url}"
     submission = ContactSubmission(
-        full_name=full_name.strip(), email=email, phone=phone.strip(), company="", enquiry_type=f"Careers: {role.strip()}",
-        message=note, role=role.strip(), linkedin_url=linkedin_url or None, attachment_url=f"/api/admin/cv/{cv_id}",
+        full_name=full_name, email=email, phone=phone, company="", enquiry_type=f"Careers: {role}",
+        message=note, role=role, linkedin_url=linkedin_url or None, attachment_url=f"/api/admin/cv/{cv_id}",
     )
     doc = submission.model_dump()
     await db.contact_submissions.insert_one(doc)
@@ -595,14 +633,14 @@ async def startup():
     count = await db.articles.count_documents({})
     if count == 0:
         sample_articles = [
-            {"title": "EGMG Receives World Travel Award for Best Car Rental MENA 2024", "body": "<p>Eurogulf Mobility Group has been recognised with the World Travel Award for Best Car Rental Company in the Middle East and North Africa for 2024, extending its winning streak that began in 2005.</p><p>This prestigious accolade reflects our unwavering commitment to delivering exceptional mobility solutions across the UAE and beyond.</p>", "category": "Awards", "featured": True, "published": True},
-            {"title": "Driving the Future: EGMG's Commitment to Green Mobility in the UAE", "body": "<p>As part of our sustainability roadmap, EGMG is expanding its electric and hybrid vehicle fleet across all divisions. Our commitment to the UAE's Net Zero 2050 strategy drives every decision we make.</p>", "category": "Sustainability", "featured": True, "published": True},
+            {"title": "Eurogulf Mobility Group Receives World Travel Award for Best Car Rental MENA 2024", "body": "<p>Eurogulf Mobility Group has been recognised with the World Travel Award for Best Car Rental Company in the Middle East and North Africa for 2024, extending its winning streak that began in 2005.</p><p>This prestigious accolade reflects our unwavering commitment to delivering exceptional mobility solutions across the UAE and beyond.</p>", "category": "Awards", "featured": True, "published": True},
+            {"title": "Driving the Future: Eurogulf Mobility Group's Commitment to Green Mobility in the UAE", "body": "<p>As part of our sustainability roadmap, Eurogulf Mobility Group is expanding its electric and hybrid vehicle fleet across all divisions. Our commitment to the UAE's Net Zero 2050 strategy drives every decision we make.</p>", "category": "Sustainability", "featured": True, "published": True},
             {"title": "Royal Limousine Expands Executive Fleet with New BMW 7 Series and Audi A8", "body": "<p>Royal Limousine has added the latest BMW 7 Series and Audi A8 models to its executive chauffeur fleet, reinforcing our position as the UAE's premier luxury transportation provider.</p>", "category": "Fleet", "featured": False, "published": True},
-            {"title": "EGMG Celebrates 50 Years of Moving the UAE Forward", "body": "<p>Since 1976, Eurogulf Mobility Group has been at the forefront of the UAE's mobility landscape. From our first Europcar franchise to managing over 12,000 vehicles across 14 locations, our journey reflects the growth and ambition of the nation we serve.</p>", "category": "Company Updates", "featured": True, "published": True},
+            {"title": "Eurogulf Mobility Group Celebrates 50 Years of Moving the UAE Forward", "body": "<p>Since 1976, Eurogulf Mobility Group has been at the forefront of the UAE's mobility landscape. From our first Europcar franchise to managing over 12,000 vehicles across 14 locations, our journey reflects the growth and ambition of the nation we serve.</p>", "category": "Company Updates", "featured": True, "published": True},
             {"title": "Truckline Launches Chiller Unit Fleet for Food Logistics", "body": "<p>Truckline Transport has introduced a specialised fleet of temperature-controlled vehicles to support the UAE's growing food delivery and cold-chain logistics sector.</p>", "category": "Fleet", "featured": False, "published": True},
             {"title": "Europcar Dubai Opens New Location at Dubai Hills Mall", "body": "<p>Europcar Dubai has expanded its network with a new outlet at Dubai Hills Mall, bringing our total UAE locations to 14 and providing even greater convenience for residents and visitors.</p>", "category": "Press Releases", "featured": False, "published": True},
-            {"title": "EGMG Achieves ISO 45001:2018 Occupational Health & Safety Certification", "body": "<p>EGMG has earned the ISO 45001:2018 certification, demonstrating our commitment to creating a safe working environment for our 1,200+ employees across the UAE.</p>", "category": "Company Updates", "featured": False, "published": True},
-            {"title": "The Future of Corporate Transportation in the UAE", "body": "<p>As the UAE positions itself as a global business hub, the demand for reliable, premium corporate transportation continues to rise. EGMG is leading this transformation with innovative fleet management and chauffeur solutions.</p>", "category": "Industry News", "featured": False, "published": True},
+            {"title": "Eurogulf Mobility Group Achieves ISO 45001:2018 Occupational Health & Safety Certification", "body": "<p>Eurogulf Mobility Group has earned the ISO 45001:2018 certification, demonstrating our commitment to creating a safe working environment for our 1,200+ employees across the UAE.</p>", "category": "Company Updates", "featured": False, "published": True},
+            {"title": "The Future of Corporate Transportation in the UAE", "body": "<p>As the UAE positions itself as a global business hub, the demand for reliable, premium corporate transportation continues to rise. Eurogulf Mobility Group is leading this transformation with innovative fleet management and chauffeur solutions.</p>", "category": "Industry News", "featured": False, "published": True},
             {"title": "Goldcar UAE: Smart Travel for the Budget-Conscious Explorer", "body": "<p>Goldcar continues to redefine value car rental in the UAE, offering competitive rates without compromising on vehicle quality or customer service. Available at all Europcar outlets and exclusively at Sharjah International Airport.</p>", "category": "Press Releases", "featured": False, "published": True},
             {"title": "Emirates Taxi Earns Top RTA Safety Rating", "body": "<p>Emirates Taxi has received the highest safety rating from Dubai's Roads and Transport Authority, recognising our fleet's compliance with the strictest safety standards and our drivers' exceptional performance scores.</p>", "category": "Awards", "featured": False, "published": True},
         ]
@@ -616,6 +654,14 @@ async def startup():
             a["updated_at"] = a["created_at"]
         await db.articles.insert_many(sample_articles)
         logger.info(f"Seeded {len(sample_articles)} sample articles")
+
+    # Brand rule: public copy never uses standalone "EGMG" (fixes previously seeded samples)
+    brand_re = re.compile(r"\bEGMG\b")
+    async for a in db.articles.find({"$or": [{"title": {"$regex": r"\bEGMG\b"}}, {"body": {"$regex": r"\bEGMG\b"}}]}, {"_id": 1, "title": 1, "body": 1}):
+        await db.articles.update_one({"_id": a["_id"]}, {"$set": {
+            "title": brand_re.sub("Eurogulf Mobility Group", a.get("title") or ""),
+            "body": brand_re.sub("Eurogulf Mobility Group", a.get("body") or ""),
+        }})
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

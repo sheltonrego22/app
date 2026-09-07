@@ -4,6 +4,7 @@ import { Plane, Building2, Users, Car, MapPin } from 'lucide-react';
 import ar from '@/i18n/ar';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const t = ar.chauffeur;
@@ -37,7 +38,7 @@ export default function ChauffeurPageAr() {
       setSubmitted(true);
     } catch (err) {
       logError('AR Chauffeur', err);
-      setSubmitError(ar.contact.submitError);
+      setSubmitError(submitErrorMessage(err, ar.contact.submitError, 'ar'));
     } finally {
       setSubmitting(false);
     }

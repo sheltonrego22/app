@@ -9,6 +9,13 @@ import uuid
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
+
+def admin_session():
+    s = requests.Session()
+    r = s.post(f"{BASE_URL}/api/auth/login", json={"email": os.environ.get("ADMIN_EMAIL", "admin@egmg.ae"), "password": os.environ["ADMIN_PASSWORD"]})
+    assert r.status_code == 200, r.text
+    return s
+
 class TestHealthEndpoint:
     """Health check and root endpoint tests"""
     
@@ -18,7 +25,7 @@ class TestHealthEndpoint:
         assert response.status_code == 200
         data = response.json()
         assert "message" in data
-        assert data["message"] == "EGMG API Running"
+        assert data["message"] == "Eurogulf Mobility Group API Running"
         print("PASS: API root endpoint returns success")
 
 
@@ -116,7 +123,7 @@ class TestContactsListAPI:
     
     def test_get_contacts_list(self):
         """Test GET /api/contacts returns list of submissions"""
-        response = requests.get(f"{BASE_URL}/api/contacts")
+        response = admin_session().get(f"{BASE_URL}/api/contacts")
         
         assert response.status_code == 200
         data = response.json()
@@ -125,7 +132,7 @@ class TestContactsListAPI:
     
     def test_get_contacts_with_pagination(self):
         """Test GET /api/contacts with skip and limit parameters"""
-        response = requests.get(f"{BASE_URL}/api/contacts?skip=0&limit=5")
+        response = admin_session().get(f"{BASE_URL}/api/contacts?skip=0&limit=5")
         
         assert response.status_code == 200
         data = response.json()
@@ -153,7 +160,7 @@ class TestContactsListAPI:
         created_id = created_data["id"]
         
         # Verify it appears in the list
-        list_response = requests.get(f"{BASE_URL}/api/contacts?limit=100")
+        list_response = admin_session().get(f"{BASE_URL}/api/contacts?limit=100")
         assert list_response.status_code == 200
         contacts = list_response.json()
         

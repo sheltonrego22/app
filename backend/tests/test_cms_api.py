@@ -78,13 +78,12 @@ class TestArticlesPublic:
         assert all(a["category"] == "Awards" for a in data["articles"]), \
             f"Got categories: {[a['category'] for a in data['articles']]}"
 
-    def test_search_by_title_egmg(self):
-        r = requests.get(f"{BASE_URL}/api/articles", params={"search": "EGMG"})
+    def test_search_by_title_brand(self):
+        r = requests.get(f"{BASE_URL}/api/articles", params={"search": "Eurogulf"})
         assert r.status_code == 200
         data = r.json()
-        # Every result should contain "EGMG" (case-insensitive) in title
         for a in data["articles"]:
-            assert "egmg" in a["title"].lower(), f"Search returned non-matching: {a['title']}"
+            assert "eurogulf" in (a["title"] + (a.get("title_ar") or "")).lower(), f"Search returned non-matching: {a['title']}"
         assert data["total"] >= 1
 
     def test_filter_featured_true(self):

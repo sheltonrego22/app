@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 import ar from '@/i18n/ar';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -23,6 +24,7 @@ const emirates = ["دبي", "الشارقة", "عجمان", "رأس الخيمة
 export default function ContactPageAr() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [form, setForm] = useState({ enquiry_type: '', name: '', phone: '', email: '', company: '', preferred_time: '', emirate: '', message: '' });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -31,14 +33,18 @@ export default function ContactPageAr() {
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email || !form.enquiry_type) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/contact`, {
         full_name: form.name, phone: form.phone, email: form.email, company: form.company || '',
         enquiry_type: form.enquiry_type,
         message: `[AR] [${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | الوقت: ${form.preferred_time}` : ''}${form.emirate ? ` | الإمارة: ${form.emirate}` : ''}`,
       });
-    } catch (err) { logError('AR Contact', err); }
-    setSubmitted(true);
+      setSubmitted(true);
+    } catch (err) {
+      logError('AR Contact', err);
+      setSubmitError(submitErrorMessage(err, t.contact.submitError, 'ar'));
+    }
     setSubmitting(false);
   };
 
@@ -101,7 +107,8 @@ export default function ContactPageAr() {
                 <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] mb-2 block">{t.contact.message}</Label>
                 <Textarea value={form.message} onChange={e => set('message', e.target.value)} placeholder="أخبرنا المزيد عن متطلباتك..." className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none min-h-[100px] text-sm" />
               </div>
-              <button onClick={handleSubmit} disabled={submitting || !form.name || !form.phone || !form.email || !form.enquiry_type}
+              {submitError && <p data-testid="ar-contact-submit-error" role="alert" className="font-body text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
+              <button data-testid="ar-contact-submit" onClick={handleSubmit} disabled={submitting || !form.name || !form.phone || !form.email || !form.enquiry_type}
                 className="w-full bg-[#EE5A01] text-black font-heading font-bold text-sm py-4 hover:bg-[#d45000] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                 <Send className="w-4 h-4" /> {submitting ? 'جاري الإرسال...' : t.contact.submit}
               </button>

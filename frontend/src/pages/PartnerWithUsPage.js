@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const EGMG_LOGO = "/egmg-logo-transparent.png";
@@ -45,6 +46,7 @@ export default function PartnerWithUsPage() {
   const [oppRef, oppVisible] = useScrollAnimation();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [form, setForm] = useState({ name: '', company: '', phone: '', email: '', type: '', message: '' });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -53,16 +55,18 @@ export default function PartnerWithUsPage() {
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
         company: form.company, enquiry_type: `Partnership: ${form.type || 'General'}`,
         message: form.message,
       });
+      setSubmitted(true);
     } catch (err) {
       logError('Partner enquiry', err);
+      setSubmitError(submitErrorMessage(err));
     }
-    setSubmitted(true);
     setSubmitting(false);
   };
 
@@ -196,6 +200,7 @@ export default function PartnerWithUsPage() {
                   <Label className="font-heading text-xs tracking-wider text-[#EEEDE7] uppercase mb-2 block">Tell us about the opportunity</Label>
                   <Textarea value={form.message} onChange={e => set('message', e.target.value)} placeholder="Describe the partnership opportunity..." className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none min-h-[100px] text-sm" />
                 </div>
+                {submitError && <p data-testid="partner-submit-error" role="alert" className="font-body text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
                 <button
                   data-testid="partner-submit"
                   type="submit"

@@ -10,6 +10,7 @@ import { VehicleStep } from '@/components/booking/VehicleStep';
 import { ConfirmStep } from '@/components/booking/ConfirmStep';
 import { validateStep, buildBookingPayload } from '@/utils/bookingValidation';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -63,7 +64,7 @@ export default function BookChauffeurPage() {
       setSubmitted(true);
     } catch (err) {
       logError('Booking', err);
-      setErrors({ submit: 'We could not submit your booking right now. Please try again or call 800 364.' });
+      setErrors({ submit: submitErrorMessage(err, 'We could not submit your booking right now. Please try again or call 800 364.') });
     } finally {
       setSubmitting(false);
     }

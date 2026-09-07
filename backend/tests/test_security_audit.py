@@ -202,7 +202,7 @@ def test_regex_search_safe():
     assert dur < 2.0
 
 def test_search_matches():
-    r = requests.get(f"{API}/articles", params={"search": "EGMG"})
+    r = requests.get(f"{API}/articles", params={"search": "Eurogulf"})
     assert r.status_code == 200
     data = r.json()
     assert data["total"] >= 1

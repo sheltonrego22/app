@@ -6,10 +6,21 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Security Audit #2 + Code Review #2 Remediation — Sept 2026, iteration 28: 100% pass)
+- [x] **Trusted client IP**: `client_ip()` takes the X-Forwarded-For entry just before the trusted proxy hops (`TRUSTED_PROXY_HOPS=2` in backend env: Cloudflare + LB). Spoofed headers no longer bypass rate limits or login lockout. Direct/localhost access falls back to the first header value (tests rely on this)
+- [x] **Rate limiting on public forms** (`enforce_rate_limit`, `db.rate_limits`, 1h windows): `/api/contact` + `/api/bookings` 20/h per IP + 300/h global; `/api/careers/apply` 5/h per IP + 100/h global → 429 "Too many submissions from this connection. Please try again later or call 800 364."
+- [x] Whitespace-only `full_name`/`phone`/`message` (contact), `name`/`phone`/locations (booking), name/phone/role (apply) → 422
+- [x] **Admin inbox**: career applications show "Job application · <role>" badge, **Download CV** (authenticated `/api/admin/cv/{id}`, cookie session) and LinkedIn profile link (`InboxComponents.ApplicationExtras`)
+- [x] **Brand rule**: seeded articles + `GET /api/` no longer use standalone "EGMG"; startup migration rewrites any stored article title/body containing `\bEGMG\b`
+- [x] **Forms no longer fake success on API failure**: ContactPage, Europcar LeasingLeadForm, ChauffeurServicePage modal, PartnerWithUsPage, `/ar/contact` now show an error banner (`*-submit-error`), surfacing backend 429 detail (Arabic message on AR pages) via `utils/submitError.js`; BookChauffeur + AR partner/chauffeur forms use the same helper
+- [x] ApplyModal: file input resets after invalid pick (re-selecting same file works); online apply sends English role title, header shows localized title
+- [x] Tests: `/app/backend/tests/test_iter28_careers_security.py` (12); `tests/conftest.py` clears `rate_limits` before each test; stale "EGMG"/public-contacts assertions in older suites updated. Full suite 113/113
+- Deferred hardening (P3): server-side sanitisation of article HTML (client DOMPurify only); tracked `backend/.env` secrets (set via deployment env in production)
+
 ## Completed (On-Site Job Application + Latest Openings placeholders — Sept 2026)
 - [x] **Apply Online** modal on `/careers` + `/ar/careers` (`components/careers/ApplyModal.js`): name, email, phone, LinkedIn (optional), cover note, CV upload (PDF/DOC/DOCX ≤ 5 MB). `POST /api/careers/apply` (multipart) validates magic bytes, rate-limits 5/hour/IP, stores CV base64 in `cv_files`, creates a `contact_submissions` entry (`enquiry_type: "Careers: <role>"`, `role`, `linkedin_url`, `attachment_url: /api/admin/cv/{id}`) so it lands in the Admin Enquiries inbox; team alert + bilingual candidate confirmation via emailer (SMTP still PLACEHOLDER). `GET /api/admin/cv/{id}` (admin auth) downloads the CV
 - [x] **Latest Openings strip** (`latestJobs` in `src/data/jobs.js`): 4 static placeholder roles with posted dates, per user decision "post latest jobs as placeholders once and leave as is". LinkedIn live scraping removed (EGMG has no roles on LinkedIn Jobs; company-id query returns 0)
-- User declined: "Download CV" button in Admin inbox UI (link is stored on the submission but not rendered), and end-to-end testing agent run for this feature (smoke-tested only: apply POST 200, strip renders, modal opens)
+- (Superseded in iteration 28: Download CV button added and full flow tested)
 
 ## Completed (Careers Job Board, LinkedIn Enrichment, Leadership in About, Arabic Portals — Sept 2026)
 - [x] **Careers job board** (EN `/careers`, AR `/ar/careers`): 30 live roles from egmg.ae careers form + LinkedIn (Process Analyst), 5 departments with counts, search, expandable cards, Apply via `mailto:careers@eurogulf.ae` (prefilled subject/body), LinkedIn follow, Life-at-Eurogulf feed, Send CV. Data: `src/data/jobs.js`, component `components/careers/JobBoard.js`
@@ -79,11 +90,12 @@
 - [x] 30+ page corporate site, 5 SEO pages, component splitting, B2B/B2C nav, LeadConnector chat
 
 ## Upcoming
+- [ ] Production deploy: set `TRUSTED_PROXY_HOPS` to match the production proxy chain (2 = Cloudflare + LB, as in preview); verify with a spoofed X-Forwarded-For test
+- [ ] Server-side sanitisation of article HTML on write (P3 hardening)
 - [ ] Replace GTM-XXXXXXX with real GTM container ID + GA4 Measurement ID
 - [ ] Supply real SMTP credentials and set SMTP_ENABLED=true to activate team alerts + customer confirmations
 - [ ] Remaining Arabic pages: SEO landing pages, Dubai Municipality, Mobility Tech, Partners & Clients
 - [ ] Careers: admin-managed job listings (CMS) instead of static data
-- [ ] Admin inbox: render "Download CV" button for career applications (declined for now; `attachment_url` already stored)
 - [ ] WhatsApp Business API live chat integration (P1)
 - [ ] Portal Authentication Systems (P2)
 - [ ] More Arabic pages (/ar/goldcar, /ar/truckline, /ar/autocare, /ar/used-cars, /ar/sustainability)

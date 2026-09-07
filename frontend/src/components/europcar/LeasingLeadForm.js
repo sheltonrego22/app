@@ -3,6 +3,7 @@ import { Check } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 
 const EUROPCAR_GREEN = "#2d8c3c";
 
@@ -10,19 +11,22 @@ export function LeasingLeadForm({ API }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '' });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/api/contact`, {
         full_name: form.name, phone: form.phone, email: form.email,
         company: '', enquiry_type: 'Europcar Leasing', message: 'Leasing enquiry from Europcar page'
       });
+      setSubmitted(true);
     } catch (err) {
       logError('Leasing', err);
+      setSubmitError(submitErrorMessage(err));
     }
-    setSubmitted(true);
     setSubmitting(false);
   };
 
@@ -47,6 +51,7 @@ export function LeasingLeadForm({ API }) {
         <Input data-testid="lease-name" value={form.name} onChange={(e) => setForm(p => ({ ...p, name: e.target.value }))} placeholder="Your Name" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
         <Input data-testid="lease-phone" value={form.phone} onChange={(e) => setForm(p => ({ ...p, phone: e.target.value }))} placeholder="Mobile Number" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
         <Input data-testid="lease-email" type="email" value={form.email} onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))} placeholder="Email Address" className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none h-11" />
+        {submitError && <p data-testid="lease-submit-error" role="alert" className="font-body text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
         <button
           data-testid="lease-submit"
           disabled={submitting || !form.name || !form.phone || !form.email}

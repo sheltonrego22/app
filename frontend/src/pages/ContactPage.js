@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { logError } from '@/utils/logger';
+import { submitErrorMessage } from '@/utils/submitError';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -65,6 +66,7 @@ export default function ContactPage() {
   const [channelsRef, channelsVisible] = useScrollAnimation();
   const [formRef, formVisible] = useScrollAnimation();
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     enquiry_type: '', name: '', phone: '', email: '', company: '', preferred_time: '', emirate: '', message: '',
@@ -77,6 +79,7 @@ export default function ContactPage() {
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email || !form.enquiry_type) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await axios.post(`${API}/contact`, {
         full_name: form.name,
@@ -86,10 +89,11 @@ export default function ContactPage() {
         enquiry_type: form.enquiry_type,
         message: `[${form.enquiry_type}] ${form.message || ''}${form.preferred_time ? ` | Preferred contact: ${form.preferred_time}` : ''}${form.emirate ? ` | Emirate: ${form.emirate}` : ''}`,
       });
+      setSubmitted(true);
     } catch (err) {
       logError('ContactForm', err);
+      setSubmitError(submitErrorMessage(err));
     }
-    setSubmitted(true);
     setSubmitting(false);
   };
 
@@ -228,6 +232,7 @@ export default function ContactPage() {
                   <Textarea data-testid="contact-message" value={form.message} onChange={e => set('message', e.target.value)} placeholder="Tell us more about your requirement..." className="bg-black border-[#333] text-[#EEEDE7] placeholder:text-[#444] rounded-none min-h-[100px] text-sm" />
                 </div>
 
+                {submitError && <p data-testid="contact-submit-error" role="alert" className="font-body text-sm text-red-400 bg-red-500/10 border border-red-500/30 p-3">{submitError}</p>}
                 <button
                   data-testid="contact-submit-btn"
                   onClick={handleSubmit}
