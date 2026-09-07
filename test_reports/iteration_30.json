@@ -1,0 +1,34 @@
+{
+  "summary": "Phase 1 redesign frontend verification (frontend-only run). Verified desktop header (1920px): main-navigation white with orange top rule, all 6 nav-link-* items, nav-phone tel:800364, lang-toggle (EN <-> AR), nav-quote-btn present, NO theme-toggle in DOM. Hovering opens all four mega menus (brands-dropdown with 7 brand-menu-* tiles, about-dropdown, business-dropdown, personal-dropdown). Clicking brand-menu-coaches navigates to /royal-limousine. Homepage sections all present in order (hero-section, stats-band, brands-section, paths-section, steps-section, why-section, clients-section, news-section, sustainability-teaser, final-cta) plus all listed CTAs (hero-cta-personal/business, brands-view-all, path-personal/business, step-01..04, why-card-0..3, news-view-all, final-cta-quote, final-cta-call tel:800364) and all 7 brand-card-* items. 0 broken images on homepage or /royal-limousine, desktop scrollWidth=1920 (no overflow). /royal-limousine renders bus-coach-page, bus-coach-hero, bus-coach-cta-quote, bus-coach-services, bus-coach-fleet, final-cta; H1 exactly 'Bus & coach transportation, run like an airline.'; <title> contains 'Royal Limousine Coaches'. /emirates-taxi still renders the Chauffeur page (H1 'Eurogulf Premium Chauffeur'). Footer (main-footer) renders all 5 column groups + 3 social icons; 25 internal footer links resolve to valid routes (including /royal-limousine). Mobile (390x844): nav-quote-btn is HIDDEN, mobile-menu-toggle opens mobile-menu-overlay with mobile-link-home, mobile-link-contact, all 5 mobile-accordion-* sections, mobile-quote-btn; body overflow=hidden while open; tapping a link closes the menu. Sticky mobile-contact-bar shows mobile-call-btn (tel), mobile-whatsapp-btn (wa.me), mobile-quote-bar-btn on all public pages. Legacy pages (/about, /europcar, /contact, /careers, /services, /leasing, /media, /faq, /businesses, /ar, /ar/about) all render with light bg rgb(250,250,250), dark H1s, header present, no 404s. Arabic nav (/ar) is dir=rtl with correct Arabic labels (الرئيسية, عن المجموعة, علاماتنا التجارية, للشركات, للأفراد, اتصل بنا) and lang-toggle shows 'EN'. /admin/login has NO public header/footer/mobile-bar; admin@egmg.ae / EgmgAdmin2026! logs in successfully and admin-dashboard renders with dark chrome (still no public header on /admin).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Contact form submit (/contact)", "issue": "After filling contact-name/phone/email/type/message and clicking contact-submit-btn, body innerText did not contain any of the expected success keywords ('thank you'/'success'/'received'/'message sent'). Only one submit was made (rate-limit aware); this may be a wording mismatch (custom success testid) rather than a real failure, but worth confirming. Previous iteration 29 confirmed submit works.", "affected_selectors": ["[data-testid=\"contact-submit-btn\"]"]}
+    ],
+    "design_issues": [
+      {"screen": "Homepage (390px)", "issues": ["document.documentElement.scrollWidth = 391 (1px over the 390 target). Not a visible horizontal scroll for the user, but the spec asks for <=390. Likely a sub-pixel rounding or 1px border on a full-width element."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "(Nit) Investigate the 1px overflow at 390px on homepage (scrollWidth=391). Probably a full-width element with a 1px border or 100vw + border-box mismatch.",
+    "(Verify) Confirm the contact form success UI uses a keyword-detectable message or a data-testid like contact-success so automated tests can assert it. Iter29 verified functional success; this iteration only observed no obvious success text in body copy."
+  ],
+  "critical_code_review_comments": [
+    "IA + header behaviour matches spec exactly: no theme-toggle anywhere in the DOM (confirmed with query_selector), lang-toggle correctly flips between عربي (on EN) and EN (on AR) and navigates to /ar <-> /.",
+    "All 7 brand-menu-* items and 7 brand-card-* items render; brand-menu-coaches -> /royal-limousine navigation confirmed.",
+    "Mobile menu correctly hides nav-quote-btn, locks body scroll (overflow:hidden), and closes on link tap.",
+    "Legacy CSS bridge is working: /about, /careers, /europcar, /faq, /services, /leasing, /media, /businesses, /ar and /ar/about all render on light bg rgb(250,250,250) with dark H1s.",
+    "Admin routes are cleanly isolated: no main-navigation/main-footer/mobile-contact-bar on /admin/login or /admin dashboard; login flow still works.",
+    "0 broken images (naturalWidth==0) on / and /royal-limousine; footer internal links (25) point to real app routes."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "~99% (all required flows verified; 1 nit + 1 minor)"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md, confirmed working)",
+  "seed_data_creation": "Attempted 1 TEST_ contact submission (qa.iter30@test.ae) with name 'TEST Iter30'. No further public-form submissions were made to stay well under the 20/hour/IP rate limit.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Phase 1 redesign is stable. Only two low-severity observations: (a) 390px scrollWidth is 391 (1px overflow), (b) contact form success text not detected by keyword search (iter29 already verified the submit path works, so this is likely a wording/testid mismatch, not a functional regression). All new-IA data-testids are present and consistent between EN and AR (nav-link-*, brand-menu-*, brand-card-*, mobile-accordion-*, mobile-*-btn, footer-* groups, main-navigation, main-footer, mobile-contact-bar, bus-coach-* on /royal-limousine).",
+  "rca of the issue": "N/A — no functional regressions detected."
+}

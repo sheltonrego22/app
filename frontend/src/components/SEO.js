@@ -93,8 +93,13 @@ const seoData = {
   },
   '/businesses': {
     title: 'Our Brands | Eurogulf Mobility Group',
-    description: 'Explore the Eurogulf Mobility Group family of brands: Europcar, Goldcar, Eurogulf Premium Chauffeur, Truckline, Eurogulf Used Cars, and Eurogulf Auto Garage.',
+    description: 'Explore the Eurogulf Mobility Group family of brands: Europcar, Goldcar, Eurogulf Premium Chauffeur, Royal Limousine Coaches, Truckline, Eurogulf Used Cars, and Eurogulf Auto Garage.',
     keywords: 'Eurogulf Mobility brands, Europcar Dubai, Goldcar, Royal Limousine',
+  },
+  '/royal-limousine': {
+    title: 'Royal Limousine Coaches | Bus & Coach Transportation UAE | Eurogulf Mobility Group',
+    description: 'Over 800 buses and coaches for staff transport, airline crew, government contracts, events and delegations across all seven Emirates. 24/7 control room, GPS tracking, ISO-certified operations.',
+    keywords: 'bus rental Dubai, coach hire UAE, staff transportation Dubai, crew transport, Royal Limousine Coaches',
   },
 };
 

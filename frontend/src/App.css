@@ -1,8 +1,8 @@
 /* ═══ EGMG Brand Styles ═══ */
 
-.font-heading { font-family: 'Outfit', 'Nobel', sans-serif; }
+.font-heading { font-family: 'Montserrat', 'Nobel', sans-serif; }
 .font-body { font-family: 'Roboto', 'Calibri', sans-serif; }
-.font-mono { font-family: 'JetBrains Mono', monospace; }
+.font-mono { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
 /* ═══ Animations ═══ */
 @keyframes fadeInUp {
@@ -92,54 +92,37 @@
   box-shadow: 0 8px 32px rgba(238, 90, 1, 0.1);
 }
 
-/* ═══ Button Styles ═══ */
-.btn-primary {
-  background: #EE5A01;
-  color: #000000;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 12px 24px;
-  font-size: 13px;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
+/* ═══ Button System (light-first, brand orange 50% / black 40%) ═══ */
+.btn-primary, .btn-secondary, .btn-outline, .btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.02em;
+  padding: 12px 24px; border-radius: 10px; cursor: pointer; text-decoration: none; border: 2px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-@media (min-width: 640px) {
-  .btn-primary { padding: 14px 32px; font-size: 14px; }
-}
-.btn-primary:hover {
-  background: #d45000;
-  transform: scale(1.02);
-}
-.btn-ghost {
-  background: transparent;
-  color: #EEEDE7;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 12px 24px;
-  font-size: 13px;
-  border: 2px solid #EEEDE7;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (min-width: 640px) {
-  .btn-ghost { padding: 14px 32px; font-size: 14px; }
-}
-.btn-ghost:hover {
-  border-color: #EE5A01;
-  color: #EE5A01;
-}
+@media (min-width: 640px) { .btn-primary, .btn-secondary, .btn-outline, .btn-ghost { padding: 14px 30px; font-size: 14px; } }
+.btn-primary { background: #EE5A01; color: #FFFFFF; box-shadow: 0 6px 18px rgba(238, 90, 1, 0.22); }
+.btn-primary:hover { background: #D44F00; box-shadow: 0 10px 24px rgba(238, 90, 1, 0.3); transform: translateY(-1px); }
+.btn-primary:active { background: #B84300; transform: scale(0.98); }
+.btn-secondary { background: #000000; color: #FFFFFF; }
+.btn-secondary:hover { background: #262626; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: #000000; border-color: #000000; }
+.btn-outline:hover { background: #000000; color: #FFFFFF; }
+.btn-ghost { background: transparent; color: #121212; border-color: #121212; }
+.btn-ghost:hover { border-color: #EE5A01; color: #EE5A01; }
+.btn-primary:focus-visible, .btn-secondary:focus-visible, .btn-outline:focus-visible, .btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(238, 90, 1, 0.3); }
+
+/* ═══ Brand signature devices ═══ */
+.chip-orange { display: inline-flex; align-items: center; gap: 0.5rem; padding: 6px 12px; border-radius: 6px; background: #EE5A01; color: #FFFFFF; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.chip-outline { display: inline-flex; align-items: center; gap: 0.5rem; padding: 6px 12px; border-radius: 6px; background: #FFF4ED; color: #EE5A01; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.card-light { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+.card-light:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); border-color: rgba(238,90,1,0.35); }
+.diagonal-cut { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+.diagonal-cut-top { clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); }
 
 /* ═══ Section Styles ═══ */
-.section-dark { background: #000000; }
-.section-surface { background: #0a0a0a; }
-.section-card { background: #111111; }
+.section-dark { background: #FFFFFF; }
+.section-surface { background: #FAFAFA; }
+.section-card { background: #F5F5F3; }
 .section-cream { background: #EEEDE7; color: #000000; }
 
 /* ═══ Instagram Hover ═══ */
@@ -163,7 +146,7 @@
   height: 16px;
   background: #EE5A01;
   border-radius: 50%;
-  border: 3px solid #000000;
+  border: 3px solid #FFFFFF;
   box-shadow: 0 0 0 2px #EE5A01;
   z-index: 2;
   position: relative;
@@ -213,8 +196,8 @@
 
 /* ═══ Article Body ═══ */
 .article-body p { margin-bottom: 0.75em; }
-.article-body h2 { font-size: 1.25em; font-weight: 700; margin: 1em 0 0.5em; color: #EEEDE7; }
-.article-body h3 { font-size: 1.1em; font-weight: 600; margin: 0.75em 0 0.5em; color: #EEEDE7; }
+.article-body h2 { font-size: 1.25em; font-weight: 700; margin: 1em 0 0.5em; color: #121212; }
+.article-body h3 { font-size: 1.1em; font-weight: 600; margin: 0.75em 0 0.5em; color: #121212; }
 .article-body a { color: #EE5A01; text-decoration: underline; }
 .article-body ul, .article-body ol { padding-left: 1.5em; margin-bottom: 0.75em; }
 .article-body li { margin-bottom: 0.25em; }

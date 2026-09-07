@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { useTheme } from '@/hooks/useTheme';
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EGMG_LOGO_LIGHT = "/egmg-logo-dark-text.png";
@@ -56,8 +55,7 @@ const divisions = [
 
 export default function BusinessesPage() {
   const [gridRef, gridVisible] = useScrollAnimation();
-  const { theme } = useTheme();
-  const logoFor = (d) => (d.logo === EGMG_LOGO && theme === 'light' ? EGMG_LOGO_LIGHT : d.logo);
+  const logoFor = (d) => (d.logo === EGMG_LOGO ? EGMG_LOGO_LIGHT : d.logo);
 
   useEffect(() => { document.title = "Our Brands | Eurogulf Mobility Group"; }, []);
 

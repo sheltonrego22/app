@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { useTheme } from '@/hooks/useTheme';
 
 const EGMG_LOGO = "/egmg-logo-transparent.png";
 const EGMG_LOGO_LIGHT = "/egmg-logo-dark-text.png";
@@ -22,8 +21,7 @@ const divisions = [
 ];
 
 export default function BusinessesPageAr() {
-  const { theme } = useTheme();
-  const logoFor = (d) => (d.logo === EGMG_LOGO && theme === 'light' ? EGMG_LOGO_LIGHT : d.logo);
+  const logoFor = (d) => (d.logo === EGMG_LOGO ? EGMG_LOGO_LIGHT : d.logo);
   useEffect(() => { document.title = "علاماتنا التجارية | مجموعة يوروجلف للتنقل"; }, []);
 
   return (

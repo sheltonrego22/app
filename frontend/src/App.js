@@ -2,13 +2,13 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "@/hooks/useTheme";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import MobileContactBar from "@/components/MobileContactBar";
 import RouteAnalytics from "@/components/RouteAnalytics";
 import HomePage from "@/pages/HomePage";
+import BusCoachPage from "@/pages/BusCoachPage";
 import AboutPage from "@/pages/AboutPage";
 import ServicesPage from "@/pages/ServicesPage";
 import ContactPage from "@/pages/ContactPage";
@@ -77,7 +77,7 @@ function Layout({ children }) {
       <Navigation />
       <ScrollToTop />
       <RouteAnalytics />
-      <main className="pb-14 md:pb-0">{children}</main>
+      <main className="pt-16 lg:pt-[76px] pb-16 lg:pb-0">{children}</main>
       <Footer />
       <MobileContactBar />
     </div>
@@ -87,7 +87,6 @@ function Layout({ children }) {
 function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider>
       <BrowserRouter>
         <Layout>
         <Routes>
@@ -100,7 +99,7 @@ function App() {
           <Route path="/media" element={<MediaCenterPage />} />
           <Route path="/europcar" element={<EuropcarPage />} />
           <Route path="/goldcar" element={<GoldcarPage />} />
-          <Route path="/royal-limousine" element={<ChauffeurServicePage />} />
+          <Route path="/royal-limousine" element={<BusCoachPage />} />
           <Route path="/emirates-taxi" element={<ChauffeurServicePage />} />
           <Route path="/truckline" element={<TrucklinePage />} />
           <Route path="/used-cars" element={<UsedCarsPage />} />
@@ -150,7 +149,6 @@ function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
-    </ThemeProvider>
     </HelmetProvider>
   );
 }

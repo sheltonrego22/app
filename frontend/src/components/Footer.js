@@ -1,79 +1,81 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Instagram, Linkedin, Youtube, Phone, Mail, Facebook, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Linkedin, Instagram, Facebook, MessageCircle, ArrowUpRight } from 'lucide-react';
 import { getNavData } from '@/i18n/navData';
-import { useTheme } from '@/hooks/useTheme';
+import { SOCIAL } from '@/config/social';
 
 const LOGO_URL = "/egmg-logo-transparent.png";
-const LOGO_LIGHT_URL = "/egmg-logo-dark-text.png";
-const LINK_CLS = "font-body text-sm text-[#666666] hover:text-[#EE5A01] transition-colors";
 
-const socials = [
-  { href: "https://www.facebook.com/people/Eurogulf-Mobility-Group/61567335605176/", label: "Facebook", Icon: Facebook },
-  { href: "https://www.instagram.com/eurogulfmobility", label: "Instagram", Icon: Instagram },
-  { href: "https://www.linkedin.com/company/105403528/", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://www.youtube.com/@EurogulfMobilityGroup-x1n", label: "YouTube", Icon: Youtube },
-];
-
-function FooterHeading({ children, isAr }) {
-  return <h4 className={`font-heading font-bold text-[#EEEDE7] text-sm ${isAr ? '' : 'tracking-[0.1em] uppercase'} mb-6`}>{children}</h4>;
-}
-
-function FooterLinks({ heading, links, isAr }) {
+function FooterColumn({ header, links, testid }) {
   return (
-    <div>
-      <FooterHeading isAr={isAr}>{heading}</FooterHeading>
+    <div data-testid={testid}>
+      <h4 className="font-heading font-bold text-[11px] tracking-[0.2em] text-[#EE5A01] uppercase mb-5">{header}</h4>
       <ul className="space-y-2.5">
-        {links.map((l) => <li key={l.label}><Link to={l.href} className={LINK_CLS}>{l.label}</Link></li>)}
+        {links.map((l) => (
+          <li key={l.href + l.label}>
+            <Link to={l.href} className="font-body text-sm text-white/65 hover:text-white transition-colors inline-flex items-center gap-1 group">
+              {l.label}
+              <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 transition-all text-[#EE5A01]" />
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
 }
 
-function FooterContact({ f, isAr }) {
+function ContactColumn({ f }) {
   return (
-    <div>
-      <FooterHeading isAr={isAr}>{f.contactHeader}</FooterHeading>
-      <div className="space-y-4">
-        <a href="tel:800364" className={`flex items-center gap-3 ${LINK_CLS}`}><Phone className="w-4 h-4 text-[#EE5A01]" />{f.phone}</a>
-        <a href="mailto:wemoveyou@eurogulf.ae" className={`flex items-center gap-3 ${LINK_CLS}`}><Mail className="w-4 h-4 text-[#EE5A01]" />wemoveyou@eurogulf.ae</a>
-        <a href="https://maps.app.goo.gl/3bzo99DMo9XgkLBq6?g_st=ac" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 ${LINK_CLS}`}><MapPin className="w-4 h-4 text-[#EE5A01]" />{f.location}</a>
-        <a href="https://wa.me/971800364" target="_blank" rel="noopener noreferrer" data-testid="footer-whatsapp-btn" className={`inline-block bg-[#25D366] text-white font-heading font-bold text-xs ${isAr ? '' : 'tracking-wider'} px-5 py-2.5 hover:bg-[#1fb855] transition-colors mt-2`}>
-          {f.whatsapp}
-        </a>
-        <div className="flex gap-4 pt-4">
-          {socials.map(({ href, label, Icon }) => (
-            <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="text-[#EE5A01] hover:text-[#F17B34] transition-colors"><Icon className="w-5 h-5" /></a>
-          ))}
-        </div>
-      </div>
+    <div data-testid="footer-contact">
+      <h4 className="font-heading font-bold text-[11px] tracking-[0.2em] text-[#EE5A01] uppercase mb-5">{f.contactHeader}</h4>
+      <ul className="space-y-3.5 font-body text-sm text-white/65">
+        <li><a href="tel:800364" dir="ltr" className="flex items-center gap-3 hover:text-white transition-colors"><span className="grid h-8 w-8 place-items-center rounded-md bg-[#EE5A01] text-white flex-shrink-0"><Phone className="w-4 h-4" /></span>{f.phone}</a></li>
+        <li><a href={`mailto:${f.email}`} className="flex items-center gap-3 hover:text-white transition-colors"><span className="grid h-8 w-8 place-items-center rounded-md bg-[#EE5A01] text-white flex-shrink-0"><Mail className="w-4 h-4" /></span>{f.email}</a></li>
+        <li><a href="https://wa.me/971800364" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors"><span className="grid h-8 w-8 place-items-center rounded-md bg-[#25D366] text-white flex-shrink-0"><MessageCircle className="w-4 h-4" /></span>{f.whatsapp}</a></li>
+        <li className="flex items-start gap-3"><span className="grid h-8 w-8 place-items-center rounded-md bg-white/10 text-white flex-shrink-0"><MapPin className="w-4 h-4" /></span><span className="leading-relaxed">{f.location}</span></li>
+      </ul>
     </div>
   );
 }
 
 export default function Footer() {
   const { pathname } = useLocation();
-  const { theme } = useTheme();
+  if (pathname.startsWith('/admin')) return null;
   const isAr = pathname.startsWith('/ar');
-  const { brandsLinks, footer: f } = getNavData(isAr);
+  const nav = getNavData(isAr);
+  const f = nav.footer;
+  const brandLinks = nav.brandsLinks.map((b) => ({ label: b.label, href: b.href }));
+  const solutionLinks = [...nav.businessLinks.slice(0, 4), ...nav.personalLinks.slice(0, 3)].map((l) => ({ label: l.label, href: l.href }));
 
   return (
-    <footer data-testid="main-footer" dir={isAr ? 'rtl' : 'ltr'} className="bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <div>
-            <img src={theme === 'light' ? LOGO_LIGHT_URL : LOGO_URL} alt="Eurogulf Mobility Group" className="h-10 w-auto mb-6" style={{ objectFit: 'contain' }} />
-            <p className="font-body text-sm text-[#666666] leading-relaxed mb-4">{f.about}</p>
-            <p className={`font-heading font-bold text-[#EE5A01] text-lg ${isAr ? '' : 'tracking-[0.05em]'}`}>{f.tagline}</p>
+    <footer data-testid="main-footer" dir={isAr ? 'rtl' : 'ltr'} className="relative bg-[#121212] text-white pb-24 lg:pb-0">
+      <div className="h-[3px] w-full bg-[#EE5A01]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+          <div className="lg:col-span-4">
+            <img src={LOGO_URL} alt="Eurogulf Mobility Group" className="h-14 w-auto mb-6" />
+            <p className="font-body text-sm text-white/65 leading-relaxed max-w-sm mb-6">{f.about}</p>
+            <p className="font-heading font-black text-2xl text-[#EE5A01] tracking-tight mb-6">{f.tagline}</p>
+            <div className="flex gap-2">
+              {[[SOCIAL.linkedin, Linkedin, 'LinkedIn'], [SOCIAL.instagram, Instagram, 'Instagram'], [SOCIAL.facebook, Facebook, 'Facebook']].map(([href, Icon, name]) => (
+                <a key={name} href={href} target="_blank" rel="noopener noreferrer" aria-label={name} data-testid={`footer-social-${name.toLowerCase()}`} className="grid h-10 w-10 place-items-center rounded-lg bg-white/8 text-white/70 hover:bg-[#EE5A01] hover:text-white transition-colors">
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
-          <FooterLinks heading={f.quickLinksHeader} links={f.quickLinks} isAr={isAr} />
-          <FooterLinks heading={f.brandsHeader} links={brandsLinks} isAr={isAr} />
-          <FooterContact f={f} isAr={isAr} />
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <FooterColumn header={f.groupHeader} links={f.groupLinks} testid="footer-group" />
+            <FooterColumn header={f.brandsHeader} links={brandLinks} testid="footer-brands" />
+            <FooterColumn header={f.solutionsHeader} links={solutionLinks} testid="footer-solutions" />
+            <FooterColumn header={f.supportHeader} links={nav.supportLinks} testid="footer-support" />
+          </div>
         </div>
-      </div>
-      <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="font-body text-xs text-[#666666]">{f.rights}</p>
-          <p className={`font-mono text-xs text-[#666666] ${isAr ? '' : 'tracking-wider'}`}>{f.iso}</p>
+        <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-8"><ContactColumn f={f} /></div>
+          <div className="lg:col-span-4 flex flex-col justify-end gap-2 text-white/45 font-body text-xs">
+            <p>{f.iso}</p>
+            <p>{f.rights}</p>
+          </div>
         </div>
       </div>
     </footer>

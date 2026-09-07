@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from '@/hooks/useTheme';
 import { getNavData, toArPath, toEnPath } from '@/i18n/navData';
 import { MobileMenu } from '@/components/nav/MobileMenu';
 import { DesktopLinks, NavActions } from '@/components/nav/NavParts';
 
-const LOGO_URL = "/egmg-logo-transparent.png";
-const LOGO_LIGHT_URL = "/egmg-logo-dark-text.png";
+const LOGO_URL = "/egmg-logo-dark-text.png";
 
-function useScrolled(threshold = 50) {
+function useScrolled(threshold = 24) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > threshold);
-    window.addEventListener('scroll', onScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [threshold]);
   return scrolled;
@@ -22,7 +21,6 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const { pathname } = useLocation();
-  const { theme, toggle } = useTheme();
   const scrolled = useScrolled();
   const isAr = pathname.startsWith('/ar');
   const nav = getNavData(isAr);
@@ -33,25 +31,32 @@ export default function Navigation() {
     setOpenDropdown(null);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  if (pathname.startsWith('/admin')) return null;
+
   return (
     <>
-      <nav
+      <header
         data-testid="main-navigation"
         dir={isAr ? 'rtl' : 'ltr'}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/95 backdrop-blur-xl border-b-2 border-[#EE5A01]' : 'bg-black/80 backdrop-blur-md border-b border-white/5'}`}
+        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-shadow duration-300 ${scrolled || mobileOpen ? 'shadow-[0_8px_30px_rgba(0,0,0,0.08)]' : 'border-b border-black/5'}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link to={isAr ? '/ar' : '/'} data-testid="nav-logo" className="flex-shrink-0">
-              <img src={theme === 'light' ? LOGO_LIGHT_URL : LOGO_URL} alt="Eurogulf Mobility Group" className="h-12 w-auto" style={{ objectFit: 'contain' }} />
+        <div className="h-[3px] w-full bg-[#EE5A01]" />
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main">
+          <div className="flex items-center justify-between h-[61px] lg:h-[73px]">
+            <Link to={isAr ? '/ar' : '/'} data-testid="nav-logo" className="flex-shrink-0" aria-label="Eurogulf Mobility Group home">
+              <img src={LOGO_URL} alt="Eurogulf Mobility Group" className="h-10 lg:h-12 w-auto" style={{ objectFit: 'contain' }} />
             </Link>
             <DesktopLinks nav={nav} isAr={isAr} pathname={pathname} openDropdown={openDropdown} setOpenDropdown={setOpenDropdown} />
-            <NavActions labels={nav.labels} isAr={isAr} theme={theme} onToggleTheme={toggle} langTarget={langTarget} mobileOpen={mobileOpen} onToggleMobile={() => setMobileOpen(!mobileOpen)} />
+            <NavActions labels={nav.labels} langTarget={langTarget} mobileOpen={mobileOpen} onToggleMobile={() => setMobileOpen(!mobileOpen)} />
           </div>
-        </div>
-      </nav>
-
-      {mobileOpen && <MobileMenu nav={nav} isAr={isAr} pathname={pathname} onClose={() => setMobileOpen(false)} />}
+        </nav>
+      </header>
+      {mobileOpen && <MobileMenu nav={nav} isAr={isAr} onClose={() => setMobileOpen(false)} />}
     </>
   );
 }
