@@ -6,6 +6,16 @@
 - **Brand Colors**: #EE5A01 (orange), #000000 (black), #666666 (gray)
 - **Build**: `yarn build` (craco build) — 0 warnings, 0 errors
 
+## Completed (Security Audit Remediation — Sept 2026)
+- [x] **SEC-001 (High)**: `GET /api/contacts` and `GET /api/bookings` now require admin auth (were public PII leaks)
+- [x] **SEC-002**: hardcoded admin password default removed (seed skips if `ADMIN_PASSWORD` missing/<12 chars); `JWT_SECRET` rotated. Env sync kept so password rotates via deployment env var
+- [x] Cookies `Secure` (COOKIE_SECURE env, default true); CORS explicit allowlist (`CORS_ORIGINS`), credentials only for non-wildcard
+- [x] Article search `$regex` escaped + capped; uploads: 10 MB cap + magic-byte check; `/api/uploads` sends `nosniff`
+- [x] Article `image_url`/`pdf_url` must be http(s) or `/api/uploads/`; `video_url` must be https YouTube/Vimeo embed (backend validators + frontend `safeUrl`/`safeEmbed` + iframe sandbox)
+- [x] Brute-force lockout honours `X-Forwarded-For` (works behind proxy) + per-account throttle (20 failures); admin UI surfaces 422 field errors
+- Regression tests: `/app/backend/tests/test_security_audit.py`, `/app/backend/tests/test_lockout_iter22.py`
+- OPEN (platform-level): `backend/.env` with secrets is git-tracked by platform convention; production should set `ADMIN_PASSWORD`, `JWT_SECRET`, `CORS_ORIGINS` via deployment environment and redeploy
+
 ## Completed (Arabic Brand Pages + Live Instagram — Sept 2026)
 - [x] **5 new Arabic RTL pages**: `/ar/goldcar`, `/ar/truckline`, `/ar/autocare`, `/ar/used-cars`, `/ar/sustainability` (inline Arabic content, Cairo font, `ar-*-hero` testids, Arabic auction timer labels)
 - [x] **Live Instagram posts**: 3 real posts from @eurogulfmobility embedded on the homepage via `instagram.com/embed.js` (`src/config/social.js`), branded card kept underneath

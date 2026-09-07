@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import re
 import logging
 import bcrypt
 import jwt
@@ -16,10 +17,11 @@ import uuid
 import secrets
 import base64
 from fastapi.responses import Response
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta
 from bson import ObjectId
+from urllib.parse import urlparse
 
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -27,6 +29,24 @@ db = client[os.environ['DB_NAME']]
 
 JWT_SECRET = os.environ['JWT_SECRET']
 JWT_ALGORITHM = "HS256"
+COOKIE_SECURE = os.environ.get('COOKIE_SECURE', 'true').lower() == 'true'
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024
+VIDEO_EMBED_HOSTS = {"www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"}
+
+def validate_media_url(value: Optional[str], embed: bool = False) -> str:
+    if not value:
+        return ""
+    value = value.strip()
+    if len(value) > 2000:
+        raise ValueError("URL too long")
+    if value.startswith("/api/uploads/") and not embed:
+        return value
+    parsed = urlparse(value)
+    if parsed.scheme not in ("http", "https") or not parsed.netloc:
+        raise ValueError("Only http(s) URLs or /api/uploads/ paths are allowed")
+    if embed and (parsed.scheme != "https" or parsed.hostname not in VIDEO_EMBED_HOSTS):
+        raise ValueError("Video URL must be an https YouTube or Vimeo embed link")
+    return value
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
@@ -143,53 +163,88 @@ class LoginInput(BaseModel):
 
 class ArticleCreate(BaseModel):
     title: str = Field(min_length=1, max_length=500)
-    body: str = Field(default="")
-    category: str = Field(min_length=1)
+    body: str = Field(default="", max_length=200000)
+    category: str = Field(min_length=1, max_length=100)
     image_url: Optional[str] = ""
     video_url: Optional[str] = ""
     pdf_url: Optional[str] = ""
     featured: bool = False
     published: bool = True
 
+    @field_validator("image_url", "pdf_url")
+    @classmethod
+    def _check_url(cls, v):
+        return validate_media_url(v)
+
+    @field_validator("video_url")
+    @classmethod
+    def _check_video(cls, v):
+        return validate_media_url(v, embed=True)
+
 class ArticleUpdate(BaseModel):
-    title: Optional[str] = None
-    body: Optional[str] = None
-    category: Optional[str] = None
+    title: Optional[str] = Field(default=None, min_length=1, max_length=500)
+    body: Optional[str] = Field(default=None, max_length=200000)
+    category: Optional[str] = Field(default=None, min_length=1, max_length=100)
     image_url: Optional[str] = None
     video_url: Optional[str] = None
     pdf_url: Optional[str] = None
     featured: Optional[bool] = None
     published: Optional[bool] = None
 
+    @field_validator("image_url", "pdf_url")
+    @classmethod
+    def _check_url(cls, v):
+        return None if v is None else validate_media_url(v)
+
+    @field_validator("video_url")
+    @classmethod
+    def _check_video(cls, v):
+        return None if v is None else validate_media_url(v, embed=True)
+
 # ══════════════════ AUTH ENDPOINTS ══════════════════
+
+LOCKOUT_MINUTES = 15
+IP_ATTEMPT_LIMIT = 5
+ACCOUNT_ATTEMPT_LIMIT = 20
+
+def client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+async def is_locked(identifier: str, limit: int) -> bool:
+    attempt = await db.login_attempts.find_one({"identifier": identifier})
+    if not attempt or attempt.get("count", 0) < limit:
+        return False
+    locked_until = attempt.get("locked_until")
+    if locked_until and locked_until.tzinfo is None:
+        locked_until = locked_until.replace(tzinfo=timezone.utc)
+    if locked_until and datetime.now(timezone.utc) < locked_until:
+        return True
+    await db.login_attempts.delete_one({"identifier": identifier})
+    return False
+
+async def record_failure(identifiers: List[str]):
+    until = datetime.now(timezone.utc) + timedelta(minutes=LOCKOUT_MINUTES)
+    for identifier in identifiers:
+        await db.login_attempts.update_one({"identifier": identifier}, {"$inc": {"count": 1}, "$set": {"locked_until": until}}, upsert=True)
 
 @api_router.post("/auth/login")
 async def login(input: LoginInput, request: Request):
     email = input.email.lower().strip()
-    ip = request.client.host if request.client else "unknown"
-    identifier = f"{ip}:{email}"
+    ip_key = f"{client_ip(request)}:{email}"
+    account_key = f"account:{email}"
 
-    attempt = await db.login_attempts.find_one({"identifier": identifier})
-    if attempt and attempt.get("count", 0) >= 5:
-        locked_until = attempt.get("locked_until")
-        if locked_until:
-            if locked_until.tzinfo is None:
-                locked_until = locked_until.replace(tzinfo=timezone.utc)
-            if datetime.now(timezone.utc) < locked_until:
-                raise HTTPException(status_code=429, detail="Too many attempts. Try again in 15 minutes.")
-        else:
-            await db.login_attempts.delete_one({"identifier": identifier})
+    if await is_locked(ip_key, IP_ATTEMPT_LIMIT) or await is_locked(account_key, ACCOUNT_ATTEMPT_LIMIT):
+        raise HTTPException(status_code=429, detail="Too many attempts. Try again in 15 minutes.")
 
     user = await db.users.find_one({"email": email})
     if not user or not verify_password(input.password, user["password_hash"]):
-        await db.login_attempts.update_one(
-            {"identifier": identifier},
-            {"$inc": {"count": 1}, "$set": {"locked_until": datetime.now(timezone.utc) + timedelta(minutes=15)}},
-            upsert=True
-        )
+        await record_failure([ip_key, account_key])
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
-    await db.login_attempts.delete_one({"identifier": identifier})
+    await db.login_attempts.delete_many({"identifier": {"$in": [ip_key, account_key]}})
 
     user_id = str(user["_id"])
     access_token = create_access_token(user_id, email)
@@ -201,8 +256,8 @@ async def login(input: LoginInput, request: Request):
         "name": user.get("name", ""),
         "role": user.get("role", "admin"),
     })
-    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=False, samesite="lax", max_age=14400, path="/")
-    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=False, samesite="lax", max_age=604800, path="/")
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=COOKIE_SECURE, samesite="lax", max_age=14400, path="/")
+    response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=COOKIE_SECURE, samesite="lax", max_age=604800, path="/")
     return response
 
 @api_router.get("/auth/me")
@@ -231,7 +286,7 @@ async def refresh_token(request: Request):
             raise HTTPException(status_code=401, detail="User not found")
         new_access = create_access_token(str(user["_id"]), user["email"])
         response = JSONResponse(content={"message": "Token refreshed"})
-        response.set_cookie(key="access_token", value=new_access, httponly=True, secure=False, samesite="lax", max_age=14400, path="/")
+        response.set_cookie(key="access_token", value=new_access, httponly=True, secure=COOKIE_SECURE, samesite="lax", max_age=14400, path="/")
         return response
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
@@ -250,8 +305,9 @@ async def create_contact(input: ContactCreate):
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
-async def get_contacts(skip: int = 0, limit: int = 100):
-    contacts = await db.contact_submissions.find({}, {"_id": 0}).skip(skip).limit(min(limit, 1000)).to_list(None)
+async def get_contacts(request: Request, skip: int = 0, limit: int = 100):
+    await get_current_user(request)
+    contacts = await db.contact_submissions.find({}, {"_id": 0}).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
     return contacts
 
 @api_router.post("/bookings", response_model=BookingSubmission)
@@ -262,20 +318,30 @@ async def create_booking(input: BookingCreate):
     return submission
 
 @api_router.get("/bookings", response_model=List[BookingSubmission])
-async def get_bookings(skip: int = 0, limit: int = 100):
-    bookings = await db.bookings.find({}, {"_id": 0}).skip(skip).limit(min(limit, 1000)).to_list(None)
+async def get_bookings(request: Request, skip: int = 0, limit: int = 100):
+    await get_current_user(request)
+    bookings = await db.bookings.find({}, {"_id": 0}).skip(max(skip, 0)).limit(min(max(limit, 1), 1000)).to_list(None)
     return bookings
 
 # ══════════════════ FILE UPLOAD ══════════════════
 
+MAGIC_BYTES = {
+    ".jpg": (b"\xff\xd8\xff",), ".jpeg": (b"\xff\xd8\xff",), ".png": (b"\x89PNG\r\n\x1a\n",),
+    ".gif": (b"GIF87a", b"GIF89a"), ".webp": (b"RIFF",), ".pdf": (b"%PDF",),
+    ".doc": (b"\xd0\xcf\x11\xe0",), ".docx": (b"PK\x03\x04",),
+}
+
 @api_router.post("/upload")
 async def upload_file(request: Request, file: UploadFile = File(...)):
     await get_current_user(request)
-    ext = Path(file.filename).suffix.lower()
-    allowed = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".pdf", ".doc", ".docx"}
-    if ext not in allowed:
+    ext = Path(file.filename or "").suffix.lower()
+    if ext not in MAGIC_BYTES:
         raise HTTPException(status_code=400, detail=f"File type {ext} not allowed")
-    content = await file.read()
+    content = await file.read(MAX_UPLOAD_BYTES + 1)
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="File exceeds 10 MB limit")
+    if not content.startswith(MAGIC_BYTES[ext]) or (ext == ".webp" and content[8:12] != b"WEBP"):
+        raise HTTPException(status_code=400, detail="File content does not match its extension")
     encoded = base64.b64encode(content).decode("utf-8")
     mime_map = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp", ".gif": "image/gif", ".pdf": "application/pdf", ".doc": "application/msword", ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
     mime = mime_map.get(ext, "application/octet-stream")
@@ -290,7 +356,7 @@ async def get_upload(filename: str):
     if not doc:
         raise HTTPException(status_code=404, detail="File not found")
     content = base64.b64decode(doc["data"])
-    return Response(content=content, media_type=doc.get("mime", "application/octet-stream"), headers={"Cache-Control": "public, max-age=31536000"})
+    return Response(content=content, media_type=doc.get("mime", "application/octet-stream"), headers={"Cache-Control": "public, max-age=31536000", "X-Content-Type-Options": "nosniff"})
 
 # ══════════════════ ARTICLES CMS ══════════════════
 
@@ -300,10 +366,10 @@ async def get_articles(category: Optional[str] = None, search: Optional[str] = N
     if category and category != "All":
         query["category"] = category
     if search:
-        query["title"] = {"$regex": search, "$options": "i"}
+        query["title"] = {"$regex": re.escape(search.strip()[:100]), "$options": "i"}
     if featured is not None:
         query["featured"] = featured
-    articles = await db.articles.find(query, {"_id": 0}).sort("created_at", -1).skip(skip).limit(min(limit, 200)).to_list(None)
+    articles = await db.articles.find(query, {"_id": 0}).sort("created_at", -1).skip(max(skip, 0)).limit(min(max(limit, 1), 200)).to_list(None)
     total = await db.articles.count_documents(query)
     return {"articles": articles, "total": total}
 
@@ -353,12 +419,13 @@ async def delete_article(article_id: str, request: Request):
 
 app.include_router(api_router)
 
+cors_origins = [o.strip() for o in os.environ['CORS_ORIGINS'].split(',') if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials='*' not in cors_origins,
+    allow_origins=cors_origins,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # ══════════════════ STARTUP ══════════════════
@@ -370,17 +437,20 @@ async def startup():
     await db.articles.create_index("created_at")
     await db.login_attempts.create_index("identifier")
 
-    # Seed admin
+    # Seed admin (password comes only from environment; sync lets ops rotate it via env)
     admin_email = os.environ.get("ADMIN_EMAIL", "admin@egmg.ae").lower()
-    admin_password = os.environ.get("ADMIN_PASSWORD", "EgmgAdmin2026!")
-    existing = await db.users.find_one({"email": admin_email})
-    if existing is None:
-        hashed = hash_password(admin_password)
-        await db.users.insert_one({"email": admin_email, "password_hash": hashed, "name": "EGMG Admin", "role": "admin", "created_at": datetime.now(timezone.utc)})
-        logger.info(f"Admin user seeded: {admin_email}")
-    elif not verify_password(admin_password, existing["password_hash"]):
-        await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
-        logger.info("Admin password updated from .env")
+    admin_password = os.environ.get("ADMIN_PASSWORD")
+    if not admin_password or len(admin_password) < 12:
+        logger.warning("ADMIN_PASSWORD missing or shorter than 12 chars; admin seed skipped")
+    else:
+        existing = await db.users.find_one({"email": admin_email})
+        if existing is None:
+            hashed = hash_password(admin_password)
+            await db.users.insert_one({"email": admin_email, "password_hash": hashed, "name": "EGMG Admin", "role": "admin", "created_at": datetime.now(timezone.utc)})
+            logger.info(f"Admin user seeded: {admin_email}")
+        elif not verify_password(admin_password, existing["password_hash"]):
+            await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
+            logger.info("Admin password rotated from environment")
 
     # Seed sample articles if empty
     count = await db.articles.count_documents({})

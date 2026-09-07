@@ -6,6 +6,12 @@ import DOMPurify from 'dompurify';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const EMBED_HOSTS = ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"];
+
+const safeUrl = (url) => (url && (url.startsWith('/api/uploads/') || /^https?:\/\//i.test(url)) ? url : '');
+const safeEmbed = (url) => {
+  try { const u = new URL(url); return u.protocol === 'https:' && EMBED_HOSTS.includes(u.hostname) ? url : ''; } catch { return ''; }
+};
 
 const categories = ["All", "Mobility News", "Traffic & Authority Updates", "Road & Travel Guides", "Fleet & Corporate Mobility", "Company Updates", "Press Releases", "Awards", "Fleet", "Sustainability"];
 
@@ -175,9 +181,9 @@ function ArticleCard({ article, expanded, onToggle }) {
       className="bg-[#111] border border-white/5 hover:border-[#EE5A01]/30 transition-all group cursor-pointer"
       onClick={onToggle}
     >
-      {a.image_url && (
+      {safeUrl(a.image_url) && (
         <div className="aspect-[16/9] overflow-hidden">
-          <img src={a.image_url} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          <img src={safeUrl(a.image_url)} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
         </div>
       )}
       <div className="p-5">
@@ -202,13 +208,13 @@ function ArticleCard({ article, expanded, onToggle }) {
               const sanitizedHtml = { __html: DOMPurify.sanitize(a.body) };
               return <div className="font-body text-sm text-[#999] leading-relaxed article-body" dangerouslySetInnerHTML={sanitizedHtml} />;
             })()}
-            {a.video_url && (
+            {safeEmbed(a.video_url) && (
               <div className="mt-4 aspect-video">
-                <iframe src={a.video_url} title={a.title} className="w-full h-full border border-[#333]" allowFullScreen loading="lazy" />
+                <iframe src={safeEmbed(a.video_url)} title={a.title} className="w-full h-full border border-[#333]" allowFullScreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups" referrerPolicy="strict-origin-when-cross-origin" />
               </div>
             )}
-            {a.pdf_url && (
-              <a href={a.pdf_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-[#EE5A01] font-heading text-xs uppercase tracking-wider hover:underline">
+            {safeUrl(a.pdf_url) && (
+              <a href={safeUrl(a.pdf_url)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-[#EE5A01] font-heading text-xs uppercase tracking-wider hover:underline">
                 <FileDown className="w-4 h-4" /> Download PDF
               </a>
             )}

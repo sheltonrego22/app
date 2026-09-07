@@ -1,0 +1,24 @@
+{
+  "summary": "Iteration 22 verifies (a) brute-force lockout now works on the public URL by deriving client IP from X-Forwarded-For, (b) per-account throttle at 20 failures, (c) admin dashboard surfaces backend 422 field-level detail. All 8 new pytest cases pass; frontend save-error flow verified end-to-end.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_lockout_iter22.py",
+    "/app/test_reports/pytest/iter22_results.xml",
+    "/app/backend/tests/test_security_audit.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "client_ip() takes first hop of X-Forwarded-For unconditionally; since no trusted-proxy filter is applied, an attacker could rotate the XFF value to avoid the per-IP lockout — but the per-account cap of 20 (ACCOUNT_ATTEMPT_LIMIT) is what actually protects the account. Confirmed working.",
+    "is_locked() correctly clears the row after locked_until expires; successful login clears both ip and account keys.",
+    "Admin error surfacing joins Pydantic errors as 'field: msg' (strips leading 'Value error, '). Matches the expected user experience."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (8/8 new + 29/29 regression)", "frontend": "100%"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (used correct pw at end of test_success_resets_counter to leave admin unlocked)",
+  "seed_data_creation": "Created and cleaned test emails lockout-qa@test.ae, lockout-qa2@test.ae, lockout-qa-xff@test.ae, lockout-qa-acct@test.ae in login_attempts collection (deleted via pymongo in-test). No stale rows remain. TEST_ article created via UI was deleted via UI trash icon.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Brute-force lockout is now robust: per-IP+email key (limit 5) and per-account key 'account:{email}' (limit 20). Both cleared on successful login. On public URL X-Forwarded-For is honoured because preview proxy sets it. The reusable regression file is /app/backend/tests/test_lockout_iter22.py; run alongside test_security_audit.py.",
+  "rca of the issue": "N/A — all iteration 21 action items resolved. Public-URL lockout previously bypassable is now enforced (verified with 5x401 + 429 on preview URL). Admin save error was previously generic; now surfaces first Pydantic detail (verified visible red banner: 'Failed to create article. video_url: Video URL must be an https YouTube or Vimeo embed link')."
+}

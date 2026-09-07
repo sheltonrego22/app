@@ -63,7 +63,11 @@ export default function AdminDashboardPage() {
       fetchArticles();
     } catch (err) {
       if (process.env.NODE_ENV === 'development') console.error('Save:', err);
-      setError(editing ? 'Failed to update article.' : 'Failed to create article.');
+      const detail = err.response?.data?.detail;
+      const reason = Array.isArray(detail)
+        ? detail.map((e) => `${e.loc?.slice(-1)[0] || 'field'}: ${String(e.msg).replace(/^Value error, /, '')}`).join(' ')
+        : typeof detail === 'string' ? detail : '';
+      setError(`${editing ? 'Failed to update article.' : 'Failed to create article.'}${reason ? ` ${reason}` : ''}`);
     }
   };
 

@@ -1,0 +1,42 @@
+{
+  "summary": "Security-fix verification for EGMG backend + frontend regression. 29 backend pytest tests written, 29/29 passing after fixing brute-force test to hit localhost (proxy varies request.client.host so public URL doesn't accumulate lockout counter). Auth gating on /api/contacts and /api/bookings works (401 unauth, 200 with Bearer). Login sets HttpOnly+Secure access_token/refresh_token cookies. Article Pydantic validators reject javascript:, data:, non-embed video hosts (422); accept https youtube.com/embed, /api/uploads/ paths, https pdf URLs. Upload endpoint enforces magic-byte check (fake .png → 400), blocks .exe/.svg (400), requires auth (401), real PNG served with content-type image/png + X-Content-Type-Options: nosniff. Regex search escape works (<2s for (a+)+$). CORS on localhost blocks evil.example origin and allows configured preview origin with credentials. Public /api/contact, /api/bookings, /api/articles work. Frontend admin login → dashboard → create article with bad video URL rejected (422, error shown) → create with valid YouTube embed succeeds → cleanup done. /media renders 18 articles. /contact page loads with correct data-testids. No critical console errors.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/auth/login (brute-force lockout)", "issue": "Rate-limit identifier uses request.client.host which under the preview proxy is not stable per client. On the public URL 6+ wrong attempts still return 401 (never 429). Localhost works correctly. Recommend trusting X-Forwarded-For (first hop) behind proxy for meaningful rate limiting."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "AdminDashboardPage / ArticleEditor", "issue": "Save error is a generic 'Failed to create article.' — does not surface backend 422 field-level detail (e.g., invalid video URL). Users cannot tell which field failed validation.", "selector": ".text-red-400", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_security_audit.py",
+    "/app/test_reports/pytest/iter21_results.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: Trust X-Forwarded-For header (or use starlette ProxyHeaders) so login brute-force lockout works behind the preview/production proxy.",
+    "OPTIONAL: In AdminDashboardPage.handleSave, surface backend err.response.data.detail (or first Pydantic error msg) instead of the generic 'Failed to create article.' string, so admins get actionable feedback on invalid URLs."
+  ],
+  "critical_code_review_comments": [
+    "server.py get_articles regex uses re.escape on user input and caps to 100 chars — safe against ReDoS.",
+    "validate_media_url rejects any scheme other than http/https (and /api/uploads/ paths) — data:, javascript:, file: all rejected.",
+    "Upload magic-byte check is enforced BEFORE persistence; SVG is not in MAGIC_BYTES so uploads correctly return 400.",
+    "COOKIE_SECURE default True; login/refresh cookies confirmed HttpOnly and Secure via raw localhost response.",
+    "CORSMiddleware allow_credentials tied to non-wildcard origins — good; explicit allowlist from env.",
+    "Admin seed skipped safely when ADMIN_PASSWORD missing/<12 chars; rotates hash if env differs.",
+    "MINOR: /api/uploads/{filename} stores base64 in Mongo — fine for a small CMS but not ideal at scale; consider GridFS or object storage.",
+    "MINOR: `login_attempts.locked_until` doubles as both counter and lockout window — successful next window still requires the 15-min wait even after the first wrong attempt because upsert always sets locked_until. Consider only setting locked_until once count reaches 5."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@egmg.ae / EgmgAdmin2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None persisted. TEST_ articles created during tests were deleted; TEST_ contact/booking rows from public-flow tests were cleaned up via a one-shot script before frontend testing (42 stale rows removed).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend security fixes verified end-to-end. Test file at /app/backend/tests/test_security_audit.py is a reusable regression. Note: the preview proxy rewrites Set-Cookie (adds Partitioned, SameSite=None) and may mask CORS headers — always test raw CORS + cookie flags against http://localhost:8001. Brute-force lockout does NOT function on the public URL due to shared/unstable proxy IPs; unless the app is updated to trust X-Forwarded-For, testers must exercise the lockout logic against localhost.",
+  "rca of the issue": "N/A — no functional regressions found. The only observed deviation is the brute-force lockout being effectively bypassable through the preview proxy because request.client.host resolves to a rotating/unstable proxy IP. Mitigation: read the real client IP from X-Forwarded-For (leftmost address) or configure Starlette's ProxyHeadersMiddleware/UvicornProxyHeaders with trusted proxies."
+}
